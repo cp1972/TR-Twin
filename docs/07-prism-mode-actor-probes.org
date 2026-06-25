@@ -1,0 +1,38 @@
+#+TITLE: Prism Mode — Actor Probes
+#+SUBTITLE: Reading the relational field through 1–5 actors (the actor-as-probe methodology; see the roadmap)
+#+OPTIONS: toc:nil num:t ^:nil
+#+LANGUAGE: en
+
+* What it is
+
+The /prism mode/ reads the whole system through a few units (N = 1–5) instead of aggregating the whole cohort. This document covers the *actor* side, now implemented in the twin: each biography is read as a test particle whose trajectory reveals the state of the field. Where the actor can pass, where they get stuck, how fast they circulate, and how their own status rises or falls are traces of the field they traverse (permeability, regime, satellisation, the actor's own category). The stance is abductive and heuristic — a single actor under-determines the field — but a well-chosen handful should reproduce, in miniature, the reading obtained from the full cohort (the falsification discipline, applied to the empirical run).
+
+This is deliberately useful for *small samples*, which are common in sociology and in student projects: rather than forcing a thin dataset through a full simulation it cannot support, one follows a few actors and reads the field through them — with the explicit caveat that this is a probe, not a census.
+
+* How to use it in the twin
+
+1. Open =tr-twin.html= and load an actor cohort via /Import an actor cohort (contract table CSV)/. The contract table has the columns =aid, annee, structure, categorie, sequence= (one dated stage per row).
+2. The *Prism mode · actor probes* panel then lists the actors. Tick 1 to 5 of them.
+3. Start the timeline. Each selected actor appears on the scene as a dot coloured by its current category, with a halo on its current structure and a dotted line tracing its whole path; the side panel reports, for the current year, each probe's structure/sequence/category and the field it sits in (the regime of its structure — autonomous or satellite of another — and the satellisation level).
+
+The reading is language-aware (DE/EN/FR) and updates as the timeline advances. The same logic runs on the contract table exported from any source, so a student can drop in their own small dataset and immediately read it through one or two actors.
+
+* Worked example — five probes across two regimes
+
+On the cohort of English working-class autobiographers (art and media), five probes form an arc across the two regimes the full cohort revealed (19th c.: the economy C draws Culture A and Media D into its orbit; 20th c.: Politics B rises and recruits them).
+
+| Probe | Span | Path (dominant) | Vertical fate | Field reading |
+|-------+------+-----------------+---------------+---------------|
+| James Watson | 1818–1842 | A↔C (A) | established → disappointed (−3) | A pulled into C — radical print under repression |
+| John Bedford Leno | 1849–1889 | C→A→D (A) | disappointed → aspirant (+2) | the Chartist poet routed through printing and the press |
+| William Farish | 1849–1889 | A→C…D (C) | established → disappointed (−3) | the clearest single-probe case of A satellised by C |
+| Joseph Burgess | 1884–1920 | D…B (D) | established → conservative (−2) | Media (D) used as a ramp toward Politics (B) |
+| Tom Mann | 1875–1923 | C…B (B) | disappointed → established (+3) | carried into Politics (B) — the rise of B from the economic base |
+
+The two early, culture-anchored probes (Watson, Farish) both /fall/ — they begin established in Culture and are pulled down into the Economy, ending disappointed (net −3 each). The two late probes rise toward Politics: Tom Mann, born into the colliery, ends established in B (net +3); Joseph Burgess uses journalism (D) as his ramp into B. A single life (N = 1) thus re-exhibits, in miniature, what the full cohort showed. The probe logic passes its check.
+
+* Caveats (read before using on your own data)
+
+- A probe is a heuristic, not a measurement of the population. With a thin cohort the field state it traverses is itself estimated from few actors; treat the reading as a hypothesis to explore, not a result.
+- Status is ranked Established > Aspirant > Conservative > Disappointed; a flat status path means the actor neither rose nor fell in the field, not that nothing happened.
+- Choose probes that actually cross structures — a single-structure actor reads only its own corner of the field.

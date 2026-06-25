@@ -1,36 +1,36 @@
 #+TITLE: Theory of the Relation: Purpose and Concepts
-#+SUBTITLE: Technical and theoretical documentation of the Theory of the Relation simulator
+#+SUBTITLE: Technical and theoretical documentation of the Theory of the Relation digital twin
 #+OPTIONS: toc:t num:t ^:nil
 #+LANGUAGE: en
 
 # Status: version 59 (v59). Living document, continuously updated.
 # Theoretical basis: Christian Papilloud & Eva-Maria Schultze, /Skizze einer Theorie der Relation/, Springer VS, Wiesbaden 2022 (ISBN 978-3-658-37922-3).
 
-* 1. Purpose and structure of this documentation
+* Purpose and structure of this documentation
 
-This documentation describes the simulator "Theory of the Relation. Simulator" and its grounding in the theory of the same name. It pursues two aims: first, to make visible the conceptual bridge between the sociological theory and its computational mechanisms, so that every quantity in the model can be assigned to a theoretical concept; second, to record the development state of the tool, so that later extensions remain traceable.
+This documentation describes the digital twin "Theory of the Relation. Digital Twin" and its grounding in the theory of the same name. It pursues two aims: first, to make visible the conceptual bridge between the sociological theory and its computational mechanisms, so that every quantity in the model can be assigned to a theoretical concept; second, to record the development state of the tool, so that later extensions remain traceable.
 
-*Threefold purpose of the simulator.* The simulator itself pursues three goals. First, it tests the coherence of the theoretical framework of the Theory of the Relation by proposing a runnable simulation of it. Second, it makes it possible to model the relational schemes of other variants of relational sociology, in order to render visible the contrasts between the Theory of the Relation and those other relational schemes — this is the task of the comparison report. Third, it makes it possible to model real datasets, in order to understand which configurations of the relational orders (relational structures, sequences and sub-sequences, mediation instances, and actor categories) these data bring to light, and to track these configurations over time — whether on the basis of real longitudinal data, or by using the principles of the Theory of the Relation to simulate this evolution and so to build scenarios with predictive value. These three purposes are developed in detail in Section 9 (see the "Methodology" document); they are stated here in advance to orient the reading.
+*Threefold purpose of the digital twin.* The digital twin itself pursues three goals. First, it tests the coherence of the theoretical framework of the Theory of the Relation by proposing a runnable simulation of it. Second, it makes it possible to model the relational schemes of other variants of relational sociology, in order to render visible the contrasts between the Theory of the Relation and those other relational schemes — this is the task of the comparison report. Third, it makes it possible to model real datasets, in order to understand which configurations of the relational orders (relational structures, sequences and sub-sequences, mediation instances, and actor categories) these data bring to light, and to track these configurations over time — whether on the basis of real longitudinal data, or by using the principles of the Theory of the Relation to simulate this evolution and so to build scenarios with predictive value. These three purposes are developed in detail in the "Methodology" document; they are stated here in advance to orient the reading.
 
-The simulator is a stand-alone web application (HTML/JavaScript, Canvas graphics). It represents four mutually influencing relational structures, each articulated into sequences and into categories of actors, and it makes it possible to feed in real data in order to observe what these data say about the mutual influence of social orders, about the unequal circulation of actors, and about the social inequalities that arise from it.
+The digital twin is a stand-alone web application (HTML/JavaScript, Canvas graphics). It represents four mutually influencing relational structures, each articulated into sequences and into categories of actors, and it makes it possible to feed in real data in order to observe what these data say about the mutual influence of social orders, about the unequal circulation of actors, and about the social inequalities that arise from it.
 
-The following sections treat, in turn, the theoretical framework (Section 2), the mapping of theory onto model (Section 3), the architecture and the mathematical model of the simulator (Sections 4 and 5), the user interface and data import (Sections 6 and 7), the version history (Section 8), the methodology (Section 9), and the planned extensions (Section 10).
+The following sections treat, in turn, the theoretical framework, the mapping of theory onto model, the architecture and the mathematical model of the digital twin, the user interface and data import, the version history, the methodology, and the planned extensions.
 
-* 2. Theoretical framework: the Theory of the Relation
+* Theoretical framework: the Theory of the Relation
 
 The Theory of the Relation conceives the social not /as/ relation but /through/ relation. In place of a reduction of the relation to the position of actors (as the theory works out critically against Bourdieu), it sets a primacy of circulation: society arises from the circulation of actors within relational structures, and this circulation does not run circularly without exception but varies according to the structures in which it takes place.
 
-** 2.1 Relational structures
+** Relational structures
 
 The theory conceptualises four relational structures. They are not substantively determined by nature; rather, they derive from one fundamental distinction and its deviations: the distinction between actor-centred (position-oriented) and exchange-centred (relation-oriented) relational structures. From this first declension of the relational principal feature and its deviations of the first and second order, exactly four structures result. Each relational structure carries the features of the others within it, but subordinated to its own principal feature.
 
 Each relational structure consists of sequences and sub-sequences. Circulation begins and ends, in each structure, in different sequences; from this each structure derives its own specific sequential order. This sequential order distinguishes the four structures from one another.
 
-** 2.2 Circulation, reciprocity, and resistance
+** Circulation, reciprocity, and resistance
 
 The circulation of actors depends on reciprocity in order to be developed, stabilised, or redirected. Conversely, reciprocity presupposes that actors and collectives circulate. The resistance of actors for and against relational events is the source from which circulation arises. Where circulation is accompanied by monopolisation, individual actors within a sequence can rise to become monopoly actors.
 
-** 2.3 Actor categories
+** Actor categories
 
 For each of the four relational structures, four categories of actors can be distinguished, along the difference between morphological determinants (determinants of circulation) and structural determinants (determinants of position):
 
@@ -39,15 +39,15 @@ For each of the four relational structures, four categories of actors can be dis
 - *Category 3 — the conservatives (the "preserving"):* structurally determined; they defend their position and resist devaluation (e.g. the poets who preserve poetry as the purest form). Over time they lose, and in the course of their declassing they are transferred into the fourth category.
 - *Category 4 — the excluded (the "disappointed"):* morphologically determined; disappointed by a relational structure, they too leave it and switch into another. Like Category 1, they are little affected by the structural determinants — but out of disappointment rather than conquest.
 
-In the simulator, these four categories carry plain-language names: *Established* (Category 1), *Aspirants* (2), *Conservatives* (3), and *Disappointed* (4). The theoretical term appears in each case as a tooltip.
+In the digital twin, these four categories carry plain-language names: *Established* (Category 1), *Aspirants* (2), *Conservatives* (3), and *Disappointed* (4). The theoretical term appears in each case as a tooltip.
 
 It is noteworthy that both Category 1 and Category 4 are highly mobile: the former circulate through conquest, the latter through disappointment. Categories 2 and 3, by contrast, support position and tend to remain in their structure. The example of Émile Zola — who conquers literature and then leaves it for politics — illustrates the circulation of the first category between relational structures.
 
-** 2.4 Mobility and stratification
+** Mobility and stratification
 
 The mobility of actors runs along several axes: vertical (rise and fall between actor categories within the same sub-sequence), horizontal (between the sub-sequences of a structure), and between relational structures (change of structure). The theory links this mobility to the stratification of the relational structures and to the mechanisms of compensation and non-compensation. From unequal circulation and declassing, social inequalities arise.
 
-** 2.5 Mediation instances
+** Mediation instances
 
 Mediation instances (institutions, organisations) support actors, socialise them, and sanction them positively as well as negatively. Every sanction redirects the circulation of actors: one passes and advances, one is rejected and must start over, or one leaves one circulation to pass into another — and may, in the end, support a relational structure other than the one one came from. Unlike actors, instances do not circulate: they grow stronger or weaker and may even be destroyed, depending on whether they succeed in taking in, socialising, and sanctioning more actors. Their strengthening reinforces reciprocity (well-socialised actors, fluid circulation); their decay weakens the sequences and relational structures in which they sit.
 
@@ -66,7 +66,7 @@ The theory distinguishes four kinds, differing in their reach:
 
 *Degraded relay and control.* A force deficit of one instance is not compensated by another (it is not an average): rather, the immediately subordinate instance takes over the relay — it first grows stronger by stepping in, but then exhausts itself, because it acts at too narrow a level and cannot solve the structure's problem. Thus the load travels downward — from relation to sequence to sub-sequence — and finally calls the redistributing control instance onto the scene, which restores the force of the others. Without this re-regulation a vicious circle arises: the subordinate instances lose their connection to the superordinate ones and fail in their turn. So Gustav Schmoller described it for the economy: large industry does not simply make crafts disappear, because it does not solve the problems of the more local level; in a crisis the crafts can temporarily step in and revive the economy, but they cannot rehabilitate it — without a regulating intervention the economy keeps sinking, destroys jobs, and the crafts too, losing their connection to the larger instances, perish.
 
-** 2.6 Transversal instances and acts of naming
+** Transversal instances and acts of naming
 
 An apparent objection: some institutions act transversally — everyone goes to primary school before specialising; the law is present in all domains — whereas the theory ascribes to each structure its own specific instances. The objection dissolves at an axiom: instances do not circulate, only actors do.
 
@@ -82,9 +82,9 @@ Since an instance does not circulate, it cannot be in several structures at once
 
 *The criterion and productivity.* Against the danger of dissolving too much (nation, class, people…), the structure test itself protects: a relational structure has its own circulation and its own instances; a mere collective name does not. This criterion draws the line between the collective shorthand and the real relational order. It also shows the productivity of the theory in thinking the institutional and organisational fabric of a society differently — not as an inventory of institutions but as a web of instances that are anchored, specialised, and named through the circulation of actors.
 
-** 2.7 The physical fate: the Pareto coupling
+** The physical fate: the Pareto coupling
 
-Up to this stage, mediation governs the legitimacy of society — the reciprocity measured as a curve (5.11). It does not yet decide, however, the physical fate of the structures: their size, their expansion at the expense of the others, and their possible disintegration. It is precisely this coupling that the present stage closes. Mediation and morphology now mesh, and in two directions — a descending one (from mediation to size) and an ascending one (from local force to structure-wide expansion).
+Up to this stage, mediation governs the legitimacy of society — the reciprocity measured as a curve. It does not yet decide, however, the physical fate of the structures: their size, their expansion at the expense of the others, and their possible disintegration. It is precisely this coupling that the present stage closes. Mediation and morphology now mesh, and in two directions — a descending one (from mediation to size) and an ascending one (from local force to structure-wide expansion).
 
 *** The descending coupling: mediation decides the disintegration
 
@@ -94,13 +94,13 @@ A structure does not fatigue and disintegrate according to a fixed natural law, 
 
 *** The ascending coupling: the Pareto loop
 
-The second direction leads from the dominant instance to the expansion of the structure and closes the proper Pareto loop announced in 2.5 as the mechanism of vulnerability. As the dominant instance grows stronger, it socialises and houses ever more actors and thereby drives the growth of the structure — at first toward its viability optimum, the bell maximum. Up to there, growth is healthy. Beyond the optimum, however, the same drive turns against the structure: oversize produces sclerosis and fatigue — strength becomes weakness. This is ophelimity in the sense of Vilfredo Pareto (/Manuel d'économie politique/, 1909): the point at which additional expansion no longer increases but diminishes the total utility. In the model, expansion is therefore triggered only above a threshold — the perfect, optimal state does not expand of itself; only the dominant instance driven past the optimum produces the expansive pressure.
+The second direction leads from the dominant instance to the expansion of the structure and closes the proper Pareto loop announced earlier as the mechanism of vulnerability. As the dominant instance grows stronger, it socialises and houses ever more actors and thereby drives the growth of the structure — at first toward its viability optimum, the bell maximum. Up to there, growth is healthy. Beyond the optimum, however, the same drive turns against the structure: oversize produces sclerosis and fatigue — strength becomes weakness. This is ophelimity in the sense of Vilfredo Pareto (/Manuel d'économie politique/, 1909): the point at which additional expansion no longer increases but diminishes the total utility. In the model, expansion is therefore triggered only above a threshold — the perfect, optimal state does not expand of itself; only the dominant instance driven past the optimum produces the expansive pressure.
 
-*The ascending coupling and its weakness in C.* For a structure to consolidate, the force produced at the lower levels must rise upward: from the joint (sub-sequence) to the sequence, from the sequence to the relation. This ascending coupling is not equally strong in all structures. Where it is vigorous, local strength is converted into structure-wide consolidation. Where it is weak — the inertia of small, local instances that fail to find their connection to the superordinate ones — the force stays trapped at the bottom: the structure is strong at its joints and weak as a whole. This is exactly what characterises the economy (C): its strength sits in the sub-sequence (the foundings, the individual successes) but rises hardly at all — whence its volatility follows (2.8).
+*The ascending coupling and its weakness in C.* For a structure to consolidate, the force produced at the lower levels must rise upward: from the joint (sub-sequence) to the sequence, from the sequence to the relation. This ascending coupling is not equally strong in all structures. Where it is vigorous, local strength is converted into structure-wide consolidation. Where it is weak — the inertia of small, local instances that fail to find their connection to the superordinate ones — the force stays trapped at the bottom: the structure is strong at its joints and weak as a whole. This is exactly what characterises the economy (C): its strength sits in the sub-sequence (the foundings, the individual successes) but rises hardly at all — whence its volatility follows.
 
-*Control, strongest in D.* The remainder that the substantial instances leave unsolved, control calls onto the scene: it resolves it — most strongly in the media (D) — and restores the energy of the exhausted instances. A structure in which control dominates does not expand of itself and regulates itself best; it approaches the control society in the sense of Gilles Deleuze (/Post-scriptum sur les sociétés de contrôle/, 1990) — a regulation that continuously modulates rather than confines. The reverse side: it regulates without emancipating (2.8).
+*Control, strongest in D.* The remainder that the substantial instances leave unsolved, control calls onto the scene: it resolves it — most strongly in the media (D) — and restores the energy of the exhausted instances. A structure in which control dominates does not expand of itself and regulates itself best; it approaches the control society in the sense of Gilles Deleuze (/Post-scriptum sur les sociétés de contrôle/, 1990) — a regulation that continuously modulates rather than confines. The reverse side: it regulates without emancipating.
 
-** 2.8 Four diverging fates
+** Four diverging fates
 
 From the same mechanisms — profiled instances, ascending coupling, threshold expansion, control — four markedly different fates result for the four structures. They were verified headless (Node.js): the four structures diverge, while the perfect, symmetric state is preserved (equally large relational structures, reciprocity ~1). The following reading is an applied interpretation of the four relational structures; the mechanics itself is general and bound to the profiles, not to the contents.
 
@@ -111,7 +111,7 @@ From the same mechanisms — profiled instances, ascending coupling, threshold e
 
 These four fates are not value judgements about the real relational structures but consequences of the instance profiles. They show how, out of a single mechanics — the same for all — diverging morphological trajectories arise, depending on which instance dominates and how vigorously the force rises from below to above.
 
-** 2.9 Satellisation: the second distress of the structures
+** Satellisation: the second distress of the structures
 
 Up to this point the model knew only a single distress: that of over-expansion (the Pareto loop, 2.7). This, however, captured inequality and reciprocity solely from the perspective of the expanding structure. The shrunken, marginalised structure registered nothing — it grew smaller in silence. That was a gap: a complete theory of reciprocity must see both poles. Satellisation closes this gap; it is the second, opposite distress.
 

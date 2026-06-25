@@ -4,10 +4,10 @@
 #+LANGUAGE: en
 
 # Status: version 59 (v59). Living document.
-# Section number preserved from the master documentation (11).
+# Corresponds to point 11 of the master documentation.
 # Bibliographic entries retain their original-language titles.
 
-* 11. Literature
+* Literature
 
 The following titles are cited in the text — both for the theoretical arguments and for the provenance of the mathematical model building blocks.
 
