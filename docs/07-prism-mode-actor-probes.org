@@ -11,11 +11,11 @@ This is deliberately useful for *small samples*, which are common in sociology a
 
 * How to use it in the twin
 
-1. Open =tr-twin.html= and load an actor cohort via /Import an actor cohort (contract table CSV)/. The contract table has the columns =aid, annee, structure, categorie, sequence= (one dated stage per row).
-2. The *Prism mode · actor probes* panel then lists the actors. Tick 1 to 5 of them.
-3. Start the timeline. Each selected actor appears on the scene as a dot coloured by its current category, with a halo on its current structure and a dotted line tracing its whole path; the side panel reports, for the current year, each probe's structure/sequence/category and the field it sits in (the regime of its structure — autonomous or satellite of another — and the satellisation level).
+1. Open =tr-twin.html=. Optionally load a full cohort via /Import an actor cohort (contract table CSV)/ — when present, the whole cohort builds the relational field that the probes are read against.
+2. In the *Prism mode · probes* panel, load a small /probe extract/ through its own file button: a contract table of just the units you want to trace (columns =aid, annee, structure, categorie, sequence=; one dated stage per row). Every actor in the extract is traced — keep it to 1–5. If no full cohort is loaded, the extract also serves as the field.
+3. Start the timeline. Each probe appears on the scene as a dot coloured by its current category, with a halo on its current structure and a dotted line tracing its whole path; the side panel reports, for the current year, each probe's structure/sequence/category and the field it sits in (the regime of its structure — autonomous or satellite of another — and the satellisation level).
 
-The reading is language-aware (DE/EN/FR) and updates as the timeline advances. The same logic runs on the contract table exported from any source, so a student can drop in their own small dataset and immediately read it through one or two actors.
+The reading is language-aware (DE/EN/FR) and updates as the timeline advances. Selecting probes by /loading a file/ rather than ticking a long list keeps the mechanism simple and scales to any cohort size: a student drops in a two-row extract and reads the field through it immediately, while a researcher can drive the field with the full cohort and trace a chosen handful. The very same loader will carry /instance/ probes once an instance layer is harvested from the sources.
 
 * Worked example — five probes across two regimes
 

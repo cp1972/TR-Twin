@@ -193,9 +193,11 @@
     <div><div class="heading" style="margin:8px 0 6px" data-i18n="head_imp_cohort">Importer une cohorte d'acteurs (table-contrat CSV)</div>
       <div class="erow" style="gap:8px"><label for="contractfile" class="filebtn" data-i18n="btn_choosefile">Choisir un fichier</label><input id="contractfile" type="file" accept=".csv,text/csv" style="display:none"><span id="contractstatus" style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)"></span></div>
       <div class="erow" style="gap:10px;margin-top:5px;align-items:center"><label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="paliers" style="accent-color:#46CDB8"> <span data-i18n="lab_paliers">interpolation en paliers</span></label><span class="heading" style="color:var(--slate-dim)" data-i18n="desc_paliers">cohorte = paliers · démographie macro = linéaire</span></div></div>
-    <div id="prismBox"><div class="heading" style="margin:8px 0 6px" data-i18n="head_prism">Mode prisme · acteurs-sondes</div>
-      <div class="heading" style="color:var(--slate-dim);line-height:1.5" data-i18n="desc_prism">Choisis 1 à 5 acteurs : leur trajectoire est surlignée sur la scène et tu lis le champ à travers eux. Sonde heuristique, pas recensement.</div>
-      <div id="prismPick" style="margin-top:6px;max-height:118px;overflow:auto;display:flex;flex-direction:column;gap:2px"></div>
+    <div id="prismBox"><div class="heading" style="margin:8px 0 6px" data-i18n="head_prism">Mode prisme · sondes</div>
+      <div class="heading" style="color:var(--slate-dim);line-height:1.5" data-i18n="desc_prism">Charge un petit extrait-sondes (1 à 5 lignes) : chaque sonde est tracée sur la scène et tu lis le champ à travers elle. Si une cohorte complète est chargée par ailleurs, elle construit le champ ; sinon l'extrait sert aussi de champ. Sonde heuristique, pas recensement.</div>
+      <div class="erow" style="gap:8px;margin-top:6px"><label for="probefile" class="filebtn" data-i18n="btn_choosefile">Choisir un fichier</label><input id="probefile" type="file" accept=".csv,text/csv" style="display:none"><span id="probestatus" style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)"></span></div>
+      <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="desc_probe">extrait au format table-contrat (mêmes colonnes : aid, année, structure, séquence, catégorie) · acteurs aujourd'hui, instances demain</div>
+      <div id="prismPick" style="margin-top:6px;max-height:118px;overflow:auto;display:flex;flex-direction:column;gap:3px"></div>
       <div id="prismRead" style="margin-top:6px;font-family:var(--mono);font-size:9px;line-height:1.45;color:var(--slate)"></div>
       <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="legend_prism">● sonde colorée par catégorie · halo = structure actuelle · ligne = trajectoire</div></div>
     <div><div class="heading" style="margin:8px 0 6px" data-i18n="head_exports">Exports</div>
@@ -339,8 +341,11 @@ const I18N={
   btn_choosefile:{fr:'Choisir un fichier',de:'Datei wählen',en:'Choose file'},
   lab_paliers:{fr:'interpolation en paliers',de:'Stufen-Interpolation',en:'stepped interpolation'},
   desc_paliers:{fr:'cohorte = paliers · démographie macro = linéaire',de:'Kohorte = Stufen · Makro-Demografie = linear',en:'cohort = steps · macro-demography = linear'},
-  head_prism:{fr:'Mode prisme · acteurs-sondes',de:'Prismen-Modus · Akteur-Sonden',en:'Prism mode · actor probes'},
-  desc_prism:{fr:'Choisis 1 à 5 acteurs : leur trajectoire est surlignée sur la scène et tu lis le champ à travers eux. Sonde heuristique, pas recensement.',de:'Wähle 1–5 Akteure: ihre Bahn wird auf der Szene hervorgehoben, und du liest das Feld durch sie. Heuristische Sonde, kein Zensus.',en:'Pick 1–5 actors: their trajectory is highlighted on the scene and you read the field through them. A heuristic probe, not a census.'},
+  head_prism:{fr:'Mode prisme · sondes',de:'Prismen-Modus · Sonden',en:'Prism mode · probes'},
+  desc_prism:{fr:'Charge un petit extrait-sondes (1 à 5 lignes) : chaque sonde est tracée sur la scène et tu lis le champ à travers elle. Si une cohorte complète est chargée par ailleurs, elle construit le champ ; sinon l\'extrait sert aussi de champ. Sonde heuristique, pas recensement.',de:'Lade einen kleinen Sonden-Auszug (1–5 Zeilen): jede Sonde wird auf der Szene gezeichnet, und du liest das Feld durch sie. Ist sonst eine vollständige Kohorte geladen, baut sie das Feld; andernfalls dient der Auszug auch als Feld. Heuristische Sonde, kein Zensus.',en:'Load a small probe extract (1–5 rows): each probe is traced on the scene and you read the field through it. If a full cohort is otherwise loaded, it builds the field; otherwise the extract also serves as the field. A heuristic probe, not a census.'},
+  desc_probe:{fr:'extrait au format table-contrat (mêmes colonnes : aid, année, structure, séquence, catégorie) · acteurs aujourd\'hui, instances demain',de:'Auszug im Vertragstabellen-Format (gleiche Spalten: aid, Jahr, Struktur, Sequenz, Kategorie) · heute Akteure, morgen Instanzen',en:'extract in contract-table format (same columns: aid, year, structure, sequence, category) · actors today, instances tomorrow'},
+  probe_none:{fr:'Aucune sonde chargée — choisis un extrait.',de:'Keine Sonde geladen — wähle einen Auszug.',en:'No probe loaded — choose an extract.'},
+  st_probes:{fr:'sondes',de:'Sonden',en:'probes'},
   legend_prism:{fr:'● sonde colorée par catégorie · halo = structure actuelle · ligne = trajectoire',de:'● Sonde nach Kategorie gefärbt · Halo = aktuelle Struktur · Linie = Bahn',en:'● probe coloured by category · halo = current structure · line = trajectory'},
   prism_auto:{fr:'autonome',de:'autonom',en:'autonomous'},
   prism_satof:{fr:'satellite de',de:'Satellit von',en:'satellite of'},
@@ -411,7 +416,7 @@ function setLang(lang){if(!['fr','de','en'].includes(lang))lang='en';LANG=lang;
   document.querySelectorAll('[data-i18n-title]').forEach(el=>{const k=el.getAttribute('data-i18n-title');if(I18N[k])el.title=I18N[k][lang];});
   document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(I18N[k])el.innerHTML=I18N[k][lang];});
   document.documentElement.lang=lang;
-  if(typeof renderPrismRead==='function'){lastPrismYear=null;renderPrismRead();}
+  if(typeof renderPrismRead==='function'){lastPrismYear=null;renderPrismRead();}if(typeof renderProbeList==='function'){renderProbeList();}
   document.querySelectorAll('.langbtn').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));
   if(typeof updateSphPick==='function')updateSphPick();
   document.querySelectorAll('.catlab').forEach(e=>{e.textContent=CN(+e.dataset.cat);});
@@ -872,30 +877,28 @@ function renderFlux(yr){if(!cohortTrans)return;const y=Math.round(yr);if(y===las
 let cohortRec=null;
 const NMS=['A','B','C','D'],CATS=['etabli','aspirant','conservateur','decu'],CATS_EN=['established','aspirant','conservative','disappointed'];
 // ---- mode prisme : 1-5 acteurs-sondes ; lit le champ (régime, satellisation, catégorie) à travers eux ----
-let cohortByActor=null, prismSel=[], lastPrismYear=null;
+let cohortByActor=null, probeByActor=null, prismSel=[], lastPrismYear=null; const PROBECAP=8;
 function buildCohortByActor(rec){const byA={};for(const r of rec){(byA[r.aid]=byA[r.aid]||[]).push(r);}for(const a in byA)byA[a].sort((x,y)=>x.year-y.year);return byA;}
 function probePathSummary(st){let out=st.length?LAB[st[0].s]:'';for(let i=1;i<st.length;i++)if(st[i].s!==st[i-1].s)out+='→'+LAB[st[i].s];return out;}
-function buildPrismPicker(){const box=document.getElementById('prismPick');if(!box)return;box.innerHTML='';prismSel=[];lastPrismYear=null;renderPrismRead();
-  if(!cohortByActor)return;
-  const ids=Object.keys(cohortByActor).sort((a,b)=>cohortByActor[b].length-cohortByActor[a].length);
-  for(const aid of ids){const st=cohortByActor[aid];const lab=document.createElement('label');
-    lab.style.cssText='font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:6px;align-items:center;cursor:pointer';
-    const cb=document.createElement('input');cb.type='checkbox';cb.value=aid;cb.style.accentColor='#46CDB8';
-    cb.onchange=()=>{if(cb.checked){if(prismSel.length>=5){cb.checked=false;return;}prismSel.push(aid);}else{prismSel=prismSel.filter(x=>x!==aid);}lastPrismYear=null;renderPrismRead();};
-    const span=document.createElement('span');span.textContent=aid+' · '+probePathSummary(st)+' ('+st[0].year+'–'+st[st.length-1].year+')';
-    lab.appendChild(cb);lab.appendChild(span);box.appendChild(lab);}}
+function renderProbeList(){const box=document.getElementById('prismPick');if(!box)return;box.innerHTML='';
+  if(!probeByActor||!prismSel.length){box.innerHTML='<span style="color:var(--slate-dim);font-family:var(--mono);font-size:9px">'+t('probe_none')+'</span>';return;}
+  for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;
+    const row=document.createElement('div');row.style.cssText='font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:6px;align-items:center';
+    const dot=document.createElement('span');dot.textContent='●';dot.style.color=ACTCOL[st[0].c];
+    const span=document.createElement('span');span.textContent='#'+aid+' · '+probePathSummary(st)+' ('+st[0].year+'–'+st[st.length-1].year+')';
+    row.appendChild(dot);row.appendChild(span);box.appendChild(row);}}
 function probeStageAt(st,year){if(!st.length)return null;if(year<st[0].year)return{stage:st[0],status:'pre'};if(year>st[st.length-1].year)return{stage:st[st.length-1],status:'post'};let pos=st[0];for(const s of st){if(s.year<=year)pos=s;else break;}return{stage:pos,status:'live'};}
-function renderPrismRead(){const el=document.getElementById('prismRead');if(!el)return;if(!prismSel.length||!cohortByActor){el.innerHTML='';return;}
+function renderPrismRead(){const el=document.getElementById('prismRead');if(!el)return;if(!prismSel.length||!probeByActor){el.innerHTML='';return;}
   const Y=Math.round(tl.year);let out='';
-  for(const aid of prismSel){const st=cohortByActor[aid];if(!st)continue;const r=probeStageAt(st,Y);if(!r)continue;const s=r.stage.s,q=r.stage.q,c=r.stage.c;
+  for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;const r=probeStageAt(st,Y);if(!r)continue;const s=r.stage.s,q=r.stage.q,c=r.stage.c;
     const reg=(ruler[s]===s)?t('prism_auto'):(t('prism_satof')+' '+SN(ruler[s]));
     const satTxt=satS[s]>0.05?(' · sat '+satS[s].toFixed(2)):'';
     const life=r.status==='live'?'':(' ·('+t(r.status==='pre'?'prism_pre':'prism_post')+')');
     out+='<div style="margin-bottom:3px"><b style="color:'+ACTCOL[c]+'">#'+aid+'</b> '+Y+life+'<br>'+LAB[s]+'·'+SN(s)+' / seq '+LAB[q]+' · '+CN(c)+'<br><span style="color:var(--slate-dim)">'+reg+satTxt+'</span></div>';}
   el.innerHTML=out;}
 function tickPrism(){if(!prismSel.length)return;const Y=Math.round(tl.year);if(Y===lastPrismYear)return;lastPrismYear=Y;renderPrismRead();}
-function drawProbes(){if(!prismSel.length||!cohortByActor)return;const Y=Math.round(tl.year);
-  for(const aid of prismSel){const st=cohortByActor[aid];if(!st||!st.length)continue;
+function drawProbes(){if(!prismSel.length||!probeByActor)return;const Y=Math.round(tl.year);
+  for(const aid of prismSel){const st=probeByActor[aid];if(!st||!st.length)continue;
     ctx.beginPath();for(let i=0;i<st.length;i++){const p=subPos(st[i].s,st[i].q);if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);}
     ctx.strokeStyle='rgba(233,234,242,0.22)';ctx.lineWidth=1;ctx.setLineDash([2,3]);ctx.stroke();ctx.setLineDash([]);
     const r=probeStageAt(st,Y);if(!r)continue;const p=subPos(r.stage.s,r.stage.q),col=ACTCOL[r.stage.c],live=r.status==='live',pr=0.5+0.5*Math.sin(phase*10);
@@ -992,13 +995,29 @@ document.getElementById("contractfile").onchange=e=>{const f=e.target.files[0];i
     if(!keys){document.getElementById("contractstatus").textContent=t('st_contract_format');return;}
     tl.keys=keys;tl.sel=0;tl.start=keys[0].year;tl.end=keys[keys.length-1].year;tl.year=tl.start;
     cohortRec=rec;cohortTrans=buildTransitions(rec);lastFluxYear=null;renderFlux(tl.start);
-    cohortByActor=buildCohortByActor(rec);buildPrismPicker();
+    cohortByActor=buildCohortByActor(rec);
     tl.paliers=true;document.getElementById("paliers").checked=true;
     document.getElementById("tlstart").value=tl.start;document.getElementById("tlend").value=tl.end;
     loadKeyToSliders();renderTicks();renderKfList();
     const nA=new Set(rec.map(r=>r.aid)).size;
     document.getElementById("contractstatus").textContent=nA+' '+t('st_actors')+' · '+keys.length+' '+t('st_steps')+' · '+tl.start+'–'+tl.end;
   }catch(err){document.getElementById("contractstatus").textContent=t('st_read_error');}};
+  rd.readAsText(f);};
+document.getElementById("probefile").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();
+  rd.onload=()=>{try{const rec=parseContractCSV(rd.result);
+    if(!rec||!rec.length){document.getElementById("probestatus").textContent=t('st_contract_format');return;}
+    probeByActor=buildCohortByActor(rec);
+    const ids=Object.keys(probeByActor);prismSel=ids.slice(0,PROBECAP);lastPrismYear=null;
+    if(!cohortRec){const keys=buildCohortKeys(rec);
+      if(keys){tl.keys=keys;tl.sel=0;tl.start=keys[0].year;tl.end=keys[keys.length-1].year;tl.year=tl.start;
+        cohortRec=rec;cohortByActor=buildCohortByActor(rec);cohortTrans=buildTransitions(rec);lastFluxYear=null;renderFlux(tl.start);
+        tl.paliers=true;document.getElementById("paliers").checked=true;
+        document.getElementById("tlstart").value=tl.start;document.getElementById("tlend").value=tl.end;
+        loadKeyToSliders();renderTicks();renderKfList();}}
+    renderProbeList();renderPrismRead();
+    const cap=ids.length>PROBECAP?(' · '+PROBECAP+'/'+ids.length):'';
+    document.getElementById("probestatus").textContent=prismSel.length+' '+t('st_probes')+cap;
+  }catch(err){document.getElementById("probestatus").textContent=t('st_read_error');}};
   rd.readAsText(f);};
 document.getElementById("paliers").onchange=e=>{tl.paliers=e.target.checked;};
 document.getElementById("exData").onclick=()=>exportData();
