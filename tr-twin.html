@@ -206,7 +206,19 @@
       <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="desc_probe">extrait au format table-contrat (mêmes colonnes : aid, année, structure, séquence, catégorie) · acteurs aujourd'hui, instances demain</div>
       <div id="prismPick" style="margin-top:6px;max-height:118px;overflow:auto;display:flex;flex-direction:column;gap:3px"></div>
       <div id="prismRead" style="margin-top:6px;font-family:var(--mono);font-size:9px;line-height:1.45;color:var(--slate)"></div>
-      <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="legend_prism">● sonde colorée par catégorie · halo = structure actuelle · ligne = trajectoire</div></div>
+      <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="legend_prism">● sonde colorée par catégorie · halo = structure actuelle · ligne = trajectoire</div>
+      <div id="perturbBox" style="display:none;margin-top:7px;border-top:1px solid rgba(255,255,255,.08);padding-top:7px">
+        <div class="heading" data-i18n="head_perturb">Perturbation d'instance</div>
+        <div class="heading" style="color:var(--slate-dim);line-height:1.5" data-i18n="perturb_hint">cible une instance chargée · ponctuel ou maintenu · on lit l'onde</div>
+        <div class="erow" style="gap:6px;margin-top:5px;flex-wrap:wrap;align-items:center">
+          <select id="perturbPick" style="font-family:var(--mono);font-size:9px;background:rgba(255,255,255,.04);color:var(--paper);border:1px solid var(--hair);border-radius:5px;padding:2px 4px"></select>
+          <button class="xbtn" id="perturbMinus" data-i18n="perturb_weaken">− affaiblir</button>
+          <button class="xbtn" id="perturbPlus" data-i18n="perturb_strengthen">+ renforcer</button>
+          <label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="perturbMode" style="accent-color:#E36F9E"> <span data-i18n="perturb_sustained_lab">maintenu</span></label>
+          <button class="xbtn" id="perturbReset" data-i18n="perturb_reset">reset</button>
+        </div>
+        <div id="perturbRead" style="margin-top:6px;font-family:var(--mono);font-size:9px;line-height:1.45;color:var(--slate)"></div>
+      </div></div>
     <div><div class="heading" style="margin:8px 0 6px" data-i18n="head_exports">Exports</div>
       <div class="erow" style="gap:6px;flex-wrap:wrap"><button class="xbtn" id="exData" data-i18n="btn_data_csv">Données CSV</button><button class="xbtn" id="exTrans" data-i18n="btn_transitions">transitions.csv</button></div>
       <div class="heading" style="margin-top:6px;color:var(--slate-dim)" data-i18n="head_figures">Figures SVG :</div>
@@ -358,6 +370,14 @@ const I18N={
   lane_media:{fr:'médias (D)',de:'Medien (D)',en:'media (D)'},
   lane_other:{fr:'autre couloir',de:'andere Spur',en:'other lane'},
   legend_lane:{fr:'● couloir : noyau culturel · pont-édition · médias',de:'● Spur: Kulturkern · Verlags-Brücke · Medien',en:'● lane: culture core · publishing bridge · media'},
+  head_perturb:{fr:'Perturbation d\'instance',de:'Instanz-Störung',en:'Instance perturbation'},
+  perturb_hint:{fr:'cible une instance chargée · ponctuel (un coup) ou maintenu · on lit l\'onde sur la séquence et la structure',de:'zielt auf eine geladene Instanz · einmalig oder gehalten · die Welle auf Sequenz und Struktur wird gelesen',en:'targets a loaded instance · pulse (one shot) or sustained · read the ripple on the sequence and the structure'},
+  perturb_weaken:{fr:'− affaiblir',de:'− schwächen',en:'− weaken'},
+  perturb_strengthen:{fr:'+ renforcer',de:'+ stärken',en:'+ strengthen'},
+  perturb_sustained_lab:{fr:'maintenu',de:'gehalten',en:'sustained'},
+  perturb_reset:{fr:'reset',de:'Reset',en:'reset'},
+  perturb_on:{fr:'maintien actif',de:'Haltung aktiv',en:'hold active'},
+  perturb_off:{fr:'pas de maintien (ponctuel)',de:'kein Halten (einmalig)',en:'no hold (pulse mode)'},
   legend_prism:{fr:'● sonde colorée par catégorie · halo = structure actuelle · ligne = trajectoire',de:'● Sonde nach Kategorie gefärbt · Halo = aktuelle Struktur · Linie = Bahn',en:'● probe coloured by category · halo = current structure · line = trajectory'},
   prism_auto:{fr:'autonome',de:'autonom',en:'autonomous'},
   prism_satof:{fr:'satellite de',de:'Satellit von',en:'satellite of'},
@@ -428,7 +448,7 @@ function setLang(lang){if(!['fr','de','en'].includes(lang))lang='en';LANG=lang;
   document.querySelectorAll('[data-i18n-title]').forEach(el=>{const k=el.getAttribute('data-i18n-title');if(I18N[k])el.title=I18N[k][lang];});
   document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(I18N[k])el.innerHTML=I18N[k][lang];});
   document.documentElement.lang=lang;
-  if(typeof renderPrismRead==='function'){lastPrismYear=null;renderPrismRead();}if(typeof renderProbeList==='function'){renderProbeList();}
+  if(typeof renderPrismRead==='function'){lastPrismYear=null;renderPrismRead();}if(typeof renderProbeList==='function'){renderProbeList();}if(typeof renderPerturb==='function'){populatePerturbPick();renderPerturb();}
   document.querySelectorAll('.langbtn').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));
   if(typeof updateSphPick==='function')updateSphPick();
   document.querySelectorAll('.catlab').forEach(e=>{e.textContent=CN(+e.dataset.cat);});
@@ -537,6 +557,7 @@ function step(dt){
     const w0=DECAY,w1=DECAY*DECAY,w2=DECAY*DECAY*DECAY,ws=w0+w1+w2;
     g[x][ch[2]]+=pool*w0/ws; g[x][ch[1]]+=pool*w1/ws; g[x][ch[0]]+=pool*w2/ws;
     if(x===boost) g[x][x]+=BOOST*dt;
+    if(perturbHold&&x===perturbHold.s) g[x][perturbHold.q]+=perturbHold.delta*dt;
     // SCLÉROSE : terminal au-dessus du point de rupture -> la tête décroche
     if(g[x][R]>rupt()){
       const head=ch[0], col=RUPT_RATE*(g[x][R]-rupt())*dt;
@@ -741,7 +762,7 @@ function loop(now){const rawDt=Math.min(0.033,(now-last)/1000);last=now;const si
   applyCursorProfile(tl.year);
   renderFlux(tl.year);
   if(running){step(simDt);phase=(phase+simDt*0.6)%1;recordTraj();if(plast>0&&tframe%30===0)renderChains();}
-  easeCenters(rawDt);draw();drawProbes();updateReadouts();updateActeurs();updateInspector();updateDemoNow();drawMini();updatePlayhead();tickPrism();requestAnimationFrame(loop);}
+  easeCenters(rawDt);draw();drawProbes();updateReadouts();updateActeurs();updateInspector();updateDemoNow();drawMini();updatePlayhead();tickPrism();renderPerturb();requestAnimationFrame(loop);}
 
 // ---- légende + gini ----
 const legendEl=document.getElementById("legend");const bars=[];
@@ -890,6 +911,7 @@ let cohortRec=null;
 const NMS=['A','B','C','D'],CATS=['etabli','aspirant','conservateur','decu'],CATS_EN=['established','aspirant','conservative','disappointed'];
 // ---- mode prisme : 1-5 acteurs-sondes ; lit le champ (régime, satellisation, catégorie) à travers eux ----
 let cohortByActor=null, probeByActor=null, prismSel=[], lastPrismYear=null, probeMode='actor'; const PROBECAP=8;
+let perturbHold=null; const PERT_PULSE=0.18, PERT_RATE=0.32;
 function buildCohortByActor(rec){const byA={};for(const r of rec){(byA[r.aid]=byA[r.aid]||[]).push(r);}for(const a in byA)byA[a].sort((x,y)=>x.year-y.year);return byA;}
 function probePathSummary(st){let out=st.length?LAB[st[0].s]:'';for(let i=1;i<st.length;i++)if(st[i].s!==st[i-1].s)out+='→'+LAB[st[i].s];return out;}
 function renderProbeList(){const box=document.getElementById('prismPick');if(!box)return;box.innerHTML='';
@@ -901,6 +923,21 @@ function renderProbeList(){const box=document.getElementById('prismPick');if(!bo
     const extra=probeMode==='instance'?(' · '+instLane(st[0].s,st[0].q)):'';
     const span=document.createElement('span');span.textContent='#'+aid+' · '+probePathSummary(st)+' ('+st[0].year+'–'+st[st.length-1].year+')'+extra;
     row.appendChild(dot);row.appendChild(span);box.appendChild(row);}}
+function populatePerturbPick(){const sel=document.getElementById('perturbPick');if(!sel)return;const prev=sel.value;sel.innerHTML='';
+  if(probeMode==='instance'&&probeByActor)for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;const o=document.createElement('option');o.value=aid;o.textContent='#'+aid+' ('+LAB[st[0].s]+'·seq'+LAB[st[0].q]+')';sel.appendChild(o);}
+  if(prev&&[...sel.options].some(o=>o.value===prev))sel.value=prev;}
+function perturbTarget(){const sel=document.getElementById('perturbPick');const aid=sel&&sel.value?sel.value:(prismSel[0]||null);const st=aid&&probeByActor?probeByActor[aid]:null;return st?{aid,s:st[0].s,q:st[0].q}:null;}
+function perturbApply(dir){const tg=perturbTarget();if(!tg)return;const sustained=document.getElementById('perturbMode').checked;
+  if(sustained){const delta=PERT_RATE*dir;if(perturbHold&&perturbHold.s===tg.s&&perturbHold.q===tg.q&&Math.sign(perturbHold.delta)===dir)perturbHold=null;else perturbHold={s:tg.s,q:tg.q,delta,aid:tg.aid};}
+  else{g[tg.s][tg.q]=Math.max(0,g[tg.s][tg.q]+PERT_PULSE*dir);g[tg.s]=norm(g[tg.s]);}
+  renderPerturb();}
+function perturbResetFn(){perturbHold=null;renderPerturb();}
+function renderPerturb(){const box=document.getElementById('perturbBox');if(!box)return;const on=(probeMode==='instance'&&prismSel.length>0);box.style.display=on?'block':'none';if(!on)return;
+  const el=document.getElementById('perturbRead');if(!el)return;let out='';
+  if(perturbHold){const s=perturbHold.s,q=perturbHold.q;out+='<b style="color:#E36F9E">'+t('perturb_on')+'</b> #'+perturbHold.aid+' · '+LAB[s]+'·seq'+LAB[q]+' ['+(perturbHold.delta>0?'+':'')+perturbHold.delta.toFixed(2)+']<br>';}
+  else out+='<span style="color:var(--slate-dim)">'+t('perturb_off')+'</span><br>';
+  const tg=perturbTarget();if(tg){const s=tg.s;out+=LAB[s]+'·'+SN(s)+' · size '+S[s].toFixed(2)+' · recip '+structRecip(s).toFixed(2)+'<br><span style="color:var(--slate-dim)">seq '+g[s].map((v,i)=>(i===tg.q?'<b style="color:var(--paper)">'+v.toFixed(2)+'</b>':v.toFixed(2))).join(' / ')+'</span>';}
+  el.innerHTML=out;}
 function probeStageAt(st,year){if(!st.length)return null;if(year<st[0].year)return{stage:st[0],status:'pre'};if(year>st[st.length-1].year)return{stage:st[st.length-1],status:'post'};let pos=st[0];for(const s of st){if(s.year<=year)pos=s;else break;}return{stage:pos,status:'live'};}
 function instLane(s,q){if(s===0&&q===0)return t('lane_culture');if(s===0&&q===3)return t('lane_publish');if(s===3)return t('lane_media');return t('lane_other');}
 function renderPrismRead(){const el=document.getElementById('prismRead');if(!el)return;if(!prismSel.length||!probeByActor){el.innerHTML='';return;}
@@ -1029,18 +1066,23 @@ document.getElementById("probefile").onchange=e=>{const f=e.target.files[0];if(!
     probeByActor=buildCohortByActor(rec);
     const ids=Object.keys(probeByActor);prismSel=ids.slice(0,PROBECAP);lastPrismYear=null;
     const nonNum=ids.filter(a=>!/^\d+$/.test(a)).length;probeMode=nonNum>ids.length/2?'instance':'actor';
+    if(probeMode==='instance')perturbHold=null;
     if(!cohortRec){const keys=buildCohortKeys(rec);
       if(keys){tl.keys=keys;tl.sel=0;tl.start=keys[0].year;tl.end=keys[keys.length-1].year;tl.year=tl.start;
         cohortRec=rec;cohortByActor=buildCohortByActor(rec);cohortTrans=buildTransitions(rec);lastFluxYear=null;renderFlux(tl.start);
         tl.paliers=true;document.getElementById("paliers").checked=true;
         document.getElementById("tlstart").value=tl.start;document.getElementById("tlend").value=tl.end;
         loadKeyToSliders();renderTicks();renderKfList();}}
-    renderProbeList();renderPrismRead();
+    renderProbeList();renderPrismRead();populatePerturbPick();renderPerturb();
     const cap=ids.length>PROBECAP?(' · '+PROBECAP+'/'+ids.length):'';
     document.getElementById("probestatus").textContent=prismSel.length+' '+t('st_probes')+cap;
   }catch(err){document.getElementById("probestatus").textContent=t('st_read_error');}};
   rd.readAsText(f);};
 document.getElementById("paliers").onchange=e=>{tl.paliers=e.target.checked;};
+document.getElementById("perturbMinus").onclick=()=>perturbApply(-1);
+document.getElementById("perturbPlus").onclick=()=>perturbApply(1);
+document.getElementById("perturbReset").onclick=()=>perturbResetFn();
+document.getElementById("perturbPick").onchange=()=>renderPerturb();
 document.getElementById("exData").onclick=()=>exportData();
 document.getElementById("exTrans").onclick=()=>exportTransitions();
 document.getElementById("figSizes").onclick=()=>exportFig('sizes');
