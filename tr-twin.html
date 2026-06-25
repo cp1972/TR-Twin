@@ -19,10 +19,13 @@
   .stage h1{position:absolute;top:26px;left:32px;font-weight:300;font-size:30px;line-height:1}
   .stage .sub{position:absolute;top:64px;left:32px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate-dim)}
   .stage .hint{position:absolute;bottom:54px;left:32px;font-family:var(--mono);font-size:11px;color:var(--slate-dim)}
-  .stage .stageinfo{position:absolute;top:70px;left:32px;z-index:3;display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start;gap:15px;max-width:74vw;
-    background:rgba(10,12,22,0.46);border:1px solid rgba(255,255,255,0.08);border-radius:11px;padding:12px 15px;backdrop-filter:blur(3px)}
+  .stage .stageinfo-left,.stage .stageinfo-right{position:absolute;z-index:3;display:flex;flex-direction:column;gap:10px;background:rgba(10,12,22,0.46);border:1px solid rgba(255,255,255,0.08);border-radius:11px;padding:12px 15px;backdrop-filter:blur(3px)}
+  .stage .stageinfo-left{top:84px;left:32px}
+  .stage .stageinfo-right{top:64px;right:14px;align-items:flex-start}
+  .stage .sirow{display:flex;flex-direction:row;gap:15px;align-items:flex-start}
   .stage .sblock{display:flex;flex-direction:column;gap:7px}
-  .stage .sblock:not(:first-child){border-left:1px solid rgba(255,255,255,.07);padding-left:15px}
+  .stage .sirow .sblock:not(:first-child){border-left:1px solid rgba(255,255,255,.07);padding-left:15px}
+  .stage .stageinfo-left .sblock:not(:first-child){border-top:1px solid rgba(255,255,255,.07);padding-top:9px}
   .stage .sblock .gini .lab{width:56px}
   .stage #miniCurves{width:208px;height:42px;display:block}
   .stage #instGrid,.stage #perGrid{min-width:150px}
@@ -99,7 +102,7 @@
   .note{font-size:11.5px;line-height:1.5;color:var(--slate);font-style:italic}
   .note b{color:var(--paper);font-style:normal;font-weight:500}
   hr{border:none;border-top:1px solid var(--hair)}
-  @media (max-width:860px){.wrap{grid-template-columns:1fr;grid-template-rows:1fr auto}.panel{border-left:none;border-top:1px solid var(--hair);max-height:56vh}.stage h1{font-size:24px;top:18px;left:20px}.stage .sub{top:48px;left:20px}.stage .hint{left:20px;bottom:14px}.stage .stageinfo{top:52px;left:20px;max-width:92vw;gap:11px;padding:10px 11px}.stage .sblock:not(:first-child){border-left:none;padding-left:0}}
+  @media (max-width:860px){.wrap{grid-template-columns:1fr;grid-template-rows:1fr auto}.panel{border-left:none;border-top:1px solid var(--hair);max-height:56vh}.stage h1{font-size:24px;top:18px;left:20px}.stage .sub{top:48px;left:20px}.stage .hint{left:20px;bottom:14px}.stage .stageinfo-left{top:50px;left:14px;max-width:46vw;gap:8px;padding:9px 10px}.stage .stageinfo-right{top:50px;right:10px;max-width:48vw;gap:8px;padding:9px 10px}.stage .sirow{gap:8px}.stage .sirow .sblock:not(:first-child){border-left:none;padding-left:0}.stage .stageinfo-left .sblock:not(:first-child){border-top:none;padding-top:0}}
 </style>
 </head>
 <body>
@@ -108,7 +111,7 @@
     <canvas id="cv"></canvas>
     <h1 data-i18n="app_title">Théorie de la relation. Jumeau numérique</h1>
     <div class="langsel"><button class="langbtn" data-lang="de">DE</button><button class="langbtn" data-lang="en">EN</button><button class="langbtn" data-lang="fr">FR</button></div>
-    <div class="stageinfo">
+    <div class="stageinfo stageinfo-left">
       <div class="sblock">
         <div class="heading" style="margin-bottom:1px" data-i18n-title="tip_evo" title="Inégalité des tailles (Gini) et réciprocité au niveau des 4 structures relationnelles, au fil du temps"><span data-i18n="evo_pre">Évolution · </span><span style="color:var(--paper)">Gini</span> / <span style="color:#46CDB8" data-i18n="word_recip">réciprocité</span></div>
         <canvas id="miniCurves"></canvas>
@@ -129,6 +132,9 @@
         </div>
         <div style="font:8px var(--mono),monospace;color:var(--slate-dim);margin-top:1px;opacity:.85" data-i18n="legend_kaskade">verticale par structure · l'apex s'homogénéise, le dominé se stratifie</div>
       </div>
+    </div>
+    <div class="stageinfo stageinfo-right">
+      <div class="sirow">
       <div class="sblock">
         <div class="heading" data-i18n-title="tip_instances" title="Forces des instances par structure : relation (bleu), séquence (violet), fragments de séquences (turquoise), contrôle (ambre). Plus la barre est longue, plus l'instance est forte." data-i18n="head_instances">Instances par structure</div>
         <div id="instGrid" style="display:flex;gap:7px;margin-top:3px">
@@ -148,6 +154,7 @@
           <div class="icol"><div class="iclab">D</div><div class="ibar"><i id="pr3" style="background:#46CDB8"></i></div><div class="ibar"><i id="pg3" style="background:rgba(233,234,242,.9)"></i></div><div class="ibar"><i id="pi3"></i></div><div class="ibar"><i id="pw3" style="background:#d66a6a"></i></div></div>
         </div>
         <div style="font:8px var(--mono),monospace;color:var(--slate-dim);margin-top:1px;opacity:.85" data-i18n-title="tip_contrib" title="Contrib. inégalité : ambre = la structure aggrave l'inégalité (surdimensionnée) ; bleu = elle la subit (sous-dotée)." data-i18n="legend_perstruct">réciprocité · Gini interne · contrib. inégalité · affaiblit récip.</div>
+      </div>
       </div>
       <div class="sblock">
         <div class="heading" data-i18n-title="tip_flux" title="Flux de circulation des acteurs entre structures, sur une fenêtre glissante autour de l'année courante. Visible avec une cohorte chargée." data-i18n="head_flux">Flux de circulation</div>
@@ -904,7 +911,9 @@ function drawProbes(){if(!prismSel.length||!probeByActor)return;const Y=Math.rou
     const r=probeStageAt(st,Y);if(!r)continue;const p=subPos(r.stage.s,r.stage.q),col=ACTCOL[r.stage.c],live=r.status==='live',pr=0.5+0.5*Math.sin(phase*10);
     ctx.beginPath();ctx.arc(p.x,p.y,7+2*pr,0,7);ctx.strokeStyle='rgba(233,234,242,'+(live?0.6:0.25)+')';ctx.lineWidth=1.5;ctx.stroke();
     ctx.beginPath();ctx.arc(p.x,p.y,4,0,7);ctx.fillStyle=col;ctx.globalAlpha=live?1:0.45;ctx.fill();ctx.globalAlpha=1;
-    ctx.font='600 9px var(--mono),monospace';ctx.fillStyle='rgba(233,234,242,'+(live?0.9:0.4)+')';ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText('#'+aid,p.x,p.y-8);}}
+    ctx.font='600 9px var(--mono),monospace';ctx.textAlign='center';ctx.textBaseline='bottom';
+    ctx.lineWidth=3;ctx.lineJoin='round';ctx.strokeStyle='rgba(0,20,28,'+(live?0.85:0.5)+')';ctx.strokeText('#'+aid,p.x,p.y-8);
+    ctx.fillStyle='rgba(233,234,242,'+(live?0.95:0.45)+')';ctx.fillText('#'+aid,p.x,p.y-8);}}
 function dl(name,text,mime){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:(mime||'text/plain')+';charset=utf-8'}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500);}
 function structComp(x){const c=[0,0,0,0];let gs=0;for(let y=0;y<N;y++){gs+=g[x][y];for(let k=0;k<4;k++)c[k]+=g[x][y]*act[x][y][k];}if(gs>0)for(let k=0;k<4;k++)c[k]/=gs;return c;}
 function runSeries(){const dt=1/60*0.68,K=Math.max(4,Math.round(tl.dur*60*0.68/Math.max(1,tl.end-tl.start)));reset();const rows=[];
