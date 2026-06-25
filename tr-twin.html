@@ -353,6 +353,11 @@ const I18N={
   desc_probe:{fr:'extrait au format table-contrat (mêmes colonnes : aid, année, structure, séquence, catégorie) · acteurs aujourd\'hui, instances demain',de:'Auszug im Vertragstabellen-Format (gleiche Spalten: aid, Jahr, Struktur, Sequenz, Kategorie) · heute Akteure, morgen Instanzen',en:'extract in contract-table format (same columns: aid, year, structure, sequence, category) · actors today, instances tomorrow'},
   probe_none:{fr:'Aucune sonde chargée — choisis un extrait.',de:'Keine Sonde geladen — wähle einen Auszug.',en:'No probe loaded — choose an extract.'},
   st_probes:{fr:'sondes',de:'Sonden',en:'probes'},
+  lane_culture:{fr:'noyau culturel (A·séqA)',de:'Kulturkern (A·SeqA)',en:'culture core (A·seqA)'},
+  lane_publish:{fr:'édition · pont vers D (A·séqD)',de:'Verlag · Brücke zu D (A·SeqD)',en:'publishing · bridge to D (A·seqD)'},
+  lane_media:{fr:'médias (D)',de:'Medien (D)',en:'media (D)'},
+  lane_other:{fr:'autre couloir',de:'andere Spur',en:'other lane'},
+  legend_lane:{fr:'● couloir : noyau culturel · pont-édition · médias',de:'● Spur: Kulturkern · Verlags-Brücke · Medien',en:'● lane: culture core · publishing bridge · media'},
   legend_prism:{fr:'● sonde colorée par catégorie · halo = structure actuelle · ligne = trajectoire',de:'● Sonde nach Kategorie gefärbt · Halo = aktuelle Struktur · Linie = Bahn',en:'● probe coloured by category · halo = current structure · line = trajectory'},
   prism_auto:{fr:'autonome',de:'autonom',en:'autonomous'},
   prism_satof:{fr:'satellite de',de:'Satellit von',en:'satellite of'},
@@ -884,24 +889,28 @@ function renderFlux(yr){if(!cohortTrans)return;const y=Math.round(yr);if(y===las
 let cohortRec=null;
 const NMS=['A','B','C','D'],CATS=['etabli','aspirant','conservateur','decu'],CATS_EN=['established','aspirant','conservative','disappointed'];
 // ---- mode prisme : 1-5 acteurs-sondes ; lit le champ (régime, satellisation, catégorie) à travers eux ----
-let cohortByActor=null, probeByActor=null, prismSel=[], lastPrismYear=null; const PROBECAP=8;
+let cohortByActor=null, probeByActor=null, prismSel=[], lastPrismYear=null, probeMode='actor'; const PROBECAP=8;
 function buildCohortByActor(rec){const byA={};for(const r of rec){(byA[r.aid]=byA[r.aid]||[]).push(r);}for(const a in byA)byA[a].sort((x,y)=>x.year-y.year);return byA;}
 function probePathSummary(st){let out=st.length?LAB[st[0].s]:'';for(let i=1;i<st.length;i++)if(st[i].s!==st[i-1].s)out+='→'+LAB[st[i].s];return out;}
 function renderProbeList(){const box=document.getElementById('prismPick');if(!box)return;box.innerHTML='';
   if(!probeByActor||!prismSel.length){box.innerHTML='<span style="color:var(--slate-dim);font-family:var(--mono);font-size:9px">'+t('probe_none')+'</span>';return;}
+  if(probeMode==='instance'){const lg=document.createElement('div');lg.style.cssText='font-family:var(--mono);font-size:8.5px;color:var(--slate-dim);margin-bottom:2px';lg.textContent=t('legend_lane');box.appendChild(lg);}
   for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;
     const row=document.createElement('div');row.style.cssText='font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:6px;align-items:center';
     const dot=document.createElement('span');dot.textContent='●';dot.style.color=ACTCOL[st[0].c];
-    const span=document.createElement('span');span.textContent='#'+aid+' · '+probePathSummary(st)+' ('+st[0].year+'–'+st[st.length-1].year+')';
+    const extra=probeMode==='instance'?(' · '+instLane(st[0].s,st[0].q)):'';
+    const span=document.createElement('span');span.textContent='#'+aid+' · '+probePathSummary(st)+' ('+st[0].year+'–'+st[st.length-1].year+')'+extra;
     row.appendChild(dot);row.appendChild(span);box.appendChild(row);}}
 function probeStageAt(st,year){if(!st.length)return null;if(year<st[0].year)return{stage:st[0],status:'pre'};if(year>st[st.length-1].year)return{stage:st[st.length-1],status:'post'};let pos=st[0];for(const s of st){if(s.year<=year)pos=s;else break;}return{stage:pos,status:'live'};}
+function instLane(s,q){if(s===0&&q===0)return t('lane_culture');if(s===0&&q===3)return t('lane_publish');if(s===3)return t('lane_media');return t('lane_other');}
 function renderPrismRead(){const el=document.getElementById('prismRead');if(!el)return;if(!prismSel.length||!probeByActor){el.innerHTML='';return;}
   const Y=Math.round(tl.year);let out='';
   for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;const r=probeStageAt(st,Y);if(!r)continue;const s=r.stage.s,q=r.stage.q,c=r.stage.c;
     const reg=(ruler[s]===s)?t('prism_auto'):(t('prism_satof')+' '+SN(ruler[s]));
     const satTxt=satS[s]>0.05?(' · sat '+satS[s].toFixed(2)):'';
     const life=r.status==='live'?'':(' ·('+t(r.status==='pre'?'prism_pre':'prism_post')+')');
-    out+='<div style="margin-bottom:3px"><b style="color:'+ACTCOL[c]+'">#'+aid+'</b> '+Y+life+'<br>'+LAB[s]+'·'+SN(s)+' / seq '+LAB[q]+' · '+CN(c)+'<br><span style="color:var(--slate-dim)">'+reg+satTxt+'</span></div>';}
+    const mid=probeMode==='instance'?(LAB[s]+'·'+SN(s)+' / seq '+LAB[q]+' · '+instLane(s,q)):(LAB[s]+'·'+SN(s)+' / seq '+LAB[q]+' · '+CN(c));
+    out+='<div style="margin-bottom:3px"><b style="color:'+ACTCOL[c]+'">#'+aid+'</b> '+Y+life+'<br>'+mid+'<br><span style="color:var(--slate-dim)">'+reg+satTxt+'</span></div>';}
   el.innerHTML=out;}
 function tickPrism(){if(!prismSel.length)return;const Y=Math.round(tl.year);if(Y===lastPrismYear)return;lastPrismYear=Y;renderPrismRead();}
 function drawProbes(){if(!prismSel.length||!probeByActor)return;const Y=Math.round(tl.year);
@@ -1017,6 +1026,7 @@ document.getElementById("probefile").onchange=e=>{const f=e.target.files[0];if(!
     if(!rec||!rec.length){document.getElementById("probestatus").textContent=t('st_contract_format');return;}
     probeByActor=buildCohortByActor(rec);
     const ids=Object.keys(probeByActor);prismSel=ids.slice(0,PROBECAP);lastPrismYear=null;
+    const nonNum=ids.filter(a=>!/^\d+$/.test(a)).length;probeMode=nonNum>ids.length/2?'instance':'actor';
     if(!cohortRec){const keys=buildCohortKeys(rec);
       if(keys){tl.keys=keys;tl.sel=0;tl.start=keys[0].year;tl.end=keys[keys.length-1].year;tl.year=tl.start;
         cohortRec=rec;cohortByActor=buildCohortByActor(rec);cohortTrans=buildTransitions(rec);lastFluxYear=null;renderFlux(tl.start);
