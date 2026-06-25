@@ -103,6 +103,8 @@
   .note b{color:var(--paper);font-style:normal;font-weight:500}
   hr{border:none;border-top:1px solid var(--hair)}
   @media (max-width:860px){.wrap{grid-template-columns:1fr;grid-template-rows:1fr auto}.panel{border-left:none;border-top:1px solid var(--hair);max-height:56vh}.stage h1{font-size:24px;top:18px;left:20px}.stage .sub{top:48px;left:20px}.stage .hint{left:20px;bottom:14px}.stage .stageinfo-left{top:50px;left:14px;max-width:46vw;gap:8px;padding:9px 10px}.stage .stageinfo-right{top:50px;right:10px;max-width:48vw;gap:8px;padding:9px 10px}.stage .sirow{gap:8px}.stage .sirow .sblock:not(:first-child){border-left:none;padding-left:0}.stage .stageinfo-left .sblock:not(:first-child){border-top:none;padding-top:0}}
+  #perturbPick option{background:#0d1018;color:#e9eaf2;font-size:12px}
+  #perturbBox .xbtn{font-size:11px;padding:4px 8px}
 </style>
 </head>
 <body>
@@ -205,20 +207,20 @@
       <div class="erow" style="gap:8px;margin-top:6px"><label for="probefile" class="filebtn" data-i18n="btn_choosefile">Choisir un fichier</label><input id="probefile" type="file" accept=".csv,text/csv" style="display:none"><span id="probestatus" style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)"></span></div>
       <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="desc_probe">extrait au format table-contrat (mêmes colonnes : aid, année, structure, séquence, catégorie) · acteurs aujourd'hui, instances demain</div>
       <div id="prismPick" style="margin-top:6px;max-height:118px;overflow:auto;display:flex;flex-direction:column;gap:3px"></div>
-      <div id="prismRead" style="margin-top:6px;font-family:var(--mono);font-size:9px;line-height:1.45;color:var(--slate)"></div>
-      <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="legend_prism">● sonde colorée par catégorie · halo = structure actuelle · ligne = trajectoire</div>
       <div id="perturbBox" style="display:none;margin-top:7px;border-top:1px solid rgba(255,255,255,.08);padding-top:7px">
         <div class="heading" data-i18n="head_perturb">Perturbation d'instance</div>
         <div class="heading" style="color:var(--slate-dim);line-height:1.5" data-i18n="perturb_hint">cible une instance chargée · ponctuel ou maintenu · on lit l'onde</div>
         <div class="erow" style="gap:6px;margin-top:5px;flex-wrap:wrap;align-items:center">
-          <select id="perturbPick" style="font-family:var(--mono);font-size:9px;background:rgba(255,255,255,.04);color:var(--paper);border:1px solid var(--hair);border-radius:5px;padding:2px 4px"></select>
+          <select id="perturbPick" style="font-family:var(--mono);font-size:11px;background:#0d1018;color:var(--paper);border:1px solid var(--hair);border-radius:5px;padding:3px 6px;max-width:210px"></select>
           <button class="xbtn" id="perturbMinus" data-i18n="perturb_weaken">− affaiblir</button>
           <button class="xbtn" id="perturbPlus" data-i18n="perturb_strengthen">+ renforcer</button>
           <label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="perturbMode" style="accent-color:#E36F9E"> <span data-i18n="perturb_sustained_lab">maintenu</span></label>
           <button class="xbtn" id="perturbReset" data-i18n="perturb_reset">reset</button>
         </div>
         <div id="perturbRead" style="margin-top:6px;font-family:var(--mono);font-size:9px;line-height:1.45;color:var(--slate)"></div>
-      </div></div>
+      </div>
+      <div id="prismRead" style="margin-top:6px;font-family:var(--mono);font-size:9px;line-height:1.45;color:var(--slate)"></div>
+      <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="legend_prism">● sonde colorée par catégorie · halo = structure actuelle · ligne = trajectoire</div></div>
     <div><div class="heading" style="margin:8px 0 6px" data-i18n="head_exports">Exports</div>
       <div class="erow" style="gap:6px;flex-wrap:wrap"><button class="xbtn" id="exData" data-i18n="btn_data_csv">Données CSV</button><button class="xbtn" id="exTrans" data-i18n="btn_transitions">transitions.csv</button></div>
       <div class="heading" style="margin-top:6px;color:var(--slate-dim)" data-i18n="head_figures">Figures SVG :</div>
@@ -581,6 +583,10 @@ function step(dt){
   // perméabilité : diffusion de chaque séquence vers la moyenne inter-structures (homogénéise les textures ; nul à l'état parfait ; conserve la normalisation par structure)
   if(over>0){const cm=[0,0,0,0];for(let y=0;y<N;y++){for(let x=0;x<N;x++)cm[y]+=g[x][y];cm[y]/=N;}
     for(let x=0;x<N;x++){for(let y=0;y<N;y++)g[x][y]+=over*KDIFF*(cm[y]-g[x][y])*dt;g[x]=norm(g[x]);}}
+  // poids data-driven : la part-cible de chaque instance (0–1) tire sa cellule g[s][q] vers le poids interpolé (ancre douce, la circulation et le champ restent libres de révéler les écarts)
+  if(weightDrive&&probeMode==='instance'&&probeByActor){const Yr=tl.year;const tgt=[[null,null,null,null],[null,null,null,null],[null,null,null,null],[null,null,null,null]];
+    for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;const wv=probeWeightAt(st,Yr);if(wv==null)continue;const s=st[0].s,q=st[0].q;tgt[s][q]=(tgt[s][q]==null)?wv:Math.max(tgt[s][q],wv);}
+    for(let x=0;x<N;x++){let touched=false;for(let y=0;y<N;y++)if(tgt[x][y]!=null){g[x][y]+=KWEIGHT*dt*(tgt[x][y]-g[x][y]);if(g[x][y]<0)g[x][y]=0;touched=true;}if(touched)g[x]=norm(g[x]);}}
   // 2. couche globale
   const dS=[0,0,0,0];
   for(let x=0;x<N;x++){const R=ruler[x];
@@ -886,8 +892,8 @@ function parseDemoCSV(text){
 // ---- couche acteurs : cohorte réelle -> démographie (paliers) ----
 function catIdx(s){const k=cnorm(s);if(k.startsWith('etabli')||k.startsWith('possed'))return 0;if(k.startsWith('aspir'))return 1;if(k.startsWith('conserv'))return 2;if(k.startsWith('decu')||k.startsWith('exclu'))return 3;return -1;}
 function parseContractCSV(text){const rows=text.replace(/^\uFEFF/,'').trim().split(/\r?\n/);const head=rows[0].split(',').map(s=>cnorm(s));
-  const iA=head.indexOf('aid'),iY=head.indexOf('annee'),iS=head.indexOf('structure'),iC=head.indexOf('categorie'),iQ=head.indexOf('sequence');if(iA<0||iY<0||iS<0||iC<0)return null;
-  const rec=[];for(let r=1;r<rows.length;r++){const f=rows[r].split(',');const sk=cnorm(f[iS]).replace(/[^abcd]/g,'');const sx=L2I[sk[0]];if(sx==null)continue;const yr=parseInt(f[iY],10);if(isNaN(yr))continue;const cx=catIdx(f[iC]);let qx=sx;if(iQ>=0){const qk=cnorm(f[iQ]).replace(/[^abcd]/g,'');if(L2I[qk[0]]!=null)qx=L2I[qk[0]];}rec.push({aid:f[iA],year:yr,s:sx,q:qx,c:cx<0?2:cx});}
+  const iA=head.indexOf('aid'),iY=head.indexOf('annee'),iS=head.indexOf('structure'),iC=head.indexOf('categorie'),iQ=head.indexOf('sequence'),iW=(head.indexOf('poids')>=0?head.indexOf('poids'):head.indexOf('weight'));if(iA<0||iY<0||iS<0||iC<0)return null;
+  const rec=[];for(let r=1;r<rows.length;r++){const f=rows[r].split(',');const sk=cnorm(f[iS]).replace(/[^abcd]/g,'');const sx=L2I[sk[0]];if(sx==null)continue;const yr=parseInt(f[iY],10);if(isNaN(yr))continue;const cx=catIdx(f[iC]);let qx=sx;if(iQ>=0){const qk=cnorm(f[iQ]).replace(/[^abcd]/g,'');if(L2I[qk[0]]!=null)qx=L2I[qk[0]];}let wx=null;if(iW>=0){const wv=parseFloat(f[iW]);if(!isNaN(wv))wx=Math.max(0,Math.min(1,wv));}rec.push({aid:f[iA],year:yr,s:sx,q:qx,c:cx<0?2:cx,w:wx});}
   return rec.length?rec:null;}
 function buildCohortKeys(rec){const byA={};for(const r of rec){(byA[r.aid]=byA[r.aid]||[]).push(r);}let ymin=Infinity,ymax=-Infinity;
   for(const a in byA){byA[a].sort((x,y)=>x.year-y.year);ymin=Math.min(ymin,byA[a][0].year);ymax=Math.max(ymax,byA[a][byA[a].length-1].year);}
@@ -911,7 +917,8 @@ let cohortRec=null;
 const NMS=['A','B','C','D'],CATS=['etabli','aspirant','conservateur','decu'],CATS_EN=['established','aspirant','conservative','disappointed'];
 // ---- mode prisme : 1-5 acteurs-sondes ; lit le champ (régime, satellisation, catégorie) à travers eux ----
 let cohortByActor=null, probeByActor=null, prismSel=[], lastPrismYear=null, probeMode='actor'; const PROBECAP=8;
-let perturbHold=null; const PERT_PULSE=0.18, PERT_RATE=0.32;
+let perturbHold=null; const PERT_PULSE=0.18, PERT_RATE=0.5;
+let weightDrive=false; const KWEIGHT=0.6;
 function buildCohortByActor(rec){const byA={};for(const r of rec){(byA[r.aid]=byA[r.aid]||[]).push(r);}for(const a in byA)byA[a].sort((x,y)=>x.year-y.year);return byA;}
 function probePathSummary(st){let out=st.length?LAB[st[0].s]:'';for(let i=1;i<st.length;i++)if(st[i].s!==st[i-1].s)out+='→'+LAB[st[i].s];return out;}
 function renderProbeList(){const box=document.getElementById('prismPick');if(!box)return;box.innerHTML='';
@@ -939,6 +946,9 @@ function renderPerturb(){const box=document.getElementById('perturbBox');if(!box
   const tg=perturbTarget();if(tg){const s=tg.s;out+=LAB[s]+'·'+SN(s)+' · size '+S[s].toFixed(2)+' · recip '+structRecip(s).toFixed(2)+'<br><span style="color:var(--slate-dim)">seq '+g[s].map((v,i)=>(i===tg.q?'<b style="color:var(--paper)">'+v.toFixed(2)+'</b>':v.toFixed(2))).join(' / ')+'</span>';}
   el.innerHTML=out;}
 function probeStageAt(st,year){if(!st.length)return null;if(year<st[0].year)return{stage:st[0],status:'pre'};if(year>st[st.length-1].year)return{stage:st[st.length-1],status:'post'};let pos=st[0];for(const s of st){if(s.year<=year)pos=s;else break;}return{stage:pos,status:'live'};}
+function probeWeightAt(st,Y){if(!st||!st.length)return null;if(Y<st[0].year||Y>st[st.length-1].year)return null;
+  let lo=st[0],hi=st[st.length-1];for(let i=0;i<st.length;i++){if(st[i].year<=Y)lo=st[i];}for(let i=st.length-1;i>=0;i--){if(st[i].year>=Y)hi=st[i];}
+  const wl=(lo.w!=null?lo.w:0),wh=(hi.w!=null?hi.w:0);if(hi.year===lo.year)return wl;const t=(Y-lo.year)/(hi.year-lo.year);return wl+(wh-wl)*t;}
 function instLane(s,q){if(s===0&&q===0)return t('lane_culture');if(s===0&&q===3)return t('lane_publish');if(s===3)return t('lane_media');return t('lane_other');}
 function renderPrismRead(){const el=document.getElementById('prismRead');if(!el)return;if(!prismSel.length||!probeByActor){el.innerHTML='';return;}
   const Y=Math.round(tl.year);let out='';
@@ -946,7 +956,7 @@ function renderPrismRead(){const el=document.getElementById('prismRead');if(!el)
     const reg=(ruler[s]===s)?t('prism_auto'):(t('prism_satof')+' '+SN(ruler[s]));
     const satTxt=satS[s]>0.05?(' · sat '+satS[s].toFixed(2)):'';
     const life=r.status==='live'?'':(' ·('+t(r.status==='pre'?'prism_pre':'prism_post')+')');
-    const mid=probeMode==='instance'?(LAB[s]+'·'+SN(s)+' / seq '+LAB[q]+' · '+instLane(s,q)):(LAB[s]+'·'+SN(s)+' / seq '+LAB[q]+' · '+CN(c));
+    const mid=probeMode==='instance'?(LAB[s]+'·'+SN(s)+' / seq '+LAB[q]+' · '+instLane(s,q)+((function(){const wv=probeWeightAt(st,Y);return wv!=null?' · poids '+wv.toFixed(2):'';})())):(LAB[s]+'·'+SN(s)+' / seq '+LAB[q]+' · '+CN(c));
     out+='<div style="margin-bottom:3px"><b style="color:'+ACTCOL[c]+'">#'+aid+'</b> '+Y+life+'<br>'+mid+'<br><span style="color:var(--slate-dim)">'+reg+satTxt+'</span></div>';}
   el.innerHTML=out;}
 function tickPrism(){if(!prismSel.length)return;const Y=Math.round(tl.year);if(Y===lastPrismYear)return;lastPrismYear=Y;renderPrismRead();}
@@ -957,8 +967,9 @@ function drawProbes(){if(!prismSel.length||!probeByActor)return;const Y=Math.rou
     if(!inst){ctx.beginPath();for(let i=0;i<st.length;i++){const p=subPos(st[i].s,st[i].q);if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);}
       ctx.strokeStyle='rgba(233,234,242,0.22)';ctx.lineWidth=1;ctx.setLineDash([2,3]);ctx.stroke();ctx.setLineDash([]);}
     const p=subPos(r.stage.s,r.stage.q),col=ACTCOL[r.stage.c],live=r.status==='live',pr=0.5+0.5*Math.sin(phase*10);
-    ctx.beginPath();ctx.arc(p.x,p.y,7+2*pr,0,7);ctx.strokeStyle='rgba(233,234,242,'+(live?0.6:0.25)+')';ctx.lineWidth=1.5;ctx.stroke();
-    ctx.beginPath();ctx.arc(p.x,p.y,4,0,7);ctx.fillStyle=col;ctx.globalAlpha=live?1:0.45;ctx.fill();ctx.globalAlpha=1;
+    const wv=inst?probeWeightAt(st,Y):null,ws=(wv!=null?0.45+0.95*wv:1);
+    ctx.beginPath();ctx.arc(p.x,p.y,(7+2*pr)*Math.max(0.75,ws),0,7);ctx.strokeStyle='rgba(233,234,242,'+(live?0.6:0.25)+')';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.beginPath();ctx.arc(p.x,p.y,4*ws,0,7);ctx.fillStyle=col;ctx.globalAlpha=live?1:0.45;ctx.fill();ctx.globalAlpha=1;
     ctx.font='600 9px var(--mono),monospace';ctx.textAlign='center';ctx.textBaseline='bottom';
     ctx.lineWidth=3;ctx.lineJoin='round';ctx.strokeStyle='rgba(0,20,28,'+(live?0.85:0.5)+')';ctx.strokeText('#'+aid,p.x,p.y-8);
     ctx.fillStyle='rgba(233,234,242,'+(live?0.95:0.45)+')';ctx.fillText('#'+aid,p.x,p.y-8);}}
@@ -1067,6 +1078,7 @@ document.getElementById("probefile").onchange=e=>{const f=e.target.files[0];if(!
     const ids=Object.keys(probeByActor);prismSel=ids.slice(0,PROBECAP);lastPrismYear=null;
     const nonNum=ids.filter(a=>!/^\d+$/.test(a)).length;probeMode=nonNum>ids.length/2?'instance':'actor';
     if(probeMode==='instance')perturbHold=null;
+    weightDrive=(probeMode==='instance')&&Object.values(probeByActor).some(st=>st.some(r=>r.w!=null));
     if(!cohortRec){const keys=buildCohortKeys(rec);
       if(keys){tl.keys=keys;tl.sel=0;tl.start=keys[0].year;tl.end=keys[keys.length-1].year;tl.year=tl.start;
         cohortRec=rec;cohortByActor=buildCohortByActor(rec);cohortTrans=buildTransitions(rec);lastFluxYear=null;renderFlux(tl.start);

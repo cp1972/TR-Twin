@@ -1,5 +1,5 @@
-#+TITLE: Prism Mode — Actor Probes
-#+SUBTITLE: Reading the relational field through 1–5 actors (the actor-as-probe methodology; see the roadmap)
+#+TITLE: Prism Mode — Actor and Instance Probes
+#+SUBTITLE: Reading the relational field through a few actors or instances (the actor-as-probe methodology; see the roadmap)
 #+OPTIONS: toc:nil num:t ^:nil
 #+LANGUAGE: en
 
@@ -30,6 +30,43 @@ On the cohort of English working-class autobiographers (art and media), five pro
 | Tom Mann | 1875–1923 | C…B (B) | disappointed → established (+3) | carried into Politics (B) — the rise of B from the economic base |
 
 The two early, culture-anchored probes (Watson, Farish) both /fall/ — they begin established in Culture and are pulled down into the Economy, ending disappointed (net −3 each). The two late probes rise toward Politics: Tom Mann, born into the colliery, ends established in B (net +3); Joseph Burgess uses journalism (D) as his ramp into B. A single life (N = 1) thus re-exhibits, in miniature, what the full cohort showed. The probe logic passes its check.
+
+* Instance probes: lanes, weights, and perturbation
+
+The same prism loader carries /instance/ probes. When the loaded extract uses non-numeric =aid= slugs (e.g. =reuters=, =bakunin_press=) the twin switches to *instance mode* automatically and relabels the side reading in instance terms.
+
+** Lanes
+
+An instance is located by its structure and sequence, and read as a /lane/ rather than an actor category:
+- =A·seqA= — culture core (great reviews, formations: the consecrating instances of Culture);
+- =A·seqD= — publishing bridge, i.e. the D-sequence of Culture g[A][D]: a press still embedded in the cultural field, poised to migrate to structure D when the actors who run it leave A for D;
+- =D= — media proper (newspapers, agencies).
+
+Instances do not circulate. They are shown only while they exist (between their founding and closing rows); before and after, they are absent from the scene. They strengthen by socialising the actors who come to them, and weaken under satellisation or when the demand for socialisation (actor circulation toward them) becomes too strong or too weak.
+
+** Weights (the =poids= column)
+
+The contract table accepts an optional =poids= column (0–1) per dated row. It encodes the instance's /empirical force trajectory/ — its rise, peak and decline. In instance mode the twin reads the time-interpolated weight and drives the instance's cell g[structure][sequence] toward it as a *target share*: g[s][q] relaxes toward the weight and the renormalisation redistributes the remainder over the other sequences. The probe dot grows and shrinks with the weight.
+
+Two design points worth stating, because they matter:
+- *Soft anchor, not a clamp.* The weight is a gentle pull (a moderate rate), not a lock. The field and the actor circulation can still push the cell off its weight, and that deviation is exactly what one wants to read — it is informative, not noise.
+- *Aggregation by maximum.* When several instances share one cell (e.g. several papers in D·seqD), the cell's target is the /maximum/ of the active weights: the strongest instance present sets the sequence's force.
+
+** No collision with actor circulation
+
+Driving an instance's weight does not collide with the actor circulation, by construction. The weight writes g[s][q] — the instance's force. The actor circulation never writes that variable; it acts through other channels (it modulates mobility, hence the internal flux and the size dynamics; excluded actors drive dispersion). The two meet only at the structure level (size, reciprocity, the inequality cascade), where both effects sum. Actor circulation is therefore one /revealer/ of the perturbations an instance undergoes — not a co-driver of its force. Keeping the weight a soft anchor preserves precisely this revealing role: had the cell been clamped to the weight, circulation could no longer reveal a gap.
+
+** Perturbation (the counterfactual)
+
+On top of the empirical weight, a precise instance can be perturbed — the dual of perturbing actor circulation. In the *Instance perturbation* panel one picks an instance and applies a Δ to its cell g[s][q]:
+- /pulse/ — a one-shot kick; the transient then resorbs (back toward the weight) or diverges;
+- /sustained/ — the Δ is held, and one reads the new equilibrium.
+
+The ripple is not scripted: it propagates through the existing within-structure dynamics — to the /other sequences/ of the structure (horizontal) and up to the structure's size, reciprocity and cascade (transversal). Whether a perturbed instance recovers or collapses /emerges/ from the satellisation of its structure and the demand it faces: a strong satellisation combined with an ill-suited demand is the worst case and drives the instance toward disappearance. A reset lifts the sustained hold.
+
+** The demo extract
+
+=instances_probe_demo.csv= carries six instances across the three lanes and two centuries, with weight curves anchored on real milestones (see =instances_probe_demo_notes.md= for sources): Mechanics' Magazine and the Secular Review (culture core), Bakunin Press (publishing bridge), and Cotton Factory Times, Reuters and the Daily Herald (media). Load it in instance mode to watch each instance wax and wane on its own, then perturb one and read the wave.
 
 * Caveats (read before using on your own data)
 
