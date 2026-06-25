@@ -905,7 +905,7 @@ function probeStageAt(st,year){if(!st.length)return null;if(year<st[0].year)retu
 function instLane(s,q){if(s===0&&q===0)return t('lane_culture');if(s===0&&q===3)return t('lane_publish');if(s===3)return t('lane_media');return t('lane_other');}
 function renderPrismRead(){const el=document.getElementById('prismRead');if(!el)return;if(!prismSel.length||!probeByActor){el.innerHTML='';return;}
   const Y=Math.round(tl.year);let out='';
-  for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;const r=probeStageAt(st,Y);if(!r)continue;const s=r.stage.s,q=r.stage.q,c=r.stage.c;
+  for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;const r=probeStageAt(st,Y);if(!r)continue;if(probeMode==='instance'&&r.status!=='live')continue;const s=r.stage.s,q=r.stage.q,c=r.stage.c;
     const reg=(ruler[s]===s)?t('prism_auto'):(t('prism_satof')+' '+SN(ruler[s]));
     const satTxt=satS[s]>0.05?(' · sat '+satS[s].toFixed(2)):'';
     const life=r.status==='live'?'':(' ·('+t(r.status==='pre'?'prism_pre':'prism_post')+')');
@@ -913,11 +913,13 @@ function renderPrismRead(){const el=document.getElementById('prismRead');if(!el)
     out+='<div style="margin-bottom:3px"><b style="color:'+ACTCOL[c]+'">#'+aid+'</b> '+Y+life+'<br>'+mid+'<br><span style="color:var(--slate-dim)">'+reg+satTxt+'</span></div>';}
   el.innerHTML=out;}
 function tickPrism(){if(!prismSel.length)return;const Y=Math.round(tl.year);if(Y===lastPrismYear)return;lastPrismYear=Y;renderPrismRead();}
-function drawProbes(){if(!prismSel.length||!probeByActor)return;const Y=Math.round(tl.year);
+function drawProbes(){if(!prismSel.length||!probeByActor)return;const Y=Math.round(tl.year);const inst=(probeMode==='instance');
   for(const aid of prismSel){const st=probeByActor[aid];if(!st||!st.length)continue;
-    ctx.beginPath();for(let i=0;i<st.length;i++){const p=subPos(st[i].s,st[i].q);if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);}
-    ctx.strokeStyle='rgba(233,234,242,0.22)';ctx.lineWidth=1;ctx.setLineDash([2,3]);ctx.stroke();ctx.setLineDash([]);
-    const r=probeStageAt(st,Y);if(!r)continue;const p=subPos(r.stage.s,r.stage.q),col=ACTCOL[r.stage.c],live=r.status==='live',pr=0.5+0.5*Math.sin(phase*10);
+    const r=probeStageAt(st,Y);if(!r)continue;
+    if(inst&&r.status!=='live')continue;
+    if(!inst){ctx.beginPath();for(let i=0;i<st.length;i++){const p=subPos(st[i].s,st[i].q);if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);}
+      ctx.strokeStyle='rgba(233,234,242,0.22)';ctx.lineWidth=1;ctx.setLineDash([2,3]);ctx.stroke();ctx.setLineDash([]);}
+    const p=subPos(r.stage.s,r.stage.q),col=ACTCOL[r.stage.c],live=r.status==='live',pr=0.5+0.5*Math.sin(phase*10);
     ctx.beginPath();ctx.arc(p.x,p.y,7+2*pr,0,7);ctx.strokeStyle='rgba(233,234,242,'+(live?0.6:0.25)+')';ctx.lineWidth=1.5;ctx.stroke();
     ctx.beginPath();ctx.arc(p.x,p.y,4,0,7);ctx.fillStyle=col;ctx.globalAlpha=live?1:0.45;ctx.fill();ctx.globalAlpha=1;
     ctx.font='600 9px var(--mono),monospace';ctx.textAlign='center';ctx.textBaseline='bottom';
