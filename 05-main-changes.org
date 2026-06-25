@@ -1,0 +1,56 @@
+#+TITLE: Main Changes
+#+SUBTITLE: Version history of the Theory of the Relation simulator (selection)
+#+OPTIONS: toc:t num:t ^:nil
+#+LANGUAGE: en
+
+# Status: version 59 (v59). Living document.
+# Section number preserved from the master documentation (8).
+
+* 8. Version history (selection)
+
+- *v1–v11:* Construction of the base model — relational structures and sequences, chains, regime, pump/feedback/mirroring, inter-structure coupling, Gini, aesthetics.
+- *v12:* Simplified chronology (always keyframe-driven), speed control, sequences arranged in a ring around the core.
+- *v13:* Progressive (smoothed) rupture instead of abrupt disintegration; geometric speed control; CSV import.
+- *v14:* Migration of actors (mass-conserving), sclerosis condition for the structure switch.
+- *v15:* Reproducible random seed; visualisation of migration (golden dots).
+- *v16–v17:* Migration target and declassing clarified according to the theory: arrival in the core of the target structure, declassed; declassing control.
+- *v18:* Increased hysteresis margin against regime flickering (which previously stifled the dynamism).
+- *v19:* Demographics per relational structure (weight + composition), anchoring, A/B/C/D selection, new CSV format.
+- *v20:* Relational dynamism principle (influence to the most mobile relational structure), weaker anchoring and relaxation — the relational size can now deviate strongly from the population.
+- *v21:* Plain-language naming of all controls and displays; theoretical term in each case as a tooltip; Established/Disappointed instead of possessing/excluded.
+- *v22:* Non-deviant default values per control (displayed), symmetric start state; tooltips unified in French.
+- *v23:* Flight of the disappointed (migration of the fourth category); reciprocity as a measured curve, shown together with inequality in the central panel.
+- *v24:* Refined defaults of the healthy state: declassing 0.5 and "advantage for dynamic structures" 0.5 (active mobility, but without effect in the symmetric start).
+- *v25:* Mediation instances, stage 1: force per type (relation/sequence/sub-sequence), fed by the processed actor flow; strengthening, weakening, destruction; effect on reciprocity; health display per structure.
+- *v26:* Stage 2: power matrix — the health of each structure is the weighted mean of its instances, so that each structure becomes vulnerable where its strength lies.
+- *v27:* Stage 3: degraded relay — structural problem in a cascade, strengthening then exhaustion of the taking-over instance (energy reserve), control instance that re-regulates; display of the "unregulated tension" that diminishes reciprocity.
+- *v28:* Physical fate, descending coupling: mediation dampens or accelerates the fatigue (factor gm). Good mediation carries, unregulated tension accelerates the disintegration.
+- *v29:* Ascending coupling — profiled forces (PT), ascending coupling (deliberately weak in C), threshold expansion (Pareto), control that solves the remainder. The four structures diverge for the first time; the perfect state is preserved (threshold 1.15).
+- *v30:* Display of the three instance forces per structure (relation/sequence/sub-sequence) instead of a capped mean; force ceiling raised from 1.7 to 2.5, so that the lower instance is no longer artificially plateaued — the profiles (especially those of C) become legible and respond to the controls.
+- *v31:* Fourth display bar per structure for the engagement of control above its rest value (high in D with simultaneously low tension — the evidence of successful regulation).
+- *v32:* Satellisation I: the distress of marginalisation. Satellisation (deficit × dominance) feeds the structural problem (the cascade and control of the marginalised structures kick in) and erodes the internal solidity (reversible). Reciprocity and inequality are now read two-sidedly — no longer only from the perspective of expansion.
+- *v33:* Satellisation II (active): absorption (capped by a lower bound) and continuous orbit of the satellite toward the dominant; ruler debouncing, which resolves the limit cycle driven by ruler flickering (end of the visible jumping of the relational structures).
+- *v34:* Reorganisation of the interface: central evaluation panel at the top left (evolution curve, global bars, instances per structure); title "Theory of the Relation. Simulator"; removal of the "Shake/Draw" buttons and of the separate trajectory.
+- *v35:* Permeability between structures (Section 5.5): explicit diffusion of the inner composition toward the cross-structural mean (KDIFF = 1.5), whereby the control "over" acts visibly; zero at the perfect state.
+- *v36:* Terminological unification of the interface: "structure (relationnelle)" instead of "sphère", "séquence" instead of "sous-sphère", "fragments séquences" instead of "morceau"; the misleading control "internal circulation" is clarified to "assimilation".
+- *v37:* Fine-tuning of the labels: control "actors circulation" (rate, distinguished from "migration of actors"); legend of the mini-curve restored (Gini white / reciprocity turquoise); the red bar "tension" becomes "overload".
+- *v38:* Gini and reciprocity per structure (Section 5.16): own reciprocity R[x] and internal Gini G[x] per structure, as a refinement of the global measures; verified headless (R = 1 at the perfect state).
+- *v39:* Contributions to the global level (Section 5.16): signed contribution of each structure to inequality (Σ = global Gini) and contribution to the weakening of reciprocity (Σ = global deficit) — it becomes visible that the dominant weakens systemic reciprocity the most, although its own is the highest. The central panel is now a horizontal strip of three blocks (global / instances / per structure).
+- *v40:* Controller profiles (Section 7.1): the twelve mechanism controls can be governed over time via a CSV (linear interpolation, label as alias), governed controls marked turquoise. Verified headless: correct interpolation, a neutral profile reproduces the manual run, time-varying controls change the dynamism stably, the perfect state is preserved.
+- *v41:* Theory profiles with chain coupling (Sections 7.1 and 9): a profile can also set the chains (row "chaine_X,…") and thus carry a complete theory configuration. Use case: the "dialectised Bourdieu" profile couples A↔C directly (short-circuit of the mediation via D and B) at high permeability — the operationalisation of capital convertibility.
+- *v42:* Persistence of the profile chains: set chains now survive every reset and the start of the chronology (previously the timeline start reset the chains and thereby deleted the premise). A profile without chains explicitly establishes the standard chains of the Theory of the Relation.
+- *v43:* Selective plasticity per structure: a chain declared in the profile is fixed (posited premise), the others remain plastic. Thus A and C can be held rigid (dialectised) while B and D continue to reorient — theoretically fruitful (see Section 9.2a in the "Methodology" document).
+- *v44:* Actor layer (Section 7.2): import of a real cohort (contract table) as demographics, step interpolation, switch linear/steps. Verified headless (aggregation, conservation of stocks).
+- *v45:* Circulation flows: 4×4 matrix of the structure switches in a sliding window, living along the chronology — the carried paths become visible.
+- *v46:* Enlarged, more legible flow matrix.
+- *v47:* Removal of the "start size" control from the interface (the symmetric start remains internal); tidying up before the outputs.
+- *v48:* Result outputs (Section 10): deterministic replay of the loaded configuration from beginning to end; CSV of the time series (sizes, Gini/reciprocity/overload, per structure own reciprocity, internal Gini, contributions, ruler, satellisation, as well as the 16 columns of the category composition) and CSV of the actor transitions (long format); five print-ready SVG figures (sizes, Gini/reciprocity, per structure, flows, internal mobility).
+- *v49:* Correction of the SVG output: escaping of the XML special characters (&, <, >) in titles and labels; accents in the figures restored.
+- *v50:* Sequence-stake layer (Section 9.5): the contract table is enriched by a column "sequence" (actor = structure + sequence + category); the transition export additionally captures the sequence changes (struct/seq/cat, long format); an aggregated figure shows the sequence-stake composition per structure over the whole period. Kept deliberately descriptive, not model-governing (thin cohort). Verified headless: 119 transitions = 58 structure + 21 sequence + 40 category.
+- *v51:* Correction of the timeline end: at the end of the chronology the run is stopped cleanly (running = false, reset, play button reset) — no more accidental drifting on.
+- *v52–v53:* Internationalisation (DE/EN/FR): infrastructure (a trilingual dictionary, language switch, pill, English default) and translation of the entire interface — central strip, control labels and tooltips, structure names, actor categories, regime note, legends (Section 6.1).
+- *v54–v55:* Completion of the translation (import buttons, checkboxes, sequence detail, legends, status messages) and pedagogical revision of the control tooltips for first-time users.
+- *v56:* Localisation of the outputs: file names, titles, and legends of the SVG figures as well as status messages follow the language; the CSV files are prefixed with a UTF-8 BOM (correct umlauts in Excel).
+- *v57:* Fixed English CSV column headers (language-independently stable for analysis) with localised file names; Solarized colour palette for the six SVG figures (light cream ground, Solarized accents, axes and text in muted tones).
+- *v58:* Actor categories as data values in the transitions follow the language (Etablierte/… or established/…), the column headers stay English; adaptive title size in the line charts (long titles shrink, so that "per structure" stays fully visible).
+- *v59:* Cascade of the three inequality levels (Section 5.17): the finer resolution of inequality, only planned up to v58, is implemented as a measurement layer — transversal (between the structures, = global Gini), horizontal (between the sequences of a structure, = mean of the internal Ginis), and vertical (new: status gap between the four actor categories within a sequence, as a size-weighted status Gini, globally as well as per structure). New block in the central strip with the vertical inequality per structure and the reading "the apex homogenises, the dominated stratify". A pure display from the existing state (no new force); not yet carried in the result outputs.
