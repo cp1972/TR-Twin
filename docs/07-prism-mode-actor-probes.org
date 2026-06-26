@@ -56,17 +56,61 @@ Two design points worth stating, because they matter:
 
 Driving an instance's weight does not collide with the actor circulation, by construction. The weight writes g[s][q] — the instance's force. The actor circulation never writes that variable; it acts through other channels (it modulates mobility, hence the internal flux and the size dynamics; excluded actors drive dispersion). The two meet only at the structure level (size, reciprocity, the inequality cascade), where both effects sum. Actor circulation is therefore one /revealer/ of the perturbations an instance undergoes — not a co-driver of its force. Keeping the weight a soft anchor preserves precisely this revealing role: had the cell been clamped to the weight, circulation could no longer reveal a gap.
 
-** Perturbation (the counterfactual)
+** Perturbation (the counterfactual) — through the weight column
 
-On top of the empirical weight, a precise instance can be perturbed — the dual of perturbing actor circulation. In the *Instance perturbation* panel one picks an instance and applies a Δ to its cell g[s][q]:
-- /pulse/ — a one-shot kick; the transient then resorbs (back toward the weight) or diverges;
-- /sustained/ — the Δ is held, and one reads the new equilibrium.
-
-The ripple is not scripted: it propagates through the existing within-structure dynamics — to the /other sequences/ of the structure (horizontal) and up to the structure's size, reciprocity and cascade (transversal). Whether a perturbed instance recovers or collapses /emerges/ from the satellisation of its structure and the demand it faces: a strong satellisation combined with an ill-suited demand is the worst case and drives the instance toward disappearance. A reset lifts the sustained hold.
+Perturbation is expressed through the data, not through manual controls. To explore a counterfactual — "what if this instance had been stronger or weaker, or had died earlier?" — edit the instance's =poids= curve in the extract and reload. The twin drives the cell toward the new curve and the ripple propagates through the existing within-structure dynamics — to the /other sequences/ of the structure (horizontal) and up to the structure's size, reciprocity and inequality cascade (transversal). Whether a perturbed instance recovers or collapses /emerges/ from the satellisation of its structure and the demand it faces: a strong satellisation combined with an ill-suited demand is the worst case and drives the instance toward disappearance. (Earlier builds offered manual pulse/sustained buttons; these were removed once the weight column made perturbation data-driven and reproducible.)
 
 ** The demo extract
 
 =instances_probe_demo.csv= carries six instances across the three lanes and two centuries, with weight curves anchored on real milestones (see =instances_probe_demo_notes.md= for sources): Mechanics' Magazine and the Secular Review (culture core), Bakunin Press (publishing bridge), and Cotton Factory Times, Reuters and the Daily Herald (media). Load it in instance mode to watch each instance wax and wane on its own, then perturb one and read the wave.
+
+* Comparative read-out: four signals and their aggregation
+
+Alongside the field reading, four time-series summarise the system, each given /per structure A·B·C·D and overall/:
+(1) *actor circulation* — windowed volume of structure-to-structure transitions; (2) *instance strengthening/weakening* — the instances' force (=poids=), aggregated by maximum per cell; (3) *inequality* — concentration, as a Gini; (4) *reciprocity* — symmetry of exchange.
+
+The overall figure is /not/ a plain mean of the four structures — a plain mean treats the structures as interchangeable equal units and erases what the theory most cares about. The aggregation is signal-specific:
+- circulation overall = *total* (a volume sums);
+- instance force and reciprocity overall = *size-weighted mean* (weight each structure by its size S[x]: a large structure's reciprocity matters more to the system than a tiny one's);
+- inequality overall = the *global, between-structure Gini* (the Gini of the four structure sizes), which captures the transversal inequality /between/ structures — exactly the level that a mean of the within-structure Ginis would miss.
+
+The bundled figures =figures/fig_instance_lifelines.svg= (birth, strength and death of each demo instance) and =figures/fig_four_signals.svg= (the four signals on the autobiographers' cohort) illustrate both read-outs; the generator scripts sit beside them for reproducibility.
+
+** Instance cohort (census) vs prism probe
+
+Two left-panel inputs load instances, and they are not the same:
+- /Prism probe/ (=probefile=, in the prism panel) is a *lens*: a small extract (capped at 8), each instance drawn and read individually, for close inspection.
+- /Instance cohort/ (=instcohortfile=) is a *census*: it loads the whole instance stock uncapped, drives every cell by the weight (max aggregation), and draws all live instances at once with a compact per-structure readout (no per-dot labels; overlapping instances in a cell are slightly jittered).
+
+The census is the teaching configuration: load a full actor cohort (which animates the field — circulation, sizes, Gini, reciprocity) and a full instance cohort (which animates the instances' force), and the whole relational order moves at once. =instances_cohort_demo.csv= provides 60 instances with generic rise–peak–decline weight curves (illustrative); the six in =instances_probe_demo.csv= carry milestone-anchored curves.
+
+** Control instances and their grip (emprise)
+
+Each relational structure carries a /control/ instance — in the engine, a per-structure control strength that rises when the structure is in distress (over-extension or marginalisation) and that already restores the structure's subordinate instances through their energy reserve.
+
+Faithful to the theory, the control does not dampen the other instances — it /improves their reactivity/. A strong control of structure x makes that structure's data-driven instances track their weight faster, and restores weakened sequences more vigorously: an /asymmetric/ gain — it speeds recovery upward, it does not accelerate decline — with a floor that keeps the structure's sequences from collapsing. Think of the numerical grade introduced into schooling: a control device that lets the system evaluate its public better, adapt recruitment, and so strengthen the whole of structure A at once.
+
+The /grip/ (emprise) is the flip side: this gain is entirely contingent on the control. The sequences react better, but their improved reactivity is governed by the control's strength — if the control weakens or is captured, the structure loses its enhanced responsiveness at once. Reactivity is bought with dependence.
+
+** Control capacity: derived, not decreed
+
+The control of a structure is an /apparatus/, not a point: a parc of control instances (literary criticism, audits, opinion polls, watchdogs…). Its strength is read off that parc, not stipulated. A row in an instance contract is a control instance when =categorie = controle=; its =poids= is the instance's own authority over time. Such rows do not drive a sequence cell — they feed the structure's control capacity.
+
+Per structure x, the capacity (a floor for the control strength Ictrl[x]) is:
+
+: Ictrl_floor[x] = 1 + K · sat(Σ wᵢ) · ( S₀ + (1−S₀)·Strat_x )
+
+the sum running over the active control instances of x, with sat(W)=1−e^(−λW) saturating the aggregate and the stratification Strat_x = Gini(wᵢ)·(1−1/n), n = number of active control instances. Two deliberate choices: the parc enters by the /sum of weights/ (ten powerless graders weigh less than one that makes law), not by a flat count; and stratification /multiplies/ rather than adds — several identifiable, ordered levels control far more than a heap of equivalent voices, while the (1−1/n) term refuses to credit a single instance (a monopoly is not a graded ladder).
+
+Capacity and usage are kept separate: the data sets the capacity (the floor), while the endogenous control — which rises with the structure's real distress — plays the usage on top. With a realistic parc, structure D (which lives off control) derives the highest capacity and A the lowest: the gradation A < B < C < D is /derived from the parc, not decreed/ (see =control_parc_demo.csv= and =control_capacity.svg=).
+
+** Differential regulation by sequence
+
+Control is not uniform across a structure's sequences. Each control instance regulates a /target sequence/ — its =sequence= column — and amplifies the reactivity of that cell, not the whole structure flatly. Literary criticism (A·seqD) sharpens the selection of cultural works; an attendance survey would bear on a different sequence. So the capacity is read per cell, capCell[x][q], from the control instances that target q, and the structure's sequences are amplified unevenly. The endogenous usage (the structure's distress response) still spreads over the whole structure on top, so a sequence with no dedicated control still benefits when its structure is under strain — but the data-driven differential favours the sequences that are actually watched. With a realistic parc, structure D stratifies its control across all four sequences while A concentrates it on one (see =control_parc_demo.csv= and =control_profile.svg=).
+
+** Empirical control parc (art-and-media corpus)
+
+Applied to the 60 instances of =instances_extract_contract.csv=, the control labelling yields a real parc for A and D (plus one C instance), with B kept illustrative for contrast (see =control_parc_empirical.csv= and =control_parc_empirical_notes.md=). The derived capacity at 1950 — A 1.55 > D 1.29 > B 1.25 > C 1.12 — /inverts/ the theoretical A<B<C<D prior, and rightly so: the corpus catches the media sphere being born and emancipating from the State, so Culture still carries the established control apparatus (certification /and/ criticism) while Media is only building its own, with Reuters the durable anchor. A finding read off the parc, not decreed (=control_capacity_empirical.svg=, =control_profile_empirical.svg=).
 
 * Caveats (read before using on your own data)
 

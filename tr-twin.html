@@ -103,8 +103,8 @@
   .note b{color:var(--paper);font-style:normal;font-weight:500}
   hr{border:none;border-top:1px solid var(--hair)}
   @media (max-width:860px){.wrap{grid-template-columns:1fr;grid-template-rows:1fr auto}.panel{border-left:none;border-top:1px solid var(--hair);max-height:56vh}.stage h1{font-size:24px;top:18px;left:20px}.stage .sub{top:48px;left:20px}.stage .hint{left:20px;bottom:14px}.stage .stageinfo-left{top:50px;left:14px;max-width:46vw;gap:8px;padding:9px 10px}.stage .stageinfo-right{top:50px;right:10px;max-width:48vw;gap:8px;padding:9px 10px}.stage .sirow{gap:8px}.stage .sirow .sblock:not(:first-child){border-left:none;padding-left:0}.stage .stageinfo-left .sblock:not(:first-child){border-top:none;padding-top:0}}
-  #perturbPick option{background:#0d1018;color:#e9eaf2;font-size:12px}
-  #perturbBox .xbtn{font-size:11px;padding:4px 8px}
+  #kflist{max-height:148px;overflow-y:auto;border:1px solid var(--hair);border-radius:7px;padding:6px;background:rgba(255,255,255,.015)}
+  #kflist::-webkit-scrollbar{width:8px}#kflist::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:8px}
 </style>
 </head>
 <body>
@@ -202,23 +202,14 @@
     <div><div class="heading" style="margin:8px 0 6px" data-i18n="head_imp_cohort">Importer une cohorte d'acteurs (table-contrat CSV)</div>
       <div class="erow" style="gap:8px"><label for="contractfile" class="filebtn" data-i18n="btn_choosefile">Choisir un fichier</label><input id="contractfile" type="file" accept=".csv,text/csv" style="display:none"><span id="contractstatus" style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)"></span></div>
       <div class="erow" style="gap:10px;margin-top:5px;align-items:center"><label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="paliers" style="accent-color:#46CDB8"> <span data-i18n="lab_paliers">interpolation en paliers</span></label><span class="heading" style="color:var(--slate-dim)" data-i18n="desc_paliers">cohorte = paliers · démographie macro = linéaire</span></div></div>
+    <div><div class="heading" style="margin:8px 0 6px" data-i18n="head_imp_instcohort">Importer une cohorte d'instances (table-contrat CSV)</div>
+      <div class="erow" style="gap:8px"><label for="instcohortfile" class="filebtn" data-i18n="btn_choosefile">Choisir un fichier</label><input id="instcohortfile" type="file" accept=".csv,text/csv" style="display:none"><span id="instcohortstatus" style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)"></span></div>
+      <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="desc_imp_instcohort">tout le parc d'instances (recensement, sans plafond) · colonnes : aid, année, structure, séquence, catégorie, poids · pilote g[structure·séquence] par le poids</div></div>
     <div id="prismBox"><div class="heading" style="margin:8px 0 6px" data-i18n="head_prism">Mode prisme · sondes</div>
       <div class="heading" style="color:var(--slate-dim);line-height:1.5" data-i18n="desc_prism">Charge un petit extrait-sondes (1 à 5 lignes) : chaque sonde est tracée sur la scène et tu lis le champ à travers elle. Si une cohorte complète est chargée par ailleurs, elle construit le champ ; sinon l'extrait sert aussi de champ. Sonde heuristique, pas recensement.</div>
       <div class="erow" style="gap:8px;margin-top:6px"><label for="probefile" class="filebtn" data-i18n="btn_choosefile">Choisir un fichier</label><input id="probefile" type="file" accept=".csv,text/csv" style="display:none"><span id="probestatus" style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)"></span></div>
       <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="desc_probe">extrait au format table-contrat (mêmes colonnes : aid, année, structure, séquence, catégorie) · acteurs aujourd'hui, instances demain</div>
       <div id="prismPick" style="margin-top:6px;max-height:118px;overflow:auto;display:flex;flex-direction:column;gap:3px"></div>
-      <div id="perturbBox" style="display:none;margin-top:7px;border-top:1px solid rgba(255,255,255,.08);padding-top:7px">
-        <div class="heading" data-i18n="head_perturb">Perturbation d'instance</div>
-        <div class="heading" style="color:var(--slate-dim);line-height:1.5" data-i18n="perturb_hint">cible une instance chargée · ponctuel ou maintenu · on lit l'onde</div>
-        <div class="erow" style="gap:6px;margin-top:5px;flex-wrap:wrap;align-items:center">
-          <select id="perturbPick" style="font-family:var(--mono);font-size:11px;background:#0d1018;color:var(--paper);border:1px solid var(--hair);border-radius:5px;padding:3px 6px;max-width:210px"></select>
-          <button class="xbtn" id="perturbMinus" data-i18n="perturb_weaken">− affaiblir</button>
-          <button class="xbtn" id="perturbPlus" data-i18n="perturb_strengthen">+ renforcer</button>
-          <label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="perturbMode" style="accent-color:#E36F9E"> <span data-i18n="perturb_sustained_lab">maintenu</span></label>
-          <button class="xbtn" id="perturbReset" data-i18n="perturb_reset">reset</button>
-        </div>
-        <div id="perturbRead" style="margin-top:6px;font-family:var(--mono);font-size:9px;line-height:1.45;color:var(--slate)"></div>
-      </div>
       <div id="prismRead" style="margin-top:6px;font-family:var(--mono);font-size:9px;line-height:1.45;color:var(--slate)"></div>
       <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="legend_prism">● sonde colorée par catégorie · halo = structure actuelle · ligne = trajectoire</div></div>
     <div><div class="heading" style="margin:8px 0 6px" data-i18n="head_exports">Exports</div>
@@ -282,6 +273,12 @@ const I18N={
   head_imp_pop:{fr:'Importer des données de population (CSV)',de:'Bevölkerungsdaten importieren (CSV)',en:'Import population data (CSV)'},
   head_imp_cursor:{fr:'Importer un profil de curseurs (CSV)',de:'Reglerprofil importieren (CSV)',en:'Import a cursor profile (CSV)'},
   head_imp_cohort:{fr:'Importer une cohorte d\'acteurs (table-contrat CSV)',de:'Akteurskohorte importieren (Vertragstabelle CSV)',en:'Import an actor cohort (contract table CSV)'},
+  head_imp_instcohort:{fr:'Importer une cohorte d\'instances (table-contrat CSV)',de:'Instanzenkohorte importieren (Vertragstabelle CSV)',en:'Import an instance cohort (contract table CSV)'},
+  desc_imp_instcohort:{fr:'tout le parc d\'instances (recensement, sans plafond) · colonnes : aid, année, structure, séquence, catégorie, poids · pilote g[structure·séquence] par le poids',de:'der gesamte Instanzenbestand (Vollerhebung, ohne Obergrenze) · Spalten: aid, Jahr, Struktur, Sequenz, Kategorie, Gewicht · steuert g[Struktur·Sequenz] über das Gewicht',en:'the whole instance stock (census, uncapped) · columns: aid, year, structure, sequence, category, weight · drives g[structure·sequence] via the weight'},
+  st_instances:{fr:'instances',de:'Instanzen',en:'instances'},
+  st_no_weight:{fr:'sans colonne poids',de:'ohne Gewichtsspalte',en:'no weight column'},
+  census_live:{fr:'vivantes',de:'aktiv',en:'live'},
+  census_force:{fr:'force',de:'Stärke',en:'force'},
   head_exports:{fr:'Exports',de:'Ausgaben',en:'Exports'},
   head_figures:{fr:'Figures SVG :',de:'SVG-Figuren:',en:'SVG figures:'},
   btn_run:{fr:'▶ Lancer',de:'▶ Starten',en:'▶ Start'},
@@ -372,14 +369,6 @@ const I18N={
   lane_media:{fr:'médias (D)',de:'Medien (D)',en:'media (D)'},
   lane_other:{fr:'autre couloir',de:'andere Spur',en:'other lane'},
   legend_lane:{fr:'● couloir : noyau culturel · pont-édition · médias',de:'● Spur: Kulturkern · Verlags-Brücke · Medien',en:'● lane: culture core · publishing bridge · media'},
-  head_perturb:{fr:'Perturbation d\'instance',de:'Instanz-Störung',en:'Instance perturbation'},
-  perturb_hint:{fr:'cible une instance chargée · ponctuel (un coup) ou maintenu · on lit l\'onde sur la séquence et la structure',de:'zielt auf eine geladene Instanz · einmalig oder gehalten · die Welle auf Sequenz und Struktur wird gelesen',en:'targets a loaded instance · pulse (one shot) or sustained · read the ripple on the sequence and the structure'},
-  perturb_weaken:{fr:'− affaiblir',de:'− schwächen',en:'− weaken'},
-  perturb_strengthen:{fr:'+ renforcer',de:'+ stärken',en:'+ strengthen'},
-  perturb_sustained_lab:{fr:'maintenu',de:'gehalten',en:'sustained'},
-  perturb_reset:{fr:'reset',de:'Reset',en:'reset'},
-  perturb_on:{fr:'maintien actif',de:'Haltung aktiv',en:'hold active'},
-  perturb_off:{fr:'pas de maintien (ponctuel)',de:'kein Halten (einmalig)',en:'no hold (pulse mode)'},
   legend_prism:{fr:'● sonde colorée par catégorie · halo = structure actuelle · ligne = trajectoire',de:'● Sonde nach Kategorie gefärbt · Halo = aktuelle Struktur · Linie = Bahn',en:'● probe coloured by category · halo = current structure · line = trajectory'},
   prism_auto:{fr:'autonome',de:'autonom',en:'autonomous'},
   prism_satof:{fr:'satellite de',de:'Satellit von',en:'satellite of'},
@@ -450,7 +439,7 @@ function setLang(lang){if(!['fr','de','en'].includes(lang))lang='en';LANG=lang;
   document.querySelectorAll('[data-i18n-title]').forEach(el=>{const k=el.getAttribute('data-i18n-title');if(I18N[k])el.title=I18N[k][lang];});
   document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(I18N[k])el.innerHTML=I18N[k][lang];});
   document.documentElement.lang=lang;
-  if(typeof renderPrismRead==='function'){lastPrismYear=null;renderPrismRead();}if(typeof renderProbeList==='function'){renderProbeList();}if(typeof renderPerturb==='function'){populatePerturbPick();renderPerturb();}
+  if(typeof renderPrismRead==='function'){lastPrismYear=null;renderPrismRead();}if(typeof renderProbeList==='function'){renderProbeList();}
   document.querySelectorAll('.langbtn').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));
   if(typeof updateSphPick==='function')updateSphPick();
   document.querySelectorAll('.catlab').forEach(e=>{e.textContent=CN(+e.dataset.cat);});
@@ -527,6 +516,7 @@ function seedForce(){S=norm(S0.slice());for(let x=0;x<N;x++)g[x]=norm(S0.map(v=>
 function rupt(){return peak+(1-peak)*0.5;}
 
 function step(dt){
+  {const cc=controlCapacity();capFloorCur=cc.floor;capCellCur=cc.cell;}   // capacité de contrôle (data) : plancher par structure + profil par séquence
   thrSeq=[0,0,0,0];thrTeil=[0,0,0,0];thrRel=[0,0,0,0];
   // 0. régimes
   for(let x=0;x<N;x++){
@@ -559,7 +549,6 @@ function step(dt){
     const w0=DECAY,w1=DECAY*DECAY,w2=DECAY*DECAY*DECAY,ws=w0+w1+w2;
     g[x][ch[2]]+=pool*w0/ws; g[x][ch[1]]+=pool*w1/ws; g[x][ch[0]]+=pool*w2/ws;
     if(x===boost) g[x][x]+=BOOST*dt;
-    if(perturbHold&&x===perturbHold.s) g[x][perturbHold.q]+=perturbHold.delta*dt;
     // SCLÉROSE : terminal au-dessus du point de rupture -> la tête décroche
     if(g[x][R]>rupt()){
       const head=ch[0], col=RUPT_RATE*(g[x][R]-rupt())*dt;
@@ -586,7 +575,12 @@ function step(dt){
   // poids data-driven : la part-cible de chaque instance (0–1) tire sa cellule g[s][q] vers le poids interpolé (ancre douce, la circulation et le champ restent libres de révéler les écarts)
   if(weightDrive&&probeMode==='instance'&&probeByActor){const Yr=tl.year;const tgt=[[null,null,null,null],[null,null,null,null],[null,null,null,null],[null,null,null,null]];
     for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;const wv=probeWeightAt(st,Yr);if(wv==null)continue;const s=st[0].s,q=st[0].q;tgt[s][q]=(tgt[s][q]==null)?wv:Math.max(tgt[s][q],wv);}
-    for(let x=0;x<N;x++){let touched=false;for(let y=0;y<N;y++)if(tgt[x][y]!=null){g[x][y]+=KWEIGHT*dt*(tgt[x][y]-g[x][y]);if(g[x][y]<0)g[x][y]=0;touched=true;}if(touched)g[x]=norm(g[x]);}}
+    for(let x=0;x<N;x++){let touched=false;const endo=Math.max(0,Ictrl[x]-capFloorCur[x]);  // usage endogène : au-dessus du plancher data, réparti sur la structure
+      for(let y=0;y<N;y++)if(tgt[x][y]!=null){const ce=Math.max(0,(capCellCur[x][y]+endo)-1);const react=1+GCTRL*ce;  // contrôle propre à la séquence (différentiel) + usage endogène
+        const diff=tgt[x][y]-g[x][y];const k=KWEIGHT*(diff>0?react:1);g[x][y]+=k*dt*diff;
+        const fl=KCFLOOR*ce*tgt[x][y];if(g[x][y]<fl)g[x][y]=fl;
+        if(g[x][y]<0)g[x][y]=0;touched=true;}
+      if(touched)g[x]=norm(g[x]);}}
   // 2. couche globale
   const dS=[0,0,0,0];
   for(let x=0;x<N;x++){const R=ruler[x];
@@ -626,7 +620,7 @@ function step(dt){
       let res=P; const dem=[0,0,0], Ia=[Irel[x],Iseq[x],Iteil[x]];
       for(let i=0;i<3;i++){dem[i]=res; res-=dem[i]*CAPi[i]*Math.min(1.6,Math.max(0,Ia[i]));}
       const resPre=Math.max(0,res);
-      Ictrl[x]+=(Math.min(1.7,1+1.3*resPre)-Ictrl[x])*0.4*dt;                                 // contrôle se renforce avec le résidu
+      Ictrl[x]+=(Math.min(CMAX,Math.max(capFloorCur[x],1+1.3*resPre))-Ictrl[x])*0.4*dt;            // plancher = capacité data (dérivée) ; l'endogène = utilisation par-dessus
       const kc=(x===3?0.45:0.18);                                                             // le contrôle (fort en D) résout une part du résidu
       const resCtrl=resPre*Math.max(0,1-kc*Math.min(1.5,Ictrl[x]));
       RESID[x]=resCtrl; RESOLVED[x]=Math.max(0,P-resCtrl);
@@ -768,7 +762,7 @@ function loop(now){const rawDt=Math.min(0.033,(now-last)/1000);last=now;const si
   applyCursorProfile(tl.year);
   renderFlux(tl.year);
   if(running){step(simDt);phase=(phase+simDt*0.6)%1;recordTraj();if(plast>0&&tframe%30===0)renderChains();}
-  easeCenters(rawDt);draw();drawProbes();updateReadouts();updateActeurs();updateInspector();updateDemoNow();drawMini();updatePlayhead();tickPrism();renderPerturb();requestAnimationFrame(loop);}
+  easeCenters(rawDt);draw();drawProbes();updateReadouts();updateActeurs();updateInspector();updateDemoNow();drawMini();updatePlayhead();tickPrism();requestAnimationFrame(loop);}
 
 // ---- légende + gini ----
 const legendEl=document.getElementById("legend");const bars=[];
@@ -893,7 +887,7 @@ function parseDemoCSV(text){
 function catIdx(s){const k=cnorm(s);if(k.startsWith('etabli')||k.startsWith('possed'))return 0;if(k.startsWith('aspir'))return 1;if(k.startsWith('conserv'))return 2;if(k.startsWith('decu')||k.startsWith('exclu'))return 3;return -1;}
 function parseContractCSV(text){const rows=text.replace(/^\uFEFF/,'').trim().split(/\r?\n/);const head=rows[0].split(',').map(s=>cnorm(s));
   const iA=head.indexOf('aid'),iY=head.indexOf('annee'),iS=head.indexOf('structure'),iC=head.indexOf('categorie'),iQ=head.indexOf('sequence'),iW=(head.indexOf('poids')>=0?head.indexOf('poids'):head.indexOf('weight'));if(iA<0||iY<0||iS<0||iC<0)return null;
-  const rec=[];for(let r=1;r<rows.length;r++){const f=rows[r].split(',');const sk=cnorm(f[iS]).replace(/[^abcd]/g,'');const sx=L2I[sk[0]];if(sx==null)continue;const yr=parseInt(f[iY],10);if(isNaN(yr))continue;const cx=catIdx(f[iC]);let qx=sx;if(iQ>=0){const qk=cnorm(f[iQ]).replace(/[^abcd]/g,'');if(L2I[qk[0]]!=null)qx=L2I[qk[0]];}let wx=null;if(iW>=0){const wv=parseFloat(f[iW]);if(!isNaN(wv))wx=Math.max(0,Math.min(1,wv));}rec.push({aid:f[iA],year:yr,s:sx,q:qx,c:cx<0?2:cx,w:wx});}
+  const rec=[];for(let r=1;r<rows.length;r++){const f=rows[r].split(',');const sk=cnorm(f[iS]).replace(/[^abcd]/g,'');const sx=L2I[sk[0]];if(sx==null)continue;const yr=parseInt(f[iY],10);if(isNaN(yr))continue;const cx=catIdx(f[iC]);let qx=sx;if(iQ>=0){const qk=cnorm(f[iQ]).replace(/[^abcd]/g,'');if(L2I[qk[0]]!=null)qx=L2I[qk[0]];}let wx=null;if(iW>=0){const wv=parseFloat(f[iW]);if(!isNaN(wv))wx=Math.max(0,Math.min(1,wv));}const isCtrl=/control|kontrolle/.test(cnorm(f[iC]||''));rec.push({aid:f[iA],year:yr,s:sx,q:qx,c:cx<0?2:cx,w:wx,ctrl:isCtrl});}
   return rec.length?rec:null;}
 function buildCohortKeys(rec){const byA={};for(const r of rec){(byA[r.aid]=byA[r.aid]||[]).push(r);}let ymin=Infinity,ymax=-Infinity;
   for(const a in byA){byA[a].sort((x,y)=>x.year-y.year);ymin=Math.min(ymin,byA[a][0].year);ymax=Math.max(ymax,byA[a][byA[a].length-1].year);}
@@ -917,12 +911,16 @@ let cohortRec=null;
 const NMS=['A','B','C','D'],CATS=['etabli','aspirant','conservateur','decu'],CATS_EN=['established','aspirant','conservative','disappointed'];
 // ---- mode prisme : 1-5 acteurs-sondes ; lit le champ (régime, satellisation, catégorie) à travers eux ----
 let cohortByActor=null, probeByActor=null, prismSel=[], lastPrismYear=null, probeMode='actor'; const PROBECAP=8;
-let perturbHold=null; const PERT_PULSE=0.18, PERT_RATE=0.5;
-let weightDrive=false; const KWEIGHT=0.6;
+let weightDrive=false; const KWEIGHT=0.6, GCTRL=1.0, KCFLOOR=0.25;
+let ctrlByActor=null; const KCAP=1.0, S0CTRL=0.5, LAMCTRL=0.8, CMAX=1.9;
+let capFloorCur=[1,1,1,1], capCellCur=[[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]];
+let instCensus=false;
 function buildCohortByActor(rec){const byA={};for(const r of rec){(byA[r.aid]=byA[r.aid]||[]).push(r);}for(const a in byA)byA[a].sort((x,y)=>x.year-y.year);return byA;}
 function probePathSummary(st){let out=st.length?LAB[st[0].s]:'';for(let i=1;i<st.length;i++)if(st[i].s!==st[i-1].s)out+='→'+LAB[st[i].s];return out;}
 function renderProbeList(){const box=document.getElementById('prismPick');if(!box)return;box.innerHTML='';
   if(!probeByActor||!prismSel.length){box.innerHTML='<span style="color:var(--slate-dim);font-family:var(--mono);font-size:9px">'+t('probe_none')+'</span>';return;}
+  if(instCensus){const Y=Math.round(tl.year);let live=0;for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;const r=probeStageAt(st,Y);if(r&&r.status==='live')live++;}
+    box.innerHTML='<span style="color:var(--slate);font-family:var(--mono);font-size:9.5px">'+prismSel.length+' '+t('st_instances')+' · '+live+' '+t('census_live')+'</span>';return;}
   if(probeMode==='instance'){const lg=document.createElement('div');lg.style.cssText='font-family:var(--mono);font-size:8.5px;color:var(--slate-dim);margin-bottom:2px';lg.textContent=t('legend_lane');box.appendChild(lg);}
   for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;
     const row=document.createElement('div');row.style.cssText='font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:6px;align-items:center';
@@ -930,28 +928,26 @@ function renderProbeList(){const box=document.getElementById('prismPick');if(!bo
     const extra=probeMode==='instance'?(' · '+instLane(st[0].s,st[0].q)):'';
     const span=document.createElement('span');span.textContent='#'+aid+' · '+probePathSummary(st)+' ('+st[0].year+'–'+st[st.length-1].year+')'+extra;
     row.appendChild(dot);row.appendChild(span);box.appendChild(row);}}
-function populatePerturbPick(){const sel=document.getElementById('perturbPick');if(!sel)return;const prev=sel.value;sel.innerHTML='';
-  if(probeMode==='instance'&&probeByActor)for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;const o=document.createElement('option');o.value=aid;o.textContent='#'+aid+' ('+LAB[st[0].s]+'·seq'+LAB[st[0].q]+')';sel.appendChild(o);}
-  if(prev&&[...sel.options].some(o=>o.value===prev))sel.value=prev;}
-function perturbTarget(){const sel=document.getElementById('perturbPick');const aid=sel&&sel.value?sel.value:(prismSel[0]||null);const st=aid&&probeByActor?probeByActor[aid]:null;return st?{aid,s:st[0].s,q:st[0].q}:null;}
-function perturbApply(dir){const tg=perturbTarget();if(!tg)return;const sustained=document.getElementById('perturbMode').checked;
-  if(sustained){const delta=PERT_RATE*dir;if(perturbHold&&perturbHold.s===tg.s&&perturbHold.q===tg.q&&Math.sign(perturbHold.delta)===dir)perturbHold=null;else perturbHold={s:tg.s,q:tg.q,delta,aid:tg.aid};}
-  else{g[tg.s][tg.q]=Math.max(0,g[tg.s][tg.q]+PERT_PULSE*dir);g[tg.s]=norm(g[tg.s]);}
-  renderPerturb();}
-function perturbResetFn(){perturbHold=null;renderPerturb();}
-function renderPerturb(){const box=document.getElementById('perturbBox');if(!box)return;const on=(probeMode==='instance'&&prismSel.length>0);box.style.display=on?'block':'none';if(!on)return;
-  const el=document.getElementById('perturbRead');if(!el)return;let out='';
-  if(perturbHold){const s=perturbHold.s,q=perturbHold.q;out+='<b style="color:#E36F9E">'+t('perturb_on')+'</b> #'+perturbHold.aid+' · '+LAB[s]+'·seq'+LAB[q]+' ['+(perturbHold.delta>0?'+':'')+perturbHold.delta.toFixed(2)+']<br>';}
-  else out+='<span style="color:var(--slate-dim)">'+t('perturb_off')+'</span><br>';
-  const tg=perturbTarget();if(tg){const s=tg.s;out+=LAB[s]+'·'+SN(s)+' · size '+S[s].toFixed(2)+' · recip '+structRecip(s).toFixed(2)+'<br><span style="color:var(--slate-dim)">seq '+g[s].map((v,i)=>(i===tg.q?'<b style="color:var(--paper)">'+v.toFixed(2)+'</b>':v.toFixed(2))).join(' / ')+'</span>';}
-  el.innerHTML=out;}
 function probeStageAt(st,year){if(!st.length)return null;if(year<st[0].year)return{stage:st[0],status:'pre'};if(year>st[st.length-1].year)return{stage:st[st.length-1],status:'post'};let pos=st[0];for(const s of st){if(s.year<=year)pos=s;else break;}return{stage:pos,status:'live'};}
 function probeWeightAt(st,Y){if(!st||!st.length)return null;if(Y<st[0].year||Y>st[st.length-1].year)return null;
   let lo=st[0],hi=st[st.length-1];for(let i=0;i<st.length;i++){if(st[i].year<=Y)lo=st[i];}for(let i=st.length-1;i>=0;i--){if(st[i].year>=Y)hi=st[i];}
   const wl=(lo.w!=null?lo.w:0),wh=(hi.w!=null?hi.w:0);if(hi.year===lo.year)return wl;const t=(Y-lo.year)/(hi.year-lo.year);return wl+(wh-wl)*t;}
+function giniArr(a){const n=a.length;if(n<2)return 0;let sum=0;for(const v of a)sum+=v;if(sum<=0)return 0;const b=a.slice().sort((x,y)=>x-y);let s=0;for(let i=0;i<n;i++)s+=(i+1)*b[i];return Math.max(0,Math.min(1,(2*s)/(n*sum)-(n+1)/n));}
+function controlCapacity(Y){const floor=[1,1,1,1],cell=[[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]];if(!ctrlByActor)return {floor,cell};if(Y==null)Y=Math.round(tl.year);
+  const byX=[[],[],[],[]],byXQ=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]];
+  for(const aid in ctrlByActor){const st=ctrlByActor[aid];const wv=probeWeightAt(st,Y);if(wv==null)continue;const x=st[0].s,q=st[0].q;byX[x].push(wv);byXQ[x][q].push(wv);}
+  const capOf=ws=>{const n=ws.length;if(!n)return 1;let W=0;for(const v of ws)W+=v;const strat=(n>1)?giniArr(ws)*(1-1/n):0,sat=1-Math.exp(-LAMCTRL*W);return 1+KCAP*sat*(S0CTRL+(1-S0CTRL)*strat);};
+  for(let x=0;x<4;x++){floor[x]=capOf(byX[x]);for(let q=0;q<4;q++)cell[x][q]=capOf(byXQ[x][q]);}
+  return {floor,cell};}
+function partitionControl(){ctrlByActor={};if(!probeByActor)return;for(const aid of Object.keys(probeByActor)){const st=probeByActor[aid];if(st&&st[0]&&st[0].ctrl){ctrlByActor[aid]=st;delete probeByActor[aid];}}if(prismSel)prismSel=prismSel.filter(a=>probeByActor[a]);}
 function instLane(s,q){if(s===0&&q===0)return t('lane_culture');if(s===0&&q===3)return t('lane_publish');if(s===3)return t('lane_media');return t('lane_other');}
 function renderPrismRead(){const el=document.getElementById('prismRead');if(!el)return;if(!prismSel.length||!probeByActor){el.innerHTML='';return;}
   const Y=Math.round(tl.year);let out='';
+  if(instCensus){const tgt=[0,0,0,0];let live=0;
+    for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;const r=probeStageAt(st,Y);if(!r||r.status!=='live')continue;live++;const wv=probeWeightAt(st,Y);if(wv!=null){const s=st[0].s;if(wv>tgt[s])tgt[s]=wv;}}
+    out='<div style="margin-bottom:3px">'+live+' '+t('census_live')+' · '+Y+'</div>';
+    for(let x=0;x<4;x++)if(tgt[x]>0)out+='<div><b style="color:var(--paper)">'+LAB[x]+'·'+SN(x)+'</b> '+t('census_force')+' '+tgt[x].toFixed(2)+'</div>';
+    el.innerHTML=out;return;}
   for(const aid of prismSel){const st=probeByActor[aid];if(!st)continue;const r=probeStageAt(st,Y);if(!r)continue;if(probeMode==='instance'&&r.status!=='live')continue;const s=r.stage.s,q=r.stage.q,c=r.stage.c;
     const reg=(ruler[s]===s)?t('prism_auto'):(t('prism_satof')+' '+SN(ruler[s]));
     const satTxt=satS[s]>0.05?(' · sat '+satS[s].toFixed(2)):'';
@@ -966,21 +962,23 @@ function drawProbes(){if(!prismSel.length||!probeByActor)return;const Y=Math.rou
     if(inst&&r.status!=='live')continue;
     if(!inst){ctx.beginPath();for(let i=0;i<st.length;i++){const p=subPos(st[i].s,st[i].q);if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);}
       ctx.strokeStyle='rgba(233,234,242,0.22)';ctx.lineWidth=1;ctx.setLineDash([2,3]);ctx.stroke();ctx.setLineDash([]);}
-    const p=subPos(r.stage.s,r.stage.q),col=ACTCOL[r.stage.c],live=r.status==='live',pr=0.5+0.5*Math.sin(phase*10);
+    let p=subPos(r.stage.s,r.stage.q);const col=ACTCOL[r.stage.c],live=r.status==='live',pr=0.5+0.5*Math.sin(phase*10);
+    const cen=inst&&instCensus;
+    if(cen){let h=0;for(let i=0;i<aid.length;i++)h=(h*31+aid.charCodeAt(i))|0;p={x:p.x+((h%7)-3)*3.4,y:p.y+(((h>>3)%7)-3)*3.4};}
     const wv=inst?probeWeightAt(st,Y):null,ws=(wv!=null?0.45+0.95*wv:1);
-    ctx.beginPath();ctx.arc(p.x,p.y,(7+2*pr)*Math.max(0.75,ws),0,7);ctx.strokeStyle='rgba(233,234,242,'+(live?0.6:0.25)+')';ctx.lineWidth=1.5;ctx.stroke();
-    ctx.beginPath();ctx.arc(p.x,p.y,4*ws,0,7);ctx.fillStyle=col;ctx.globalAlpha=live?1:0.45;ctx.fill();ctx.globalAlpha=1;
-    ctx.font='600 9px var(--mono),monospace';ctx.textAlign='center';ctx.textBaseline='bottom';
+    ctx.beginPath();ctx.arc(p.x,p.y,(7+2*pr)*Math.max(0.75,ws)*(cen?0.66:1),0,7);ctx.strokeStyle='rgba(233,234,242,'+(live?0.6:0.25)+')';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.beginPath();ctx.arc(p.x,p.y,4*ws*(cen?0.85:1),0,7);ctx.fillStyle=col;ctx.globalAlpha=live?1:0.45;ctx.fill();ctx.globalAlpha=1;
+    if(!cen){ctx.font='600 9px var(--mono),monospace';ctx.textAlign='center';ctx.textBaseline='bottom';
     ctx.lineWidth=3;ctx.lineJoin='round';ctx.strokeStyle='rgba(0,20,28,'+(live?0.85:0.5)+')';ctx.strokeText('#'+aid,p.x,p.y-8);
-    ctx.fillStyle='rgba(233,234,242,'+(live?0.95:0.45)+')';ctx.fillText('#'+aid,p.x,p.y-8);}}
+    ctx.fillStyle='rgba(233,234,242,'+(live?0.95:0.45)+')';ctx.fillText('#'+aid,p.x,p.y-8);}}}
 function dl(name,text,mime){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:(mime||'text/plain')+';charset=utf-8'}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500);}
 function structComp(x){const c=[0,0,0,0];let gs=0;for(let y=0;y<N;y++){gs+=g[x][y];for(let k=0;k<4;k++)c[k]+=g[x][y]*act[x][y][k];}if(gs>0)for(let k=0;k<4;k++)c[k]/=gs;return c;}
-function runSeries(){const dt=1/60*0.68,K=Math.max(4,Math.round(tl.dur*60*0.68/Math.max(1,tl.end-tl.start)));reset();const rows=[];
-  for(let Y=tl.start;Y<=tl.end;Y++){const D=compAt(Y);Pcur=D.comp;Wcur=norm(D.w.slice());
+function runSeries(){const dt=1/60*0.68,K=Math.max(4,Math.round(tl.dur*60*0.68/Math.max(1,tl.end-tl.start)));reset();const rows=[];const _ty=tl.year;
+  for(let Y=tl.start;Y<=tl.end;Y++){tl.year=Y;const D=compAt(Y);Pcur=D.comp;Wcur=norm(D.w.slice());
     if(tl.cursorKeys)for(const cid in tl.cursorKeys){const el=document.getElementById(cid),v=cursorAt(cid,Y);if(el&&v!=null){el.value=v;el.dispatchEvent(new Event('input'));}}
     for(let k=0;k<K;k++)step(dt);
     rows.push({year:Y,S:S.slice(),gini:gini(),recip:reciprocity(),sur:meanResid,rRecip:[0,1,2,3].map(structRecip),rGini:[0,1,2,3].map(structGini),cIneg:[0,1,2,3].map(structContribIneq),aRecip:[0,1,2,3].map(structContribRecip),ruler:ruler.slice(),sat:satS.slice(),comp:[0,1,2,3].map(structComp)});}
-  reset();lastCursorYear=null;return rows;}
+  reset();tl.year=_ty;lastCursorYear=null;return rows;}
 function exportData(){const rows=runSeries();const head=['year','size_A','size_B','size_C','size_D','gini','reciprocity','overload'];
   NMS.forEach(n=>head.push('recip_'+n,'gini_int_'+n,'contrib_ineq_'+n,'weakens_recip_'+n,'ruler_'+n,'satellisation_'+n));
   NMS.forEach(n=>CATS_EN.forEach(c=>head.push('comp_'+n+'_'+c)));
@@ -1077,7 +1075,8 @@ document.getElementById("probefile").onchange=e=>{const f=e.target.files[0];if(!
     probeByActor=buildCohortByActor(rec);
     const ids=Object.keys(probeByActor);prismSel=ids.slice(0,PROBECAP);lastPrismYear=null;
     const nonNum=ids.filter(a=>!/^\d+$/.test(a)).length;probeMode=nonNum>ids.length/2?'instance':'actor';
-    if(probeMode==='instance')perturbHold=null;
+    instCensus=false;
+    partitionControl();
     weightDrive=(probeMode==='instance')&&Object.values(probeByActor).some(st=>st.some(r=>r.w!=null));
     if(!cohortRec){const keys=buildCohortKeys(rec);
       if(keys){tl.keys=keys;tl.sel=0;tl.start=keys[0].year;tl.end=keys[keys.length-1].year;tl.year=tl.start;
@@ -1085,16 +1084,12 @@ document.getElementById("probefile").onchange=e=>{const f=e.target.files[0];if(!
         tl.paliers=true;document.getElementById("paliers").checked=true;
         document.getElementById("tlstart").value=tl.start;document.getElementById("tlend").value=tl.end;
         loadKeyToSliders();renderTicks();renderKfList();}}
-    renderProbeList();renderPrismRead();populatePerturbPick();renderPerturb();
+    renderProbeList();renderPrismRead();
     const cap=ids.length>PROBECAP?(' · '+PROBECAP+'/'+ids.length):'';
     document.getElementById("probestatus").textContent=prismSel.length+' '+t('st_probes')+cap;
   }catch(err){document.getElementById("probestatus").textContent=t('st_read_error');}};
   rd.readAsText(f);};
 document.getElementById("paliers").onchange=e=>{tl.paliers=e.target.checked;};
-document.getElementById("perturbMinus").onclick=()=>perturbApply(-1);
-document.getElementById("perturbPlus").onclick=()=>perturbApply(1);
-document.getElementById("perturbReset").onclick=()=>perturbResetFn();
-document.getElementById("perturbPick").onchange=()=>renderPerturb();
 document.getElementById("exData").onclick=()=>exportData();
 document.getElementById("exTrans").onclick=()=>exportTransitions();
 document.getElementById("figSizes").onclick=()=>exportFig('sizes');
@@ -1103,6 +1098,24 @@ document.getElementById("figStr").onclick=()=>exportFig('struct');
 document.getElementById("figFlux").onclick=()=>exportFig('flux');
 document.getElementById("figMob").onclick=()=>exportFig('mob');
 document.getElementById("figSeq").onclick=()=>exportFig("seq");
+document.getElementById("instcohortfile").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();
+  rd.onload=()=>{try{const rec=parseContractCSV(rd.result);
+    if(!rec||!rec.length){document.getElementById("instcohortstatus").textContent=t('st_contract_format');return;}
+    probeByActor=buildCohortByActor(rec);
+    const ids=Object.keys(probeByActor);prismSel=ids.slice();lastPrismYear=null;
+    probeMode='instance';instCensus=true;
+    partitionControl();
+    weightDrive=Object.values(probeByActor).some(st=>st.some(r=>r.w!=null));
+    if(!cohortRec){const keys=buildCohortKeys(rec);
+      if(keys){tl.keys=keys;tl.sel=0;tl.start=keys[0].year;tl.end=keys[keys.length-1].year;tl.year=tl.start;
+        cohortRec=rec;cohortByActor=buildCohortByActor(rec);cohortTrans=buildTransitions(rec);lastFluxYear=null;renderFlux(tl.start);
+        tl.paliers=true;document.getElementById("paliers").checked=true;
+        document.getElementById("tlstart").value=tl.start;document.getElementById("tlend").value=tl.end;
+        loadKeyToSliders();renderTicks();renderKfList();}}
+    renderProbeList();renderPrismRead();
+    document.getElementById("instcohortstatus").textContent=ids.length+' '+t('st_instances')+(weightDrive?'':' · '+t('st_no_weight'));
+  }catch(err){document.getElementById("instcohortstatus").textContent=t('st_read_error');}};
+  rd.readAsText(f);};
 document.getElementById("cursorfile").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();
   rd.onload=()=>{try{const r=parseCursorCSV(rd.result);if(!r){document.getElementById("cursorstatus").textContent=t('st_format_unknown');return;}
     tl.cursorKeys=r.keys;lastCursorYear=null;

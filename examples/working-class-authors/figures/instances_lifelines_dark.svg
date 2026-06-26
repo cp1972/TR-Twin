@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 630" font-family="Inter,Segoe UI,Helvetica,sans-serif">
+<rect x="0" y="0" width="1060" height="630" fill="#0d1018"/>
+<text x="210" y="40" fill="#e9eaf2" font-size="21" font-weight="600">Mediation instances — lifelines, force and fate</text>
+<text x="210" y="62" fill="#9aa3b8" font-size="12.5">Existence span (birth → closure); filled height = weight (force as target share, 0–1). Demo extract, milestone-anchored.</text>
+<line x1="253.9" y1="96" x2="253.9" y2="608" stroke="rgba(255,255,255,0.045)" stroke-width="1"/>
+<line x1="363.8" y1="96" x2="363.8" y2="608" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+<text x="363.8" y="90" fill="#9aa3b8" font-size="11.5" text-anchor="middle" font-family="ui-monospace,monospace">1850</text>
+<line x1="473.6" y1="96" x2="473.6" y2="608" stroke="rgba(255,255,255,0.045)" stroke-width="1"/>
+<line x1="583.4" y1="96" x2="583.4" y2="608" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+<text x="583.4" y="90" fill="#9aa3b8" font-size="11.5" text-anchor="middle" font-family="ui-monospace,monospace">1900</text>
+<line x1="693.3" y1="96" x2="693.3" y2="608" stroke="rgba(255,255,255,0.045)" stroke-width="1"/>
+<line x1="803.1" y1="96" x2="803.1" y2="608" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+<text x="803.1" y="90" fill="#9aa3b8" font-size="11.5" text-anchor="middle" font-family="ui-monospace,monospace">1950</text>
+<line x1="913.0" y1="96" x2="913.0" y2="608" stroke="rgba(255,255,255,0.045)" stroke-width="1"/>
+<line x1="210" y1="102" x2="1014" y2="102" stroke="rgba(255,255,255,0.045)" stroke-width="1"/>
+<text x="210" y="117" fill="#E9D8A6" font-size="10" font-weight="600" letter-spacing="0.5" font-family="ui-monospace,monospace">CULTURE CORE · A·seqA</text>
+<line x1="245.1" y1="164" x2="460.4" y2="164" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+<polygon points="245.1,164 245.1,154.8 297.9,136.4 385.7,147.9 460.4,159.4 460.4,164" fill="#E9D8A6" fill-opacity="0.2"/>
+<polyline points="245.1,154.8 297.9,136.4 385.7,147.9 460.4,159.4" fill="none" stroke="#E9D8A6" stroke-width="1.8" stroke-linejoin="round"/>
+<circle cx="245.1" cy="164" r="4" fill="#E9D8A6"/>
+<line x1="460.4" y1="157" x2="460.4" y2="171" stroke="#E9D8A6" stroke-width="2.2"/>
+<circle cx="297.9" cy="136.4" r="2.6" fill="#0d1018" stroke="#E9D8A6" stroke-width="1.4"/>
+<text x="297.9" y="130.4" fill="#9aa3b8" font-size="9.5" text-anchor="middle" font-family="ui-monospace,monospace">1835 · 0.60</text>
+<text x="198" y="160" fill="#E9D8A6" font-size="13" text-anchor="end" font-weight="600">Mechanics&#39; Magazine</text>
+<text x="198" y="176" fill="#7f87a0" font-size="10" text-anchor="end" font-family="ui-monospace,monospace">1823–1872</text>
+<line x1="478.0" y1="246" x2="530.7" y2="246" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+<polygon points="478.0,246 478.0,236.8 504.4,223.0 530.7,239.1 530.7,246" fill="#E9D8A6" fill-opacity="0.2"/>
+<polyline points="478.0,236.8 504.4,223.0 530.7,239.1" fill="none" stroke="#E9D8A6" stroke-width="1.8" stroke-linejoin="round"/>
+<circle cx="478.0" cy="246" r="4" fill="#E9D8A6"/>
+<line x1="530.7" y1="239" x2="530.7" y2="253" stroke="#E9D8A6" stroke-width="2.2"/>
+<circle cx="504.4" cy="223.0" r="2.6" fill="#0d1018" stroke="#E9D8A6" stroke-width="1.4"/>
+<text x="504.4" y="217.0" fill="#9aa3b8" font-size="9.5" text-anchor="middle" font-family="ui-monospace,monospace">1882 · 0.50</text>
+<text x="198" y="242" fill="#E9D8A6" font-size="13" text-anchor="end" font-weight="600">Secular Review</text>
+<text x="198" y="258" fill="#7f87a0" font-size="10" text-anchor="end" font-family="ui-monospace,monospace">1876–1888</text>
+<line x1="210" y1="266" x2="1014" y2="266" stroke="rgba(255,255,255,0.045)" stroke-width="1"/>
+<text x="210" y="281" fill="#D6A2C4" font-size="10" font-weight="600" letter-spacing="0.5" font-family="ui-monospace,monospace">PUBLISHING BRIDGE · A·seqD</text>
+<line x1="614.2" y1="328" x2="794.3" y2="328" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+<polygon points="614.2,328 614.2,323.4 671.3,314.2 737.2,318.8 794.3,325.7 794.3,328" fill="#D6A2C4" fill-opacity="0.2"/>
+<polyline points="614.2,323.4 671.3,314.2 737.2,318.8 794.3,325.7" fill="none" stroke="#D6A2C4" stroke-width="1.8" stroke-linejoin="round"/>
+<circle cx="614.2" cy="328" r="4" fill="#D6A2C4"/>
+<line x1="794.3" y1="321" x2="794.3" y2="335" stroke="#D6A2C4" stroke-width="2.2"/>
+<circle cx="671.3" cy="314.2" r="2.6" fill="#0d1018" stroke="#D6A2C4" stroke-width="1.4"/>
+<text x="671.3" y="308.2" fill="#9aa3b8" font-size="9.5" text-anchor="middle" font-family="ui-monospace,monospace">1920 · 0.30</text>
+<text x="198" y="324" fill="#D6A2C4" font-size="13" text-anchor="end" font-weight="600">Bakunin Press</text>
+<text x="198" y="340" fill="#7f87a0" font-size="10" text-anchor="end" font-family="ui-monospace,monospace">1907–1948</text>
+<line x1="210" y1="348" x2="1014" y2="348" stroke="rgba(255,255,255,0.045)" stroke-width="1"/>
+<text x="210" y="363" fill="#6FA8C7" font-size="10" font-weight="600" letter-spacing="0.5" font-family="ui-monospace,monospace">MEDIA · D·seqD</text>
+<line x1="368.2" y1="410" x2="978.9" y2="410" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+<polygon points="368.2,410 368.2,398.5 429.7,382.4 583.4,370.9 781.1,368.6 978.9,370.9 978.9,410" fill="#6FA8C7" fill-opacity="0.2"/>
+<polyline points="368.2,398.5 429.7,382.4 583.4,370.9 781.1,368.6 978.9,370.9" fill="none" stroke="#6FA8C7" stroke-width="1.8" stroke-linejoin="round"/>
+<circle cx="368.2" cy="410" r="4" fill="#6FA8C7"/>
+<path d="M 976.9 405 L 985.9 410 L 976.9 415 Z" fill="#6FA8C7"/>
+<circle cx="781.1" cy="368.6" r="2.6" fill="#0d1018" stroke="#6FA8C7" stroke-width="1.4"/>
+<text x="781.1" y="362.6" fill="#9aa3b8" font-size="9.5" text-anchor="middle" font-family="ui-monospace,monospace">1945 · 0.90</text>
+<text x="198" y="406" fill="#6FA8C7" font-size="13" text-anchor="end" font-weight="600">Reuters</text>
+<text x="198" y="422" fill="#7f87a0" font-size="10" text-anchor="end" font-family="ui-monospace,monospace">1851–1990 →</text>
+<line x1="517.5" y1="492" x2="746.0" y2="492" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+<polygon points="517.5,492 517.5,482.8 583.4,459.8 662.5,475.9 746.0,487.4 746.0,492" fill="#6FA8C7" fill-opacity="0.2"/>
+<polyline points="517.5,482.8 583.4,459.8 662.5,475.9 746.0,487.4" fill="none" stroke="#6FA8C7" stroke-width="1.8" stroke-linejoin="round"/>
+<circle cx="517.5" cy="492" r="4" fill="#6FA8C7"/>
+<line x1="746.0" y1="485" x2="746.0" y2="499" stroke="#6FA8C7" stroke-width="2.2"/>
+<circle cx="583.4" cy="459.8" r="2.6" fill="#0d1018" stroke="#6FA8C7" stroke-width="1.4"/>
+<text x="583.4" y="453.8" fill="#9aa3b8" font-size="9.5" text-anchor="middle" font-family="ui-monospace,monospace">1900 · 0.70</text>
+<text x="198" y="488" fill="#6FA8C7" font-size="13" text-anchor="end" font-weight="600">Cotton Factory Times</text>
+<text x="198" y="504" fill="#7f87a0" font-size="10" text-anchor="end" font-family="ui-monospace,monospace">1885–1937</text>
+<line x1="636.2" y1="574" x2="864.6" y2="574" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+<polygon points="636.2,574 636.2,560.2 680.1,555.6 728.4,532.6 803.1,548.7 864.6,567.1 864.6,574" fill="#6FA8C7" fill-opacity="0.2"/>
+<polyline points="636.2,560.2 680.1,555.6 728.4,532.6 803.1,548.7 864.6,567.1" fill="none" stroke="#6FA8C7" stroke-width="1.8" stroke-linejoin="round"/>
+<circle cx="636.2" cy="574" r="4" fill="#6FA8C7"/>
+<line x1="864.6" y1="567" x2="864.6" y2="581" stroke="#6FA8C7" stroke-width="2.2"/>
+<circle cx="728.4" cy="532.6" r="2.6" fill="#0d1018" stroke="#6FA8C7" stroke-width="1.4"/>
+<text x="728.4" y="526.6" fill="#9aa3b8" font-size="9.5" text-anchor="middle" font-family="ui-monospace,monospace">1933 · 0.90</text>
+<text x="198" y="570" fill="#6FA8C7" font-size="13" text-anchor="end" font-weight="600">Daily Herald</text>
+<text x="198" y="586" fill="#7f87a0" font-size="10" text-anchor="end" font-family="ui-monospace,monospace">1912–1964</text>
+<text x="210" y="622" fill="#5f677d" font-size="9.5">● birth   │ closure   ▶ continues   ○ peak (year · weight) — Theory of Relation · digital twin</text>
+</svg>

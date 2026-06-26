@@ -1,46 +1,62 @@
-#+TITLE: Theory of the Relation — Digital Twin (Digital Twin)
+#+TITLE: Theory of the Relation — Digital Twin
 #+OPTIONS: toc:nil num:nil ^:nil
 #+LANGUAGE: en
 
-A stand-alone web application (HTML/JavaScript, Canvas graphics) that simulates the *Theory of the Relation*. It represents four mutually influencing relational structures — *Culture (A), Politics (B), Economy (C), Media (D)* — each articulated into sequences and into four actor categories, and it lets you feed in real data to observe the mutual influence of social orders, the unequal circulation of actors, and the social inequalities that arise from it.
+A stand-alone web application (HTML/JavaScript, Canvas graphics) that simulates the *Theory of the Relation*. It represents four mutually influencing relational structures — *Culture (A), Politics (B), Economy (C), Media (D)* — each articulated into sequences and four actor categories, and it lets you feed in real data to observe the mutual influence of social orders, the unequal circulation of actors, the mediation and control instances, and the inequalities that arise.
 
 *Theoretical basis:* Christian Papilloud & Eva-Maria Schultze, /Skizze einer Theorie der Relation/, Springer VS, Wiesbaden 2022 (ISBN 978-3-658-37922-3).
 
 * Run it
 
-The digital twin (the "twin") is a single, self-contained file: =tr-twin.html=.
+The twin is a single, self-contained file: =tr-twin.html=.
 
-- *Locally:* download or clone the repository and open =tr-twin.html= in any modern web browser. No build step, no server, no dependencies.
-- *Online (GitHub Pages):* enable Pages in the repository settings (Settings → Pages → deploy from branch, root =/=); the root =index.html= redirects to =tr-twin.html=, so the digital twin is served at =https://<user>.github.io/<repository>/=.
+- *Locally:* download or clone the repository and open =tr-twin.html= in any modern browser. No build step, no server, no dependencies.
+- *Online (GitHub Pages):* enable Pages (Settings → Pages → deploy from branch, root =/=); =index.html= redirects to =tr-twin.html=.
 
-The interface switches between *English, German, and French* (the DE·EN·FR pill at the top right; English by default).
+The interface switches between *English, German, and French* (the DE·EN·FR pill, top right).
 
-* What it does
+* Start here: the worked example
 
-The digital twin pursues three purposes: (1) it tests the coherence of the Theory of the Relation by proposing a runnable simulation of it; (2) it lets you model the relational schemes of other variants of relational sociology, to make the contrasts visible; (3) it lets you model real datasets, to see which configurations of the relational orders the data bring to light and to track them over time. It accepts real demographics, time-varying controller profiles ("theory profiles"), and real actor cohorts as CSV, and it exports deterministic result outputs (CSV time series, actor transitions, and print-ready SVG figures).
+If you just want to see it work on real data, go to *[[file:examples/working-class-authors/README.org][examples/working-class-authors/]]*. It walks you through loading a cohort of 163 English working-class autobiographers and the art/media instances they passed through, and reproduces the project's main finding — and its deepening: the *control instances* are the channels of the atypical transversal circulation.
+
+In short, in the twin: import =examples/working-class-authors/data/actors/cohorte_contrat.csv= (the actor cohort) and =examples/working-class-authors/data/instances/instances_full_empirical.csv= (the mediation + control instances), then press play.
+
+* Repository structure
+
+#+begin_example
+README.org                     ← you are here (entry point)
+tr-twin.html                   ← the application (open this)
+index.html                     ← redirect for GitHub Pages
+docs/                          ← theoretical + technical documentation (Org)
+examples/
+  working-class-authors/       ← the worked example, self-contained
+    README.org                 ← step-by-step: how to run this example
+    data/  actors/  instances/ ← the cohort and the instance tables (CSV)
+    figures/                   ← the figures (SVG, light + dark)
+    notes/                     ← provenance of the demo data
+scripts/
+  generators/                  ← gen_*.py / build_*.py : (re)build figures and data
+  harness/                     ← Node.js headless replays + smoke tests
+#+end_example
 
 * Documentation
 
-The technical and theoretical documentation is in the =docs/= folder (Org-mode, rendered by GitHub):
+In =docs/= (Org-mode, rendered by GitHub):
 
-1. [[file:docs/01-theory-of-the-relation-purpose-and-concepts.org][Theory of the Relation: Purpose and Concepts]] — the purpose of the tool and the theoretical framework (relational structures, circulation, actor categories, mediation instances, the Pareto coupling, satellisation).
-2. [[file:docs/02-digital-twin-of-the-theory-of-the-relation.org][Digital Twin of the Theory of the Relation]] — mapping theory → digital twin, architecture, the full mathematical model (including the inequality cascade), and the user interface.
-3. [[file:docs/03-usage-of-the-tr-digital-twin.org][Usage of the TR Digital Twin]] — data import (CSV): demographics, controller/theory profiles, and actor cohorts with circulation flows.
-4. [[file:docs/04-methodology-of-the-tr-digital-twin.org][Methodology of the TR Digital Twin]] — using the digital twin to test theories: the actor as a probe, uncovering hidden assumptions (the Bourdieu case), the falsification discipline, and an empirical run.
-5. [[file:docs/05-main-changes.org][Main Changes]] — the version history (v1–v59).
-6. [[file:docs/06-literature-to-technical-documentation.org][Literature to the Technical Documentation]] — works cited.
-7. [[file:docs/07-prism-mode-actor-probes.org][Prism Mode — Actor Probes]] — reading the relational field through 1–5 actors; how to use it in the twin, with a worked example.
+1. [[file:docs/01-theory-of-the-relation-purpose-and-concepts.org][Theory of the Relation: Purpose and Concepts]]
+2. [[file:docs/02-digital-twin-of-the-theory-of-the-relation.org][Digital Twin of the Theory of the Relation]] — theory → twin, architecture, the full model.
+3. [[file:docs/03-usage-of-the-tr-digital-twin.org][Usage]] — CSV import: demographics, controller profiles, actor cohorts.
+4. [[file:docs/04-methodology-of-the-tr-digital-twin.org][Methodology]] — the actor as a probe, falsification discipline, an empirical run.
+5. [[file:docs/05-main-changes.org][Main Changes]] — version history.
+6. [[file:docs/06-literature-to-technical-documentation.org][Literature]] — works cited.
+7. [[file:docs/07-prism-mode-actor-probes.org][Prism Mode — Actor and Instance Probes]] — probes, instance weights, control instances (capacity, usage, grip, differential by sequence), and the empirical control parc.
 
-An additional [[file:docs/10-roadmap-planned-extensions.org][Roadmap — Planned Extensions]] lists the implemented features and the open follow-ups.
+[[file:docs/10-roadmap-planned-extensions.org][Roadmap]] lists implemented features and open follow-ups.
 
 * Reproducibility
 
-A random seed fixes the small initial perturbation; the same seed and the same settings yield the same trajectory. This makes the digital twin a comparative analysis tool. All mechanisms were first calibrated and verified headless (Node.js) before being taken into the application; the perfect, symmetric state (equally large structures, reciprocity ~1, inequality 0) is preserved by every mechanism.
+A fixed seed makes the twin deterministic: the same settings yield the same trajectory. Every mechanism was first calibrated and verified headless (Node.js) before entering the application. To rebuild the example's figures from the data, see =examples/working-class-authors/README.org= (the =scripts/= section).
 
 * How to cite
 
-If you use this digital twin in academic work, please cite the theoretical basis (Papilloud & Schultze 2022, above) and this repository. (Add your own authorship and a release/DOI here once available.)
-
-* License
-
-To be chosen by the repository owner. A permissive license (e.g. MIT) for the code together with a Creative Commons license (e.g. CC BY 4.0) for the documentation is a common choice for academic tools. Until a license is added, the default is "all rights reserved".
+Please cite the theoretical basis (Papilloud & Schultze 2022, above) together with this digital twin.
