@@ -53,3 +53,30 @@ a process the 20th century accentuates (journalism, publishing leaving A for C, 
 Internet). Culture (A) carries the long-established control apparatus (certification *and*
 criticism); media (D) is still building its own, with **Reuters** the durable anchor. The
 gradation is read off the parc, not decreed.
+
+---
+
+## Authority curves (refinement)
+
+Weights are no longer flat: each control instance carries an **authority curve**
+(founding → peak → decline/sustain) with closures where they apply. The structuring instances are
+sourced:
+
+- **Reuters** (D·seqD): 1851 founding → 1858 the *Times* and the British press subscribe → national
+  and imperial news institution, sustained high through the 20th c. (Britannica; *The Power of
+  News*, OUP).
+- **Financial Times** (D·seqC): 1888 founding (London Financial Guide → Financial Times), the
+  "stockbroker's bible"; 1945 merger with the Financial News makes it the leading financial
+  authority (Britannica; Wikipedia; Historic Newspapers).
+- **University of London** (A·seqA): 1836 examining/degree-awarding board; **1858 external degrees**
+  opened to candidates outside any college — the certification ladder for working-class autodidacts;
+  1900 teaching university (Britannica; University of London, "Our history").
+- **Victoria & Albert Museum** (A·seqD): 1852 founding (Museum of Manufactures, after the 1851
+  Exhibition); renamed V&A 1899; new building 1909 — consecration of design and taste.
+- **Secular Review** (A·seqD): 1876 → peak ~1882 → closes ~1888 (becomes *The Agnostic Journal*).
+
+The remaining control instances carry plausible curves anchored on their real founding (e.g.
+University College 1826, Anderson's 1796, National Secular Society 1866, Manchester Literary Club
+1862, Temperance & General Provident Institution 1840). Consequence: control capacity is now
+**time-varying** — Culture's apparatus is high early (the universities pre-exist), Media's builds up
+across the 19th–20th c. (Reuters, then the FT), which is exactly what the deepening figure reads.
