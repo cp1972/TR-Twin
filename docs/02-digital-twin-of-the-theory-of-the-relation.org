@@ -3,7 +3,7 @@
 #+OPTIONS: toc:t num:t ^:nil
 #+LANGUAGE: en
 
-# Status: version 59 (v59). Living document.
+# Status: version 62 (v62). Living document.
 # Corresponds to points 3, 4, 5, 6 of the master documentation.
 
 * Mapping: theory → digital twin

@@ -158,6 +158,7 @@
         <div style="font:8px var(--mono),monospace;color:var(--slate-dim);margin-top:1px;opacity:.85" data-i18n-title="tip_contrib" title="Contrib. inégalité : ambre = la structure aggrave l'inégalité (surdimensionnée) ; bleu = elle la subit (sous-dotée)." data-i18n="legend_perstruct">réciprocité · Gini interne · contrib. inégalité · affaiblit récip.</div>
       </div>
       </div>
+      <div class="sirow">
       <div class="sblock">
         <div class="heading" data-i18n-title="tip_flux" title="Flux de circulation des acteurs entre structures, sur une fenêtre glissante autour de l'année courante. Visible avec une cohorte chargée." data-i18n="head_flux">Flux de circulation</div>
         <div id="fluxGrid" style="margin-top:4px">
@@ -168,6 +169,14 @@
           <div class="frow"><span class="flab">D</span><i class="fcell" id="fx30"></i><i class="fcell" id="fx31"></i><i class="fcell" id="fx32"></i><i class="fcell" id="fx33"></i></div>
         </div>
         <div style="font:8px var(--mono),monospace;color:var(--slate-dim);margin-top:2px;opacity:.85" data-i18n="legend_flux">ligne = départ · colonne = arrivée</div>
+      </div>
+      <div class="sblock">
+        <div class="heading" data-i18n-title="tip_scn_read" title="Lecture du scénario : état de départ (dernière année historique) vs projection à l'horizon." data-i18n="head_scn_read">Scénario · lecture</div>
+        <div id="scnRead" style="font-family:var(--mono);font-size:9px;line-height:1.5;color:var(--slate);min-width:160px;max-width:230px"></div>
+      </div>
+      <div class="sblock" id="scnCardsBlock" style="display:none">
+        <div id="scnCards" style="display:flex;flex-direction:column;gap:4px;min-width:120px;max-width:200px"></div>
+      </div>
       </div>
     </div>
     <div class="timeline" id="timeline">
@@ -217,12 +226,24 @@
       <div class="heading" style="margin-top:6px;color:var(--slate-dim)" data-i18n="head_figures">Figures SVG :</div>
       <div class="erow" style="gap:6px;flex-wrap:wrap;margin-top:3px"><button class="xbtn" id="figSizes" data-i18n="fig_sizes">tailles</button><button class="xbtn" id="figGR" data-i18n="fig_ginirecip">Gini/récip</button><button class="xbtn" id="figStr" data-i18n="fig_perstruct">par structure</button><button class="xbtn" id="figFlux" data-i18n="fig_flux">flux</button><button class="xbtn" id="figMob" data-i18n="fig_mobility">mobilité interne</button><button class="xbtn" id="figSeq" data-i18n="fig_sequence">séquence-enjeu</button></div>
       <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="desc_exports">l'export rejoue la configuration chargée du début à la fin (reproductible) · transitions et flux/mobilité requièrent une cohorte</div></div>
+    <hr>
+    <div id="scnBox"><div class="heading" style="margin:8px 0 6px" data-i18n="head_scenario">Scénarios « et si »</div>
+      <div class="heading" style="color:var(--slate-dim);line-height:1.5" data-i18n="desc_scenario">Les tendances sont extraites de l'historique des données chargées.</div>
+      <div class="erow" style="margin-top:6px"><button class="xbtn" id="scnDetect" data-i18n="btn_detect">↻ Extraire les tendances</button></div>
+      <div id="scnTrendWrap" style="display:none;flex-direction:column;gap:6px;margin-top:7px">
+        <label style="display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)" data-i18n="scn_pick_trend">Tendance</span><select id="scnTrend" style="background:#0d1326;border:1px solid var(--hair);border-radius:6px;color:var(--paper);font-family:var(--mono);font-size:10px;padding:5px"></select></label>
+        <label style="display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)" data-i18n="scn_pick_verb">Transformation</span><select id="scnVerb" style="background:#0d1326;border:1px solid var(--hair);border-radius:6px;color:var(--paper);font-family:var(--mono);font-size:10px;padding:5px"></select></label>
+        <label id="scnToWrap" style="display:none;flex-direction:column;gap:3px"><span style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)" data-i18n="scn_to">vers structure</span><select id="scnTo" style="background:#0d1326;border:1px solid var(--hair);border-radius:6px;color:var(--paper);font-family:var(--mono);font-size:10px;padding:5px"></select></label>
+        <div class="row" style="gap:6px;align-items:center"><span style="font-family:var(--mono);font-size:9px;width:54px;color:var(--slate-dim)" data-i18n="scn_mag">ampleur</span><input id="scnMag" type="range" min="0" max="1" step="0.05" value="0.5" style="flex:1"><span id="scnMagV" style="font-family:var(--mono);font-size:9px;width:26px;text-align:right;color:var(--slate)"></span></div>
+        <div class="row" style="gap:6px;align-items:center"><span style="font-family:var(--mono);font-size:9px;width:54px;color:var(--slate-dim)" data-i18n="scn_horizon">horizon (+ans)</span><input id="scnHor" type="number" value="20" style="width:60px;background:transparent;border:1px solid var(--hair);border-radius:5px;color:var(--paper);font-family:var(--mono);font-size:10px;padding:3px;text-align:center"></div>
+        <div class="erow" style="gap:6px"><button class="xbtn" id="scnRun" data-i18n="btn_run_scn">▶ Calculer</button><button class="xbtn" id="scnSave" data-i18n="btn_save_card">＋ carte</button><button class="xbtn" id="scnSvg" data-i18n="btn_scn_svg">⬇ SVG</button><button class="xbtn" id="scnClear" data-i18n="btn_clear_scn">⟲ réinitialiser</button></div>
+      </div>
+      <div style="margin-top:7px;font-family:var(--mono);font-size:9px;line-height:1.5;color:var(--slate-dim)" data-i18n="scn_hint_center">la lecture et les cartes s'affichent au centre, à droite des flux</div>
+    </div>
     <div><div class="heading" style="margin:2px 0 6px"><span data-i18n="insp_head">Détail des séquences de </span><span id="inspname" style="color:var(--paper)">A · Culture</span></div>
       <div class="erow" id="inspchips" style="margin-bottom:7px"></div>
       <div id="inspgrid" class="grid4"></div>
-      <div class="heading" style="margin-top:6px;color:var(--slate-dim)" data-i18n="desc_cohort_tail">taille · puis composition d'acteurs</div></div>
-    <hr>
-
+      </div>
     <hr>
     <div><div class="heading" style="margin-bottom:8px" data-i18n-title="tip_chains" title="Chaînes — l'ordre séquentiel interne de la structure" data-i18n="head_internalpath">Parcours interne · cliquez pour réordonner</div><div class="grid4" id="chains"></div></div>
     <hr>
@@ -249,6 +270,54 @@
 // ================= i18n (une seule app, dictionnaire + sélecteur) =================
 let LANG='en';
 const I18N={
+  // ---- Module « scénarios et si » ----
+  head_scenario:{de:"Szenarien „Was wäre wenn“",fr:"Scénarios « et si »",en:"What-if scenarios"},
+  head_scn_read:{de:"Szenario · Ablesung",fr:"Scénario · lecture",en:"Scenario · readout"},
+  tip_scn_read:{de:"Ablesung des Szenarios: Ausgangslage (letztes historisches Jahr) gegenüber Projektion am Horizont.",fr:"Lecture du scénario : état de départ (dernière année historique) vs projection à l'horizon.",en:"Scenario readout: starting state (last historical year) vs projection at the horizon."},
+  scn_hint_center:{de:"Ablesung und Karten erscheinen in der Mitte, rechts neben den Flüssen",fr:"la lecture et les cartes s'affichent au centre, à droite des flux",en:"the readout and cards appear in the centre, right of the flows"},
+  desc_scenario:{de:"Aus dem historischen Verlauf der geladenen Daten werden Trends abgeleitet. Wähle einen Trend, eine Transformation und einen Horizont: die Zeitleiste wird verlängert und spielt die Projektion ab (die Strukturen bewegen sich). Kein Programmieren.",fr:"Les tendances sont extraites de l'historique des données chargées. Choisis une tendance, une transformation et un horizon : la frise se prolonge et l'animation joue la projection (les structures bougent). Sans programmation.",en:"Trends are derived from the history of the loaded data. Pick a trend, a transformation and a horizon: the timeline extends and plays the projection (the structures move). No coding."},
+  btn_detect:{de:"↻ Trends ableiten",fr:"↻ Extraire les tendances",en:"↻ Detect trends"},
+  scn_need:{de:"Erst Daten mit Jahresspalte laden (Kohorte oder Instanzen), dann Trends ableiten.",fr:"Charge d'abord des données avec colonne année (cohorte ou instances), puis extrais les tendances.",en:"First load data with a year column (cohort or instances), then detect trends."},
+  scn_none_found:{de:"Keine deutlichen Trends gefunden — mehr historische Daten ergeben stabilere Trends.",fr:"Aucune tendance nette — plus de données historiques donnent des tendances plus solides.",en:"No clear trends — more historical data yields more solid trends."},
+  scn_pick_trend:{de:"Trend",fr:"Tendance",en:"Trend"},
+  scn_pick_verb:{de:"Transformation",fr:"Transformation",en:"Transformation"},
+  scn_to:{de:"Zielstruktur",fr:"vers structure",en:"to structure"},
+  scn_mag:{de:"Stärke",fr:"ampleur",en:"magnitude"},
+  scn_horizon:{de:"Horizont (+Jahre)",fr:"horizon (+ans)",en:"horizon (+years)"},
+  btn_run_scn:{de:"▶ Szenario rechnen",fr:"▶ Calculer le scénario",en:"▶ Run scenario"},
+  btn_save_card:{de:"＋ als Karte sichern",fr:"＋ sauver comme carte",en:"＋ save as card"},
+  btn_clear_scn:{de:"⟲ Szenario zurücksetzen",fr:"⟲ réinitialiser le scénario",en:"⟲ reset scenario"},
+  verb_fortsetzen:{de:"fortsetzen",fr:"prolonger",en:"continue"},
+  verb_beschleunigen:{de:"beschleunigen",fr:"accélérer",en:"accelerate"},
+  verb_daempfen:{de:"dämpfen",fr:"freiner",en:"dampen"},
+  verb_umkehren:{de:"umkehren",fr:"inverser",en:"reverse"},
+  verb_einfrieren:{de:"einfrieren",fr:"geler",en:"freeze"},
+  verb_umlenken:{de:"umlenken (X→Y)",fr:"rediriger (X→Y)",en:"redirect (X→Y)"},
+  sig_control:{de:"Kontrolle",fr:"contrôle",en:"control"},
+  sig_presence:{de:"Präsenz",fr:"présence",en:"presence"},
+  sig_recip:{de:"Reziprozität",fr:"réciprocité",en:"reciprocity"},
+  sig_strat:{de:"Stratifizierung",fr:"stratification",en:"stratification"},
+  dir_up:{de:"steigend",fr:"en hausse",en:"rising"},
+  dir_down:{de:"fallend",fr:"en baisse",en:"falling"},
+  dir_flat:{de:"stabil",fr:"stable",en:"flat"},
+  read_outset:{de:"Ausgang",fr:"départ",en:"outset"},
+  read_proj:{de:"Projektion",fr:"projection",en:"projection"},
+  read_baseline:{de:"bloße Fortsetzung",fr:"simple prolongation",en:"mere continuation"},
+  read_recip:{de:"Reziprozität (global)",fr:"réciprocité (globale)",en:"reciprocity (global)"},
+  read_transv:{de:"transv. Ungleichheit",fr:"inégalité transv.",en:"transv. inequality"},
+  read_strat:{de:"Stratifizierung (Ziel)",fr:"stratification (cible)",en:"stratification (target)"},
+  read_diff:{de:"A↔D-Differenz",fr:"différence A↔D",en:"A↔D difference"},
+  scn_cards_head:{de:"Gespeicherte Szenarien",fr:"Scénarios sauvegardés",en:"Saved scenarios"},
+  btn_replay:{de:"rechnen",fr:"rejouer",en:"replay"},
+  cl_channel_open:{de:"der Kanal weitet sich",fr:"le canal s'élargit",en:"the channel widens"},
+  cl_channel_close:{de:"der Kanal verengt sich",fr:"le canal se resserre",en:"the channel narrows"},
+  cl_ineq_up:{de:"die transversale Ungleichheit steigt",fr:"l'inégalité transversale monte",en:"transversal inequality rises"},
+  cl_ineq_down:{de:"die transversale Ungleichheit sinkt",fr:"l'inégalité transversale baisse",en:"transversal inequality falls"},
+  cl_recip_up:{de:"die Reziprozität steigt",fr:"la réciprocité monte",en:"reciprocity rises"},
+  cl_recip_down:{de:"die Reziprozität sinkt (das Überschreiten wird stärker gefiltert)",fr:"la réciprocité baisse (le franchissement est davantage filtré)",en:"reciprocity falls (crossing is filtered more)"},
+  cl_strat_up:{de:"der Zielpol stratifiziert sich stärker",fr:"le pôle cible se stratifie davantage",en:"the target pole stratifies further"},
+  cl_strat_down:{de:"der Zielpol stratifiziert sich weniger",fr:"le pôle cible se stratifie moins",en:"the target pole stratifies less"},
+  cl_none:{de:"kaum strukturelle Reaktion",fr:"peu de réaction structurelle",en:"little structural response"},
   app_title:{fr:'Théorie de la relation. Jumeau numérique',de:'Theorie der Relation. Digitaler Zwilling',en:'Theory of Relation. Digital Twin'},
   struct_head:{fr:'Structures relationnelles \u00A0·\u00A0 A·Culture \u00A0 B·Politique \u00A0 C·Économie \u00A0 D·Médias',de:'Relationsstrukturen \u00A0·\u00A0 A·Kultur \u00A0 B·Politik \u00A0 C·Wirtschaft \u00A0 D·Medien',en:'Relational structures \u00A0·\u00A0 A·Culture \u00A0 B·Politics \u00A0 C·Economy \u00A0 D·Media'},
   lab_gini:{fr:'Gini',de:'Gini',en:'Gini'},
@@ -396,6 +465,17 @@ const I18N={
   svg_sfx_rec:{fr:' récip',de:' Rez',en:' recip'},
   svg_sfx_gini:{fr:' Gini',de:' Gini',en:' Gini'},
   svg_flux_note:{fr:'ligne = départ, colonne = arrivée',de:'Zeile = Start, Spalte = Ziel',en:'row = origin, column = destination'},
+  svg_s_sizes:{fr:'Rejeu déterministe de la configuration chargée, du début à la fin.',de:'Deterministische Wiedergabe der geladenen Konfiguration, von Anfang bis Ende.',en:'Deterministic replay of the loaded configuration, from start to end.'},
+  svg_s_gr:{fr:'Inégalité transversale (Gini) et réciprocité globale au fil du temps.',de:'Transversale Ungleichheit (Gini) und globale Reziprozität im Zeitverlauf.',en:'Transversal inequality (Gini) and global reciprocity over time.'},
+  svg_s_struct:{fr:'Réciprocité propre (trait plein) et Gini interne (pointillé) par structure.',de:'Eigene Reziprozität (durchgezogen) und interner Gini (gestrichelt) je Struktur.',en:'Own reciprocity (solid) and internal Gini (dashed) per structure.'},
+  svg_foot:{fr:'Théorie de la relation · jumeau numérique',de:'Theorie der Relation · digitaler Zwilling',en:'Theory of the Relation · digital twin'},
+  svg_scn_title:{fr:'Scénario « et si » — trajectoire projetée',de:'„Was wäre wenn“-Szenario — projizierte Bahn',en:'What-if scenario — projected trajectory'},
+  svg_scn_recip:{fr:'réciprocité',de:'Reziprozität',en:'reciprocity'},
+  svg_scn_transv:{fr:'inégalité transversale (Gini)',de:'transversale Ungleichheit (Gini)',en:'transversal inequality (Gini)'},
+  svg_scn_strat:{fr:'stratification',de:'Stratifizierung',en:'stratification'},
+  svg_scn_bascule:{fr:'bascule',de:'Umschlag',en:'pivot'},
+  btn_scn_svg:{fr:'⬇ SVG',de:'⬇ SVG',en:'⬇ SVG'},
+  fn_scn_svg:{fr:'scenario_trajectoire',de:'szenario_bahn',en:'scenario_trajectory'},
   svg_up:{fr:'ascension',de:'Aufstieg',en:'ascent'},
   svg_down:{fr:'déclassement',de:'Abstieg',en:'descent'},
   cc_year:{fr:'annee',de:'jahr',en:'year'},
@@ -761,6 +841,7 @@ function loop(now){const rawDt=Math.min(0.033,(now-last)/1000);last=now;const si
   {const D=compAt(tl.year);Pcur=D.comp;Wcur=norm(D.w.slice());}RELAXcur=tl.playing?0.2:0.12;
   applyCursorProfile(tl.year);
   renderFlux(tl.year);
+  liveScnCtrl();
   if(running){step(simDt);phase=(phase+simDt*0.6)%1;recordTraj();if(plast>0&&tframe%30===0)renderChains();}
   easeCenters(rawDt);draw();drawProbes();updateReadouts();updateActeurs();updateInspector();updateDemoNow();drawMini();updatePlayhead();tickPrism();requestAnimationFrame(loop);}
 
@@ -933,11 +1014,14 @@ function probeWeightAt(st,Y){if(!st||!st.length)return null;if(Y<st[0].year||Y>s
   let lo=st[0],hi=st[st.length-1];for(let i=0;i<st.length;i++){if(st[i].year<=Y)lo=st[i];}for(let i=st.length-1;i>=0;i--){if(st[i].year>=Y)hi=st[i];}
   const wl=(lo.w!=null?lo.w:0),wh=(hi.w!=null?hi.w:0);if(hi.year===lo.year)return wl;const t=(Y-lo.year)/(hi.year-lo.year);return wl+(wh-wl)*t;}
 function giniArr(a){const n=a.length;if(n<2)return 0;let sum=0;for(const v of a)sum+=v;if(sum<=0)return 0;const b=a.slice().sort((x,y)=>x-y);let s=0;for(let i=0;i<n;i++)s+=(i+1)*b[i];return Math.max(0,Math.min(1,(2*s)/(n*sum)-(n+1)/n));}
-function controlCapacity(Y){const floor=[1,1,1,1],cell=[[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]];if(!ctrlByActor)return {floor,cell};if(Y==null)Y=Math.round(tl.year);
+var ctrlScale=[1,1,1,1]; // levier de scénario par structure (1 = neutre ; modifié seulement pendant une projection « et si »)
+function controlCapacity(Y){const floor=[1,1,1,1],cell=[[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]];
+  if(!ctrlByActor){for(let x=0;x<4;x++){floor[x]*=ctrlScale[x];for(let q=0;q<4;q++)cell[x][q]*=ctrlScale[x];}return {floor,cell};}
+  if(Y==null)Y=Math.round(tl.year);
   const byX=[[],[],[],[]],byXQ=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]];
   for(const aid in ctrlByActor){const st=ctrlByActor[aid];const wv=probeWeightAt(st,Y);if(wv==null)continue;const x=st[0].s,q=st[0].q;byX[x].push(wv);byXQ[x][q].push(wv);}
   const capOf=ws=>{const n=ws.length;if(!n)return 1;let W=0;for(const v of ws)W+=v;const strat=(n>1)?giniArr(ws)*(1-1/n):0,sat=1-Math.exp(-LAMCTRL*W);return 1+KCAP*sat*(S0CTRL+(1-S0CTRL)*strat);};
-  for(let x=0;x<4;x++){floor[x]=capOf(byX[x]);for(let q=0;q<4;q++)cell[x][q]=capOf(byXQ[x][q]);}
+  for(let x=0;x<4;x++){floor[x]=capOf(byX[x])*ctrlScale[x];for(let q=0;q<4;q++)cell[x][q]=capOf(byXQ[x][q])*ctrlScale[x];}
   return {floor,cell};}
 function partitionControl(){ctrlByActor={};if(!probeByActor)return;for(const aid of Object.keys(probeByActor)){const st=probeByActor[aid];if(st&&st[0]&&st[0].ctrl){ctrlByActor[aid]=st;delete probeByActor[aid];}}if(prismSel)prismSel=prismSel.filter(a=>probeByActor[a]);}
 function instLane(s,q){if(s===0&&q===0)return t('lane_culture');if(s===0&&q===3)return t('lane_publish');if(s===3)return t('lane_media');return t('lane_other');}
@@ -997,48 +1081,69 @@ function exportTransitions(){if(!cohortRec){alert(t('alert_cohort'));return;}
   const tr=buildFullTransitions(cohortRec);const out=['year,aid,struct_from,seq_from,cat_from,struct_to,seq_to,cat_to'];
   for(const e of tr)out.push([e.year,e.aid,NMS[e.sf],NMS[e.qf],I18N.cat_names[LANG][e.cf],NMS[e.st],NMS[e.qt],I18N.cat_names[LANG][e.ct]].join(','));
   dl(t('fn_transitions')+'.csv','\ufeff'+out.join('\n'),'text/csv');}
-const SOL={bg:'#fdf6e3',axis:'#93a1a1',txt:'#073642',txt2:'#657b83',gini:'#b58900',recip:'#2aa198',up:'#859900',down:'#dc322f',struct:['#268bd2','#6c71c4','#859900','#cb4b16']};
-function svgLine(title,xs,series,o){o=o||{};const W=540,H=300,L=56,R=16,T=36,B=36;const xmin=xs[0],xmax=xs[xs.length-1];const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const SOL={bg:'#ffffff',axis:'rgba(0,0,0,0.16)',grid:'rgba(0,0,0,0.06)',txt:'#1b1f2a',txt2:'#5b6472',tick:'#8a92a0',foot:'#9aa1ad',gini:'#C0392B',recip:'#2E6DA4',up:'#1F7A5A',down:'#C0392B',heat:'46,109,164',struct:['#2E6DA4','#6B4F9E','#1F7A5A','#C0392B']};
+const SVGFONT='Inter,Segoe UI,Helvetica,sans-serif';
+function svgEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function niceYears(xmin,xmax){const span=(xmax-xmin)||1,step=span<=60?10:(span<=160?25:50),out=[];let y=Math.ceil(xmin/step)*step;for(;y<=xmax+1e-6;y+=step)out.push(y);if(out.length<2){out.length=0;out.push(xmin,xmax);}return out;}
+function svgLegend(series,x0,y0,maxX){let lx=x0,ly=y0,out='';for(const ser of series){const wlab=26+String(ser.name).length*6.6+18;if(lx>x0&&lx+wlab>maxX){lx=x0;ly+=15;}
+    out+='<line x1="'+lx+'" y1="'+ly+'" x2="'+(lx+20)+'" y2="'+ly+'" stroke="'+ser.color+'" stroke-width="2.6"'+(ser.dash?' stroke-dasharray="5 3"':'')+'/>';
+    out+='<text x="'+(lx+26)+'" y="'+(ly+4)+'" fill="'+SOL.txt2+'" font-size="11">'+svgEsc(ser.name)+'</text>';lx+=wlab;}
+  return {svg:out,bottomY:ly};}
+function svgLine(title,xs,series,o){o=o||{};const W=560,L=58,R=18,B=46,plotH=176;const xmin=xs[0],xmax=xs[xs.length-1];
   let ymin=o.ymin,ymax=o.ymax;if(ymin==null||ymax==null){ymin=Infinity;ymax=-Infinity;for(const s of series)for(const v of s.data){if(v<ymin)ymin=v;if(v>ymax)ymax=v;}}
-  if(!(ymax>ymin))ymax=ymin+1;const xS=v=>L+(v-xmin)/((xmax-xmin)||1)*(W-L-R),yS=v=>H-B-(v-ymin)/((ymax-ymin)||1)*(H-T-B);
-  let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" font-family="Helvetica,Arial,sans-serif"><rect width="'+W+'" height="'+H+'" fill="'+SOL.bg+'"/>';
-  const tfs=Math.max(10,Math.min(14,(W-L-R)/(title.length*0.6)));s+='<text x="'+L+'" y="20" font-size="'+tfs.toFixed(1)+'" font-weight="600" fill="'+SOL.txt+'">'+esc(title)+'</text>';
-  s+='<line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="'+SOL.axis+'"/><line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="'+SOL.axis+'"/>';
-  s+='<text x="'+(L-6)+'" y="'+(yS(ymax)+4)+'" font-size="10" text-anchor="end" fill="'+SOL.txt2+'">'+ymax.toFixed(2)+'</text><text x="'+(L-6)+'" y="'+(yS(ymin)+4)+'" font-size="10" text-anchor="end" fill="'+SOL.txt2+'">'+ymin.toFixed(2)+'</text>';
-  s+='<text x="'+L+'" y="'+(H-B+16)+'" font-size="10" fill="'+SOL.txt2+'">'+xmin+'</text><text x="'+(W-R)+'" y="'+(H-B+16)+'" font-size="10" text-anchor="end" fill="'+SOL.txt2+'">'+xmax+'</text>';
-  for(const ser of series){let d='';ser.data.forEach((v,i)=>{d+=(i?'L':'M')+xS(xs[i]).toFixed(1)+' '+yS(v).toFixed(1)+' ';});s+='<path d="'+d+'" fill="none" stroke="'+ser.color+'" stroke-width="2"'+(ser.dash?' stroke-dasharray="4 3"':'')+'/>';}
-  let lx=L+4;for(const ser of series){s+='<rect x="'+lx+'" y="'+(T-9)+'" width="9" height="9" fill="'+ser.color+'"/><text x="'+(lx+12)+'" y="'+(T-1)+'" font-size="10" fill="'+SOL.txt+'">'+esc(ser.name)+'</text>';lx+=22+ser.name.length*6.2;}
+  if(!(ymax>ymin))ymax=ymin+1;
+  const legY=o.sub?72:58;const leg=svgLegend(series,L,legY,W-R);const T=leg.bottomY+18,H=Math.round(T+plotH+B);
+  const xS=v=>L+(v-xmin)/((xmax-xmin)||1)*(W-L-R),yS=v=>H-B-(v-ymin)/((ymax-ymin)||1)*(H-T-B);
+  let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" font-family="'+SVGFONT+'"><rect width="'+W+'" height="'+H+'" fill="'+SOL.bg+'"/>';
+  s+='<text x="'+L+'" y="34" fill="'+SOL.txt+'" font-size="18" font-weight="600">'+svgEsc(title)+'</text>';
+  if(o.sub)s+='<text x="'+L+'" y="54" fill="'+SOL.txt2+'" font-size="11.5">'+svgEsc(o.sub)+'</text>';
+  s+=leg.svg;
+  s+='<rect x="'+L+'" y="'+T+'" width="'+(W-L-R)+'" height="'+(H-T-B)+'" fill="none" stroke="'+SOL.axis+'" stroke-width="1"/>';
+  for(const gv of [ymin,(ymin+ymax)/2,ymax]){const yy=yS(gv);s+='<line x1="'+L+'" y1="'+yy.toFixed(1)+'" x2="'+(W-R)+'" y2="'+yy.toFixed(1)+'" stroke="'+SOL.grid+'" stroke-width="1"/>';s+='<text x="'+(L-8)+'" y="'+(yy+3).toFixed(1)+'" fill="'+SOL.tick+'" font-size="9" text-anchor="end" font-family="ui-monospace,monospace">'+gv.toFixed(2)+'</text>';}
+  for(const yr of niceYears(xmin,xmax)){const xx=xS(yr);s+='<line x1="'+xx.toFixed(1)+'" y1="'+(H-B)+'" x2="'+xx.toFixed(1)+'" y2="'+(H-B+4)+'" stroke="'+SOL.tick+'" stroke-width="1"/>';s+='<text x="'+xx.toFixed(1)+'" y="'+(H-B+16)+'" fill="'+SOL.tick+'" font-size="9" text-anchor="middle" font-family="ui-monospace,monospace">'+Math.round(yr)+'</text>';}
+  if(o.marker){const mx=xS(o.marker.x);s+='<line x1="'+mx.toFixed(1)+'" y1="'+T+'" x2="'+mx.toFixed(1)+'" y2="'+(H-B)+'" stroke="#C0392B" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.55"/>';if(o.marker.label)s+='<text x="'+mx.toFixed(1)+'" y="'+(T-5)+'" fill="#C0392B" font-size="9" text-anchor="middle">'+svgEsc(o.marker.label)+'</text>';}
+  for(const ser of series){let pts='';ser.data.forEach((v,i)=>{pts+=xS(xs[i]).toFixed(1)+','+yS(v).toFixed(1)+' ';});s+='<polyline points="'+pts.trim()+'" fill="none" stroke="'+ser.color+'" stroke-width="1.7" stroke-linejoin="round" opacity="0.92"'+(ser.dash?' stroke-dasharray="5 3"':'')+'/>';}
+  if(o.foot)s+='<text x="'+L+'" y="'+(H-12)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';
   return s+'</svg>';}
-function figSizes(rows){const xs=rows.map(r=>r.year);return svgLine(t('svg_t_sizes'),xs,[0,1,2,3].map(x=>({name:SN(x),color:SOL.struct[x],data:rows.map(r=>r.S[x])})),{ymin:0});}
-function figGiniRecip(rows){const xs=rows.map(r=>r.year);return svgLine(t('svg_t_gr'),xs,[{name:'Gini',color:SOL.gini,data:rows.map(r=>r.gini)},{name:t('svg_recip'),color:SOL.recip,data:rows.map(r=>r.recip)}],{ymin:0,ymax:1});}
-function figStruct(rows){const xs=rows.map(r=>r.year);const ser=[];[0,1,2,3].forEach(x=>ser.push({name:NMS[x]+t('svg_sfx_rec'),color:SOL.struct[x],data:rows.map(r=>r.rRecip[x])}));[0,1,2,3].forEach(x=>ser.push({name:NMS[x]+t('svg_sfx_gini'),color:SOL.struct[x],dash:true,data:rows.map(r=>r.rGini[x])}));return svgLine(t('svg_t_struct'),xs,ser,{ymin:0,ymax:1});}
+function figSizes(rows){const xs=rows.map(r=>r.year);return svgLine(t('svg_t_sizes'),xs,[0,1,2,3].map(x=>({name:SN(x),color:SOL.struct[x],data:rows.map(r=>r.S[x])})),{ymin:0,sub:t('svg_s_sizes'),foot:t('svg_foot')});}
+function figGiniRecip(rows){const xs=rows.map(r=>r.year);return svgLine(t('svg_t_gr'),xs,[{name:'Gini',color:SOL.gini,data:rows.map(r=>r.gini)},{name:t('svg_recip'),color:SOL.recip,data:rows.map(r=>r.recip)}],{ymin:0,ymax:1,sub:t('svg_s_gr'),foot:t('svg_foot')});}
+function figStruct(rows){const xs=rows.map(r=>r.year);const ser=[];[0,1,2,3].forEach(x=>ser.push({name:NMS[x]+t('svg_sfx_rec'),color:SOL.struct[x],data:rows.map(r=>r.rRecip[x])}));[0,1,2,3].forEach(x=>ser.push({name:NMS[x]+t('svg_sfx_gini'),color:SOL.struct[x],dash:true,data:rows.map(r=>r.rGini[x])}));return svgLine(t('svg_t_struct'),xs,ser,{ymin:0,ymax:1,sub:t('svg_s_struct'),foot:t('svg_foot')});}
+function figScenario(p,rows){const xs=rows.map(r=>r.year);const tgt=(p.toX>=0?p.toX:p.x);
+  const ser=[{name:t('svg_scn_recip'),color:'#2E6DA4',data:rows.map(r=>r.recip)},
+    {name:t('svg_scn_transv'),color:'#6B4F9E',data:rows.map(r=>r.gini)},
+    {name:t('svg_scn_strat')+' '+NMS[tgt],color:'#C0392B',data:rows.map(r=>r.rGini[tgt])}];
+  const verb=t('verb_'+p.verb),trd=(detectedTrends[p.trIdx]||p._tr);
+  const sub=(trd?trendLabel(trd):'')+' · '+verb+(p.toX>=0?(' → '+NMS[p.toX]):'')+' · '+t('scn_horizon')+' +'+(p.endYear-p.lastYear);
+  return svgLine(t('svg_scn_title'),xs,ser,{ymin:0,ymax:1,sub,foot:t('svg_foot'),marker:{x:p.lastYear,label:t('svg_scn_bascule')+' '+p.lastYear}});}
 function figFlux(rec){const m=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];const tr=buildFullTransitions(rec);for(const t of tr)if(t.sf!==t.st)m[t.sf][t.st]++;
   let mx=1;for(let i=0;i<4;i++)for(let j=0;j<4;j++)if(m[i][j]>mx)mx=m[i][j];
-  const W=300,H=300,L=54,T=54,cs=52;let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" font-family="Helvetica,Arial,sans-serif"><rect width="'+W+'" height="'+H+'" fill="'+SOL.bg+'"/><text x="14" y="22" font-size="13" font-weight="600" fill="'+SOL.txt+'">'+t('svg_t_flux')+'</text>';
+  const W=300,H=314,L=54,T=58,cs=52;let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" font-family="'+SVGFONT+'"><rect width="'+W+'" height="'+H+'" fill="'+SOL.bg+'"/><text x="14" y="30" font-size="16" font-weight="600" fill="'+SOL.txt+'">'+t('svg_t_flux')+'</text>';
   for(let j=0;j<4;j++)s+='<text x="'+(L+j*cs+cs/2)+'" y="'+(T-8)+'" font-size="11" text-anchor="middle" fill="'+SOL.txt2+'">'+NMS[j]+'</text>';
   for(let i=0;i<4;i++){s+='<text x="'+(L-10)+'" y="'+(T+i*cs+cs/2+4)+'" font-size="11" text-anchor="end" fill="'+SOL.txt2+'">'+NMS[i]+'</text>';
-    for(let j=0;j<4;j++){const v=m[i][j],al=v?(0.15+0.7*v/mx):0.05;s+='<rect x="'+(L+j*cs)+'" y="'+(T+i*cs)+'" width="'+(cs-3)+'" height="'+(cs-3)+'" rx="3" fill="rgba(42,161,152,'+al.toFixed(3)+')"/>';if(v)s+='<text x="'+(L+j*cs+(cs-3)/2)+'" y="'+(T+i*cs+(cs-3)/2+4)+'" font-size="12" text-anchor="middle" fill="'+SOL.txt+'">'+v+'</text>';}}
-  s+='<text x="14" y="'+(H-8)+'" font-size="9" fill="'+SOL.txt2+'">'+t('svg_flux_note')+'</text>';return s+'</svg>';}
+    for(let j=0;j<4;j++){const v=m[i][j],al=v?(0.15+0.7*v/mx):0.05;s+='<rect x="'+(L+j*cs)+'" y="'+(T+i*cs)+'" width="'+(cs-3)+'" height="'+(cs-3)+'" rx="3" fill="rgba('+SOL.heat+','+al.toFixed(3)+')"/>';if(v)s+='<text x="'+(L+j*cs+(cs-3)/2)+'" y="'+(T+i*cs+(cs-3)/2+4)+'" font-size="12" text-anchor="middle" fill="'+(al>0.5?'#ffffff':SOL.txt)+'">'+v+'</text>';}}
+  s+='<text x="14" y="'+(H-10)+'" font-size="9.5" fill="'+SOL.foot+'">'+t('svg_flux_note')+'</text>';return s+'</svg>';}
 function figMobility(rec){const tr=buildFullTransitions(rec);const up=[0,0,0,0],dn=[0,0,0,0];for(const t of tr)if(t.sf===t.st){if(t.ct<t.cf)up[t.sf]++;else if(t.ct>t.cf)dn[t.sf]++;}
   let mx=1;for(let x=0;x<4;x++){if(up[x]>mx)mx=up[x];if(dn[x]>mx)mx=dn[x];}
-  const W=420,H=300,L=44,T=44,B=40,gw=(W-L-16)/4;let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" font-family="Helvetica,Arial,sans-serif"><rect width="'+W+'" height="'+H+'" fill="'+SOL.bg+'"/><text x="14" y="22" font-size="13" font-weight="600" fill="'+SOL.txt+'">'+t('svg_t_mob')+'</text>';
+  const W=420,H=314,L=44,T=48,B=44,gw=(W-L-16)/4;let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" font-family="'+SVGFONT+'"><rect width="'+W+'" height="'+H+'" fill="'+SOL.bg+'"/><text x="14" y="30" font-size="16" font-weight="600" fill="'+SOL.txt+'">'+t('svg_t_mob')+'</text>';
   const yS=v=>H-B-v/mx*(H-T-B);s+='<line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-16)+'" y2="'+(H-B)+'" stroke="'+SOL.axis+'"/>';
   for(let x=0;x<4;x++){const x0=L+x*gw;s+='<rect x="'+(x0+gw*0.18)+'" y="'+yS(up[x])+'" width="'+(gw*0.28)+'" height="'+(H-B-yS(up[x]))+'" fill="'+SOL.up+'"/><rect x="'+(x0+gw*0.52)+'" y="'+yS(dn[x])+'" width="'+(gw*0.28)+'" height="'+(H-B-yS(dn[x]))+'" fill="'+SOL.down+'"/>';
     s+='<text x="'+(x0+gw*0.46)+'" y="'+(H-B+16)+'" font-size="11" text-anchor="middle" fill="'+SOL.txt2+'">'+NMS[x]+'</text>';
     if(up[x])s+='<text x="'+(x0+gw*0.32)+'" y="'+(yS(up[x])-3)+'" font-size="9" text-anchor="middle" fill="'+SOL.up+'">'+up[x]+'</text>';
     if(dn[x])s+='<text x="'+(x0+gw*0.66)+'" y="'+(yS(dn[x])-3)+'" font-size="9" text-anchor="middle" fill="'+SOL.down+'">'+dn[x]+'</text>';}
   s+='<rect x="'+L+'" y="'+(T-6)+'" width="9" height="9" fill="'+SOL.up+'"/><text x="'+(L+12)+'" y="'+(T+2)+'" font-size="10" fill="'+SOL.txt+'">'+t('svg_up')+'</text><rect x="'+(L+78)+'" y="'+(T-6)+'" width="9" height="9" fill="'+SOL.down+'"/><text x="'+(L+90)+'" y="'+(T+2)+'" font-size="10" fill="'+SOL.txt+'">'+t('svg_down')+'</text>';
+  s+='<text x="14" y="'+(H-10)+'" font-size="9.5" fill="'+SOL.foot+'">'+t('svg_foot')+'</text>';
   return s+'</svg>';}
 function figSequence(rec){const cnt=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];for(const r of rec){const q=(r.q==null?r.s:r.q);cnt[r.s][q]++;}
-  const W=540,H=300,L=70,R=18,T=58,bh=34,gap=14,rowH=bh+gap;
-  let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" font-family="Helvetica,Arial,sans-serif"><rect width="'+W+'" height="'+H+'" fill="'+SOL.bg+'"/>';
-  s+='<text x="14" y="22" font-size="13" font-weight="600" fill="'+SOL.txt+'">'+t('svg_t_seq')+'</text>';
+  const W=540,H=314,L=70,R=18,T=64,bh=34,gap=14,rowH=bh+gap;
+  let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" font-family="'+SVGFONT+'"><rect width="'+W+'" height="'+H+'" fill="'+SOL.bg+'"/>';
+  s+='<text x="14" y="30" font-size="16" font-weight="600" fill="'+SOL.txt+'">'+t('svg_t_seq')+'</text>';
   const LB=I18N.svg_seq[LANG];let lx=14;
-  for(let q=0;q<4;q++){s+='<rect x="'+lx+'" y="32" width="9" height="9" fill="'+SOL.struct[q]+'"/><text x="'+(lx+12)+'" y="40" font-size="9" fill="'+SOL.txt2+'">'+LB[q]+'</text>';lx+=24+LB[q].length*5.2;}
+  for(let q=0;q<4;q++){s+='<rect x="'+lx+'" y="42" width="9" height="9" fill="'+SOL.struct[q]+'"/><text x="'+(lx+12)+'" y="50" font-size="9" fill="'+SOL.txt2+'">'+LB[q]+'</text>';lx+=24+LB[q].length*5.2;}
   const bw=W-L-R;
   for(let x=0;x<4;x++){const tot=cnt[x].reduce((a,b)=>a+b,0)||1,y0=T+x*rowH;
     s+='<text x="'+(L-10)+'" y="'+(y0+bh/2+4)+'" font-size="12" text-anchor="end" fill="'+SOL.txt+'">'+NMS[x]+'</text>';
-    let cx=L;for(let q=0;q<4;q++){const w=bw*cnt[x][q]/tot;if(w>0){s+='<rect x="'+cx.toFixed(1)+'" y="'+y0+'" width="'+w.toFixed(1)+'" height="'+bh+'" fill="'+SOL.struct[q]+'" opacity="0.85"/>';if(w>20)s+='<text x="'+(cx+w/2).toFixed(1)+'" y="'+(y0+bh/2+4)+'" font-size="10" text-anchor="middle" fill="'+SOL.txt+'">'+cnt[x][q]+'</text>';cx+=w;}}}
+    let cx=L;for(let q=0;q<4;q++){const w=bw*cnt[x][q]/tot;if(w>0){s+='<rect x="'+cx.toFixed(1)+'" y="'+y0+'" width="'+w.toFixed(1)+'" height="'+bh+'" fill="'+SOL.struct[q]+'" opacity="0.85"/>';if(w>20)s+='<text x="'+(cx+w/2).toFixed(1)+'" y="'+(y0+bh/2+4)+'" font-size="10" text-anchor="middle" fill="#ffffff">'+cnt[x][q]+'</text>';cx+=w;}}}
+  s+='<text x="14" y="'+(H-10)+'" font-size="9.5" fill="'+SOL.foot+'">'+t('svg_foot')+'</text>';
   return s+'</svg>';}
 function exportFig(which){if(which==='flux'||which==='mob'||which==='seq'){if(!cohortRec){alert(t('alert_cohort2'));return;}
     if(which==='flux')dl(t('fn_fig_flux')+'.svg',figFlux(cohortRec),'image/svg+xml');
@@ -1060,7 +1165,7 @@ document.getElementById("contractfile").onchange=e=>{const f=e.target.files[0];i
   rd.onload=()=>{try{const rec=parseContractCSV(rd.result);const keys=rec&&buildCohortKeys(rec);
     if(!keys){document.getElementById("contractstatus").textContent=t('st_contract_format');return;}
     tl.keys=keys;tl.sel=0;tl.start=keys[0].year;tl.end=keys[keys.length-1].year;tl.year=tl.start;
-    cohortRec=rec;cohortTrans=buildTransitions(rec);lastFluxYear=null;renderFlux(tl.start);
+    cohortRec=rec;cohortTrans=buildTransitions(rec);lastFluxYear=null;renderFlux(tl.start);SCN=null;_scnBase=null;
     cohortByActor=buildCohortByActor(rec);
     tl.paliers=true;document.getElementById("paliers").checked=true;
     document.getElementById("tlstart").value=tl.start;document.getElementById("tlend").value=tl.end;
@@ -1103,7 +1208,7 @@ document.getElementById("instcohortfile").onchange=e=>{const f=e.target.files[0]
     if(!rec||!rec.length){document.getElementById("instcohortstatus").textContent=t('st_contract_format');return;}
     probeByActor=buildCohortByActor(rec);
     const ids=Object.keys(probeByActor);prismSel=ids.slice();lastPrismYear=null;
-    probeMode='instance';instCensus=true;
+    probeMode='instance';instCensus=true;SCN=null;_scnBase=null;
     partitionControl();
     weightDrive=Object.values(probeByActor).some(st=>st.some(r=>r.w!=null));
     if(!cohortRec){const keys=buildCohortKeys(rec);
@@ -1258,6 +1363,158 @@ const demoNowSeg=[...demoNowEl.querySelectorAll("i")];
 function updateDemoNow(){for(let c=0;c<4;c++) demoNowSeg[c].style.width=(Pcur[selSphere][c]*100).toFixed(1)+"%";}
 
 document.querySelectorAll('.langbtn').forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
+// ================= Module « scénarios et si » =================
+let detectedTrends=[], scnCards=[], lastScn=null, SCN=null, _scnBase=null;
+function scnMsg(html){const el=$('scnRead');if(el)el.innerHTML=html||'';}
+function styleOpt(o){o.style.background='#0d1326';o.style.color='#E9EAF2';return o;}
+function fitSlope(ys){const n=ys.length;let sx=0,sy=0,sxx=0,sxy=0;for(let i=0;i<n;i++){sx+=i;sy+=ys[i];sxx+=i*i;sxy+=i*ys[i];}const d=n*sxx-sx*sx;return d?(n*sxy-sx*sy)/d:0;}
+function pushTrend(sig,x,yrs,ys){const n=ys.length;if(n<3)return;const m=fitSlope(ys);
+  const mean=ys.reduce((a,b)=>a+b,0)/n||1;const rel=m*(n-1)/Math.max(1e-6,Math.abs(mean));
+  const dir=Math.abs(rel)<0.06?'flat':(m>0?'up':'down');
+  detectedTrends.push({sig,x,yrs,ys,m,rel,dir,lastYear:yrs[n-1],lastVal:ys[n-1]});}
+function extractTrends(){
+  if(!cohortRec && !probeByActor && !ctrlByActor){scnMsg('<span style="color:var(--warn)">'+t('scn_need')+'</span>');return;}
+  if(SCN)clearScn();captureBase();
+  const yrs=[];for(let Y=tl.start;Y<=tl.end;Y++)yrs.push(Y);
+  if(yrs.length<3){scnMsg('<span style="color:var(--warn)">'+t('scn_need')+'</span>');return;}
+  detectedTrends=[];
+  // tendances lues directement sur les drivers de données (déterministe, sans replay) :
+  //  présence = part structurelle (poids) ; contrôle = plancher de capacité de contrôle
+  for(let x=0;x<4;x++){
+    pushTrend('presence',x,yrs,yrs.map(Y=>norm(compAt(Y).w)[x]));
+    pushTrend('control',x,yrs,yrs.map(Y=>controlCapacity(Y).floor[x]));
+  }
+  detectedTrends=detectedTrends.filter(tr=>tr.dir!=='flat');
+  if(!detectedTrends.length){$('scnTrendWrap').style.display='none';scnMsg('<span style="color:var(--warn)">'+t('scn_none_found')+'</span>');return;}
+  detectedTrends.sort((a,b)=>Math.abs(b.rel)-Math.abs(a.rel));
+  renderScnTrendOptions();$('scnTrendWrap').style.display='flex';scnMsg('');
+  try{$('scnTrendWrap').scrollIntoView({block:'nearest'});}catch(_){}}
+function trendLabel(tr){return LAB[tr.x]+'·'+SN(tr.x)+' · '+t('sig_'+tr.sig)+' '+t('dir_'+tr.dir);}
+function renderScnTrendOptions(){const sel=$('scnTrend');if(!sel)return;const keep=+sel.value||0;sel.innerHTML='';
+  detectedTrends.forEach((tr,i)=>{const o=document.createElement('option');o.value=i;o.textContent=trendLabel(tr);styleOpt(o);sel.appendChild(o);});
+  if(keep<detectedTrends.length)sel.value=keep;}
+const VERBS=['fortsetzen','beschleunigen','daempfen','umkehren','einfrieren','umlenken'];
+function populateVerbs(){const sel=$('scnVerb');if(!sel)return;const keep=sel.value;sel.innerHTML='';
+  VERBS.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=t('verb_'+v);styleOpt(o);sel.appendChild(o);});
+  if(keep)sel.value=keep;
+  const to=$('scnTo');if(to){const k2=to.value;to.innerHTML='';for(let x=0;x<4;x++){const o=document.createElement('option');o.value=x;o.textContent=LAB[x]+'·'+SN(x);styleOpt(o);to.appendChild(o);}if(k2)to.value=k2;}}
+function cloneKeys(ks){return ks.map(k=>({year:k.year,w:k.w.slice(),comp:k.comp.map(r=>r.slice())}));}
+function captureBase(){_scnBase={keys:cloneKeys(tl.keys),end:tl.end};}
+function restoreBase(){if(_scnBase){tl.keys=cloneKeys(_scnBase.keys);tl.end=_scnBase.end;}}
+// taux de transformation par an : direction issue de l'histoire, intensité pilotée par l'ampleur (visible)
+function scnRatePerYear(p){const dir=p.m>0?1:(p.m<0?-1:1),REF=0.02;
+  switch(p.verb){case 'beschleunigen':return dir*REF*(1+2*p.mag);
+   case 'daempfen':return dir*REF*0.5*(1-p.mag);
+   case 'umkehren':return -dir*REF*(0.6+1.4*p.mag);
+   case 'einfrieren':return 0;
+   case 'umlenken':return 0;
+   default:return dir*REF*0.5;}}
+function scnFactor(p,Y){const dy=Math.max(0,Y-p.lastYear);return Math.max(0.15,Math.min(5,1+scnRatePerYear(p)*dy));}
+function scnRedirectFactor(p,Y){const dy=Math.max(0,Y-p.lastYear),REF=0.02;return Math.max(0.15,Math.min(5,1+REF*(0.6+1.4*p.mag)*dy));}
+function fillShares(s0,fixed){const f={};let fixSum=0;for(const[i,v]of fixed){f[i]=v;fixSum+=v;}
+  const rem=Math.max(0,1-fixSum);let othSum=0;for(let i=0;i<4;i++)if(!(i in f))othSum+=Math.max(0,s0[i]);
+  const out=[0,0,0,0];for(let i=0;i<4;i++)out[i]=(i in f)?f[i]:(othSum>1e-6?rem*Math.max(0,s0[i])/othSum:rem/(4-fixed.length));
+  return out;}
+// projection de présence : décalage ADDITIF de parts (visible même si la part de départ est minuscule)
+function projShares(p,yr,s0){const dy=Math.max(0,yr-p.lastYear),REF=0.012,dir=p.m>0?1:(p.m<0?-1:1);
+  if(p.toX>=0){const d=Math.min(0.85,REF*(0.6+1.4*p.mag)*dy);
+    return fillShares(s0,[[p.x,Math.max(0.02,s0[p.x]-d)],[p.toX,Math.min(0.9,s0[p.toX]+d)]]);}
+  let rate;switch(p.verb){case 'beschleunigen':rate=dir*REF*(1+2*p.mag);break;case 'daempfen':rate=dir*REF*0.4*(1-p.mag);break;
+   case 'umkehren':rate=-dir*REF*(0.6+1.4*p.mag);break;case 'einfrieren':rate=0;break;default:rate=dir*REF*0.4;}
+  return fillShares(s0,[[p.x,Math.max(0.02,Math.min(0.9,s0[p.x]+rate*dy))]]);}
+function applyScn(p){restoreBase();
+  const fromY=p.lastYear,endY=p.lastYear+p.hor;
+  let base=tl.keys[tl.keys.length-1];for(const k of tl.keys)if(k.year<=fromY)base=k;
+  const bw=base.w.slice(),bc=base.comp.map(r=>r.slice());
+  tl.keys=tl.keys.filter(k=>k.year<=fromY);
+  const steps=Math.max(2,Math.min(6,Math.round(p.hor/4)));
+  for(let i=1;i<=steps;i++){const yr=Math.round(fromY+i*p.hor/steps);let w2;
+    if(p.sig==='presence'){const tot=bw.reduce((a,b)=>a+b,0)||1;w2=projShares(p,yr,norm(bw)).map(v=>v*tot);}
+    else w2=bw.slice();
+    tl.keys.push({year:yr,w:w2,comp:bc.map(r=>r.slice())});}
+  tl.keys.sort((a,b)=>a.year-b.year);
+  tl.end=endY;const te=$('tlend');if(te)te.value=endY;
+  SCN={sig:p.sig,x:p.x,toX:p.toX,verb:p.verb,mag:p.mag,m:p.m,lastYear:fromY,endYear:endY};
+  if(typeof renderTicks==='function')renderTicks();if(typeof renderKfList==='function')renderKfList();}
+function liveScnCtrl(){if(!SCN||SCN.sig!=='control'){ctrlScale=[1,1,1,1];return;}
+  ctrlScale=[1,1,1,1];const Y=tl.year;if(Y>SCN.lastYear){if(SCN.toX>=0)ctrlScale[SCN.toX]=scnRedirectFactor(SCN,Y);else ctrlScale[SCN.x]=scnFactor(SCN,Y);}}
+function clearScn(){SCN=null;restoreBase();ctrlScale=[1,1,1,1];const te=$('tlend');if(te)te.value=tl.end;
+  if(typeof renderTicks==='function')renderTicks();if(typeof renderKfList==='function')renderKfList();
+  tl.playing=false;running=false;reset();tl.year=tl.start;if(typeof updatePlayhead==='function')updatePlayhead();if(typeof syncPlayBtn==='function')syncPlayBtn();scnMsg('');}
+function playScnFrom(startY){
+  reseed();ruler=[0,1,2,3];ruptT=[0,0,0,0];F=[0,0,0,0];resetChains();
+  if(loadedChains)for(const sx in loadedChains)setChain(+sx,loadedChains[sx]);
+  seedForce();perturb(0.03);
+  const D0=compAt(tl.start);act=Array.from({length:N},(_,x)=>Array.from({length:N},()=>D0.comp[x].slice()));
+  const dt=1/60*0.68,span=Math.max(1,tl.end-tl.start),dur=(tl.dur&&tl.dur>0)?tl.dur:3.2,K=Math.max(8,Math.round(dur*60*0.68/span));
+  rulerHold=[0,0,0,0];satS=[0,0,0,0];
+  for(let Y=tl.start;Y<startY;Y++){tl.year=Y;const D=compAt(Y);Pcur=D.comp;Wcur=norm(D.w.slice());
+    ctrlScale=[1,1,1,1];if(SCN&&SCN.sig==='control'&&Y>SCN.lastYear){if(SCN.toX>=0)ctrlScale[SCN.toX]=scnRedirectFactor(SCN,Y);else ctrlScale[SCN.x]=scnFactor(SCN,Y);}
+    if(tl.cursorKeys)for(const cid in tl.cursorKeys){const el=document.getElementById(cid),v=cursorAt(cid,Y);if(el&&v!=null){el.value=v;el.dispatchEvent(new Event('input'));}}
+    for(let k=0;k<K;k++)step(dt);}
+  tl.year=startY;tl.playing=true;running=true;hist.length=0;if(typeof syncPlayBtn==='function')syncPlayBtn();}
+function playScn(){if(!SCN){const b=$('tlrun');if(b)b.click();return;}
+  const hor=Math.max(1,SCN.endYear-SCN.lastYear),pre=Math.min(12,Math.max(4,Math.round(hor*0.3)));
+  playScnFrom(Math.max(tl.start,SCN.lastYear-pre));}
+function runScenarioRows(){const dt=1/60*0.68,span=Math.max(1,tl.end-tl.start),dur=(tl.dur&&tl.dur>0)?tl.dur:3.2,K=Math.max(8,Math.round(dur*60*0.68/span));
+  reset();ctrlScale=[1,1,1,1];const rows=[],_ty=tl.year,_rh=rulerHold.slice(),_ss=satS.slice();rulerHold=[0,0,0,0];satS=[0,0,0,0];
+  for(let Y=tl.start;Y<=tl.end;Y++){tl.year=Y;const D=compAt(Y);Pcur=D.comp;Wcur=norm(D.w.slice());
+    ctrlScale=[1,1,1,1];if(SCN&&SCN.sig==='control'&&Y>SCN.lastYear){if(SCN.toX>=0)ctrlScale[SCN.toX]=scnRedirectFactor(SCN,Y);else ctrlScale[SCN.x]=scnFactor(SCN,Y);}
+    if(tl.cursorKeys)for(const cid in tl.cursorKeys){const el=document.getElementById(cid),v=cursorAt(cid,Y);if(el&&v!=null){el.value=v;el.dispatchEvent(new Event('input'));}}
+    for(let k=0;k<K;k++)step(dt);
+    rows.push({year:Y,recip:reciprocity(),gini:gini(),rGini:[0,1,2,3].map(structGini),S:S.slice(),cf:controlCapacity(Y).floor});}
+  reset();tl.year=_ty;ctrlScale=[1,1,1,1];rulerHold=_rh;satS=_ss;lastCursorYear=null;return rows;}
+function rowAt(rows,Y){let best=rows[0];for(const r of rows)if(Math.abs(r.year-Y)<Math.abs(best.year-Y))best=r;return best;}
+function indic(row,p){const tgt=(p.toX>=0?p.toX:p.x);const v=(p.sig==='control'?row.cf:row.S);
+  return {recip:row.recip,gini:row.gini,strat:row.rGini[tgt],diff:Math.abs(v[0]-v[3])};}
+function dlt(a,b){const d=b-a;if(Math.abs(d)<0.005)return '<span style="color:var(--slate-dim)">±0</span>';return '<span style="color:'+(d>0?'#E08A3C':'#46CDB8')+'">'+(d>0?'▲':'▼')+Math.abs(d).toFixed(2)+'</span>';}
+function scnSentence(p,outset,proj){const cl=[];const dRe=proj.recip-outset.recip,dGi=proj.gini-outset.gini,dSt=proj.strat-outset.strat;
+  if(Math.abs(dRe)>=0.01)cl.push(t(dRe>0?'cl_channel_open':'cl_channel_close')),cl.push(t(dRe>0?'cl_recip_up':'cl_recip_down'));
+  if(Math.abs(dGi)>=0.01)cl.push(t(dGi>0?'cl_ineq_up':'cl_ineq_down'));
+  if(Math.abs(dSt)>=0.01)cl.push(t(dSt>0?'cl_strat_up':'cl_strat_down'));
+  const uniq=[...new Set(cl)];const body=uniq.length?uniq.join(' · '):t('cl_none');
+  const tgt=p.toX>=0?(' '+LAB[p.toX]):'';
+  return trendLabel(detectedTrends[p.trIdx]||p._tr)+' · '+t('verb_'+p.verb)+tgt+' → '+body;}
+function renderScnRead(p,rows){const o=indic(rowAt(rows,p.lastYear),p),pj=indic(rowAt(rows,p.endYear),p);
+  const L=(k)=>t(k);const row=(lab,a,b)=>'<tr><td style="padding:1px 8px 1px 0;color:var(--slate-dim)">'+lab+'</td><td style="text-align:right;color:var(--paper)">'+a.toFixed(2)+'</td><td style="text-align:right">'+b.toFixed(2)+' '+dlt(a,b)+'</td></tr>';
+  let h='<div style="margin-bottom:4px">'+scnSentence(p,o,pj)+'</div>';
+  h+='<table style="border-collapse:collapse;width:100%;font-size:9px"><tr style="color:var(--slate-dim)"><td></td><td style="text-align:right">'+L('read_outset')+' '+p.lastYear+'</td><td style="text-align:right">'+L('read_proj')+' '+p.endYear+'</td></tr>';
+  h+=row(L('read_recip'),o.recip,pj.recip);
+  h+=row(L('read_transv'),o.gini,pj.gini);
+  h+=row(L('read_strat'),o.strat,pj.strat);
+  h+=row(L('read_diff'),o.diff,pj.diff);
+  h+='</table>';scnMsg('<div style="border-top:1px solid var(--hair);margin-top:4px;padding-top:6px;color:var(--paper)">'+h+'</div>');}
+function buildProj(){const tr=detectedTrends[+$('scnTrend').value];if(!tr)return null;
+  const verb=$('scnVerb').value,mag=+$('scnMag').value,hor=Math.max(1,Math.round(+$('scnHor').value||20));
+  const toX=(verb==='umlenken')?+$('scnTo').value:-1;
+  return {x:tr.x,sig:tr.sig,verb,mag,hor,toX,m:tr.m,lastVal:tr.lastVal,lastYear:tr.lastYear,endYear:tr.lastYear+hor,trIdx:+$('scnTrend').value,_tr:tr};}
+function runScenarioUI(){try{const p=buildProj();
+  if(!p){scnMsg('<span style="color:var(--warn)">'+t('scn_need')+'</span>');return;}
+  applyScn(p);const rows=runScenarioRows();lastScn={p,rows};renderScnRead(p,rows);playScn();}
+  catch(err){scnMsg('<span style="color:var(--warn)">⚠ '+(err&&err.message?err.message:err)+'</span>');}}
+function renderScnCards(){const el=$('scnCards');if(!el)return;el.innerHTML='';const blk=$('scnCardsBlock');if(blk)blk.style.display=scnCards.length?'flex':'none';if(!scnCards.length)return;
+  el.innerHTML='<div class="heading" style="color:var(--slate-dim)" data-i18n="scn_cards_head">'+t('scn_cards_head')+'</div>';
+  scnCards.forEach((c,i)=>{const d=document.createElement('div');d.className='erow';d.style.cssText='gap:6px;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--slate);border:1px solid var(--hair);border-radius:6px;padding:4px 6px';
+    d.innerHTML='<span style="flex:1">'+c.label+'</span>';
+    const b=document.createElement('button');b.className='xbtn';b.textContent=t('btn_replay');b.onclick=()=>{try{detectedTrends[c.p.trIdx]=c.p._tr;applyScn(c.p);const rows=runScenarioRows();lastScn={p:c.p,rows};renderScnRead(c.p,rows);playScn();}catch(err){scnMsg('<span style="color:var(--warn)">⚠ '+(err&&err.message?err.message:err)+'</span>');}};
+    const x=document.createElement('button');x.className='xbtn';x.textContent='×';x.onclick=()=>{scnCards.splice(i,1);renderScnCards();};
+    d.appendChild(b);d.appendChild(x);el.appendChild(d);});}
+function refreshScnLang(){populateVerbs();if(detectedTrends.length)renderScnTrendOptions();renderScnCards();if(lastScn)renderScnRead(lastScn.p,lastScn.rows);}
+// --- câblage ---
+(function wireScn(){populateVerbs();
+  const md=$('scnMag');if(md){const upd=()=>{$('scnMagV').textContent=(+md.value).toFixed(2);};md.oninput=upd;upd();}
+  const vb=$('scnVerb');if(vb)vb.onchange=()=>{$('scnToWrap').style.display=(vb.value==='umlenken')?'flex':'none';};
+  const dt=$('scnDetect');if(dt)dt.onclick=extractTrends;
+  const cl=$('scnClear');if(cl)cl.onclick=clearScn;
+  const sg=$('scnSvg');if(sg)sg.onclick=()=>{if(!lastScn){scnMsg('<span style="color:var(--warn)">'+t('scn_need')+'</span>');return;}try{dl(t('fn_scn_svg')+'.svg',figScenario(lastScn.p,lastScn.rows),'image/svg+xml');}catch(err){scnMsg('<span style="color:var(--warn)">⚠ '+(err&&err.message?err.message:err)+'</span>');}};
+  const rn=$('scnRun');if(rn)rn.onclick=runScenarioUI;
+  const sv=$('scnSave');if(sv)sv.onclick=()=>{try{const p=buildProj();
+    if(!p){scnMsg('<span style="color:var(--warn)">'+t('scn_need')+'</span>');return;}
+    p.label=trendLabel(p._tr)+' · '+t('verb_'+p.verb)+(p.toX>=0?(' '+LAB[p.toX]):'')+' · +'+p.hor;scnCards.push({p,label:p.label});renderScnCards();
+    try{$('scnCards').scrollIntoView({block:'nearest'});}catch(_){}}
+    catch(err){scnMsg('<span style="color:var(--warn)">⚠ '+(err&&err.message?err.message:err)+'</span>');}};
+  document.querySelectorAll('.langbtn').forEach(b=>b.addEventListener('click',()=>setTimeout(refreshScnLang,0)));
+})();
 renderChains();buildInspGrid();reset();tl.keys=neutralKeys();tl.start=tl.keys[0].year;tl.end=tl.keys[tl.keys.length-1].year;tl.sel=0;tl.year=tl.start;document.getElementById("tlstart").value=tl.start;document.getElementById("tlend").value=tl.end;updateSphPick();loadKeyToSliders();renderTicks();renderKfList();resize();sizeMini();applyDefaults();setLang('en');requestAnimationFrame(loop);
 window.addEventListener("resize",sizeMini);
 </script>

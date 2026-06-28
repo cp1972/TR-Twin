@@ -3,7 +3,7 @@
 #+OPTIONS: toc:t num:t ^:nil
 #+LANGUAGE: en
 
-# Status: version 59 (v59). Living document.
+# Status: version 62 (v62). Living document.
 # Corresponds to point 9 of the master documentation.
 
 * Methodology: theories in the digital twin — hidden assumptions and falsification

@@ -3,7 +3,7 @@
 #+OPTIONS: toc:nil num:t ^:nil
 #+LANGUAGE: en
 
-# Status: version 59 (v59). Living document.
+# Status: version 62 (v62). Living document.
 # Corresponds to point 11 of the master documentation.
 # Bibliographic entries retain their original-language titles.
 

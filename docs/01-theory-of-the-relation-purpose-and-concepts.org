@@ -3,7 +3,7 @@
 #+OPTIONS: toc:t num:t ^:nil
 #+LANGUAGE: en
 
-# Status: version 59 (v59). Living document, continuously updated.
+# Status: version 62 (v62). Living document, continuously updated.
 # Theoretical basis: Christian Papilloud & Eva-Maria Schultze, /Skizze einer Theorie der Relation/, Springer VS, Wiesbaden 2022 (ISBN 978-3-658-37922-3).
 
 * Purpose and structure of this documentation
