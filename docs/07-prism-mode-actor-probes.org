@@ -44,6 +44,19 @@ An instance is located by its structure and sequence, and read as a /lane/ rathe
 
 Instances do not circulate. They are shown only while they exist (between their founding and closing rows); before and after, they are absent from the scene. They strengthen by socialising the actors who come to them, and weaken under satellisation or when the demand for socialisation (actor circulation toward them) becomes too strong or too weak.
 
+** The =categorie= column in an instance file
+
+The instance file reuses the cohort header =aid, annee, structure, categorie, sequence, poids=, but the =categorie= column does /not/ mean the same thing here, and it is worth stating plainly to avoid a tempting misreading.
+
+In a *cohort* (contract table) =categorie= is load-bearing: it is the actor's own status (=etabli= / =aspirant= / =conservateur= / =decu=) and feeds the per-structure actor composition and hence the vertical inequality. In an *instance* file the same column plays two narrower roles and nothing more:
+
+1. *Type flag (the one load-bearing use).* If the value matches =control= / =kontrolle= the row is read as a *control* instance — it joins the control parc and feeds the control-capacity layer; otherwise the row is a *mediation* instance. So on a control row =controle= is required, but it is a routing keyword, not an actor category.
+2. *Display label only.* On a mediation row the value is mapped to a category colour for the probe dot in the prism/census panel. The dynamics ignore it entirely.
+
+What the model never does is read this column as "the actor category that the instance socialises preferentially". That reading is intuitive but not implemented. An instance is targeted by /structure × sequence/ (× weight), as the Lanes and Weights sections describe; its differential effect on the actor categories is not declared on the instance, it /emerges/ from the cascade — the vertical level (v59), where the apex homogenises and the dominated stratify. Declaring a privileged category on the instance would be a model extension (routing an instance's effect by category), not a relabelling, and it sits in some tension with the principle that instances act on sequences while categories are positions /within/ sequences.
+
+Practical guidance: keep =controle= on control rows; on mediation rows put any mnemonic label you like, or leave the field as in the cohort vocabulary — it changes the dot colour, not the result. The header is thus a deliberately retained inheritance from the cohort schema (documented rather than renamed), not a hidden parameter.
+
 ** Weights (the =poids= column)
 
 The contract table accepts an optional =poids= column (0–1) per dated row. It encodes the instance's /empirical force trajectory/ — its rise, peak and decline. In instance mode the twin reads the time-interpolated weight and drives the instance's cell g[structure][sequence] toward it as a *target share*: g[s][q] relaxes toward the weight and the renormalisation redistributes the remainder over the other sequences. The probe dot grows and shrinks with the weight.

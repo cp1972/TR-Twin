@@ -72,8 +72,18 @@ with open(f"{OUT}/auktion_artists_cohort.csv", "w", newline="") as f:
 
 # ---------------------------------------------------------------------------
 # 2) AUKTION CONTROL PARC  (the empirically-profilable "way of working")
-#    control instances: categorie=controle ; mediation: a normal category.
 # ---------------------------------------------------------------------------
+# IMPORTANT — what the "categorie" column means in an INSTANCE file (not a cohort):
+#   It is NOT "the actor category the instance socialises preferentially" — the model
+#   never reads it that way. For an instance it has only two roles:
+#     (a) TYPE FLAG (load-bearing): a value containing "controle"/"control"/"kontrolle"
+#         marks a CONTROL instance (joins the control parc, feeds control capacity);
+#         any other value marks a MEDIATION instance. So "controle" is REQUIRED on
+#         control rows, but it is a routing keyword, not an actor category.
+#     (b) DISPLAY LABEL only: on mediation rows the value just tints the probe dot.
+#   An instance is actually targeted by  structure x sequence x poids  (see docs/07).
+#   The mediation labels below (etabli / conservateur) are mnemonic tints, nothing more.
+#
 # each instance: (aid, structure, categorie, sequence, [(year, poids), ...])
 instances = [
     # --- CONTROL: the auction houses ---
