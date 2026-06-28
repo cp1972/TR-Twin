@@ -1,0 +1,33 @@
+#+TITLE: "Auktion" art-market example — fictitious, heuristic
+
+A worked example for the scenario protocol
+([[file:../../docs/08-scenario-protocol-for-students.org][docs/08]]). It lets students
+test mechanistic hypotheses about how auction houses — control instances straddling
+A (Culture) and D (Media) — regulate the circulation of artists in A.
+
+* Files
+
+- =data/auktion_artists_cohort.csv= — load as the *cohort / contract table*. A STIPULATED
+  population of 18 artists in four ideal-types (contemporary renowned, deceased
+  former-established, deceased risen in prestige, aspiring regional). Probe, not census.
+- =data/auktion_control_parc.csv= — load as the *instance parc*. The EMPIRICALLY
+  profilable "way of working": three auction control instances (Leipzig, Rhineland,
+  media house) and two mediation instances (galleries, critics).
+
+Regenerate with =python3 scripts/generators/gen_auktion_example.py=.
+
+* Load order in the twin
+
+1. Import =auktion_artists_cohort.csv= as the cohort (sets the timeline ~1948-2025).
+2. Import =auktion_control_parc.csv= as the instance parc.
+3. In the scenario panel, *extract trends* — you should see /D presence rising/,
+   /A control rising/, /D control rising/, /A presence falling/.
+4. Pick a trend, a transformation (accelerate / dampen / redirect A→D …), a horizon,
+   and *compute*. Read the projection contrastively; export with *⬇ SVG*.
+
+* Reminder
+
+Every number here is an illustrative type-ideal, not a measurement. The twin returns the
+/relational consequence/ of a way of working (selectivity, stratification, reciprocity,
+crossing), not the price itself. Label all outputs "fictitious scenario — heuristic
+value".

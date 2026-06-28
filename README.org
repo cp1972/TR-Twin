@@ -50,6 +50,7 @@ In =docs/= (Org-mode, rendered by GitHub):
 5. [[file:docs/05-main-changes.org][Main Changes]] — version history.
 6. [[file:docs/06-literature-to-technical-documentation.org][Literature]] — works cited.
 7. [[file:docs/07-prism-mode-actor-probes.org][Prism Mode — Actor and Instance Probes]] — probes, instance weights, control instances (capacity, usage, grip, differential by sequence), and the empirical control parc.
+8. [[file:docs/08-scenario-protocol-for-students.org][Scenario Protocol for Students]] — from a few qualitative interviews to a defensible what-if scenario; the "Auktion" worked example.
 
 [[file:docs/10-roadmap-planned-extensions.org][Roadmap]] lists implemented features and open follow-ups.
 
