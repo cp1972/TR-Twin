@@ -1,0 +1,10 @@
+curseur,1900,2000
+Circulation des acteurs,1.8,1.8
+Concentration vers le pôle dominant,1.6,1.6
+Perméabilité entre structures,0.6,0.6
+Souplesse des parcours,0.2,0.2
+Déclassement des arrivants,0.25,0.25
+chaine_A,C,B,D
+chaine_B,C,A,D
+chaine_C,A,B,D
+chaine_D,C,A,B
