@@ -1,0 +1,62 @@
+#+TITLE: Theory of the Relation — Digital Twin
+#+OPTIONS: toc:nil num:nil ^:nil
+#+LANGUAGE: en
+
+A stand-alone web application (HTML/JavaScript, Canvas graphics) that simulates the *Theory of the Relation*. It represents four mutually influencing relational structures — *Culture (A), Politics (B), Economy (C), Media (D)* — each articulated into sequences and four actor categories, and it lets you feed in real data to observe the mutual influence of social orders, the unequal circulation of actors, the mediation and control instances, and the inequalities that arise.
+
+*Theoretical basis:* Christian Papilloud & Eva-Maria Schultze, /Skizze einer Theorie der Relation/, Springer VS, Wiesbaden 2022 (ISBN 978-3-658-37922-3).
+
+* Run it
+
+The twin is a single, self-contained file: =tr-twin.html=.
+
+- *Locally:* download or clone the repository and open =tr-twin.html= in any modern browser. No build step, no server, no dependencies.
+- *Online (GitHub Pages):* enable Pages (Settings → Pages → deploy from branch, root =/=); =index.html= redirects to =tr-twin.html=.
+
+The interface switches between *English, German, and French* (the DE·EN·FR pill, top right).
+
+* Start here: the worked example
+
+If you just want to see it work on real data, go to *[[file:examples/working-class-authors/README.org][examples/working-class-authors/]]*. It walks you through loading a cohort of 163 English working-class autobiographers and the art/media instances they passed through, and reproduces the project's main finding — and its deepening: the *control instances* are the channels of the atypical transversal circulation.
+
+In short, in the twin: import =examples/working-class-authors/data/actors/cohorte_contrat.csv= (the actor cohort) and =examples/working-class-authors/data/instances/instances_full_empirical.csv= (the mediation + control instances), then press play.
+
+* Repository structure
+
+#+begin_example
+README.org                     ← you are here (entry point)
+tr-twin.html                   ← the application (open this)
+index.html                     ← redirect for GitHub Pages
+docs/                          ← theoretical + technical documentation (Org)
+examples/
+  working-class-authors/       ← the worked example, self-contained
+    README.org                 ← step-by-step: how to run this example
+    data/  actors/  instances/ ← the cohort and the instance tables (CSV)
+    figures/                   ← the figures (SVG, light + dark)
+    notes/                     ← provenance of the demo data
+scripts/
+  generators/                  ← gen_*.py / build_*.py : (re)build figures and data
+  harness/                     ← Node.js headless replays + smoke tests
+#+end_example
+
+* Documentation
+
+In =docs/= (Org-mode, rendered by GitHub):
+
+1. [[file:docs/01-theory-of-the-relation-purpose-and-concepts.org][Theory of the Relation: Purpose and Concepts]]
+2. [[file:docs/02-digital-twin-of-the-theory-of-the-relation.org][Digital Twin of the Theory of the Relation]] — theory → twin, architecture, the full model.
+3. [[file:docs/03-usage-of-the-tr-digital-twin.org][Usage]] — CSV import: demographics, controller profiles, actor cohorts.
+4. [[file:docs/04-methodology-of-the-tr-digital-twin.org][Methodology]] — the actor as a probe, falsification discipline, an empirical run.
+5. [[file:docs/05-main-changes.org][Main Changes]] — version history.
+6. [[file:docs/06-literature-to-technical-documentation.org][Literature]] — works cited.
+7. [[file:docs/07-prism-mode-actor-probes.org][Prism Mode — Actor and Instance Probes]] — probes, instance weights, control instances (capacity, usage, grip, differential by sequence), and the empirical control parc.
+
+[[file:docs/10-roadmap-planned-extensions.org][Roadmap]] lists implemented features and open follow-ups.
+
+* Reproducibility
+
+A fixed seed makes the twin deterministic: the same settings yield the same trajectory. Every mechanism was first calibrated and verified headless (Node.js) before entering the application. To rebuild the example's figures from the data, see =examples/working-class-authors/README.org= (the =scripts/= section).
+
+* How to cite
+
+Please cite the theoretical basis (Papilloud & Schultze 2022, above) together with this digital twin.
