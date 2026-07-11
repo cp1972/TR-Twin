@@ -1,0 +1,17 @@
+id,herkunftsklasse,kohorte,ziel_oder_mass,wert,quelle,fundstelle,anmerkung
+1,alle,1839-1894,gleiche Klasse wie Vater,60-68%,Miles 1999,"S. 29 (zit. n. Long & Ferrie 2005, S. 5)",Heiratsregister
+2,alle,1869-1873,gleiche 61% / hoeher 20% / niedriger 19%,61/20/19,Mitch 1993,"zit. n. Long & Ferrie 2005, S. 5",Heiratsregister
+3,alle,1859-1874,andere Klasse als Vater,<40%,Miles (via Clark & Cummins 2014),Tab. 7.1,"=> gleiche Klasse >60%"
+4,I Professional,1859-1874,-> Professional (I),54%,Miles (via Clark & Cummins 2014),Tab. 7.1,Diagonale
+5,I Professional,1859-1874,-> Unskilled (V),5%,Miles (via Clark & Cummins 2014),Tab. 7.1,Abstieg an die Basis selten
+6,III Skilled,1859-1874,-> aequivalenter Status,75%,Miles (via Clark & Cummins 2014),Tab. 7.1,starke Selbstreplikation
+7,Arbeiterklasse (manuell),bis 1914,bleibt Arbeiterklasse,~90%,Miles 1999,"zit. n. MUSE-Rezension, S. 32",Kerngroesse fuer unseren Vergleich
+8,Arbeiterklasse (manuell),bis 1914,-> Mittelklasse,~5%,Miles 1999,"zit. n. MUSE-Rezension, S. 23-24",
+9,Arbeiterklasse (manuell),1839-1914,-> obere unternehmer./prof. Schicht,~0.2% (19/10835),Miles 1999,"zit. n. MUSE-Rezension, S. 26",extremer Verteilungsschwanz
+10,V Unskilled,Lebenslauf 1851-1881,bleibt ungelernt,~33%,Long 2013,,intragenerationell
+11,V Unskilled,Lebenslauf 1851-1881,-> gelernt,~40%,Long 2013,,intragenerationelle Fluiditaet im manuellen Bereich
+12,Gesamtmobilitaet,Heiratsregister 1859-1874,Soehne ausserhalb der Vaterklasse,34.8%,Long 2013 (Miles-Daten),"Tab. 6-7, S. 10-12",pessimistische Lesart
+13,Gesamtmobilitaet,Zensus 1851-1881,Soehne ausserhalb der Vaterklasse,47.5%,Long 2013,"S. 10","36% mehr als Heiratsregister"
+14,IGE Erwerbseinkommen,1851-1881 vs 1972,intergen. Einkommenselastizitaet,0.37 vs 0.32,Long 2013,"Tab. 10, S. 17",nahe Gegenwartsniveau (umstritten)
+15,Inflow,Industrielle Revolution,Arbeiter mit Mittel-/Oberklasse-Vater,~20%,Clark & Cummins 2014,,"nur falls Long korrekt"
+16,total mobility (GB),1851-1881,Soehne ausserhalb der Vaterkategorie,~1/2 von Boston,Long & Ferrie 2005,"S. 5-6","GB deutlich immobiler als US-Stadt"

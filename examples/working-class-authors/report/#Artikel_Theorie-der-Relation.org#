@@ -1,0 +1,152 @@
+#+TITLE: Zirkulation, Ungleichheit und Atypizität: eine relationssoziologische Auswertung von 163 Arbeiterautobiographien (England, 1790–1945)
+#+SUBTITLE: Operationalisierung und empirische Prüfung der Theorie der Relation mit dem digitalen Zwilling
+#+AUTHOR:
+#+DATE: 2026-06-24
+#+LANGUAGE: de
+#+OPTIONS: toc:t num:t ^:nil
+#+cite_export: basic author-year
+#+bibliography: references.bib
+
+# Hinweis zur Verarbeitung: Dieses Dokument nutzt die org-cite-Syntax (Org 9.5+). Zitate stehen in der Form cite-Doppelpunkt-At-Schluessel in eckigen Klammern;
+# die Bibliographie wird unten über #+print_bibliography: aus references.bib erzeugt. Für den LaTeX/PDF-Export ggf.
+# #+cite_export: csl mit einer CSL-Datei wählen. Alle Zeilen sind bewusst lang (ein Absatz = eine Zeile).
+
+* Zusammenfassung
+
+In dieser Arbeit fragen wir danach, ob die innerbiographische Zirkulation einer Kohorte englischer Arbeiterautobiographen typisch oder atypisch für die Arbeiterklasse in dieser Zeit in England ist. Zur Untersuchung dieser Frage verwenden wir den digitalen Zwilling der Theorie der Relation (in der Folge als TR abgekürzt) [cite:@papilloud2022skizze] als Mess- und Deutungsrahmen. Aus 163 Lebensläufen (996 Berufsetappen) des Korpus von [cite/t:@burnettvincentmayall1984] werden in einem ersten Schritt die Berufe nach HISCO/HISCLASS/HISCAM kodiert [cite:@vanleeuwen2002hisco;@vanleeuwenmaas2011hisclass;@lambert2013hiscam]. In einem zweiten Schritt werden diese Berufe auf die vier Relationsstrukturen (im digitalen Zwilling mit den folgenden abgekürzten Bezeichnungen benannt: Kultur, Politik, Wirtschaft, Medien) und auf die vier Akteurkategorien verteilt, die die TR vorsieht. Mit dem digitalen Zwilling wird die soziale Ungleichheit entsprechend der drei Ebenen der sozialen Ungleichheiten in der TR (der transversalen Ungleichheit zwischen Relationsstrukturen, der horizontalen Ungleichheit zwischen Sequenzen von Relationsstrukturen, der vertikalen Ungleichheit zwischen Akteurkategorien in diesen Sequenzen) untersucht. Diese Untersuchung bringt drei Hauptbefunde. Der erste Befund ist empirischer Natur. Die untersuchte Kohorte von Arbeitern ist gemessen an ihrer Zielposition radikal atypisch. 62 % der Söhne von Vätern, die einen manuellen Beruf ausüben, steigen in die professionelle Elite auf. Im Vergleich verweist die Literatur zur Arbeiterklasse in England, die wir als Referenz in dieser Arbeit nehmen, einen Aufstieg der Söhne von Vätern mit manuellem Beruf in die Elite von etwa 0,2 % [cite:@miles1999 S. 26]. Jedoch und selbst wenn die Arbeiter von unserer Kohorte auffällig im Überschreiten der Klassengrenze sind, in der gewöhnlichen Mobilität innerhalb der manuellen Tätigkeiten ihre Mobilität unauffällig bleibt. Der zweite Befund bezieht sich auf die Theorie. Der digitale Zwilling der TR lässt im voraus die Folgen im Sinne der sozialen Ungleichheiten von einer solchen atypischen Mobilität der Arbeiter in unserer Kohorte beobachten. Die TR besagt, dass unter Herrschaft von einer Relationsstruktur diese herrschenden Relationsstruktur -- der Apex -- wird homogenisiert. Dagegen wird der beherrschte Pol stratifiziert — und die Daten bestätigen es (vertikale Ungleichheit der Politik 0,02 gegenüber 0,72 der Wirtschaft). Drittens, /mechanistisch/: lädt man Akteure, Vermittlungs- und Kontrollinstanzen gemeinsam in den Simulator, so erweisen sich die Instanzen als /Kanäle/ der atypischen Überschreitung — in den Medien ko-emergent mit den Eintretenden (Korrelation Präsenz–Kontrolle 0,98, eine im Entstehen begriffene Sphäre), in der Kultur ein vorbestehender Zertifizierungs- und Konsekrationsapparat (0,78), den die Autodidakten erklimmen. Die relationale Auflösung macht damit eine Dimension messbar, die die klassische Mobilitätsforschung in einer einzigen Rate verschmilzt.
+
+* 1. Einleitung und Fragestellung
+
+Die historische Mobilitätsforschung misst zumeist /eine/ Größe: den Abstand zwischen der Klasse des Vaters und der des Sohnes, zusammengefasst in einer Outflow-Rate oder einem Persistenzkoeffizienten. Lebensläufe sind jedoch keine zwei Punkte, sondern Bahnen — mit Auf- und Abstiegen, Umkehrungen und Wechseln zwischen ganz verschiedenen gesellschaftlichen Ordnungen. Die hier vorgelegte Arbeit fragt nach genau dieser /Bahn/: Wie intensiv und auf welchen Achsen zirkulieren die Autoren von Arbeiterautobiographien im Verlauf ihres Lebens — und ist diese Zirkulation für die englische Arbeiterklasse des langen 19. Jahrhunderts typisch oder atypisch?
+
+Den Rahmen dafür liefert die Theorie der Relation [cite:@papilloud2022skizze;@papilloud2025postskriptum]. Sie denkt Gesellschaft als ein Geflecht von Relationsstrukturen, in denen Akteure zirkulieren, und sie verknüpft diese Zirkulation mit Stratifikation, Vermittlung und Ungleichheit. Ihr operationaler Kern ist ein Simulator (Webanwendung, Vier-Sphären-Modell), der reale Daten aufnimmt und daraus Ungleichheits- und Reziprozitätsmaße liest. Die Leitidee dieser Arbeit ist, die Theorie nicht nur als Beschreibungssprache, sondern als /Messinstrument/ und als Quelle /prüfbarer Vorhersagen/ zu verwenden.
+
+Die Antwort fällt zweiteilig aus, weil die Referenzliteratur die beiden relevanten Dimensionen sehr ungleich abdeckt: die /Zielposition/ (wohin die Bahn führt) ist gut dokumentiert, die /Intensität/ der Bewegung dagegen kaum — vor den verknüpften Zensus gab es keine belastbare quantitative Information über die Mobilität im individuellen Erwerbsleben für England und Wales [cite:@long2013 S. 4]. Das eigentliche Herzstück der Arbeit liegt jenseits dieser Empirie in einem strukturellen Befund, den erst die relationale Auflösung sichtbar macht (Abschnitt 7.2).
+
+* 2. Theoretischer Rahmen: die Theorie der Relation
+
+Das Modell bildet vier wechselseitig beeinflusste Relationsstrukturen ab — A·Kultur, B·Politik, C·Wirtschaft, D·Medien —, die jeweils in vier Sequenzen gegliedert sind (die Selbst-Replik X.X bildet den Kern). In jeder Sequenz verteilen sich die Akteure auf vier Kategorien: Etablierte, Anwärter (Aspiranten), Bewahrende (Konservative) und Enttäuschte. Mobilität verläuft auf drei Achsen — vertikal (zwischen Akteurkategorien innerhalb einer Teilsequenz), horizontal (zwischen Sequenzen einer Struktur) und transversal (zwischen Relationsstrukturen) — und aus der ungleichen Zirkulation sowie der Deklassierung entstehen soziale Ungleichheiten [cite:@papilloud2022skizze].
+
+Theoretisch zentral ist die Verknüpfung von Herrschaft und Stratifikation: Eine gut vermittelte, dominante Struktur konsolidiert gerade dadurch eine Hierarchie — sie nimmt viele auf und verteilt sie auf ungleiche Positionen. Die Theorie unterscheidet die /interne Legitimität/ einer Struktur (ihre Vermittlungsinstanzen funktionieren) von der /systemischen Reziprozität/ (die Zirkulation zwischen den Strukturen bleibt flüssig und wenig ungleich); beide fallen nicht zusammen. Daraus folgt die für diese Arbeit entscheidende Vorhersage: unter Herrschaft /homogenisiert sich der Apex/ (an der Spitze stehen fast nur Etablierte), während sich /die Beherrschten stratifizieren/ (an ihrem Pol koexistieren Etablierte und Enttäuschte). Diese Aussage ist struktur-lokalisierend und an Daten prüfbar — sie wird in Abschnitt 7.2 geprüft.
+
+* 3. Daten: das Korpus der Arbeiterautobiographien
+
+Grundlage sind 390 Textdateien aus dem annotierten Korpus von [cite/t:@burnettvincentmayall1984], die nach Bereinigung 163 eindeutige Personen mit insgesamt 996 Berufsetappen ergeben. Geburtsjahre liegen für 92 % der Personen vor, ein Vaterberuf (heuristisch) für 66 %. Der Bestand gehört demselben Genre an, das [cite/t:@humphries2010] für die industrielle Revolution ausgewertet hat; mit ihm teilt er eine Stärke — die feinkörnige Innensicht auf den Lebenslauf — und eine Schwäche, die Selbstselektion „erzählbarer“ Leben, auf die in Abschnitt 9 zurückzukommen ist.
+
+* 4. Methode I: Berufskodierung (HISCO / HISCLASS / HISCAM)
+
+Jede Berufsbezeichnung wird über HISCO [cite:@vanleeuwen2002hisco] kodiert und dadurch zugleich mit einer sozialen Klassenlage (HISCLASS; [cite:@vanleeuwenmaas2011hisclass]) und einem Stratifikationswert (HISCAM; [cite:@lambert2013hiscam]) verknüpft. Da kein exakter Titel-zu-HISCO-Abgleich existiert, wurde eine mehrstufige Zuordnung gebaut (Lexikon, Synonyme, Volltext-Rettung), gestützt auf den Crosswalk von [cite:@cedarhisco]. Im Sinne einer /Präzision-zuerst/-Strategie blieben generische Titel (manager, clerk, agent u. a.) zunächst unkodiert; dokumentierte Kompromisse (etwa Gewerkschafts-/Parteisekretär → Generaldirektor-Niveau; working-class engineer → Maschinenschlosser) sind im methodischen Anhang verzeichnet. Kodiert wurden so 420 von 996 Etappen (42 %), nach Wiedereingliederung generischer Proxys 48 %. Die resultierende HISCAM-Verteilung ist /bimodal/: rund 40 % der Etappen liegen niedrig (manuelle Herkunft), rund 45 % hoch (kulturelles/mediales Ziel) — ein erster Hinweis auf die später gemessene Amplitude der Bahnen.
+
+* 5. Methode II: Operationalisierung der Theorie
+
+Die vier /Akteurkategorien/ sind relationale Positionen aus HISCAM-Niveau und Trajektorienrichtung. Zwei Varianten wurden berechnet und beide beibehalten: eine /absolute/ (Kohortenterzile plus Richtungsschwelle) und eine /relative/ (Position innerhalb der eigenen HISCAM-Amplitude des Akteurs). Auf dem dünn kodierten Korpus (Median zwei kodierte Etappen je Akteur) erwies sich die absolute Regel als belastbarer. Jede Etappe wurde zudem einer /Struktur/ und /Sequenz/ zugeordnet (Domäne bzw. Modus), validiert an Ankern (Pfarrer/Missionar → A.B; Drucker/Setzer → A.C) und drei Korrekturen. Eine zusätzliche /avokationale/ Schicht erfasst kulturelle, politische und mediale Tätigkeiten jenseits des Hauptberufs — sie ist wesentlich, weil die Ankunft in Kultur oder Medien oft /nicht/ beruflich, sondern nebenberuflich erfolgt (die Quote erreichter Zielstrukturen steigt dadurch von 46 % auf 57 %).
+
+* 6. Methode III: Messung — Zirkulationsindex und Simulator-Kaskade
+
+Auf der Akteursebene fasst ein /zusammengesetzter Zirkulationsindex/ drei Achsen zusammen — vertikal (HISCAM-Amplitude, Umkehrungen, Volatilität), horizontal (Sequenzwechsel) und transversal (Strukturwechsel) —, jede perzentilskaliert und gleich gewichtet. Auf der Systemebene wird der empirische Zustand (S, g, act) in den Simulator eingespeist (native Vertragstabelle =cohorte_contrat.csv=) und dessen /Messkaskade/ gelesen: Sie löst die Ungleichheit in drei ineinander geschachtelte Ebenen auf und wird unmittelbar aus dem Zustand berechnet, ohne neue Mechanik. Transversal ist der Gini der relationalen Größen zwischen den Strukturen; horizontal das Mittel der internen Sequenz-Ginis; vertikal der größengewichtete Gini der Statusverteilung (Etablierte = 3 > Anwärter = 2 > Bewahrende = 1 > Enttäuschte = 0) innerhalb der Sequenzen, global wie je Struktur. Die Formeln wurden dem Simulatorcode entnommen und originalgetreu nachgerechnet.
+
+* 7. Ergebnisse
+
+** 7.1 Zirkulationsprofile
+
+Auf den 113 analysierbaren Akteuren (≥ 2 kodierte Etappen) beträgt die HISCAM-Amplitude im Median 29 (Maximum 133), die Spannweite im Median 24, der Nettoaufstieg +17. 37 % der Bahnen weisen mindestens eine Richtungsumkehr auf, 18 % zwei oder mehr; die Volatilität (Amplitude/Spannweite) liegt im Mittel bei 1,4 — die Bahnen legen also rund 40 % mehr Weg zurück, als ihr Nettoabstand verlangt, sind mithin nicht-monoton. Der zusammengesetzte Index (110 Akteure) hat einen Median von 49,7 und reicht von 14,7 bis 88,8; er steigt erwartungsgemäß mit der erreichten Zielstruktur (nur Kultur 35 < nur Medien 48 < Kultur und Medien 56), was als interne Validierung dient.
+
+** 7.2 Die Ungleichheitskaskade und das theoretische Herzstück
+
+Die globale Kaskade ergibt: transversal 0,28, horizontal 0,51, vertikal 0,26 — gegenüber dem symmetrischen Referenzzustand des Modells (0 / 0 / ≈ 0,40). Auf den oberen beiden Ebenen ist die Kohorte also weit von der Gleichverteilung entfernt (die Aktivität ballt sich in wenigen Strukturen und je Struktur in wenigen Sequenzen), während die vertikale Ungleichheit im Mittel sogar unter der Referenz liegt (Abbildung 1).
+
+#+CAPTION: Kaskade der drei Ungleichheitsebenen, empirisch gegen den symmetrischen Referenzzustand.
+#+NAME: fig:kaskade
+[[file:fig1_kaskade.png]]
+
+Der Mittelwert verdeckt jedoch den zentralen Befund. Die vertikale Ungleichheit /je Struktur/ spreizt sich extrem (Abbildung 2): B·Politik 0,02, A·Kultur 0,15, D·Medien 0,16, C·Wirtschaft 0,72. Damit bestätigen unabhängig kodierte Daten die in Abschnitt 2 formulierte Vorhersage der Theorie [cite:@papilloud2022skizze]: In dieser Kohorte ist die Politik der /erreichte Apex/ — wer sie erreicht, ist nahezu durchweg etabliert, die interne vertikale Ungleichheit verschwindet (0,02). Die Wirtschaft ist der /erlittene Ursprung/ — dort koexistieren die Aufgestiegenen und die Gescheiterten, die vertikale Ungleichheit ist maximal (0,72). Die Theorie /sagt vorher/, an welchem Pol des Systems sich die Ungleichheit lagert, bevor man in die Daten sieht; die Autobiographien zeigen, dass sie sich dort lagert. Für eine relationale Gesellschaftstheorie ist eine solche struktur-lokalisierende, an Beobachtungsdaten geprüfte Aussage selten und wertvoll — sie ist das Herzstück dieser Arbeit.
+
+#+CAPTION: Vertikale Ungleichheit je Struktur: homogener Apex (Politik) gegen stratifizierten Pol (Wirtschaft).
+#+NAME: fig:vertikal
+[[file:fig2_vertikal_struktur.png]]
+
+** 7.3 Strukturen, Sequenzen und transversale Ströme
+
+Die relationalen Größen verteilen sich auf C·Wirtschaft 44 %, A·Kultur 29 %, D·Medien 16 % und B·Politik 11 %; innerhalb jeder Struktur dominiert eine Sequenz (Abbildung 3). Die Kategorienzusammensetzung je Struktur (Abbildung 4) macht die Politik als reinen Etabliertenraum und die Wirtschaft als gemischten Raum sichtbar. Die transversalen Übergänge (Abbildung 5) weisen die Wirtschaft als große Quelle der Zirkulation aus, mit dem stärksten Strom in die Kultur (55 Übergänge) — die Route „vom manuellen Beruf zur kulturellen Tätigkeit“.
+
+#+CAPTION: Sequenzgrößen je Struktur (Anteile).
+#+NAME: fig:seq
+[[file:fig3_struktur_sequenz.png]]
+
+#+CAPTION: Zusammensetzung der Akteurkategorien je Struktur.
+#+NAME: fig:kat
+[[file:fig4_kategorien.png]]
+
+#+CAPTION: Transversale Übergänge zwischen den Relationsstrukturen.
+#+NAME: fig:flux
+[[file:fig5_flux.png]]
+
+** 7.4 Vermittlungs- und Kontrollinstanzen: die Kanäle der transversalen Überschreitung
+
+Die bisherigen Abschnitte messen die Bahnen der /Akteure/. Die Theorie der Relation kennt jedoch einen zweiten Träger der Zirkulation: die /Instanzen/, durch die hindurch die Akteure überschreiten [cite:@papilloud2022skizze]. Aus dem Korpus wurden 60 solcher Instanzen extrahiert — Schulen und Universitäten, literarische Revuen und Gesellschaften, Museen, Zeitungen und Nachrichtenagenturen —, jede mit einer zeitveränderlichen /Autoritätskurve/ (Gründung → Höhepunkt → Niedergang bzw. Fortdauer) versehen. Der Simulator trennt dabei zwei Funktionen: /Vermittlungsinstanzen/ treiben die Sequenzen ihrer Struktur, während /Kontrollinstanzen/ (Bewertung, Zertifizierung, Konsekration, Gatekeeping) eine /abgeleitete/ Kontrollkapazität je Struktur speisen — die gewichtete Summe ihrer Autoritäten, multipliziert mit ihrer Stratifikation (Gini), also aus dem Bestand /gelesen/ und nicht gesetzt. Kontrolle ist hier kein Punkt, sondern ein Apparat.
+
+Die so abgeleitete Kontrollkapazität /kehrt die theoretische Erwartung A < B < C < D um/ (Abbildung 8): A·Kultur trägt den stärksten Kontrollapparat (Zertifizierung durch die Universitäten und die prüfende University of London; Konsekration durch Revuen, literarische Gesellschaften und das Victoria-and-Albert-Museum), D·Medien folgt (Gatekeeping durch Reuters; ökonomische Bewertung durch die /Financial Times/), Wirtschaft und Politik bleiben zurück. Diese Umkehrung ist für die Epoche /erwartbar/: die mediale Sphäre wird gerade erst /geboren/ und löst sich aus der staatlichen Vormundschaft, indem sie ihre eigenen Kontrollinstanzen aufbaut — Reuters wächst in diesen Jahrzehnten zur „imperial institution“ des Nachrichtenwesens heran [cite:@read1999] —, während die Kultur einen längst etablierten Apparat der Zertifizierung und Konsekration mit sich führt [cite:@perkin1989;@rose2001]. Die Beglaubigung kulturellen Werts durch den /Titel/ und seine Weihe durch /Kritik und Museum/ sind genau die Mechanismen, die eine relationale Soziologie des kulturellen Feldes benennt [cite:@bourdieu1992].
+
+Kontrolle wirkt zudem nicht gleichmäßig auf alle Sequenzen einer Struktur. Jede Kontrollinstanz reguliert eine /Zielsequenz/, und die Kapazität wird je Zelle gelesen (Abbildung 9): in der Kultur zertifizieren die Universitäten die Kernproduktion (A·Sequenz A), während Kritik, die säkularen Gesellschaften und die Sonntagsschul-Presse die kulturelle Distributionssequenz (A·Sequenz D) konsekrieren und moralisieren [cite:@royle1980;@laqueur1976]; in den Medien kontrolliert Reuters die Nachrichtensequenz (D·Sequenz D), während die /Financial Times/ die Wirtschaft /aus den Medien heraus/ bewertet (D·Sequenz C). Die Regulierung ist mithin differenziell — die literarische Kritik trägt nicht auf dieselbe Sequenz wie eine Publikumserhebung —, und der Apparat einer Struktur verstärkt ihre Sequenzen ungleich.
+
+Lädt man schließlich Akteure, Vermittlung und Kontrolle /gemeinsam/, so lässt sich fragen, was die atypische Überschreitung aus Abschnitt 8 getragen hat. Für die beiden Zielstrukturen baut sich die Präsenz der Arbeiterautoren im Gleichschritt mit den Instanzen auf — und am engsten mit dem /Kontrollapparat/ —, doch die beiden Strukturen erzählen verschiedene Geschichten (Abbildung 10). In den Medien ist die Kopplung nahezu vollständig (Korrelation Präsenz–Kontrolle 0,98): Reuters (ab 1851) und die /Financial Times/ (ab 1888) entstehen /gleichzeitig/ mit dem Eintritt der Arbeiter in die Medien — die Sphäre und ihre Eintretenden sind ko-konstituiert. In der Kultur ist sie lockerer (0,78), weil der Zertifizierungsapparat /vorbestand/: die Arbeiter erklimmen eine bereits errichtete Leiter, die den Autodidakten an entscheidenden Punkten geöffnet wurde — vor allem durch die externen Prüfungen der University of London (ab 1858) [cite:@harte1986], die institutionelle Form jenes selbstunterrichteten Aufstiegs, den die Autobiographien selbst erzählen [cite:@vincent1981;@rose2001]. Die atypische transversale Zirkulation ist damit kein Sprung ins Leere, sondern ein /vermittelter Eintritt/: in den Medien ko-emergent mit den Instanzen, in der Kultur als Aufstieg eines etablierten Apparats. Der in der Zieldimension gemessene Übertritt in die professionelle Elite (62 % gegenüber etwa 0,2 %, [cite:@miles1999 S. 26]) verläuft, strukturell gelesen, durch eben diese Kontrollinstanzen.
+
+#+CAPTION: Abgeleitete Kontrollkapazität je Struktur (Gründung-zu-Niedergang-Kurven, Stand 1950): hergeleitet, nicht gesetzt. A·Kultur trägt den stärksten Apparat.
+#+NAME: fig:kontrollkapazitaet
+[[file:fig8_kontrollkapazitaet.png]]
+
+#+CAPTION: Kontrollkapazität nach Sequenz (capCell[Struktur][Sequenz]): differenzielle Regulierung — Zertifizierung in A·Sequenz A, Konsekration in A·Sequenz D, Gatekeeping in D·Sequenz D, ökonomische Bewertung in D·Sequenz C.
+#+NAME: fig:kontrollprofil
+[[file:fig9_kontrollprofil.png]]
+
+#+CAPTION: Transversale Kanäle: Präsenz der Arbeiterautoren in A·Kultur und D·Medien gegen die sie kanalisierenden Vermittlungs- und Kontrollinstanzen (deterministischer Replay; Korrelationen über die Jahre mit Präsenz > 0).
+#+NAME: fig:kanaele
+[[file:fig10_transversale_kanaele.png]]
+
+* 8. Atypizität: Vergleich mit der Referenzpopulation
+
+** 8.1 Referenzlage und Vergleichsdesign
+
+Die maßgebliche Referenz für die englische Arbeiterklasse 1839–1914 liefern [cite/t:@miles1999] (10 835 Heiratsregister), [cite/t:@mitch1993] sowie die verknüpften Zensus-Schätzungen von [cite/t:@long2013] und [cite/t:@longferrie2013]. Drei Befunde sind zentral: die intergenerationelle Aufwärtsmobilität über die Klassengrenze war gering (rund 90 % der als Arbeiter Geborenen blieben Arbeiter [cite:@miles1999 S. 32], etwa 5 % erreichten die Mittelklasse [cite:@miles1999 S. 23–24], nur etwa 0,2 % die obere professionelle Schicht [cite:@miles1999 S. 26]); innerhalb der manuellen Ränge war die Fluidität jedoch erheblich (etwa ein Drittel der Ungelernten blieb ungelernt, rund 40 % stiegen zu gelernter Arbeit auf [cite:@long2013 S. 10]); und die intragenerationelle Zirkulation ist kaum dokumentiert. Da kein Zugang zu Mikrodaten besteht, beruht der Vergleich auf publizierten Aggregaten, geführt als /Bandbreite/ zwischen der niedrigen Mobilität der Heiratsregister (Gesamtmobilität 34,8 % bei Miles 1859–1874) und der höheren der verknüpften Zensus (Gesamtmobilität 47,5 % für 1851–1881; die intergenerationelle Einkommenselastizität von etwa 0,37 liegt nahe dem Wert von 1972 von 0,32) [cite:@long2013 S. 10,17], wobei letztere umstritten ist [cite:@bailey2020]. Methodisch wird die /Auflösung angeglichen/: die hochaufgelösten Bahnen werden auf die Auflösung der Referenz herabgestuft (zwei Punkte bzw. dekadisches Raster), und die Differenz zur feinen Messung wird als eigener Beitrag der Autobiographien ausgewiesen.
+
+** 8.2 Vergleich A — Zieldimension (auflösungsrobust)
+
+Für die 29 Söhne manueller Väter mit kodierter Zielposition erreichen 62 % die professionelle Elite (95 %-Konfidenzintervall 44–77 %) gegenüber etwa 0,2 % in der Referenz — ein Risikoverhältnis von rund 310 (konservativ, an der unteren Konfidenzgrenze, noch rund 220). Der Aufstieg ins Nicht-Manuelle liegt bei 79 % (KI 62–90 %) gegenüber etwa 5 % — Verhältnis rund 16 (Abbildung 6). Da nur zwei Positionen verglichen werden, ist dieser Befund auflösungsrobust.
+
+#+CAPTION: Vergleich A — Austritt aus der Arbeiterklasse: Kohorte gegen Referenz [cite:@miles1999].
+#+NAME: fig:atyp
+[[file:fig6_atypicite.png]]
+
+** 8.3 Vergleich B — Intensität bei angeglichener Auflösung
+
+Auf 109 analysierbaren Akteuren zeigt sich ein zweigeteiltes Bild (Abbildung 7). Das Überschreiten der Grenze manuell → nicht-manuell im Leben erreicht 52 %, gegenüber einem in der Referenz „sehr seltenen“ intra-vitalen Übertritt ins Nicht-Manuelle [cite:@long2013 S. 10] (intergenerationell etwa 5 %); es handelt sich um einen großen, dauerhaften Sprung, der die Herabstufung auf dekadische Auflösung übersteht. Auf der /gewöhnlichen/ Fluidität dagegen ist die Kohorte unauffällig, sogar unterdurchschnittlich: von den ungelernt Startenden erreichen nur 29 % die gelernte Stufe gegenüber rund 40 % bei [cite:@long2013 S. 10] — sie /überspringen/ das gelernte Palier (76 % von ihnen erreichen unmittelbar das Nicht-Manuelle). Nicht die Zirkulation innerhalb der manuellen Ränge unterscheidet die Kohorte also, sondern das Überschreiten der Grenze und die erreichte Zielposition.
+
+#+CAPTION: Vergleich B — distinktiv im Grenzübertritt, unauffällig in der gewöhnlichen Fluidität.
+#+NAME: fig:atypB
+[[file:fig7_vergleich_AB.png]]
+
+Das /feinauflösende Residuum/ schließlich ist der Beitrag der Autobiographien: die Richtungsumkehrungen fallen von 37 % (fein) auf 11 % (dekadisch), und die transversale Reichweite zwischen Relationsstrukturen hat in der Mobilitätsliteratur überhaupt kein Gegenstück. Dieser Rest ist zugleich eine untere Schranke für die unbekannte wahre Intensität der Allgemeinbevölkerung.
+
+* 9. Diskussion
+
+Vier Schlüsse ergeben sich. /Erstens/, empirisch: die Kohorte ist nach Zielposition und Grenzüberschreitung radikal atypisch, in der gewöhnlichen Fluidität jedoch typisch — ein Kontrast, den eine einzige Mobilitätsrate nicht zeigen könnte. /Zweitens/, methodisch: die Theorie der Relation trennt, was die klassische Forschung verschmilzt — vertikale Ankunft, transversale Überschreitung und horizontale Fluidität —, und erst diese Trennung macht den Kontrast lesbar; die Theorie wirkt hier als Messinstrument, nicht als Dekor. /Drittens/, theoretisch und am wichtigsten: die struktur-lokalisierende Vorhersage (Apex homogen, beherrschter Pol stratifiziert) wird an unabhängig kodierten Daten bestätigt. Eine relationale Theorie, die nicht nur beschreibt, sondern /vorhersagt, wo/ die Ungleichheit sich bildet, und deren Vorhersage an Beobachtungsdaten standhält, gewinnt damit eine seltene empirische Stütze. /Viertens/, mechanistisch: die gemeinsame Ladung von Akteuren, Vermittlung und Kontrolle (Abschnitt 7.4) fügt dem /Wo/ der Ungleichheit — an welchem Pol sie sich lagert (7.2) — ein /Wodurch/ der Überschreitung hinzu. Die Vermittlungs- und Kontrollinstanzen sind die Kanäle des atypischen Übertritts: in den Medien ko-emergent mit den Eintretenden (eine Sphäre, die mit ihren Akteuren zugleich entsteht), in der Kultur ein vorbestehender Apparat der Zertifizierung und Konsekration, den die Autodidakten erklimmen [cite:@bourdieu1992;@rose2001]. Die Atypizität ist damit nicht nur als Rate belegt (Abschnitt 8), sondern als /vermittelter Vorgang/ verstanden — und der theoretische Befund (7.2) und der empirische (Abschnitt 8) verbinden sich über die Instanzen zu /einer/ Erzählung.
+
+* 10. Grenzen
+
+- /Selektion/: die Autobiographien sind nach erzählbaren Leben selbstselektiert; bereits [cite/t:@clarkcummins2014] diskutieren am Beispiel von [cite/t:@humphries2010], dass solche Texte die Berufsstruktur abbilden, in Bezug auf Mobilität aber unrepräsentativ sein dürften. Der Atypizitätsbefund ist daher als Beleg robust, nicht als unverzerrte Ratenschätzung.
+- /Auflösungsasymmetrie/: die feine Innensicht der Quellen übertrifft die Referenz; belastbar verglichen wird auf der Zielposition, die Intensitätsmaße sind kohortenintern und als untere Schranke zu lesen.
+- /Kodierungsabdeckung/: 42–48 % der Etappen kodiert, 45 Väter; die A-Raten sind Schätzungen auf kleiner Basis, der Abstand zur Referenz jedoch sehr groß.
+- /Referenz selbst/: anglikanische Verzerrung der Heiratsregister [cite:@vincent1989 S. 281], Lebenszyklus-Versatz und mögliche Verknüpfungsfehler [cite:@bailey2020] machen die Referenz zu einer Bandbreite, nicht zu einem Punktwert.
+- /Statische Lesung/: die Kaskade misst den Zustand, nicht die Modelldynamik.
+
+* 11. Ausblick
+
+Drei Erweiterungen bieten sich an: den in Abschnitt 7.4 begonnenen Instanzen-Layer auszubauen — die Strukturen B·Politik und C·Wirtschaft, die im Korpus nur dünn (und im Parc teils illustrativ) besetzt sind, empirisch mit eigenen Vermittlungs- und Kontrollinstanzen zu hinterlegen, um die transversalen Kanäle auch jenseits von Kultur und Medien zu schließen; eine dichtere Kodierung der /Väterberufe/ zur Verengung der Konfidenzintervalle von Vergleich A; und, sofern Zugang erreichbar, verknüpfte Zensus-Mikrodaten [cite:@icem2014], die das Bounding-Argument in eine appariierte Schätzung — auch der Intensität — überführen würden.
+
+* Anhang: Reproduzierbarkeit
+
+Die Auswertung ist vollständig skriptbasiert: Berufskodierung (=code_occupations.py=, =finalize_coding.py=), Strukturzuordnung (=code_structure_seq.py=), TR-Kategorien und Verdichtung (=densify_tr.py=), Zirkulationsprofile und -index (=circulation_profiles.py=, =circulation_index.py=), Simulatormaße (=tr_measures.py=), Vertragstabelle und Figuren (=make_contract_and_figs.py=, =figures.py=), Väterkodierung und Vergleiche (=father_coding.py=, =compare_AB.py=). Die Instanzen-Schicht (Abschnitt 7.4) ist im digitalen Zwilling der Theorie umgesetzt; ihr Aufbau (Kontroll-Parc mit Autoritätskurven, =build_empirical_v2.py=) und ihre Messung (deterministischer Replay =course_analysis.js=; Figuren =gen_control_capacity.py=, =gen_control_profile.py=, =gen_course.py=) sind im Repositorium =tr-digital-twin= dokumentiert, mit dem ausgearbeiteten Beispiel unter =examples/working-class-authors/=. Die Referenztabelle liegt als =referenztabelle_mobilitaet.csv=, die Bibliographie als =references.bib= bei.
+
+* Literatur
+
+#+print_bibliography:

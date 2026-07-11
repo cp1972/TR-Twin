@@ -1,0 +1,304 @@
+#+TITLE: Codage socio-professionnel de la cohorte d'autobiographes ouvriers : méthode et compromis
+#+SUBTITLE: Théorie de la Relation — volet empirique (classe ouvrière anglaise, fin XVIIIᵉ–1980)
+#+AUTHOR:
+#+DATE: 2026-06-24
+#+OPTIONS: toc:t num:t ^:nil
+#+LANGUAGE: fr
+
+* 1. Objet et données
+
+Ce document décrit la procédure de codage socio-professionnel appliquée à une
+cohorte d'autobiographes de la classe ouvrière anglaise, en vue d'analyser
+l'/intensité de circulation/ de leurs trajectoires (et non le type d'activité) et
+de la comparer, à terme, à une population de référence plus large.
+
+Source : les deux volumes de J. Burnett, D. Vincent et D. Mayall, /The
+Autobiography of the Working Class: An Annotated, Critical Bibliography/
+(Harvester, 1984–1989), dont chaque notice résume, en cinq paragraphes réguliers,
+la naissance et la famille, l'éducation, le parcours professionnel, les
+affiliations et publications, puis le contenu et le ton du mémoire.
+
+Après dédoublonnage (les fichiers étaient répartis en trois dossiers encodant la
+structure d'arrivée — Art, Médias, Art+Médias), la cohorte compte :
+
+- *163 acteurs uniques* ;
+- *996 étapes de carrière* (6,1 en moyenne par personne ; de 1 à 19), le
+  paragraphe « professions » fournissant la trace ordonnée de la circulation ;
+- destination codée : Médias seuls (83), Art+Médias (64), Art seul (16).
+
+* 2. Cadre de codage : HISCO → HISCLASS / HISCAM
+
+Le statut social de chaque métier est mesuré au moyen de l'appareil standard de
+l'histoire sociale comparée :
+
+- *HISCO* (van Leeuwen, Maas & Miles 2002) — classification internationale
+  standardisée des professions historiques ;
+- *HISCLASS* (van Leeuwen & Maas 2011) — schéma de classes dérivé de HISCO ;
+- *HISCAM* (Lambert, Zijdeman, van Leeuwen, Maas & Prandy 2013) — échelle de
+  statut continue, de 0 (très bas) à 100 (très haut).
+
+Le /crosswalk/ officiel ~cedarfoundation/hisco~ relie chaque code HISCO à ses
+mesures dérivées (HISCLASS, HISCLASS_5, SOCPO, HISCAM_U1). Nous en avons extrait
+une table de référence de *1 126 codes HISCO porteurs d'un score HISCAM*.
+
+Conséquence pratique : *une fois le code HISCO posé sur un métier, les trois
+mesures (HISCLASS, HISCLASS_5, HISCAM) sont obtenues ensemble*, par simple
+jointure. Le travail de codage se réduit donc à la première marche — l'attribution
+d'un code HISCO à chaque intitulé.
+
+* 3. Chaîne de traitement
+
+#+BEGIN_QUOTE
+intitulé brut → normalisation → concept → code HISCO → (HISCLASS, HISCLASS_5, HISCAM)
+#+END_QUOTE
+
+La normalisation retire les marqueurs temporels, les parenthèses et surtout les
+/verbes de liaison/ qui masquent le métier (« employed », « started », « became »,
+« enlisted »…), de façon à faire émerger le nom de métier. Une couche de synonymes,
+adossée à de vrais codes-feuilles vérifiés du crosswalk, traite le vocabulaire
+victorien (p. ex. /preacher/ → /Minister of Religion/ ; /compositor/ →
+/Hand Compositor/ ; /errand-boy/ → /Messenger/). Un rattrapage par balayage du
+texte entier récupère les métiers noyés dans la phrase (« went to sea » → /seaman/,
+« put to the trade of shoemaking » → /shoemaker/).
+
+* 4. Difficulté centrale : l'absence de correspondance exacte
+
+Il n'existe pas de correspondance biunivoque entre les intitulés des notices et
+les libellés HISCO. Trois raisons :
+
+1. les notices emploient une langue descriptive et datée, souvent multi-mots
+   (« regular contributor to the National Reformer ») ;
+2. certains codes HISCO sont des en-têtes de groupe sans score HISCAM — il faut
+   viser le code-feuille porteur d'une valeur ;
+3. plusieurs rôles de la cohorte (permanents syndicaux, conférenciers politiques)
+   n'ont pas d'équivalent HISCO net.
+
+Un appariement entièrement automatique serait donc trompeur. Nous avons adopté un
+*codage par correspondance assorti d'un contrôle humain*, et un principe de
+*précision plutôt que de rappel* : mieux vaut un sous-ensemble plus petit mais
+défendable qu'une couverture large mais bruitée.
+
+* 5. Règles de décision appliquées
+
+** 5.1 Suppression des fragments (lignes « term »)
+
+Les lignes du lexique étiquetées ~term~ (par opposition à ~concept~) renvoient le
+plus souvent à des fragments de description, non à des professions (« job was »,
+« left school », « contributed articles »). Elles ont été *supprimées en bloc*.
+Un tri a confirmé que ce seau est massivement composé de bruit et de faux
+appariements par mot-clé (« head » → /Head Cook/ ; « collector » → /Tax Collector/ ;
+« tea broker » → /Stock Broker/). Quelques vrais métiers s'y trouvaient
+(quarryman, electrician, cooper, postman, dentist…), mais presque tous en
+occurrence unique : leur poids statistique est négligeable et leur sauvetage
+fiable relèverait d'une seconde passe manuelle, laissée optionnelle.
+
+** 5.2 Conservation conditionnelle des lignes « orange »
+
+Parmi les propositions signalées « à revoir », n'ont été conservées que celles
+disposant d'un libellé HISCO (=en_hisco=) au moins approximativement pertinent.
+Les propositions sans libellé exploitable ont été abandonnées.
+
+** 5.3 Génériques laissés sans code
+
+Six intitulés génériques, trop dépendants du contexte pour être codés de façon
+défendable, ont été *laissés sans code* : ~manager~, ~agent~, ~proprietor~,
+~clerk~, ~shopkeeper~, ~assistant~. (Leur statut réel varie de l'apprenti
+boutiquier au gérant d'entreprise.)
+
+* 6. Compromis de codage assumés
+
+Cœur méthodologique du document : trois familles de métiers n'ont pas de
+correspondance HISCO exacte et ont reçu un code-/proxy/, retenu en toute
+conscience de son caractère approximatif.
+
+#+CAPTION: Compromis de codage assumés
+| Intitulé(s)              | Code HISCO retenu      | HISCAM | Justification du compromis                                            |
+|--------------------------+------------------------+--------+----------------------------------------------------------------------|
+| secretary, union_official | 21110 General Manager  |  84,9 | acteurs employés par des syndicats, partis ou coopératives ; HISCO   |
+|                          |                        |        | n'offre pas de code « permanent d'organisation » porteur d'un HISCAM ; |
+|                          |                        |        | le rôle (secrétaire général, organisateur) est rapproché d'une        |
+|                          |                        |        | fonction dirigeante d'organisation.                                  |
+| lecturer                 | 13000 Teacher          |  82,4 | on ne distingue pas nettement, dans les notices, l'universitaire du   |
+|                          |                        |        | propagandiste politique ; le code « enseignant » surévalue le tribun. |
+| engineer                 | 84170 Machinery Fitter |  66,1 | pour un ouvrier, « engineer » désigne le plus souvent un ouvrier      |
+|                          |                        |        | spécialisé (ajusteur/mécanicien), non un ingénieur civil.            |
+
+Approximations mineures, conservées mais signalées : ~bookseller~ et ~publisher~
+codés en /Working Proprietor/ (81,3), faute de code spécifique porteur d'un
+HISCAM ; ~salesman~/~commercial traveller~ en /Commercial Traveller/ (73,6) ;
+~warehouseman~ en /Warehouse Porter/ (56,7). Le service militaire (« enlisted »)
+n'a pas reçu de code, faute d'équivalent armé porteur d'un HISCAM — exclusion
+conforme à l'usage en histoire sociale.
+
+* 7. Couverture obtenue et profil des données
+
+Après application des règles ci-dessus :
+
+- *420 / 996 étapes codées (42 %)* — sous-ensemble haute précision ;
+- 36 codes retirés au titre des génériques, 236 au titre des fragments/rattrapages ;
+- *39 concepts conservés* couvrent l'essentiel (cf. annexe).
+
+La distribution des scores HISCAM des étapes codées est nettement *bimodale* :
+
+| Bande HISCAM       | Part |
+|--------------------+------|
+| bas (< 68)         | 40 % |
+| milieu (68–82)     | 14 % |
+| haut (≥ 82)        | 45 % |
+
+Ce creux médian n'est pas un artefact : il reflète la structure même de la
+cohorte — une *origine manuelle* (tisserands, manœuvres, cordonniers, mineurs)
+et une *destination culturelle ou médiatique* (journalistes, éditeurs,
+enseignants, pasteurs, élus), avec peu de positions intermédiaires. Cette
+bimodalité est, en soi, un résultat pertinent pour la question de l'intensité de
+circulation.
+
+* 8. Catégories TR : règle proposée (HISCAM + dynamique de trajectoire)
+
+Les quatre catégories d'acteurs de la Théorie de la Relation — /Établis/,
+/Aspirants/, /Conservateurs/, /Déçus/ — désignent des *positions relationnelles au
+sein d'une séquence*, non des niveaux de statut absolus. Elles ne se déduisent
+donc pas d'un simple seuil de HISCAM. La règle proposée combine le *niveau* (HISCAM)
+et la *dynamique de trajectoire* (sens de variation du statut d'une étape à la
+suivante), de façon à réintroduire la dimension relationnelle.
+
+** 8.1 Définition (proposition)
+
+Pour chaque étape codée /i/ d'un acteur, soit HISCAM_i son score et Δ = HISCAM_i −
+HISCAM_{i−1} (variation depuis l'étape codée précédente). Avec les seuils de
+cohorte HAUT = P67 ≈ 82,4 et BAS = P33 ≈ 67,6, et un seuil de variation δ = 3 :
+
+- *Établis* : HISCAM_i ≥ HAUT — position dominante, « arrivée » au sommet de sa
+  structure ;
+- *Déçus* : Δ ≤ −δ (chute) ou HISCAM_i ≤ BAS — déclassement ou position basse ;
+- *Aspirants* : Δ ≥ +δ (montée) sans avoir atteint le sommet ;
+- *Conservateurs* : sinon (position intermédiaire stable).
+
+La première étape codée d'un acteur est classée sur le seul niveau.
+
+** 8.2 Deux variantes et leur comparaison
+
+Deux opérationnalisations ont été calculées et conservées en parallèle dans les
+données (colonnes =tr_absolute= et =tr_relative=) :
+
+- *absolue* — bandes de HISCAM au niveau de la cohorte (HAUT = P67, BAS = P33) +
+  sens de variation ;
+- *relative* — position de chaque étape dans l'amplitude /propre/ de l'acteur
+  (de son minimum à son maximum) + sens de variation ; les acteurs à une seule
+  étape codée ou à amplitude nulle sont marqués « indéterminé ».
+
+Les deux règles s'accordent sur ~70 % des étapes classées par les deux. Sur le
+jeu densifié (cf. §8.4) elles donnent :
+
+| Catégorie     | Absolue | Relative |
+|---------------+---------+----------|
+| Établis       |   34 %  |   39 %   |
+| Aspirants     |    8 %  |    8 %   |
+| Conservateurs |   15 %  |    5 %   |
+| Déçus         |   44 %  |   37 %   |
+| (indéterminé) |    —    |   11 %   |
+
+** 8.3 Limite : la densité de codage
+
+Les deux règles restent polarisées (beaucoup d'Établis et de Déçus). Ce n'est pas
+un défaut des règles mais un *artefact de densité* : après le codage haute
+précision (§7), la *médiane est de 2 étapes codées par acteur*, et 52–58 % des
+acteurs ont ≤ 2 étapes codées. Or, avec deux points seulement, l'amplitude propre
+d'un acteur se réduit à un segment : chaque étape devient mécaniquement son
+minimum ou son maximum, sans position intermédiaire — d'où l'effondrement des
+Conservateurs dans la variante relative.
+
+Constat important : les intitulés génériques dé-codés au §5.3 (clerk, manager,
+shopkeeper, proprietor) sont précisément des positions de statut /intermédiaire/
+(≈ 69–85). Leur retrait, justifié pour la précision du statut, vide le milieu des
+trajectoires — ce milieu même qui alimenterait les catégories Aspirant et
+Conservateur. Il existe donc un arbitrage : pour la mesure de l'/intensité de
+circulation/ (renversements, amplitude), la /densité/ importe davantage que la
+précision de chaque code, car la forme d'une trajectoire ne se lit pas à travers
+deux points et un renversement tolère un statut approximatif.
+
+** 8.4 Codage à deux niveaux (densification ciblée)
+
+Pour réconcilier les deux exigences, le codage distingue deux niveaux (colonne
+=code_tier=) :
+
+- *statut* — l'ensemble haute précision (§7), pour toute affirmation sur le niveau
+  social ;
+- *trajectoire* — réintègre les codes-/proxy/ des génériques (signalés
+  =code_method = generic=, =code_review = yes=), à seule fin de densifier les
+  parcours pour les métriques de forme.
+
+Cette densification ciblée porte la couverture de 42 % à 48 % (+58 étapes) et
+restaure le milieu de la règle absolue (Conservateurs 11 % → 15 %). La médiane
+par acteur restant à 2, la *règle absolue densifiée* est, sur ce corpus, la plus
+exploitable ; la variante relative ne donnerait sa pleine mesure qu'avec ≥ 3–4
+étapes codées par acteur. Les deux colonnes sont conservées pour permettre
+l'arbitrage. Ces règles demeurent une /proposition/ destinée à être amendée.
+
+* 9. Limites générales
+
+- *Sélection* : les autobiographes sont auto-sélectionnés pour des vies
+  « racontables », souvent à forte circulation ; toute comparaison à une
+  population de référence devra apparier sur l'origine (métier du père), la
+  cohorte de naissance et la région.
+- *Résolution* : les autobiographies captent une circulation /intra-vie/ fine
+  (renversements compris) que les sources de population (recensements liés,
+  matrices père→fils) ne voient qu'à une maille décennale — asymétrie à intégrer.
+- *Métier du père* extrait dans ~66 % des notices (heuristique), le reste restant
+  à compléter.
+- *Femmes* notoirement sous-enregistrées dans ces sources.
+- *Queue non codée* (~58 % des étapes) : métiers rares, fragments, ou rôles sans
+  équivalent HISCO ; récupérables par passes manuelles ciblées.
+
+* 10. Reproductibilité
+
+Tous les traitements sont scriptés et rejouables :
+
+- ~parse_bios.py~ — parse les 390 fichiers en table structurée (acteurs + étapes) ;
+- ~code_occupations.py~ — construit la référence HISCO et code les étapes par
+  correspondance (lexique + synonymes + rattrapage) ;
+- ~finalize_coding.py~ — applique les règles de nettoyage (§5) et la 1re règle TR ;
+- ~densify_tr.py~ — densification ciblée des génériques (§8.4) et recalcul des deux
+  variantes TR (=tr_absolute=, =tr_relative=).
+
+Fichiers de données : ~hisco_crosswalk.csv~ (référence), ~occupation_lexicon.csv~
+(lexique codé, à valider), ~stages_long_final.csv~ (étapes codées + catégorie TR).
+
+* Annexe — concepts conservés (extrait, par fréquence)
+
+| Concept           | HISCO | Libellé HISCO            | HISCAM |
+|-------------------+-------+--------------------------+--------|
+| journalist        | 15915 | Journalist               |  87,0 |
+| printer           | 92110 | Printer, General         |  67,6 |
+| editor            | 15920 | Editor, Newspapers       |  82,1 |
+| messenger         | 37040 | Messenger                |  55,7 |
+| secretary*        | 21110 | (General Manager)        |  84,9 |
+| teacher           | 13000 | Teacher                  |  82,4 |
+| author            | 15120 | Author                   |  79,8 |
+| lecturer*         | 13000 | (Teacher)                |  82,4 |
+| labourer          | 99910 | Labourer                 |  57,3 |
+| farm_labourer     | 61220 | Field Crop Farmer        |  50,9 |
+| salesman*         | 43220 | Commercial Traveller     |  73,6 |
+| union_official*   | 21110 | (General Manager)        |  84,9 |
+| legislator        | 20110 | Legislative Official     |  93,4 |
+| weaver            | 75430 | Cloth Weaver (Hand)      |  50,7 |
+| shoemaker         | 80110 | Shoemaker, General       |  52,8 |
+| minister_religion | 14120 | Minister of Religion     |  97,7 |
+| compositor        | 92120 | Hand Compositor          |  61,7 |
+| engineer*         | 84170 | (Machinery Fitter)       |  66,1 |
+| seaman            | 98140 | Ordinary Seaman          |  52,9 |
+| news_vendor       | 45240 | News Vendor              |  56,7 |
+
+(*) code-/proxy/ assumé (cf. §6).
+
+* Références
+
+- Burnett, J., Vincent, D., Mayall, D. (1984–1989). /The Autobiography of the
+  Working Class: An Annotated, Critical Bibliography/, 3 vol. Brighton: Harvester.
+- van Leeuwen, M. H. D., Maas, I., Miles, A. (2002). /HISCO: Historical
+  International Standard Classification of Occupations/. Leuven University Press.
+- van Leeuwen, M. H. D., Maas, I. (2011). /HISCLASS: A Historical International
+  Social Class Scheme/. Leuven University Press.
+- Lambert, P. S., Zijdeman, R. L., van Leeuwen, M. H. D., Maas, I., Prandy, K.
+  (2013). « The construction of HISCAM ». /Historical Methods/ 46(2), 77–89.
+- Crosswalk : ~github.com/cedarfoundation/hisco~.
