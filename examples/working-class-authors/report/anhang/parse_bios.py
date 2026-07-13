@@ -2,7 +2,7 @@
 import os, re, csv, json, statistics
 from collections import Counter
 
-ROOT = b'/home/claude/data'
+ROOT = b'/home/cpsoz/data'
 def find_dir(name):
     for dp,dirs,fs in os.walk(ROOT):
         if os.path.basename(dp)==name: return dp
@@ -123,15 +123,15 @@ def k(r):
     except: return 10**9
 actors.sort(key=k); stages.sort(key=lambda r:(k(r),r['stage_index']))
 
-os.makedirs('/home/claude/out',exist_ok=True)
+os.makedirs('/home/cpsoz/out',exist_ok=True)
 acols=['entry_id','surname','forename','reached_art','reached_media','destinations',
        'birth_year','birth_place','father_occupation','father_raw','married','residences',
        'n_stages','career_raw','affiliations_raw','content_tone','title','year_pub','source_file']
 scols=['entry_id','surname','forename','destinations','stage_index','occupation_raw','age',
        'hisco_code','hisclass','hiscam','tr_category']
-with open('/home/claude/out/actors.csv','w',encoding='utf-8-sig',newline='') as fh:
+with open('/home/cpsoz/out/actors.csv','w',encoding='utf-8-sig',newline='') as fh:
     w=csv.DictWriter(fh,fieldnames=acols); w.writeheader(); w.writerows(actors)
-with open('/home/claude/out/stages_long.csv','w',encoding='utf-8-sig',newline='') as fh:
+with open('/home/cpsoz/out/stages_long.csv','w',encoding='utf-8-sig',newline='') as fh:
     w=csv.DictWriter(fh,fieldnames=scols); w.writeheader(); w.writerows(stages)
 
 n=len(actors)

@@ -7,7 +7,7 @@
 
 * 1. Zweck
 
-Dieser Bericht führt Schritt 1 des Vergleichsprotokolls (Protokoll_Referenzvergleich, §8) aus: Aus den publizierten Mobilitätsstudien zur englischen Arbeiterklasse 1839–1914 wird eine Referenztabelle der Outflow- und Persistenzraten nach Herkunftsklasse und Kohorte zusammengestellt, die im weiteren Vergleich (Zieldimension und Intensität) als Maßstab dient. Da kein Zugang zu Mikrodaten besteht, beruht die Tabelle ausschließlich auf veröffentlichten Aggregaten; jede Zelle ist mit Quelle und Fundstelle versehen. Die maschinenlesbare Fassung liegt als =referenztabelle_mobilitaet.csv= bei, die Bibliographie als =references.bib=.
+Dieser Bericht führt den Schritt 1 des Vergleichsprotokolls (Protokoll_Referenzvergleich, §8) aus. Aus den veröffentlichten Mobilitätsstudien zur englischen Arbeiterklasse 1839–1914 wird eine Referenztabelle der Outflow- und Persistenzraten nach Herkunftsklasse und Kohorte zusammengestellt, die im weiteren Vergleich (Zieldimension und Intensität) als Maßstab dient. Da kein Zugang zu Mikrodaten besteht, beruht die Tabelle ausschließlich auf veröffentlichten Aggregaten. Jede Zelle ist mit Quelle und Fundstelle versehen. Die maschinenlesbare Fassung liegt als =referenztabelle_mobilitaet.csv= bei, die Bibliographie als =references.bib=.
 
 * 2. Klassenschema und Brücke zu HISCLASS
 
@@ -44,32 +44,31 @@ Die Brücke ist bewusst grob: die Referenzaggregate erlauben keine feinere Aufl�
 | IGE Erwerbseinkommen| 1851–81 vs 1972     | intergen. Einkommenselastizität              | 0,37 / 0,32     | Long 2013, Tab. 10, S. 17                 |
 | Inflow              | Industr. Revolution | Arbeiter mit Mittel-/Oberklasse-Vater        | ~ 20 %          | Clark & Cummins 2014 (falls Long korrekt) |
 
-Lesart der Zieldimension: Die für unseren Vergleich zentrale Zeile ist die Outflow-Rate der Arbeiterklasse. In der Referenz blieben rund 90 % der als Arbeiter Geborenen Arbeiter, etwa 5 % erreichten die Mittelklasse, und der Aufstieg in die obere professionell-unternehmerische Schicht war mit etwa 0,2 % (neunzehn von 10 835 Männern bei Miles) verschwindend. Die Diagonale ist überall dominant: 54 % der Söhne professioneller Väter blieben professionell, 75 % der Söhne gelernter Väter behielten äquivalenten Status (Miles, n. Clark und Cummins 2014). Insgesamt hatten nach Miles über 60 % der Söhne denselben Klassenstatus wie ihr Vater — eine, in seinen Worten, zutiefst ungleiche Gesellschaft (Miles 1999).
+Lesart der Zieldimension: Die für unseren Vergleich zentrale Zeile ist die Outflow-Rate der Arbeiterklasse. In der Referenz blieben rund 90 % der als Arbeiter geboren Arbeiter. Etwa 5 % erreichten die Mittelklasse, und der Aufstieg in die obere professionell-unternehmerische Schicht ist bei etwa 0,2 % (neunzehn von 10 835 Männern bei Miles). 54 % der Söhne professioneller Väter blieben professionell. 75 % der Söhne gelernter Väter behielten äquivalenten Status (Miles, n. Clark und Cummins 2014). Insgesamt hatten nach Miles über 60 % der Söhne denselben Klassenstatus wie ihr Vater. Wie Miles anmerkt, haben wir mit einer zutiefst ungleichen Gesellschaft zu tun (Miles 1999).
 
 * 4. Bandbreite statt Punktwert: zwei Lesarten der Referenz
 
-Die Referenz selbst ist nicht eindeutig, und das Protokoll führt sie deshalb als Bandbreite:
+Die Referenztabelle selbst ist nicht eindeutig. Deshalb wird sie als Bandbreite verwendet:
 
-- /Niedrige Mobilität/ (pessimistische Lesart): die Heiratsregister (Miles, Mitch) zeigen hohe Immobilität — über 60 % Statuserhalt; in Longs direktem Vergleich liegt die Gesamtmobilität der Register bei nur 34,8 % (Long 2013, S. 10).
-- /Höhere Mobilität/ (Long 2013): die einzige verknüpfte Zensus-Schätzung für England hebt die Gesamtmobilität auf 47,5 % (1851–1881) und beziffert die intergenerationelle Einkommenselastizität auf etwa 0,37 — nahe dem Wert des modernen Großbritanniens von 1972 (0,32; Long 2013, Tab. 10, S. 17). Der Hauptgrund ist methodisch: Heiratsregister beobachten Vater und Sohn in /verschiedenen/ Lebensphasen (Vater mit ~55, Sohn mit ~25), was Mobilität künstlich verdeckt (Long 2013, S. 4).
+- /Niedrige Mobilität/ (pessimistische Lesart): die Heiratsregister (Miles, Mitch) zeigen eine hohe Immobilität (über 60 % Statuserhalt). In Longs direktem Vergleich liegt die Gesamtmobilität der Register bei nur 34,8 % (Long 2013, S. 10).
+- /Höhere Mobilität/ (Long 2013): die einzige verknüpfte Zensus-Schätzung für England hebt die Gesamtmobilität auf 47,5 % (1851–1881) und beziffert die intergenerationelle Einkommenselastizität auf etwa 0,37. Dieser Wert ist nah an dem Wert des modernen Großbritanniens von 1972 (0,32; Long 2013, Tab. 10, S. 17).
+- Unterschied Miles/Long: Die Heiratsregister beobachten Vater und Sohn in unterschiedlichen Lebensphasen (Vater mit ~55, Sohn mit ~25), was die Mobilität künstlich zu verdecken tendiert (Long 2013, S. 4). Die hohe Mobilität bei Long ist allerdings umstritten. Neue Analysen führen Falsch-Positive der automatischen Datensatzverknüpfung an, die Aufwärtsmobilität überschätzen (Bailey et al. 2020). Was für unsere Frage entscheidend ist, kommt daher, dass /selbst die mobilitätsfreundlichste Lesart/ den Aufstieg in die professionelle Elite als seltenes Ereignis etikettiert.
 
-Die hohe Mobilität bei Long ist allerdings umstritten: Re-Analysen führen Falsch-Positive der automatischen Datensatzverknüpfung an, die Aufwärtsmobilität überzeichnen (Bailey et al. 2020). Der Vergleich muss daher beide Pole halten; entscheidend für unsere Frage ist, dass /selbst die mobilitätsfreundlichste Lesart/ den Aufstieg in die professionelle Elite als seltenes Ereignis belässt.
+* 5. Vorbehalte zur Referenztabelle
 
-* 5. Vorbehalte zur Referenz
-
-- /Anglikanische Verzerrung/: die Heiratsregister erfassen nur kirchlich-anglikanische Trauungen; bis 1914 fanden 42 % der Ehen außerhalb der anglikanischen Kirche statt (Vincent 1989, S. 281), womit die späten Kohorten zunehmend unrepräsentativ werden.
-- /Lebenszyklus-Versatz/: Vater und Sohn werden zu unterschiedlichen Karrierezeitpunkten beobachtet; dies verzerrt systematisch in Richtung scheinbarer Immobilität (Long 2013).
-- /Verknüpfungsfehler/: zensusbasierte Schätzungen sind anfällig für Falsch-Positive, die Mobilität überzeichnen (Bailey et al. 2020).
-- /Selektion der Autobiographien/: bereits Clark und Cummins (2014) diskutieren am Beispiel der 617 Arbeiterautobiographien bei Humphries (2010) — demselben Genre wie unser Burnett-Vincent-Mayall-Korpus —, dass Autobiographen zwar die /Berufsstruktur/ der Epoche abbilden, aber in Bezug auf /Mobilität/ unrepräsentativ sein dürften: wer Widrigkeiten überwand, schrieb eher seine Geschichte auf. Genau dieser Vorbehalt motiviert das Bounding-Argument unseres Protokolls (§7 dort).
+- /Anglikanische Verzerrung/: die Heiratsregister erfassen nur kirchlich-anglikanische Trauungen; bis 1914 fanden 42 % der Ehen außerhalb der anglikanischen Kirche statt (Vincent 1989, S. 281), weshalb die späten Kohorten zunehmend unrepräsentativ werden.
+- /Lebenszyklus-Versatz/: Vater und Sohn werden zu unterschiedlichen Karrierezeitpunkten beobachtet; dies führt zu einer systematischen Verzerrung zum Vorteil einer scheinbaren Immobilität (Long 2013).
+- /Verknüpfungsfehler/: zensusbasierte Schätzungen sind anfällig für Falsch-Positive, die Mobilität überschätzen (Bailey et al. 2020).
+- /Selektion der Autobiographien/: bereits Clark und Cummins (2014) diskutieren am Beispiel der 617 Arbeiterautobiographien bei Humphries (2010) — demselben Genre wie unser Burnett-Vincent-Mayall-Korpus —, dass Autobiographen zwar die /Berufsstruktur/ der Epoche abbilden, aber in Bezug auf /Mobilität/ unrepräsentativ sein dürften: Wer Widrigkeiten überwand, schrieb eher seine Geschichte auf. Genau dieser Vorbehalt motiviert das Begrenzung-Argument unseres Protokolls (§7 dort).
 
 * 6. Verwendung im Vergleich
 
-- /Vergleich A (Zieldimension)/: die Zeilen zur Arbeiterklasse (90 % / 5 % / 0,2 %) sind der direkte Maßstab für die Outflow-Rate unserer Kohorte (Söhne manueller Väter → Elite I–II: 62 %). Der Abstand — Faktor ~300 auf der Spitzenposition — ist gegen beide Lesarten (§4) robust.
-- /Vergleich B (Intensität)/: die intragenerationellen Zeilen (V Unskilled: ~33 % bleiben, ~40 % steigen auf; Long 2013) sind der Maßstab für die auf Referenzauflösung herabgestuften Intensitätsmaße der Kohorte. Hier gilt die Bandbreite besonders, da die Datenlage dünn ist.
+- /Vergleich A (Zieldimension)/: Die Referenztabelle gibt für die Söhne manueller Väter an, wohin sie im Lauf ihres Lebens gelangen. Grob 90 % bleiben im manuellen Bereich, rund 5 % erreichen das untere Nicht-Manuelle, und nur etwa 0,2 % steigen bis in die Elite (Klassen I–II) auf. Diese 0,2 % sind der Maßstab für die entsprechende Rate unserer Kohorte, in der 62 % der Söhne manueller Väter die Elite erreichen. Der Abstand beträgt damit rund das 300-Fache (62 % gegenüber 0,2 %), und er bleibt unter beiden Lesarten der Referenz aus §4 bestehen, der mobilitätsarmen wie der mobilitätsreichen.
+- /Vergleich B (Intensität)/: Für die Bewegung /innerhalb/ eines einzelnen Erwerbslebens liefert Long (2013) die Referenz. Von den ungelernten Arbeitern (Klasse V) bleiben dort im Lebensverlauf rund 33 % ungelernt, während etwa 40 % zu gelernter Arbeit aufsteigen. An diesen groben Raten werden die Intensitätsmaße unserer Kohorte gemessen, allerdings erst, nachdem diese auf die grobe Auflösung der Referenz herabgestuft wurden, damit Gleiches mit Gleichem verglichen wird. Weil die Datenlage für die Intensität dünn ist, ist das Ergebnis hier besonders als Bandbreite und nicht als Punktwert zu lesen.
 
 * Literatur
 
-Die vollständigen Angaben liegen maschinenlesbar in =references.bib= bei. Im Bericht zitiert:
+Die vollständigen Angaben liegen in der Biblatex-Datei in =references.bib=. Im Bericht zitiert sind folgende Angaben:
 
 - Clark, G., Cummins, N. (2014). Inequality and Social Mobility in the Era of the Industrial Revolution. In: /The Cambridge Economic History of Modern Britain/, Bd. 1, 211–235. Cambridge University Press.
 - Humphries, J. (2010). /Childhood and Child Labour in the British Industrial Revolution/. Cambridge University Press.
