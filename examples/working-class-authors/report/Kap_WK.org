@@ -175,12 +175,12 @@ Die folgenden Materialien dokumentieren die empirische Auswertung und sind im Gi
 
 ** Methodische Berichte
 
-- [[https://github.com/cp1972/TR-Twin/blob/main/examples/working-class-authors/report/anhang/Kodierbericht_HISCO.org][Kodierbericht_HISCO.org]] — Kodierbericht: Methode und Kompromisse der Kodierung nach HISCO, HISCLASS und HISCAM. Dieser Bericht enthält die Entscheidungsregeln, die drei Proxy-Kompromisse (secretary/union_official, lecturer, engineer) und die Definition der Akteurkategorien mit der Richtungsschwelle δ = 3.
+- [[https://github.com/cp1972/TR-Twin/blob/main/examples/working-class-authors/report/anhang/01-Kodierbericht_HISCO.org][Kodierbericht_HISCO.org]] — Kodierbericht: Methode und Kompromisse der Kodierung nach HISCO, HISCLASS und HISCAM. Dieser Bericht enthält die Entscheidungsregeln, die drei Proxy-Kompromisse (secretary/union_official, lecturer, engineer) und die Definition der Akteurkategorien mit der Richtungsschwelle δ = 3.
 - [[https://github.com/cp1972/TR-Twin/blob/main/examples/working-class-authors/report/anhang/Validation_structure_sequence.xlsx][Validation_structure_sequence.xlsx]] — Validierung der Zuordnung von Relationsstruktur und Sequenz (Referenzschema A.A bis D.D) samt den drei Einzelfallkorrekturen (salesman, soldier, policeman).
-- [[https://github.com/cp1972/TR-Twin/blob/main/examples/working-class-authors/report/anhang/Bericht_Atypizitaet.org][Bericht_Atypizitaet.org]] — Bericht zum Vergleich mit der Referenzpopulation (Grundlage von Abschnitt 5).
-- [[https://github.com/cp1972/TR-Twin/blob/main/examples/working-class-authors/report/anhang/Bericht_Referenztabelle.org][Bericht_Referenztabelle.org]] — Aufbau und Quellen der Referenztabelle aus der Referenzliteratur.
-- [[https://github.com/cp1972/TR-Twin/blob/main/examples/working-class-authors/report/anhang/Protokoll_Referenzvergleich.org][Protokoll_Referenzvergleich.org]] — Protokoll des Referenzvergleichs.
-- [[https://github.com/cp1972/TR-Twin/blob/main/examples/working-class-authors/report/anhang/Bericht_Zirkulationsanalyse.org][Bericht_Zirkulationsanalyse.org]] — Bericht zur Zirkulationsanalyse.
+- [[https://github.com/cp1972/TR-Twin/blob/main/examples/working-class-authors/report/anhang/05-Bericht_Atypizitaet.org][Bericht_Atypizitaet.org]] — Bericht zum Vergleich mit der Referenzpopulation (Grundlage von Abschnitt 5).
+- [[https://github.com/cp1972/TR-Twin/blob/main/examples/working-class-authors/report/anhang/03-Bericht_Referenztabelle.org][Bericht_Referenztabelle.org]] — Aufbau und Quellen der Referenztabelle aus der Referenzliteratur.
+- [[https://github.com/cp1972/TR-Twin/blob/main/examples/working-class-authors/report/anhang/02-Protokoll_Referenzvergleich.org][Protokoll_Referenzvergleich.org]] — Protokoll des Referenzvergleichs.
+- [[https://github.com/cp1972/TR-Twin/blob/main/examples/working-class-authors/report/anhang/04-Bericht_Zirkulationsanalyse.org][Bericht_Zirkulationsanalyse.org]] — Bericht zur Zirkulationsanalyse.
 
 ** Skripte
 
