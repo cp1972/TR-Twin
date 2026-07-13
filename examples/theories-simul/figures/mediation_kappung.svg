@@ -1,0 +1,38 @@
+<svg viewBox="0 0 760 440" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica,Arial,sans-serif">
+<rect width="760" height="440" fill="#fff"/>
+<text x="40" y="30" font-size="15" font-family="Georgia,serif" fill="#2b2b2b">Abbildung — Die Vermittlung unter Herrschaft (crossOff)</text>
+<text x="40" y="47" font-size="11" fill="#777">Volumen der vermittelten Zirkulation: bei White kehrt es unter Mobilität zurück (Erschöpfung), bei Tilly/Bourdieu bleibt es gekappt (Sperre)</text>
+<line x1="110" y1="380" x2="720" y2="380" stroke="#eee"/>
+<text x="104" y="383" font-size="9" fill="#9a9a9a" text-anchor="end">0.0</text>
+<line x1="110" y1="280" x2="720" y2="280" stroke="#eee"/>
+<text x="104" y="283" font-size="9" fill="#9a9a9a" text-anchor="end">0.2</text>
+<line x1="110" y1="180" x2="720" y2="180" stroke="#eee"/>
+<text x="104" y="183" font-size="9" fill="#9a9a9a" text-anchor="end">0.4</text>
+<line x1="110" y1="80" x2="720" y2="80" stroke="#eee"/>
+<text x="104" y="83" font-size="9" fill="#9a9a9a" text-anchor="end">0.6</text>
+<rect x="140" y="247" width="72" height="133" fill="#9bbf8a" rx="2"/>
+<text x="176" y="241" font-size="10" fill="#2b2b2b" text-anchor="middle">0.266</text>
+<text x="176" y="394" font-size="9" fill="#555" text-anchor="middle">TR</text>
+<text x="176" y="406" font-size="9" fill="#555" text-anchor="middle">symmetrisch</text>
+<rect x="240" y="295" width="72" height="85" fill="#8C92EC" rx="2"/>
+<text x="276" y="289" font-size="10" fill="#2b2b2b" text-anchor="middle">0.170</text>
+<text x="276" y="394" font-size="9" fill="#555" text-anchor="middle">White</text>
+<text x="276" y="406" font-size="9" fill="#555" text-anchor="middle">Apex</text>
+<rect x="340" y="90" width="72" height="290" fill="#c4c8f2" rx="2"/>
+<text x="376" y="84" font-size="10" fill="#2b2b2b" text-anchor="middle">0.581</text>
+<text x="376" y="394" font-size="9" fill="#555" text-anchor="middle">White</text>
+<text x="376" y="406" font-size="9" fill="#555" text-anchor="middle">unter Mobilität</text>
+<rect x="440" y="310" width="72" height="70" fill="#E36F9E" rx="2"/>
+<text x="476" y="304" font-size="10" fill="#2b2b2b" text-anchor="middle">0.139</text>
+<text x="476" y="394" font-size="9" fill="#555" text-anchor="middle">Tilly</text>
+<text x="476" y="406" font-size="9" fill="#555" text-anchor="middle">Apex</text>
+<rect x="540" y="171" width="72" height="209" fill="#f0a8c4" rx="2"/>
+<text x="576" y="165" font-size="10" fill="#2b2b2b" text-anchor="middle">0.418</text>
+<text x="576" y="394" font-size="9" fill="#555" text-anchor="middle">Tilly</text>
+<text x="576" y="406" font-size="9" fill="#555" text-anchor="middle">unter Mobilität</text>
+<rect x="640" y="294" width="72" height="86" fill="#46CDB8" rx="2"/>
+<text x="676" y="288" font-size="10" fill="#2b2b2b" text-anchor="middle">0.172</text>
+<text x="676" y="394" font-size="9" fill="#555" text-anchor="middle">Bourdieu</text>
+<text x="676" y="406" font-size="9" fill="#555" text-anchor="middle">dialektisiert</text>
+<line x1="110" y1="247" x2="720" y2="247" stroke="#9bbf8a" stroke-width="1" stroke-dasharray="4,3"/>
+</svg>
