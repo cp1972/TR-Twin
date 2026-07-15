@@ -1,10 +1,12 @@
 // Alle Theorie-Profile headless durchrechnen (Schritt-Modus, 1819 Schritte).
 const fs=require('fs'), path=require('path');
 const {JSDOM}=require('jsdom');
-const DIR='/home/claude/TR-Twin-extract/examples/theories-simul';
-const OUT='/home/claude/tr-headless/out/profiles';
+const APP=process.argv[2]||'./tr-twin.html';
+const DIR=process.argv[3]||'./examples/theories-simul';
+const OUT=process.argv[4]||'./out/profiles';
+const NSTEPS=+(process.argv[5]||1819);
 fs.mkdirSync(OUT,{recursive:true});
-const html=fs.readFileSync('/home/claude/TR-Twin-extract/tr-twin.html','utf8');
+const html=fs.readFileSync(APP,'utf8');
 const ctxStub=new Proxy({},{get:()=>(()=>ctxStub),set:()=>true});
 const dom=new JSDOM(html,{runScripts:'dangerously',pretendToBeVisual:true,beforeParse(w){
   w.HTMLCanvasElement.prototype.getContext=()=>ctxStub; w.requestAnimationFrame=()=>0; w.cancelAnimationFrame=()=>{};
@@ -22,6 +24,7 @@ rip(`window.__fromCsv=function(csv,n){
     const el=document.getElementById(cid); if(el){el.value=cursors[cid]; el.dispatchEvent(new Event('input'));}}
   if(r.chains&&Object.keys(r.chains).length){loadedChains=r.chains;for(const sx in r.chains)setChain(+sx,r.chains[sx]);}
   else {loadedChains=null;resetChains();}
+  satS=[0,0,0,0]; rulerHold=[0,0,0,0];   // WICHTIG: reset() setzt satS NICHT zurueck
   reset();
   const Sh=[],G=[],R=[],SAT=[],RUL=[];
   for(let i=0;i<n;i++){step(dt);
@@ -32,12 +35,12 @@ rip(`window.__fromCsv=function(csv,n){
 
 const files=fs.readdirSync(DIR).filter(f=>/^profil_.*\.csv$/.test(f)).sort();
 const NAMES=['K','P','W','M'];
-console.log(`${files.length} Profile · 1819 Schritte je Lauf\n`);
-console.log('Theorie                       K     P     W     M    | GINI   R     Regent  satS(max)');
+console.log(`${files.length} profiles · ${NSTEPS} steps each\n`);
+console.log('Profile                       K     P     W     M    | GINI   R     Ruler   satS(max)');
 console.log('-'.repeat(88));
 for(const f of files){
   const csv=fs.readFileSync(path.join(DIR,f),'utf8');
-  const r=dom.window.__fromCsv(csv,1819);
+  const r=dom.window.__fromCsv(csv,NSTEPS);
   const name=f.replace(/^profil_/,'').replace(/\.csv$/,'');
   if(!r.ok){ console.log(`${name.padEnd(28)} FEHLER: ${r.err}`); continue; }
   fs.writeFileSync(path.join(OUT,name+'.json'), JSON.stringify(r));
@@ -47,4 +50,4 @@ for(const f of files){
   const regent = rul.every(v=>v===rul[0]) ? NAMES[rul[0]] : (rul.map(v=>NAMES[v]).join(''));
   console.log(`${name.padEnd(28)} ${S.map(v=>(v*100).toFixed(1).padStart(5)).join(' ')} | ${G.toFixed(3)} ${R.toFixed(3)}  ${regent.padEnd(6)}  ${Math.max(...sat).toFixed(2)}`);
 }
-console.log('\nJSON-Trajektorien:', OUT);
+console.log('\nJSON trajectories:', OUT);

@@ -1,0 +1,208 @@
+#+TITLE: Running the digital twin headless (command line)
+#+AUTHOR: Christian Papilloud
+#+LANGUAGE: en
+#+OPTIONS: toc:t num:t H:4 ^:nil
+
+* What this is for
+
+=tr-twin.html= is a self-contained web app, but its simulation is plain, deterministic
+JavaScript: the browser only draws the result. So the app can also be driven *without a
+browser* ("headless") from the command line, in order to produce reproducible metrics and
+figures — for example the figures of the book.
+
+Same seed + same profile ⇒ bit-identical results. Every figure can therefore be traced
+back to: app version + profile + seed + run mode + number of steps.
+
+* Install once
+
+Node.js is required (tested with v22). In the folder where you keep the scripts:
+
+#+begin_src sh
+npm install jsdom
+#+end_src
+
+That is the only dependency.
+
+* The scripts
+
+| script         | what it does                                                |
+|----------------+-------------------------------------------------------------|
+| =run.js=       | one profile, *year mode* (1900→2000, as the app's timeline) |
+| =run_steps.js= | one profile, *step mode* (N single steps, fixed cursors)    |
+| =batch.js=     | *all* profiles in a folder, step mode, one table + JSON     |
+
+* Run ONE profile
+
+** Year mode (1900 → 2000)
+
+#+begin_src sh
+node run.js  <app.html>  <profile.csv>
+#+end_src
+
+Concretely, from the repository root:
+
+#+begin_src sh
+node run.js  ./tr-twin.html  ./examples/theories-simul/profil_Emirbayer.csv
+#+end_src
+
+Output:
+
+#+begin_example
+Profile: profil_Emirbayer.csv
+Cursors loaded: rate, alpha
+Period: 1900 → 2000 · 101 years
+start:
+  year 1900: sizes A/B/C/D=0.25/0.24/0.25/0.26  gini=0.021  reciprocity=0.972  ruler=0123  satS=0.00/0.00/0.00/0.00
+end:
+  year 2000: sizes A/B/C/D=0.15/0.55/0.15/0.15  gini=0.303  reciprocity=0.472  ruler=0123  satS=0.49/0.00/0.49/0.49
+→ series written: out/Emirbayer.json
+#+end_example
+
+The full year-by-year series is written as JSON (one row per year, with sizes, gini,
+reciprocity, ruler, satellisation, per-structure metrics).
+
+** Step mode (N steps, cursors held fixed)
+
+#+begin_src sh
+node run_steps.js  <app.html>  <profile.csv>  [steps]  [output.json]
+#+end_src
+
+Concretely:
+
+#+begin_src sh
+node run_steps.js  ./tr-twin.html  ./examples/theories-simul/profil_Parsons.csv  1819  ./out/parsons.json
+#+end_src
+
+Output:
+
+#+begin_example
+1819 steps · final sizes = 6.9% / 77.0% / 9.7% / 6.5% (culture/politics/economy/media)
+→ ./out/parsons.json
+#+end_example
+
+The cursors are set to the profile's last-year values and held constant; this is the mode
+behind the trajectory figures ("neutral scenario, seed 1, 1819 steps").
+
+* Run ALL profiles (batch)
+
+#+begin_src sh
+node batch.js  <app.html>  <profiles-folder>  <output-folder>  [steps]
+#+end_src
+
+Concretely, from the repository root:
+
+#+begin_src sh
+node batch.js  ./tr-twin.html  ./examples/theories-simul  ./out/profiles  1819
+#+end_src
+
+All arguments are optional; the defaults are exactly the values above. The command prints
+one line per profile and writes one JSON trajectory per profile into the output folder:
+
+#+begin_example
+19 profiles · 1819 steps each
+
+Profile                       K     P     W     M    | GINI   R     Ruler   satS(max)
+----------------------------------------------------------------------------------------
+Emirbayer                     12.8  61.5  12.9  12.8 | 0.365 0.312  KPWM    0.71
+Luhmann                       24.9  25.0  25.0  25.1 | 0.002 0.950  KPWM    0.00
+Parsons                        6.9  77.0   9.7   6.5 | 0.536 0.347  PPWP    1.00
+White                         14.1  57.9  14.0  14.0 | 0.329 0.365  KPWM    0.58
+...
+JSON trajectories: ./out/profiles
+#+end_example
+
+To run everything to convergence instead of the 1819-step horizon, raise the step count:
+
+#+begin_src sh
+node batch.js  ./tr-twin.html  ./examples/theories-simul  ./out/converged  5000
+#+end_src
+
+* How it works (three lines)
+
+1. *Load*: =jsdom= parses =tr-twin.html= and executes its script, which initialises
+   everything (=reset()=, neutral reference state, cursors, timeline).
+2. *Stub*: =canvas.getContext= and =requestAnimationFrame= are replaced by dummies —
+   nothing is drawn and the animation loop never starts, so the simulation stands still
+   until we drive it.
+3. *Drive*: the app's own functions are called inside the page: =parseCursorCSV(profile)=
+   for the cursor curves, then either =runSeries()= (year mode) or =reset()= + =step(dt)=
+   in a loop (step mode), with =dt = 1/60*0.68=.
+
+* Profile files
+
+First column = cursor (id or French label), following columns = years (linear
+interpolation between them). Rows =chaine_A,C,B,D= set the structural coupling.
+
+| cursor id | French label                        | meaning                        |
+|-----------+-------------------------------------+--------------------------------|
+| rate      | Circulation des acteurs             | actor circulation              |
+| alpha     | Concentration vers le pôle dominant | concentration to dominant pole |
+| back      | Redistribution interne              | internal redistribution        |
+| over      | Perméabilité entre structures       | permeability between structures|
+| rho       | Effet miroir                        | mirror effect                  |
+| peak      | Taille idéale                       | ideal size                     |
+| cap       | Essoufflement des dominants         | exhaustion of the dominant     |
+| plast     | Souplesse des parcours              | chain plasticity               |
+| mig       | Migration des acteurs               | actor migration                |
+| decl      | Déclassement des arrivants          | downgrading of newcomers       |
+| dynam     | Avantage aux structures dynamiques  | advantage to dynamic structures|
+| anchor    | Poids du nombre                     | weight of numbers              |
+
+* Three pitfalls (found empirically — read this)
+
+** 1. =reset()= does not clear the satellisation
+
+=reset()= reseeds the RNG and clears sizes, chains, actors and tensions — but *not* =satS=
+(satellisation) and not =rulerHold=. Only =playScnFrom()= clears them explicitly; the app's
+own =runSeries()= does not. After page load =satS = 0=, so the *first* run is always clean.
+But if several runs are computed *in the same page*, each run inherits the previous run's
+satellisation and results become order-dependent.
+
+Rule: before every =reset()=, set explicitly
+
+#+begin_src js
+satS=[0,0,0,0]; rulerHold=[0,0,0,0];
+#+end_src
+
+or compute every run in a fresh process. Both ways were cross-checked and give identical
+numbers. The scripts above already do this.
+
+** 2. Reset the cursors before every profile
+
+A profile only sets the cursors it names; all others keep the previous run's values. Call
+=applyDefaults()= before each profile. It restores the TR reference values (rate 2.2 ·
+alpha 1.4 · back 1.0 · over 1.0 · rho 1.0 · peak 0.5 · cap 0.7 · plast 0.4 · mig 0.7 ·
+decl 0.5 · dynam 0.5 · anchor 0.5) — exactly the "TR" column of the operationalisation
+tables. =batch.js= already does this.
+
+** 3. Loaded chains disable the plasticity
+
+In =step()=: =if(plast>0){for(...){ if(loadedChains && loadedChains[x]!=null) continue; ...=
+
+For every structure whose chain is fixed by a profile, the reorientation of the internal
+order is skipped. Profiles that set *all four* chains (Parsons, Tilly) therefore make the
+=plast= cursor inert: the rigidity comes from the frozen chains themselves, not from the
+cursor.
+
+* Run horizon: 1819 steps is not convergence
+
+The trajectory figures state 1819 steps. Some frameworks have not settled by then.
+Example Tilly (default mig = 0.7): after 1819 steps GINI 0.03 (quasi-symmetric), after
+~5000 steps GINI 0.26 with a single apex (economy 49 %) — stable afterwards. The sweep
+figures were clearly produced with converged runs: White's GINI at mig 0.8 is 0.18 after
+1819 steps but converges to 0.36 (figure: 0.35).
+
+Rule of thumb: trajectory figures 1819 steps; end-state and sweep figures ~5000 steps.
+
+* Reconstructed profile: "Parsons as damping"
+
+The profile for the second reading of Parsons' control ("control as homeostatic damping")
+was lost and had to be reconstructed: Parsons base with concentration (alpha) 1.0, weight
+of numbers (anchor) 0.6, exhaustion (cap) 0.6 — and, against the hierarchy reading, raised
+migration (mig) 0.5 → 0.6. Result at 1819 steps: reciprocity 0.515, GINI 0.213, against
+the documented 0.51 and 0.22. The first three cursors alone give only 0.41; only the
+raised circulation lifts reciprocity, which is what the reading claims. File:
+=profil_Parsons_daempfung.csv=.
+
+Caveat: a residual satellisation of about 0.2 remains (against 1.0 in the hierarchy
+reading), so "satellisation disappears" is to be read as relative, not absolute.
