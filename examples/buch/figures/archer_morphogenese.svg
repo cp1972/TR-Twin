@@ -1,0 +1,37 @@
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica,Arial,sans-serif">
+<rect width="700" height="420" fill="#fff"/>
+<text x="40" y="47" font-size="11" fill="#777">Konditionierung → Interaktion → Elaboration. Morphostase reproduziert; Morphogenese elaboriert und verriegelt sich</text>
+<line x1="120" y1="350" x2="650" y2="350" stroke="#eee"/>
+<text x="114" y="353" font-size="9" fill="#9a9a9a" text-anchor="end">0.0</text>
+<line x1="120" y1="281" x2="650" y2="281" stroke="#eee"/>
+<text x="114" y="284" font-size="9" fill="#9a9a9a" text-anchor="end">0.1</text>
+<line x1="120" y1="212" x2="650" y2="212" stroke="#eee"/>
+<text x="114" y="216" font-size="9" fill="#9a9a9a" text-anchor="end">0.2</text>
+<line x1="120" y1="144" x2="650" y2="144" stroke="#eee"/>
+<text x="114" y="147" font-size="9" fill="#9a9a9a" text-anchor="end">0.3</text>
+<line x1="120" y1="75" x2="650" y2="75" stroke="#eee"/>
+<text x="114" y="78" font-size="9" fill="#9a9a9a" text-anchor="end">0.4</text>
+<text x="120" y="372" font-size="9.5" fill="#888">Beginn (Konditionierung)</text>
+<text x="650" y="372" font-size="9.5" fill="#888" text-anchor="end">Ende (Elaboration)</text>
+<polyline points="120,350 252,295 385,130 518,103 650,96" fill="none" stroke="#46CDB8" stroke-width="2.5"/>
+<circle cx="120" cy="350" r="3" fill="#46CDB8"/>
+<circle cx="252" cy="295" r="3" fill="#46CDB8"/>
+<circle cx="385" cy="130" r="3" fill="#46CDB8"/>
+<circle cx="518" cy="103" r="3" fill="#46CDB8"/>
+<circle cx="650" cy="96" r="3" fill="#46CDB8"/>
+<polyline points="120,343 252,295 385,137 518,103 650,103" fill="none" stroke="#8C92EC" stroke-width="2.5" stroke-dasharray="5,3"/>
+<circle cx="120" cy="343" r="3" fill="#8C92EC"/>
+<circle cx="252" cy="295" r="3" fill="#8C92EC"/>
+<circle cx="385" cy="137" r="3" fill="#8C92EC"/>
+<circle cx="518" cy="103" r="3" fill="#8C92EC"/>
+<circle cx="650" cy="103" r="3" fill="#8C92EC"/>
+<polyline points="120,343 252,350 385,350 518,350 650,350" fill="none" stroke="#bbb" stroke-width="2.5"/>
+<circle cx="120" cy="343" r="3" fill="#bbb"/>
+<circle cx="252" cy="350" r="3" fill="#bbb"/>
+<circle cx="385" cy="350" r="3" fill="#bbb"/>
+<circle cx="518" cy="350" r="3" fill="#bbb"/>
+<circle cx="650" cy="350" r="3" fill="#bbb"/>
+<rect x="430" y="90" width="13" height="4" fill="#46CDB8"/><text x="449" y="95" font-size="10" fill="#555">Morphogenese (α=1,8): elaboriert</text>
+<rect x="430" y="108" width="13" height="4" fill="#8C92EC"/><text x="449" y="113" font-size="10" fill="#555">Elaboration verriegelt (1,8→1,2)</text>
+<rect x="430" y="126" width="13" height="4" fill="#bbb"/><text x="449" y="131" font-size="10" fill="#555">Morphostase (α=1,0): reproduziert</text>
+</svg>

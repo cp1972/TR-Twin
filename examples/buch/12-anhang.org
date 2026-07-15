@@ -1,0 +1,16 @@
+#+AUTHOR: Christian Papilloud
+#+LANGUAGE: de
+#+OPTIONS: toc:nil num:nil H:4 ^:nil
+#+STARTUP: showall
+#+LATEX_CLASS: book
+#+LATEX_CLASS_OPTIONS: [11pt,a4paper]
+#+CITE_EXPORT: csl chicago-author-date-de.csl
+#+BIBLIOGRAPHY: Bericht.bib
+
+
+* Anhang
+:PROPERTIES:
+:STATUS: TODO
+:END:
+
+# A. Profile (CSV) je Rahmen. B. Methodische Protokolle der Läufe. C. Eichartefakte.

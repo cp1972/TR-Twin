@@ -1,0 +1,16 @@
+#+AUTHOR: Christian Papilloud
+#+LANGUAGE: de
+#+OPTIONS: toc:nil num:nil H:4 ^:nil
+#+STARTUP: showall
+#+LATEX_CLASS: book
+#+LATEX_CLASS_OPTIONS: [11pt,a4paper]
+#+CITE_EXPORT: csl chicago-author-date-de.csl
+#+BIBLIOGRAPHY: Bericht.bib
+
+
+* Vorwort
+:PROPERTIES:
+:STATUS: DRAFT
+:END:
+
+Dieser Bericht verlängert die Arbeiten, die zur Theorie der Relation als einem analytisch-interpretativen Rahmen im Zusammenhang von existierenden relationalen Ansätzen im Bereich der soziologischen Theorien geführt haben und sie im Rahmen von empirischen Untersuchungen verwendet haben. Er zieht die Folgen aus der Diskussion, die diese Arbeiten motiviert haben und insbesondere zwei Aspekten der Theorie der Relation betreffen. Zum einen haben sich Fragen nach der inneren Kohärenz des theoretischen Rahmens gestellt, die deshalb legitim sind, weil die Theorie der Relation eine Fülle von neuen Begriffen entwickelt, davon die Verbindung miteinander für diejenigen Soziologen nicht selbstverständlich sind, die einem solchen Theorierahmen nicht vertraut sind. In diesem Bericht haben wir versucht, diese innere Kohärenz zu prüfen, indem wir die Theorie der Relation in ein analytisches Modell umgewandelt haben, das diese Theorie simuliert und gegen die Annahmen und die Architektur der Theorie getestet werden kann. Zum zweiten und auf dieser Grundlage aufbauend haben wir versucht, dieses Modell bzw. den digitalen Zwillinge der Theorie der Relation zu verwenden, um die Theorie der Relation im Kontrast mit den Gründungsimpulsen der relationalen Soziologie ebenso wie mit ihren Kusinen in der gegenwärtigen Familie der relationalen Soziologien zu positionieren. Dies hat uns drittens zur folgenden Frage geführt: Was zeigt uns die Theorie der Relation, die wir ansonsten mit anderen Theorierahmen nicht sehen würden? Eine solche Frage zu beantworten, entfernt uns vom Vergleich zwischen Theorierahmen und deren Annahmen, und er führt zur Anwendung vom digitalen Zwillinge auf reale Daten bzw. zu einer Verwendung vom digitalen Zwillinge nicht nur als analytisches Werkzeug der epistemologischen Analyse, sondern auch als methodologisches Werkzeug in der Unterstützung der soziologischen Untersuchung. Um diesen Schritt zu machen, haben wir ein Beispiel aus der Forschung zur sozialen Mobilität der Mitglieder der Arbeiterklasse in Großbritannien vom 19. Jahrhundert bis zum zweiten Drittel des 20. Jahrhunderts genommen und es mit unserem digitalen Zwillinge behandelt. Dieser Bericht veröffentlicht unsere Ergebnisse in jedem Anwendungsfall, und es schlägt somit ein neues Werkzeug für die Methodenentwicklung im Rahmen von relationalen Ansätzen vor, die mit der Theorie der Relation arbeiten möchten.

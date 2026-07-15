@@ -1,0 +1,27 @@
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica,Arial,sans-serif">
+<rect width="700" height="420" fill="#fff"/>
+<text x="40" y="47" font-size="11" fill="#777">Maximale Tragfähigkeit als Apex (über alle Konzentrationen). Reiner Relationalismus sagte Gleichheit voraus — der Simulator zeigt eine feste Hierarchie</text>
+<line x1="150" y1="360" x2="640" y2="360" stroke="#eee"/>
+<text x="144" y="363" font-size="9" fill="#9a9a9a" text-anchor="end">0%</text>
+<line x1="150" y1="277" x2="640" y2="277" stroke="#eee"/>
+<text x="144" y="280" font-size="9" fill="#9a9a9a" text-anchor="end">20%</text>
+<line x1="150" y1="194" x2="640" y2="194" stroke="#eee"/>
+<text x="144" y="197" font-size="9" fill="#9a9a9a" text-anchor="end">40%</text>
+<line x1="150" y1="111" x2="640" y2="111" stroke="#eee"/>
+<text x="144" y="114" font-size="9" fill="#9a9a9a" text-anchor="end">60%</text>
+<rect x="185" y="248" width="92" height="112" fill="#E8B14C" rx="2"/>
+<text x="231" y="241" font-size="13" fill="#2b2b2b" text-anchor="middle">27%</text>
+<text x="231" y="378" font-size="10.5" fill="#555" text-anchor="middle">Kultur (A)</text>
+<rect x="303" y="116" width="92" height="244" fill="#46CDB8" rx="2"/>
+<text x="349" y="109" font-size="13" fill="#2b2b2b" text-anchor="middle">59%</text>
+<text x="349" y="378" font-size="10.5" fill="#555" text-anchor="middle">Politik (B)</text>
+<rect x="421" y="169" width="92" height="191" fill="#E36F9E" rx="2"/>
+<text x="467" y="162" font-size="13" fill="#2b2b2b" text-anchor="middle">46%</text>
+<text x="467" y="378" font-size="10.5" fill="#555" text-anchor="middle">Wirtschaft (C)</text>
+<rect x="539" y="248" width="92" height="112" fill="#8C92EC" rx="2"/>
+<text x="585" y="241" font-size="13" fill="#2b2b2b" text-anchor="middle">27%</text>
+<text x="585" y="378" font-size="10.5" fill="#555" text-anchor="middle">Medien (D)</text>
+<text x="244" y="398" font-size="10" fill="#999" text-anchor="middle">— vermittelnde Strukturen: „leicht" —</text>
+<text x="490" y="398" font-size="10" fill="#999" text-anchor="middle">— akkumulierende: „schwer" —</text>
+<text x="395" y="416" font-size="10.5" fill="#888" text-anchor="middle">Über 8 Keime ist der Apex stets dieselbe Struktur (Politik) — nie zufällig. Die Position trägt ein Gewicht.</text>
+</svg>
