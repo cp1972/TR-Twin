@@ -22,15 +22,16 @@ runInPage(`window.__t=(function(){try{
       if(r.chains&&Object.keys(r.chains).length){loadedChains=r.chains;for(const sx in r.chains)setChain(+sx,r.chains[sx]);}
     }
   }
+  satS=[0,0,0,0]; rulerHold=[0,0,0,0];   // reset() clears neither
   reset();
   const Shist=[],G=[],R=[],SAT=[];
   for(let i=0;i<${NSTEPS};i++){step(dt);Shist.push(S.map(v=>+v.toFixed(5)));G.push(+gini().toFixed(5));R.push(+reciprocity().toFixed(5));SAT.push(satS.map(v=>+v.toFixed(4)));}
   return {ok:true,nsteps:${NSTEPS},S:Shist,gini:G,recip:R,sat:SAT};
 }catch(e){return{ok:false,err:String((e&&e.stack)||e)};}})();`);
 const r=dom.window.__t;
-if(!r||!r.ok){console.error('FEHLER:',r&&r.err);process.exit(1);}
+if(!r||!r.ok){console.error('ERROR:',r&&r.err);process.exit(1);}
 fs.mkdirSync(require('path').dirname(OUT),{recursive:true});
 fs.writeFileSync(OUT,JSON.stringify(r));
 const last=r.S[r.S.length-1];
-console.log(`${r.nsteps} Schritte · Endgrößen = ${last.map(v=>(v*100).toFixed(1)+'%').join(' / ')} (Kultur/Politik/Wirtschaft/Medien)`);
+console.log(`${r.nsteps} steps · final sizes = ${last.map(v=>(v*100).toFixed(1)+'%').join(' / ')} (culture/politics/economy/media)`);
 console.log('→',OUT);

@@ -45,19 +45,19 @@ runInPage(`window.__result = (function(){
 })();`);
 
 const res = dom.window.__result;
-if (!res || !res.ok) { console.error('FEHLER:', res && res.err); process.exit(1); }
+if (!res || !res.ok) { console.error('ERROR:', res && res.err); process.exit(1); }
 
-console.log('Profil:', path.basename(PROFILE));
-console.log('Regler geladen:', res.cursors.join(', '));
-console.log('Zeitraum:', res.start, '→', res.end, '·', res.n, 'Jahre');
+console.log('Profile:', path.basename(PROFILE));
+console.log('Cursors loaded:', res.cursors.join(', '));
+console.log('Period:', res.start, '→', res.end, '·', res.n, 'years');
 const f = res.rows[0], l = res.rows[res.rows.length-1];
-const fmt = r => `  Jahr ${r.year}: Größen A/B/C/D=${r.S.map(v=>v.toFixed(2)).join('/')}  Gini=${r.gini.toFixed(3)}  Reziprozität=${r.recip.toFixed(3)}  Regent=${r.ruler.join('')}  satS=${r.sat.map(v=>v.toFixed(2)).join('/')}`;
-console.log('Start:'); console.log(fmt(f));
-console.log('Ende: '); console.log(fmt(l));
+const fmt = r => `  year ${r.year}: sizes A/B/C/D=${r.S.map(v=>v.toFixed(2)).join('/')}  gini=${r.gini.toFixed(3)}  reciprocity=${r.recip.toFixed(3)}  ruler=${r.ruler.join('')}  satS=${r.sat.map(v=>v.toFixed(2)).join('/')}`;
+console.log('start:'); console.log(fmt(f));
+console.log('end:  '); console.log(fmt(l));
 
 // Vollständige Zeitreihe als JSON ablegen (für das Python-Rendering)
-const outDir = '/home/claude/tr-headless/out';
+const outDir = process.argv[4] || './out';
 fs.mkdirSync(outDir, { recursive: true });
 const base = path.basename(PROFILE).replace(/^profil_/, '').replace(/\.csv$/, '');
 fs.writeFileSync(path.join(outDir, base + '.json'), JSON.stringify(res.rows));
-console.log('→ Zeitreihe gespeichert:', path.join(outDir, base + '.json'));
+console.log('→ series written:', path.join(outDir, base + '.json'));
