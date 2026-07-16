@@ -206,3 +206,140 @@ raised circulation lifts reciprocity, which is what the reading claims. File:
 
 Caveat: a residual satellisation of about 0.2 remains (against 1.0 in the hierarchy
 reading), so "satellisation disappears" is to be read as relative, not absolute.
+
+* Producing the figures
+
+The figures of the book are produced in two steps: *(1)* a headless run writes the numbers
+to JSON, *(2)* a small Python renderer draws the SVG in the report style. Nothing is drawn
+by the browser, and every figure can be regenerated from the app + a profile.
+
+** The three data commands
+
+| command             | produces                                | used for                        |
+|---------------------+-----------------------------------------+---------------------------------|
+| =run_steps.js=      | one trajectory (state after each step)  | trajectory figures              |
+| =sweep_generic.js=  | metrics while ONE cursor is varied      | sweep figures                   |
+| =metrics.js=        | end-state metrics for a list of configs | bar / end-state comparisons     |
+
+*** A) Trajectory (one profile, N steps)
+
+#+begin_src sh
+node run_steps.js ./tr-twin.html ./examples/theories-simul/profil_Parsons.csv 1819 ./out/parsons.json
+python3 render_trajektorie.py ./out/parsons.json ./figures/parsons_trajektorie.svg
+#+end_src
+
+*** B) Sweep (vary one cursor)
+
+#+begin_src sh
+node sweep_generic.js <app.html> <profile.csv> <cursorId> <v1,v2,...> [steps] [out.json]
+#+end_src
+
+Example — Luhmann's closure, permeability from open (1) to closed (0):
+
+#+begin_src sh
+node sweep_generic.js ./tr-twin.html ./examples/theories-simul/profil_Luhmann.csv \
+     over "1.0,0.7,0.5,0.3,0.15,0.05,0.0" 1819 ./out/luhmann_schliessung.json
+#+end_src
+
+#+begin_example
+profile: profil_Luhmann.csv · cursor: over · 1819 steps
+
+over     GINI    R       >30%  sizes K/P/W/M %
+1        0.001   0.957   0     25.0/25.0/25.1/25.0
+0.7      0.001   0.955   0     24.9/25.0/25.0/25.1
+...
+0        0.002   0.945   0     24.9/24.9/25.1/25.1
+#+end_example
+
+The swept cursor always overrides the profile. =>30%= counts the structures above 30 %
+(needed for the bifurcation figure).
+
+*** C) End-state metrics for several configurations
+
+Write a small spec file, =spec.json=:
+
+#+begin_src js
+[
+ {"label":"Theorie der Relation",    "profile":null},
+ {"label":"Luhmann (Schließung)",    "profile":"./examples/theories-simul/profil_Luhmann.csv"},
+ {"label":"Schließung over → 0",     "profile":"./examples/theories-simul/profil_Luhmann.csv", "cursors":{"over":0}},
+ {"label":"Parsons (Konzentration)", "profile":"./examples/theories-simul/profil_Parsons.csv"}
+]
+#+end_src
+
+=profile: null= means the TR reference itself (all cursors at their default values).
+=cursors= overrides single cursors. =steps= may be set per entry (default 1819). Then:
+
+#+begin_src sh
+node metrics.js ./tr-twin.html ./spec.json ./out/luhmann_bars.json
+#+end_src
+
+#+begin_example
+label                          K     P     W     M    | GINI   R      crossOff
+Theorie der Relation          25.0  25.1  24.9  25.1 | 0.002 0.996  0.264
+Luhmann (Schließung)          24.9  25.0  25.0  25.1 | 0.002 0.950  0.266
+Schließung over → 0           24.9  24.9  25.1  25.1 | 0.002 0.945  0.270
+Parsons (Konzentration)        6.9  77.0   9.7   6.5 | 0.536 0.347  0.098
+#+end_example
+
+** The metrics written to JSON
+
+=S= (sizes of the four structures), =gini= (transversal inequality), =recip=
+(reciprocity), =sat= (satellisation), =ruler=, =resid= (overload), =structRecip=,
+=structGini=, =vertGini= (vertical inequality per structure) — and =crossOff=.
+
+*** crossOff — the volume of inter-structural circulation
+
+=crossOff= is not a function of the app; it is derived from the app's =crossViz= matrix,
+which smooths the cross-structural actor flows computed in =migrate()=
+(=crossViz[x][y] += 0.12*((cf[x][y]/dt) - crossViz[x][y])=, where =cf= are exactly the
+flows that leave a structure). The figure metric is the sum of the off-diagonal entries:
+
+#+begin_src js
+let crossOff = 0;
+for (let x=0;x<4;x++) for (let y=0;y<4;y++) if (x!==y) crossOff += crossViz[x][y];
+#+end_src
+
+Reference values (1819 steps): TR 0.264 · Luhmann 0.266 · Luhmann with over→0 0.270 ·
+Parsons 0.098. Closure does not lower the volume; only concentration does.
+
+** The renderers
+
+| renderer                | draws                                                     |
+|-------------------------+-----------------------------------------------------------|
+| =render_trajektorie.py= | four structure curves over the steps                      |
+| =render_sweep.py=       | =render_sweep(rows, xkey, series, xlabel, subtitle, out)= |
+| =render_schema.py=      | =render_bars(...)= and =render_endzustand(panels, ...)=   |
+
+All of them write SVG in the report style: viewBox 780×410/430, Helvetica, the grey
+subtitle line at =y=47=, the structure colours (culture =#E8B14C=, politics =#46CDB8=,
+economy =#E36F9E=, media =#8C92EC=) — and *no* burnt-in "Abbildung …" title, because the
+caption is set by Org (=#+CAPTION:=) and numbered automatically.
+
+** Rewiring the network: the hub profiles
+
+Chapter 6 (White) asks whether the apex simply follows the network position, as pure
+structural equivalence would require. The test rewires the network four times, each time
+making one position the /hub/:
+
+- every non-hub structure gets a chain whose *first* entry is the hub, so its circulation
+  is directed at the hub;
+- the hub's own chain runs through the remaining structures in unchanged (index) order;
+- everything else — including White's cursors (rate 1.8, alpha 1.6) — stays identical.
+
+The four files are =profil_White_hub_A.csv= … =profil_White_hub_D.csv= (A culture,
+B politics, C economy, D media). Run them like any other profile:
+
+#+begin_src sh
+node metrics.js ./tr-twin.html ./spec_white_hub.json ./out/white.json
+#+end_src
+
+with a spec listing the four profiles at 5000 steps (the apex is not settled at 1819).
+Result: hub=A → apex A but only 27 % · hub=B → apex B 60 % · hub=C → apex C 50 % ·
+hub=D → apex *C* 54 %. The apex therefore follows the hub neither reliably nor with equal
+strength — the residual gradient favours the economy.
+
+Note on chain semantics: =setChain(x, o)= gives =WT[x][o[0]] = 3/6=, =WT[x][o[1]] = 2/6=,
+=WT[x][o[2]] = 1/6=. The first entry of a chain is the structure that *gains*: pointing all
+chains at one structure makes that structure grow. Chains also silence the =plast= cursor
+for every structure they fix (see the pitfalls above).
