@@ -15,6 +15,26 @@
 
 # Synoptische Matrix (Rahmen x Reglerdimension); die tragenden Kontrastachsen: direkte Konvertibilität vs. Vermittlung; Schließung vs. Zirkulation; Position ohne Gehalt vs. Struktur mit Instanzen; primäre ko-konstituierte Kategorien vs. relational erzeugte Kategorien; Vermittlung und Reflexivität als Ort der Nähe.
 
+Bevor wir die Kontrastachsen ziehen, legen wir die Vergleichsgrundlage offen. Jeder der sechs Rahmen ist im digitalen Zwilling nichts anderes als eine Konfiguration von zwölf Reglern und, wo seine Theorie es verlangt, von gerichteten Ketten. Die folgende Matrix stellt diese Konfigurationen nebeneinander; ein Gedankenstrich bedeutet, dass der Rahmen den Regler auf der Vorgabe der TR belässt. Was ein Rahmen /nicht/ verstellt, ist dabei ebenso aufschlußreich wie das, was er verstellt: Luhmann etwa greift in vier Regler ein und lässt acht unberührt, während Parsons zehn von zwölf verstellt.
+
+| Regler | TR | Parsons | Luhmann | Habermas | White | Tilly | Bourdieu |
+|--------+-----+---------+---------+----------+-------+-------+----------|
+| Zirkulation der Akteure (=rate=) | 2,2 | 1,8 | 0,9 | — | 1,8 | 1,8 | 1,8 |
+| Konzentration zum Pol (=alpha=) | 1,4 | 1,8 | 1,0 | 1,6 | 1,6 | 1,6 | 1,6 |
+| interne Umverteilung (=back=) | 1,0 | 1,2 | — | — | — | — | — |
+| Durchlässigkeit (=over=) | 1,0 | 1,7 | 0,3 | — | — | 0,6 | 1,8 |
+| Spiegeleffekt (=rho=) | 1,0 | — | — | — | — | — | — |
+| Idealgröße (=peak=) | 0,5 | — | — | — | — | — | — |
+| Erschöpfung der Herrschenden (=cap=) | 0,7 | 0,3 | 0,5 | — | — | — | — |
+| Plastizität der Ketten (=plast=) | 0,4 | (0,25) | — | — | — | (0,2) | — |
+| Migration der Akteure (=mig=) | 0,7 | 0,5 | — | — | — | — | — |
+| Deklassierung der Ankömmlinge (=decl=) | 0,5 | 0,65 | — | — | — | 0,25 | — |
+| Vorteil dynamischer Strukturen (=dynam=) | 0,5 | 0,2 | — | — | — | — | — |
+| Gewicht der Zahl (=anchor=) | 0,5 | 0,2 | — | — | — | — | — |
+| gesetzte Ketten | — | A→D D→A B→D C→B | — | A→B B→C C→B D→B | — | A→C B→C C→A D→C | A→C C→A |
+
+Zwei Lesehinweise zu dieser Matrix. Erstens stehen die Werte für Parsons und Bourdieu jeweils für deren erste Lesart; die zweiten Lesarten (Parsons als Dämpfung, Bourdieu nicht-dialektisiert) und Habermas' Spiegelkonfiguration mit den Ketten auf das Geld sind in den jeweiligen Kapiteln dokumentiert und liegen als eigene Profile bei. Zweitens sind die eingeklammerten Werte für die Plastizität /wirkungslos/: Wo ein Profil alle vier Ketten festlegt — bei Parsons und bei Tilly —, überspringt der Simulator die Neuorientierung der inneren Ordnung, und der Regler greift nicht mehr (vgl. Kapitel 12). Die Starrheit entsteht dort aus den eingefrorenen Ketten selbst. Wir führen die Werte gleichwohl mit, weil sie zur Operationalisierung gehören, die die Kapitel begründen.
+
 ** 11.1 Eine tragende Kontrastachse: die Vermittlung unter Herrschaft
 :PROPERTIES:
 :STATUS: DRAFT

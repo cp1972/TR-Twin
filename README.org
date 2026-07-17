@@ -15,6 +15,18 @@ The twin is a single, self-contained file: =tr-twin.html=.
 
 The interface switches between *English, German, and French* (the DE·EN·FR pill, top right).
 
+* Two modes
+
+The twin does two different things, and the =examples/= folder is split accordingly.
+
+- *Simulation mode* (=examples/theories-simul/=): a cursor profile encodes a theoretical
+  framework — how it construes circulation, mediation, reciprocity and satellisation — and
+  the twin runs it. Comparing the runs against the TR's own reference state turns the twin
+  into an instrument for contrasting theories. The 24 profiles used in the book are here.
+- *Data mode* (=examples/working-class-authors/=): nothing is simulated. The twin ingests
+  empirical tables — actors, mediation and control instances — and reads the TR's three
+  levels of inequality off the data. See =docs/07= for the actor probes.
+
 * Start here: the worked example
 
 If you just want to see it work on real data, go to *[[file:examples/working-class-authors/README.org][examples/working-class-authors/]]*. It walks you through loading a cohort of 163 English working-class autobiographers and the art/media instances they passed through, and reproduces the project's main finding — and its deepening: the *control instances* are the channels of the atypical transversal circulation.
@@ -29,11 +41,15 @@ tr-twin.html                   ← the application (open this)
 index.html                     ← redirect for GitHub Pages
 docs/                          ← theoretical + technical documentation (Org)
 examples/
-  working-class-authors/       ← the worked example, self-contained
+  working-class-authors/       ← DATA mode: the worked example, self-contained
     README.org                 ← step-by-step: how to run this example
     data/  actors/  instances/ ← the cohort and the instance tables (CSV)
     figures/                   ← the figures (SVG, light + dark)
     notes/                     ← provenance of the demo data
+  theories-simul/              ← SIMULATION mode: the contrast of theoretical frameworks
+    profil_*.csv               ← 24 cursor profiles (Parsons, Luhmann, Habermas, White,
+                                 Tilly, Bourdieu, Emirbayer, Donati, Archer, Fuhse …)
+    report/figures/            ← the figures of the contrast study
 scripts/
   generators/                  ← gen_*.py / build_*.py : (re)build figures and data
   harness/                     ← Node.js headless replays + smoke tests
