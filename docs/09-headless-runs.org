@@ -343,3 +343,53 @@ Note on chain semantics: =setChain(x, o)= gives =WT[x][o[0]] = 3/6=, =WT[x][o[1]
 =WT[x][o[2]] = 1/6=. The first entry of a chain is the structure that *gains*: pointing all
 chains at one structure makes that structure grow. Chains also silence the =plast= cursor
 for every structure they fix (see the pitfalls above).
+
+* Two fixes applied to the app
+
+The audit produced two changes to =tr-twin.html= itself. Both were verified not to change
+any published number: the whole profile batch and the Luhmann/Parsons/Tilly runs give
+bit-identical results before and after.
+
+** 1. =reset()= now clears the satellisation
+
+: function reset(){reseed();rulerHold=[0,0,0,0];satS=[0,0,0,0];S=[0.25,0.25,0.25,0.25]; ...
+
+This is the bug described under the pitfalls: =satS= and =rulerHold= survived =reset()=, so
+consecutive runs in one page inherited the previous run's satellisation — including the
+app's own =runSeries()=. All ten callers of =reset()= were checked; only the series
+function at the end of the file relies on the old behaviour, and it restores =satS=
+*after* calling =reset()=, so the order still holds. =playScnFrom()= already zeroed both
+explicitly and is now simply redundant.
+
+The headless scripts kept their own =satS=[0,0,0,0]; rulerHold=[0,0,0,0];= line: it is
+harmless with the fixed app and keeps the scripts working against older copies.
+
+** 2. The =plast= cursor now shows when it has no effect
+
+Chains fixed by a profile silence the plasticity for those structures (see the pitfalls).
+The cursor stayed fully operable and silently did nothing. A new =syncPlastState()= greys
+the slider out when a profile fixes all four chains, adds a tooltip, and writes a short
+red note next to the label ("sans effet : chaînes fixées"). It is called once at start-up
+and after every profile import. The *semantics are unchanged* — a profile that fixes the
+chains should not have them rewritten; only the silence is gone.
+
+** What was deliberately not "fixed"
+
+The bistability (see below) is not a defect but a property of the model, and the
+sensitivity at the bifurcation point is the phenomenon itself. Neither was touched.
+
+* Seed audit: which findings are seed-stable?
+
+=metrics.js= accepts a =seed= per entry in the spec:
+
+#+begin_src js
+[{"label":"Tilly K1", "profile":"./examples/theories-simul/profil_Tilly.csv", "steps":5000, "seed":1}]
+#+end_src
+
+Running every apex configuration of the book over eight seeds (120 runs) gives: ten
+findings are seed-stable, five are not. Where a configuration is bistable there are always
+*exactly two attractors* and the seed only picks the basin; the politics attractor is the
+stronger one and wins even when every chain points at another structure. Bistability
+appears only at high concentration (alpha 1.6); at alpha 1.4 the same construction is
+stable. Criterion: GINI ≤ 0.05 means "no domination" — in a symmetric field the argmax is
+meaningless. Full table: =keim_audit.md=.

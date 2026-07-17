@@ -1,0 +1,102 @@
+#+AUTHOR: Christian Papilloud
+#+LANGUAGE: de
+#+OPTIONS: toc:nil num:nil H:4 ^:nil
+#+STARTUP: showall
+#+LATEX_CLASS: book
+#+LATEX_CLASS_OPTIONS: [11pt,a4paper]
+#+CITE_EXPORT: csl chicago-author-date-de.csl
+#+BIBLIOGRAPHY: Bericht.bib
+
+
+* Kapitel 12 — Nachprüfung, Reproduzierbarkeit und Grenzen des digitalen Zwillings
+:PROPERTIES:
+:STATUS: DRAFT
+:END:
+
+# Rechenschaft über das Instrument: wie die Abbildungen der Kapitel 3-10 nachgerechnet wurden, was sich bestätigte, was sich verschob, und wo der Zwilling in die Irre führt. Bereitet den Übergang zum empirischen Kapitel vor: der Zwilling hat zwei Hälften, und nur die eine ist von den Grenzen betroffen.
+
+** 12.1 Warum eine Nachprüfung nötig war
+
+Die Abbildungen der vorangegangenen Kapitel lagen als Dateien vor, aber das Programm, das sie erzeugt hatte, war verloren. Damit stand eine unscheinbare Aufgabe an: die Abbildungen neu herstellen. Sie wurde zu etwas anderem. Denn eine Abbildung neu herzustellen heißt, ihre Zahlen neu zu berechnen — und sobald man das tut, prüft man nicht mehr das Bild, sondern die Behauptung, die es trägt.
+
+Der Unterschied ist nicht akademisch. Ein Bild lässt sich abzeichnen, ohne dass man verstünde, was es zeigt. Eine Zahl lässt sich nicht nachrechnen, ohne dass man den Weg nachvollzieht, auf dem sie zustande kam: welches Reglerprofil, welcher Laufmodus, wie viele Schritte, welcher Keim. Wo dieser Weg im Text stand, konnten wir ihn gehen. Wo er fehlte, mussten wir ihn rekonstruieren — und an einigen Stellen führte er nicht dorthin, wo die Kapitel ihn enden ließen.
+
+Was folgt, ist der Bericht darüber. Er hat drei Teile: was sich bestätigt hat, was sich beim Nachrechnen verschoben hat, und wo der digitale Zwilling in die Irre führt. Der letzte Teil ist der wichtigste, denn er sagt etwas über das Instrument, das man einem Instrument selten ansieht: wo es lügt, und warum.
+
+** 12.2 Das Verfahren: den Zwilling ohne Browser befragen
+
+Der digitale Zwilling ist eine Web-Anwendung. Seine Simulation ist jedoch reines, deterministisches JavaScript; der Browser und die Zeichenfläche dienen nur der Anzeige. Deshalb lässt er sich auch ohne Browser betreiben. Ein Programm lädt die Datei, ersetzt die Zeichenfläche und die Bildschleife durch Attrappen — es wird nichts gezeichnet, und die Animation läuft nicht an, sodass die Simulation stillsteht, bis wir sie steuern — und ruft anschließend die Funktionen der Anwendung selbst auf: ihren Profil-Parser, ihren Rechenschritt, ihre Kennzahlen. Es wird also nichts nachgebaut und nichts nachempfunden. Es antwortet dieselbe Mechanik, die auch im Browser antwortet, nur ohne Bild.
+
+Das hat drei Folgen. Erstens ist jeder Lauf /reproduzierbar/: Gleicher Keim und gleiches Profil ergeben bitgleiche Ergebnisse; zwei Läufe wurden gegeneinander geprüft und stimmten in jeder Stelle überein. Zweitens ist jede Abbildung auf ihre Herkunft zurückführbar — Programmstand, Profil, Keim, Laufmodus, Schrittzahl. Drittens lässt sich fragen, was im Browser mühsam wäre: Was geschieht bei tausend Läufen? Was bei acht Keimen? Was, wenn man einen einzigen Regler über einen Bereich zieht?
+
+Drei Kommandos genügen dafür. Das erste rechnet eine /Trajektorie/: feste Regler, ein Profil, eine Zahl von Schritten, und nach jedem Schritt wird der Zustand aufgezeichnet. Das zweite rechnet einen /Sweep/: ein Regler wird über eine Liste von Werten gezogen, und für jeden Wert wird der Endzustand gemessen. Das dritte rechnet /Endzustände/ für eine Liste von Konfigurationen und liefert die Kennzahlen, aus denen die Balkenabbildungen entstehen. Ein viertes kam später hinzu, für die Hysterese: zwei Phasen ohne Rücksetzung dazwischen. Die technische Beschreibung mit den Kommandozeilen liegt der Dokumentation bei; hier zählt nur, dass es diese drei Wege gibt und dass sie von der Anwendung selbst und nicht von einem Nachbau bedient werden.
+
+** 12.3 Was sich bestätigt hat — und dabei schärfer wurde
+
+Der größte Teil der Kapitel hat die Prüfung ohne Abstriche bestanden, und zwar auf die dritte Stelle genau. Parsons' Profil erzeugt eine Politik von 77,0 Prozent bei einer Ungleichheit von 0,536 und einer Reziprozität von 0,347 — die Kapitel nennen 77 Prozent, 0,54 und 0,34. Luhmanns Profil ist von der Referenz der TR nicht zu unterscheiden (Reziprozität 0,950 gegen 0,996, Ungleichheit 0,002 gegen 0,002), und seine Schließung senkt das Volumen der Zwischenzirkulation über den gesamten Bereich nicht (0,266 gegen 0,264 der Referenz), während Parsons' Konzentration es auf 0,098 kappt. Die Überadditivität der Intersektionalität steht: Keiner der beiden Nachteile erzeugt allein Ungleichheit (0,001 und 0,000), beide zusammen erzeugen 0,457. Emirbayers Tragfähigkeiten stimmen über acht Keime auf das Zehntel.
+
+An zwei Stellen wurde der Befund beim Nachrechnen /schärfer/, und beide Male, weil das Nachrechnen eine Willkür sichtbar machte, die im ursprünglichen Lauf verborgen lag.
+
+Die erste betrifft Habermas. Sein Kolonialisierungs-Profil lenkte die Zirkulation auf die beiden Systemmedien und ließ sich zur Herrschaft eines von beiden auflösen — welches, entschied eine Kettenwahl, die der Text nicht begründete. Wir haben daraus ein /Spiegelpaar/ gemacht: einmal die Zirkulation auf die Macht, einmal auf das Geld, sonst identisch. Damit hängt die Widerlegung der Bipolarität nicht mehr an einer beiläufigen Entscheidung. Und sie fiel härter aus als erwartet, denn die zweite Konfiguration erreicht ihren Apex nur in der Hälfte der Keime; in der anderen Hälfte herrscht die Macht auch dann, wenn jede Kette auf das Geld zeigt.
+
+Die zweite betrifft White. Was „das Netz umverdrahten" genau hieß, stand nirgends; wir haben es definiert — in jedem Lauf wird eine Position zum Knoten erklärt, alle übrigen Ketten zeigen zuerst auf sie, sonst bleibt alles gleich — und die vier Läufe neu gerechnet. Das Ergebnis widerlegt die strukturelle Äquivalenz deutlicher als zuvor: Dieselbe Operation hat vier verschiedene Wirkungen. Eine Position führt gar nicht, eine führt sicher, eine führt in der Hälfte der Fälle, und eine wird niemals zum Apex.
+
+Ein verlorenes Profil ließ sich sogar zurückgewinnen. Die zweite Lesart von Parsons' Kontrolle — die homöostatische Dämpfung — war als Datei verschwunden, aber der Text nannte ihre drei Regler und ihre Ergebnisse. Die drei Regler allein ergaben 0,41 statt der behaupteten 0,51. Eine Suche über den Reglerraum fand die fehlende Änderung: eine erhöhte Migration (0,5 auf 0,6), die Reziprozität 0,515 und Ungleichheit 0,213 ergibt — gegen die dokumentierten 0,51 und 0,22. Das Profil ist damit rekonstruiert, und der Text hatte recht: Es war die Zirkulation, die die Reziprozität hob.
+
+** 12.4 Der Horizont: wann ein Zustand ein Befund ist
+
+Die wichtigste Korrektur betrifft keinen einzelnen Rahmen, sondern eine Gewohnheit. Die Trajektorien-Abbildungen nennen ihren Horizont ausdrücklich: 1819 Schritte. Das ist für eine Trajektorie richtig — man will sehen, /wie/ sich etwas entwickelt, nicht nur, wo es endet. Für einen Endzustand ist es falsch, sobald der Rahmen bis dahin nicht eingeschwungen ist.
+
+Genau das ist mehrfach der Fall, und es fällt nicht auf, weil der Zwilling nach 1819 Schritten einen völlig plausiblen Zustand zeigt. Tillys Profil steht dort bei 24/23/26/26 Prozent — ein ruhiges, fast symmetrisches Feld, aus dem man ohne weiteres schließen würde, seine Ungleichheit sei rein binnenstrukturell. Lässt man den Lauf weitergehen, kippt das Feld nach etwa 5000 Schritten in einen einzigen Apex (Ungleichheit 0,26) und bleibt dort. Habermas' Kolonialisierung verhält sich ebenso. Bourdieus dialektisiertes Profil zeigt unterhalb der Schwelle zwei gleich hohe Kapitalsorten — was wie ein schwacher Doppelpol aussieht und der Hypothese widerspricht, die es widerlegen soll —, und diese Symmetrie zerfällt zwischen dem 2500. und dem 3500. Schritt.
+
+Daraus folgt eine Regel, die im Rückblick selbstverständlich wirkt und es beim Arbeiten nicht ist: /Ein Zustand ist erst dann ein Befund, wenn er ein Attraktor ist./ Trajektorien liest man auf ihrem Horizont, Endzustände und Sweeps im eingeschwungenen Zustand. Alle Endzustands- und Sweep-Abbildungen dieses Buches sind entsprechend nachgerechnet.
+
+Der Ertrag dieser Regel ist größer als die Korrektur. Denn wenn man beide Horizonte nebeneinanderlegt, wird eine Größe sichtbar, die vorher keine Rolle spielte: die /Zeit/, die ein Rahmen bis zur Herrschaft braucht. Parsons steht sofort oben (transversal 0,536 nach 1819 Schritten, 0,540 eingeschwungen). White und Habermas reifen nach. Bourdieu und Tilly aber legen den größten Teil ihres Weges erst nach dem Horizont zurück (0,120 auf 0,394 und 0,028 auf 0,264). Die Konzentration erzeugt Herrschaft rasch, die Schließung erzeugt sie langsam. Was zunächst wie ein Ablesefehler aussah, wurde so zu einer Kontrastachse (Abschnitt 11.2): Tillys /durable inequality/ ist gerade darum eine Theorie der Dauer, dass ihr Mechanismus Zeit braucht.
+
+** 12.5 Wo der Zwilling in die Irre führt
+
+Fünf Punkte sind zu nennen. Zwei sind Mängel und wurden behoben, drei sind Eigenschaften und wurden dokumentiert. Die Unterscheidung ist wichtig, denn nicht alles, was überrascht, ist ein Fehler.
+
+/Erstens/ setzte die Rücksetzfunktion die Satellisierung nicht zurück. Wer mehrere Läufe nacheinander im selben Programm rechnet, erbt damit die Satellisierung des vorherigen Laufs; die Ergebnisse werden von der Reihenfolge abhängig, in der man sie rechnet. Auch die eingebaute Serienfunktion der Anwendung war betroffen. Das ist ein handfester Mangel, und er ist behoben: Die Rücksetzfunktion nullt jetzt Satellisierung und Regentschaftsspeicher. Alle Zahlen dieses Buches bleiben davon unberührt, weil die Nachrechnung den Zustand ohnehin ausdrücklich genullt hatte.
+
+/Zweitens/ machen geladene Ketten die Plastizität wirkungslos. Legt ein Profil die Kette einer Struktur fest, überspringt der Rechenschritt für diese Struktur die Neuorientierung der inneren Ordnung. Das ist richtig so — ein Profil, das die Ketten festlegt, soll sie nicht wieder umschreiben lassen. Falsch war nur, dass die Anwendung darüber schwieg: Der Regler blieb bedienbar und tat nichts. Bei Tilly und Parsons, die alle vier Ketten setzen, ist er vollständig ohne Wirkung — was in Kapitel 7 eine Begründung trug, die der Zwilling gar nicht einlöste (die Stelle ist korrigiert; die Starrheit entsteht dort aus den eingefrorenen Ketten selbst, was eine /stärkere/ Starrheit ist als ein niedriger Regler). Auch dieser Punkt ist behoben, aber anders: Die Semantik bleibt, das Schweigen ist weg. Der Regler wird ausgegraut, sobald ein Profil alle vier Ketten fixiert.
+
+/Drittens/ — und das ist der ernsteste Punkt — ist der Zwilling gegenüber der /Umbenennung/ seiner Strukturen nicht symmetrisch. Die beiden Habermas-Profile gehen durch die Vertauschung von Macht und Geld auseinander hervor; spiegelbildliche Eingaben sollten spiegelbildliche Ausgaben liefern. Sie tun es nicht. Die Prüfung über acht Keime zeigt, warum: Fünf der fünfzehn geprüften Konfigurationen sind /bistabil/. Es gibt dort immer genau zwei Attraktoren, und der Keim entscheidet nur, in welches Becken das System fällt — die Größen sind sauber getrennt, etwa 49 Prozent gegen 62 Prozent, ohne Zwischenwerte.
+
+| Konfiguration | Ergebnis über acht Keime |
+|---------------+--------------------------|
+| Parsons | Politik 8/8 (77,5 %) |
+| Luhmann | keine Herrschaft 8/8 |
+| Habermas, Ketten auf die Macht | Politik 8/8 (60,5 %) |
+| Habermas, Ketten auf das Geld | Wirtschaft 4/8 (49 %) · Politik 4/8 (62 %) |
+| White (Basis) | Politik 8/8 (62,2 %) |
+| White, Knoten Kultur | keine Herrschaft 6/8 · Politik 2/8 |
+| White, Knoten Politik | Politik 8/8 (60,2 %) |
+| White, Knoten Wirtschaft | Wirtschaft 4/8 · Politik 4/8 |
+| White, Knoten Medien | Wirtschaft 4/8 · Politik 4/8 |
+| Tilly | Wirtschaft 6/8 (49,4 %) · Politik 2/8 (62,1 %) |
+| Bourdieu (beide Profile) | Politik 8/8 |
+| Intersektionalität | Politik 8/8 (70,7 %) |
+| Fuhse, Sinn auf Wirtschaft | Wirtschaft 8/8 (49,5 %) |
+| Fuhse, Sinn auf Politik | Politik 8/8 (59,7 %) |
+
+Bistabilität als solche ist keine Krankheit. Soziale Felder sind pfadabhängig, und ein Modell, das zwei Becken kennt, bildet das ab. Behandlungsbedürftig ist etwas anderes: dass die /Etiketten/ zählen. Die vier Strukturen sollen austauschbare Positionen eines relationalen Raumes sein, keine Charaktere mit Vorgeschichte. Der Ausgangszustand gibt das auch her — Standardzusammensetzung, Gewichte und Sequenzgrößen sind über alle vier Strukturen identisch, und der Wachstumsterm wird simultan angewandt, nicht der Reihe nach. Trotzdem ist die Politik der stärkere Attraktor: Sie setzt sich selbst dort durch, wo jede Kette auf eine andere Struktur zeigt. Die symmetriebrechende Stelle liegt damit in der Wanderung oder in der Regentschafts- und Satellisierungsmechanik; sie ist auffindbar, aber ihre Suche ist eine eigene Untersuchung und kein Handgriff. Bis dahin gilt: Wo eine Konfiguration bistabil ist, ist die /Existenz/ des Apex der Befund und seine /Identität/ nicht. Die betroffenen Stellen in den Kapiteln 5, 6 und 7 weisen ihre Keimbilanz aus.
+
+Bemerkenswert ist dabei ein Muster: Die Bistabilität tritt nur bei hoher Konzentration auf. Derselbe Aufbau, der bei einer Konzentration von 1,6 in zwei Becken zerfällt, ist bei 1,4 über alle acht Keime stabil. Der Zwilling wird also nicht überall unzuverlässig, sondern dort, wo er ohnehin am heftigsten reagiert.
+
+/Viertens/ ist der Kipppunkt empfindlich, und das ist kein Mangel, sondern die Sache selbst. An einer Bifurkation entscheidet sich in einem sehr schmalen Band, ob das Feld symmetrisch bleibt oder kippt; wir finden die Schwelle zwischen 1,52 und 1,53, die ursprüngliche Abbildung setzte sie knapp darunter. Belastbar ist an einer solchen Stelle nur die /Existenz/ des Sprungs — dass die Zahl der herrschenden Strukturen von null auf eins springt und niemals zwei erreicht. Die Schwelle selbst ist als Intervall anzugeben, nicht als Zahl.
+
+/Fünftens/ verdient die Rede von der Keimrobustheit eine Präzisierung. Sie ist nicht pauschal wahr und nicht pauschal falsch, sondern konfigurationsabhängig — wie die Tabelle zeigt. Wo ein Rahmen keimstabil ist, ist er es vollständig: Alle acht Läufe stimmen bis auf die dritte Stelle überein. Wo er es nicht ist, hilft kein Mittelwert, sondern nur die Bilanz.
+
+** 12.6 Zwei Hälften — und was daraus folgt
+
+Zieht man die Summe, so hat die Nachprüfung wenig widerlegt und viel geschärft. Kein Befund der Kapitel 3 bis 10 ist gefallen. Verschoben haben sich Zahlen in der zweiten Stelle, eine Kettenwahl wurde zum begründeten Spiegelpaar, eine Definition wurde nachgetragen, ein Profil zurückgewonnen, ein Regler als wirkungslos entlarvt — und aus einem Ablesefehler wurde eine Kontrastachse.
+
+Entscheidend ist zum Schluss eine Unterscheidung, die erst durch diese Arbeit deutlich wurde: /Der digitale Zwilling hat zwei Hälften./ Er ist ein /Simulator/ — er lässt ein Feld unter gesetzten Bedingungen laufen und zeigt, wohin es strebt. Und er ist ein /Messinstrument/ — er löst einen gegebenen Zustand in die Kaskade der drei Ungleichheitsebenen auf und misst das Volumen der Vermittlung.
+
+Alle fünf Grenzen, von denen dieses Kapitel spricht, sind Grenzen der /ersten/ Hälfte. Sie betreffen die Dynamik: den Horizont, die Attraktoren, die Keime, den Kipppunkt, die Satellisierung im Zeitverlauf. Die zweite Hälfte ist davon nicht berührt, weil in ihr nichts läuft. Sie ist überdies geprüft: Die Grundstellung des Modells — vier gleich große Strukturen, gleich große Sequenzen, Standardzusammensetzung der Akteurkategorien — ergibt eine transversale Ungleichheit von genau 0, eine horizontale von genau 0 und eine vertikale von 0,3955, die allein aus der Statuskodierung folgt.
+
+Das ist der Grund, warum das folgende Kapitel dort ansetzen kann, wo dieses aufhört. Es verlässt den Kontrast und wendet sich einem wirklichen Fall zu — der englischen Arbeiterklasse des 19. und 20. Jahrhunderts. Und es benutzt den Zwilling nicht als Simulator, sondern ausschließlich als Messinstrument: Es speist den empirischen Zustand einer Kohorte ein und liest die Kaskade ab, ohne einen einzigen Rechenschritt der Dynamik. Was dieses Kapitel über die Grenzen des Zwillings gesagt hat, gilt dort also nicht — und der Referenzwert, gegen den jene Kohorte gemessen wird, ist eben der eben genannte: 0, 0 und 0,40.
+
+** Literatur
+#+print_bibliography:

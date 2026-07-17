@@ -556,7 +556,7 @@ let seed=1, _r=Math.random;
 function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return ((t^t>>>14)>>>0)/4294967296;};}
 function reseed(){_r=mulberry32(seed>>>0);}
 function norm(a){const t=a.reduce((s,v)=>s+Math.max(0,v),0)||1;return a.map(v=>Math.max(0,v)/t);}
-function reset(){reseed();S=[0.25,0.25,0.25,0.25];g=Array.from({length:N},()=>[0.25,0.25,0.25,0.25]);
+function reset(){reseed();rulerHold=[0,0,0,0];satS=[0,0,0,0];S=[0.25,0.25,0.25,0.25];g=Array.from({length:N},()=>[0.25,0.25,0.25,0.25]);
   ruler=[0,1,2,3];ruptT=[0,0,0,0];F=[0,0,0,0];act=Array.from({length:N},()=>Array.from({length:N},()=>P0.slice()));hist.length=0;resetChains();if(loadedChains)for(const sx in loadedChains)setChain(+sx,loadedChains[sx]);
   Irel=[1,1,1,1];Iseq=[1,1,1,1];Iteil=[1,1,1,1];thrRel=[0,0,0,0];thrSeq=[0,0,0,0];thrTeil=[0,0,0,0];
   Energy=[[1,1,1],[1,1,1],[1,1,1],[1,1,1]];Ictrl=[1,1,1,1];RESID=[0,0,0,0];RESOLVED=[0,0,0,0];meanResid=0;perturb(0.06);}
@@ -1227,6 +1227,7 @@ document.getElementById("cursorfile").onchange=e=>{const f=e.target.files[0];if(
     if(r.chains&&Object.keys(r.chains).length){loadedChains=r.chains;for(const sx in r.chains)setChain(+sx,r.chains[sx]);}
     else{loadedChains=null;resetChains();}
     if(typeof renderChains==='function')renderChains();
+    syncPlastState();
     const ys=r.years.filter(y=>!isNaN(y)),minY=Math.min(...ys),maxY=Math.max(...ys);
     if(isFinite(minY)&&isFinite(maxY)){tl.start=Math.min(tl.start,minY);tl.end=Math.max(tl.end,maxY);
     document.getElementById("tlstart").value=tl.start;document.getElementById("tlend").value=tl.end;}
@@ -1240,6 +1241,22 @@ document.getElementById("cursorfile").onchange=e=>{const f=e.target.files[0];if(
 // ---- chronologie pilotée ----
 let tl={start:1900,end:2000,step:25,keys:[],sel:0,year:1900,playing:false,dur:30,cursorKeys:null,paliers:false};
 let loadedChains=null; // chaînes posées par un profil — persistent à travers les reset
+// Rend visible que des chaînes chargées neutralisent la plasticité (cf. step(): les
+// structures dont un profil fixe la chaîne sont sautées par le bloc plast).
+function syncPlastState(){
+  const el=document.getElementById('plast'); if(!el) return;
+  const n = loadedChains ? Object.keys(loadedChains).length : 0;
+  el.disabled = (n===4);
+  el.style.opacity = (n===4) ? 0.45 : 1;
+  el.title = n ? ('chaînes fixées par le profil pour '+n+'/4 structures — la plasticité n\'agit pas sur celles-ci'+(n===4?' (curseur sans effet)':'')) : '';
+  const lab = el.parentElement ? el.parentElement.querySelector('label') : null;
+  let hint = document.getElementById('plastHint');
+  if(!hint && lab){ hint=document.createElement('span'); hint.id='plastHint';
+    hint.style.cssText='color:#c0392b;font-size:11px;margin-left:6px'; lab.appendChild(hint); }
+  if(hint) hint.textContent = (n===4) ? '\u2014 sans effet\u00a0: cha\u00eenes fix\u00e9es'
+                          : (n ? '\u2014 sans effet sur '+n+'/4' : '');
+}
+syncPlastState();
 let lastCursorYear=null;
 // pilotage des curseurs dans le temps (CSV : 1re colonne = identifiant OU libellé ; colonnes = années)
 const CURSOR_REG=[{id:'rate',label:'Circulation des acteurs'},{id:'alpha',label:'Concentration vers le pôle dominant'},{id:'back',label:'Redistribution interne'},{id:'over',label:'Perméabilité entre structures'},{id:'rho',label:'Effet miroir'},{id:'peak',label:'Taille idéale'},{id:'cap',label:'Essoufflement des dominants'},{id:'plast',label:'Souplesse des parcours'},{id:'mig',label:'Migration des acteurs'},{id:'decl',label:'Déclassement des arrivants'},{id:'dynam',label:'Avantage aux structures dynamiques'},{id:'anchor',label:'Poids du nombre'}];
