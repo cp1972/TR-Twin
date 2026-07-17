@@ -1,25 +1,25 @@
 <svg viewBox="0 0 680 410" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica,Arial,sans-serif">
 <rect width="680" height="410" fill="#fff"/>
 <text x="40" y="47" font-size="11" fill="#777">Im Apex-Zustand: die herrschende Struktur ist innerlich gesund, das System gleichwohl unreziprok — das Übel sitzt in der Relation</text>
-<line x1="150" y1="350" x2="640" y2="350" stroke="#eee"/>
-<text x="144" y="353" font-size="9" fill="#9a9a9a" text-anchor="end">0.0</text>
-<line x1="150" y1="215" x2="640" y2="215" stroke="#eee"/>
-<text x="144" y="218" font-size="9" fill="#9a9a9a" text-anchor="end">0.5</text>
-<line x1="150" y1="80" x2="640" y2="80" stroke="#eee"/>
-<text x="144" y="83" font-size="9" fill="#9a9a9a" text-anchor="end">1.0</text>
-<line x1="150" y1="261" x2="640" y2="261" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
-<text x="645" y="264" font-size="10" fill="#c0392b">R(System)=0,33</text>
-<rect x="195" y="269" width="78" height="81" fill="#E8B14C" rx="2"/>
-<text x="234" y="263" font-size="11" fill="#2b2b2b" text-anchor="middle">0.30</text>
-<text x="234" y="368" font-size="10" fill="#555" text-anchor="middle">K</text>
-<rect x="299" y="94" width="78" height="256" fill="#46CDB8" rx="2"/>
-<text x="338" y="88" font-size="11" fill="#2b2b2b" text-anchor="middle">0.95</text>
-<text x="338" y="368" font-size="10" fill="#555" text-anchor="middle">P (Apex)</text>
-<rect x="403" y="258" width="78" height="92" fill="#E36F9E" rx="2"/>
-<text x="442" y="252" font-size="11" fill="#2b2b2b" text-anchor="middle">0.34</text>
-<text x="442" y="368" font-size="10" fill="#555" text-anchor="middle">W</text>
-<rect x="507" y="196" width="78" height="154" fill="#8C92EC" rx="2"/>
-<text x="546" y="190" font-size="11" fill="#2b2b2b" text-anchor="middle">0.57</text>
-<text x="546" y="368" font-size="10" fill="#555" text-anchor="middle">M</text>
-<text x="395" y="392" font-size="10.5" fill="#888" text-anchor="middle">Balken = innere Reziprozität je Struktur. Der Apex (P) ist innerlich top (0,95), das System (rote Linie) liegt bei 0,33.</text>
+<line x1="150" y1="350.0" x2="640" y2="350.0" stroke="#e7e7e7"/>
+<text x="144" y="353.0" font-size="10" fill="#9a9a9a" text-anchor="end">0.0</text>
+<line x1="150" y1="215.0" x2="640" y2="215.0" stroke="#e7e7e7"/>
+<text x="144" y="218.0" font-size="10" fill="#9a9a9a" text-anchor="end">0.5</text>
+<line x1="150" y1="80.0" x2="640" y2="80.0" stroke="#e7e7e7"/>
+<text x="144" y="83.0" font-size="10" fill="#9a9a9a" text-anchor="end">1.0</text>
+<line x1="150" y1="263.4" x2="640" y2="263.4" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+<rect x="195.0" y="273.4" width="78" height="76.6" fill="#E8B14C" rx="3"/>
+<text x="234.0" y="266.4" font-size="11" fill="#2b2b2b" text-anchor="middle">0.28</text>
+<text x="234.0" y="368.0" font-size="10" fill="#555" text-anchor="middle">K</text>
+<rect x="299.0" y="95.0" width="78" height="255.0" fill="#46CDB8" rx="3"/>
+<text x="338.0" y="88.0" font-size="11" fill="#2b2b2b" text-anchor="middle">0.94</text>
+<text x="338.0" y="368.0" font-size="10" fill="#555" text-anchor="middle">P (Apex)</text>
+<rect x="403.0" y="263.3" width="78" height="86.7" fill="#E36F9E" rx="3"/>
+<text x="442.0" y="256.3" font-size="11" fill="#2b2b2b" text-anchor="middle">0.32</text>
+<text x="442.0" y="368.0" font-size="10" fill="#555" text-anchor="middle">W</text>
+<rect x="507.0" y="201.0" width="78" height="149.0" fill="#8C92EC" rx="3"/>
+<text x="546.0" y="194.0" font-size="11" fill="#2b2b2b" text-anchor="middle">0.55</text>
+<text x="546.0" y="368.0" font-size="10" fill="#555" text-anchor="middle">M</text>
+<text x="592" y="258.4137" font-size="10" fill="#c0392b" text-anchor="middle">R(System)=0.32</text>
+<text x="395" y="396" font-size="10.5" fill="#666" text-anchor="middle">Balken = innere Reziprozität je Struktur. Der Apex (P) ist innerlich top (0.94), das System (rote Linie) liegt bei 0.32.</text>
 </svg>
