@@ -8,14 +8,14 @@
 #+BIBLIOGRAPHY: Bericht.bib
 
 
-* Kapitel 12 — Nachprüfung, Reproduzierbarkeit und Grenzen des digitalen Zwillings
+* Kapitel 11 — Nachprüfung, Reproduzierbarkeit und Grenzen des digitalen Zwillings
 :PROPERTIES:
 :STATUS: DRAFT
 :END:
 
-# Rechenschaft über das Instrument: wie die Abbildungen der Kapitel 3-10 nachgerechnet wurden, was sich bestätigte, was sich verschob, und wo der Zwilling in die Irre führt. Bereitet den Übergang zum empirischen Kapitel vor: der Zwilling hat zwei Hälften, und nur die eine ist von den Grenzen betroffen.
+# Rechenschaft über das Instrument: wie die Abbildungen der Kapitel 2-9 nachgerechnet wurden, was sich bestätigte, was sich verschob, und wo der Zwilling in die Irre führt. Bereitet den Übergang zum empirischen Kapitel vor: der Zwilling hat zwei Hälften, und nur die eine ist von den Grenzen betroffen.
 
-** 12.1 Warum eine Nachprüfung nötig war
+** 11.1 Warum eine Nachprüfung nötig war
 
 Die Abbildungen der vorangegangenen Kapitel lagen als Dateien vor, aber das Programm, das sie erzeugt hatte, war verloren. Damit stand eine unscheinbare Aufgabe an: die Abbildungen neu herstellen. Sie wurde zu etwas anderem. Denn eine Abbildung neu herzustellen heißt, ihre Zahlen neu zu berechnen — und sobald man das tut, prüft man nicht mehr das Bild, sondern die Behauptung, die es trägt.
 
@@ -23,7 +23,7 @@ Der Unterschied ist nicht akademisch. Ein Bild lässt sich abzeichnen, ohne dass
 
 Was folgt, ist der Bericht darüber. Er hat drei Teile: was sich bestätigt hat, was sich beim Nachrechnen verschoben hat, und wo der digitale Zwilling in die Irre führt. Der letzte Teil ist der wichtigste, denn er sagt etwas über das Instrument, das man einem Instrument selten ansieht: wo es lügt, und warum.
 
-** 12.2 Das Verfahren: den Zwilling ohne Browser befragen
+** 11.2 Das Verfahren: den Zwilling ohne Browser befragen
 
 Der digitale Zwilling ist eine Web-Anwendung. Seine Simulation ist jedoch reines, deterministisches JavaScript; der Browser und die Zeichenfläche dienen nur der Anzeige. Deshalb lässt er sich auch ohne Browser betreiben. Ein Programm lädt die Datei, ersetzt die Zeichenfläche und die Bildschleife durch Attrappen — es wird nichts gezeichnet, und die Animation läuft nicht an, sodass die Simulation stillsteht, bis wir sie steuern — und ruft anschließend die Funktionen der Anwendung selbst auf: ihren Profil-Parser, ihren Rechenschritt, ihre Kennzahlen. Es wird also nichts nachgebaut und nichts nachempfunden. Es antwortet dieselbe Mechanik, die auch im Browser antwortet, nur ohne Bild.
 
@@ -31,11 +31,11 @@ Das hat drei Folgen. Erstens ist jeder Lauf /reproduzierbar/: Gleicher Keim und 
 
 Drei Kommandos genügen dafür. Das erste rechnet eine /Trajektorie/: feste Regler, ein Profil, eine Zahl von Schritten, und nach jedem Schritt wird der Zustand aufgezeichnet. Das zweite rechnet einen /Sweep/: ein Regler wird über eine Liste von Werten gezogen, und für jeden Wert wird der Endzustand gemessen. Das dritte rechnet /Endzustände/ für eine Liste von Konfigurationen und liefert die Kennzahlen, aus denen die Balkenabbildungen entstehen. Ein viertes kam später hinzu, für die Hysterese: zwei Phasen ohne Rücksetzung dazwischen. Die technische Beschreibung mit den Kommandozeilen liegt der Dokumentation bei; hier zählt nur, dass es diese drei Wege gibt und dass sie von der Anwendung selbst und nicht von einem Nachbau bedient werden.
 
-Damit dieser Anspruch nachprüfbar bleibt und nicht bloß behauptet ist, liegt alles offen. Der digitale Zwilling, seine Dokumentation, die Reglerprofile und die Daten sind unter https://github.com/cp1972/TR-Twin zugänglich. Wer den Weg von einer Abbildung dieses Bandes zu ihrer Zahl zurückgehen will, findet die Stationen an folgenden Stellen: Die Begriffe der TR und ihre Übersetzung in den Zwilling stehen in =docs/01= und =docs/02=, die Methodik des Vergleichs — das Gabarit, gegen das jeder Rahmen geprüft wird — in =docs/04= (Kapitel 2 dieses Bandes stützt sich darauf). Die vierundzwanzig Reglerprofile, aus denen die Kapitel 3 bis 10 ihre Läufe beziehen, liegen als CSV-Dateien in =examples/theories-simul/=; die synoptische Matrix am Anfang des Kapitels 11 ist nichts anderes als deren Zusammenfassung. Das Verfahren dieses Kapitels — der Betrieb ohne Browser, die Kommandozeilen, und namentlich die Fallstricke, von denen 12.5 handelt — ist in =docs/09= beschrieben. Der Datenmodus, den das folgende Kapitel benutzt, ist in =docs/07= dokumentiert, seine Daten liegen in =examples/working-class-authors/=. Wer den Zwilling selbst bedienen möchte, findet die Anleitung in =docs/03=, und wer ihn in der Lehre einsetzen will, ein ausgearbeitetes Szenarienprotokoll in =docs/08=.
+Damit dieser Anspruch nachprüfbar bleibt und nicht bloß behauptet ist, liegt alles offen. Der digitale Zwilling, seine Dokumentation, die Reglerprofile und die Daten sind unter https://github.com/cp1972/TR-Twin zugänglich. Wer den Weg von einer Abbildung dieses Bandes zu ihrer Zahl zurückgehen will, findet die Stationen an folgenden Stellen: Die Begriffe der TR und ihre Übersetzung in den Zwilling stehen in =docs/01= und =docs/02=, die Methodik des Vergleichs — das Gabarit, gegen das jeder Rahmen geprüft wird — in =docs/04= (Kapitel 1 dieses Bandes stützt sich darauf). Die vierundzwanzig Reglerprofile, aus denen die Kapitel 2 bis 9 ihre Läufe beziehen, liegen als CSV-Dateien in =examples/theories-simul/=; die synoptische Matrix am Anfang des Kapitels 11 ist nichts anderes als deren Zusammenfassung. Das Verfahren dieses Kapitels — der Betrieb ohne Browser, die Kommandozeilen, und namentlich die Fallstricke, von denen 12.5 handelt — ist in =docs/09= beschrieben. Der Datenmodus, den das folgende Kapitel benutzt, ist in =docs/07= dokumentiert, seine Daten liegen in =examples/working-class-authors/=. Wer den Zwilling selbst bedienen möchte, findet die Anleitung in =docs/03=, und wer ihn in der Lehre einsetzen will, ein ausgearbeitetes Szenarienprotokoll in =docs/08=.
 
 Ein Wort zur Version. Ein Repositorium ist ein lebendiger Ort; der Stand, der die hier gedruckten Zahlen erzeugt hat, ist es nicht. Deshalb ist dieser Stand als Marke =v1.0-buch= festgehalten. Wer die Abbildungen dieses Bandes nachrechnen will, greife auf sie zurück; wer sehen will, wie der Zwilling sich weiterentwickelt hat, folge dem Hauptzweig. Beide Wege sind legitim — sie beantworten nur verschiedene Fragen.
 
-** 12.3 Was sich bestätigt hat — und dabei schärfer wurde
+** 11.3 Was sich bestätigt hat — und dabei schärfer wurde
 
 Der größte Teil der Kapitel hat die Prüfung ohne Abstriche bestanden, und zwar auf die dritte Stelle genau. Parsons' Profil erzeugt eine Politik von 77,0 Prozent bei einer Ungleichheit von 0,536 und einer Reziprozität von 0,347 — die Kapitel nennen 77 Prozent, 0,54 und 0,34. Luhmanns Profil ist von der Referenz der TR nicht zu unterscheiden (Reziprozität 0,950 gegen 0,996, Ungleichheit 0,002 gegen 0,002), und seine Schließung senkt das Volumen der Zwischenzirkulation über den gesamten Bereich nicht (0,266 gegen 0,264 der Referenz), während Parsons' Konzentration es auf 0,098 kappt. Die Überadditivität der Intersektionalität steht: Keiner der beiden Nachteile erzeugt allein Ungleichheit (0,001 und 0,000), beide zusammen erzeugen 0,457. Emirbayers Tragfähigkeiten stimmen über acht Keime auf das Zehntel.
 
@@ -47,7 +47,7 @@ Die zweite betrifft White. Was „das Netz umverdrahten" genau hieß, stand nirg
 
 Ein verlorenes Profil ließ sich sogar zurückgewinnen. Die zweite Lesart von Parsons' Kontrolle — die homöostatische Dämpfung — war als Datei verschwunden, aber der Text nannte ihre drei Regler und ihre Ergebnisse. Die drei Regler allein ergaben 0,41 statt der behaupteten 0,51. Eine Suche über den Reglerraum fand die fehlende Änderung: eine erhöhte Migration (0,5 auf 0,6), die Reziprozität 0,515 und Ungleichheit 0,213 ergibt — gegen die dokumentierten 0,51 und 0,22. Das Profil ist damit rekonstruiert, und der Text hatte recht: Es war die Zirkulation, die die Reziprozität hob.
 
-** 12.4 Der Horizont: wann ein Zustand ein Befund ist
+** 11.4 Der Horizont: wann ein Zustand ein Befund ist
 
 Die wichtigste Korrektur betrifft keinen einzelnen Rahmen, sondern eine Gewohnheit. Die Trajektorien-Abbildungen nennen ihren Horizont ausdrücklich: 1819 Schritte. Das ist für eine Trajektorie richtig — man will sehen, /wie/ sich etwas entwickelt, nicht nur, wo es endet. Für einen Endzustand ist es falsch, sobald der Rahmen bis dahin nicht eingeschwungen ist.
 
@@ -55,15 +55,15 @@ Genau das ist mehrfach der Fall, und es fällt nicht auf, weil der Zwilling nach
 
 Daraus folgt eine Regel, die im Rückblick selbstverständlich wirkt und es beim Arbeiten nicht ist: /Ein Zustand ist erst dann ein Befund, wenn er ein Attraktor ist./ Trajektorien liest man auf ihrem Horizont, Endzustände und Sweeps im eingeschwungenen Zustand. Alle Endzustands- und Sweep-Abbildungen dieses Buches sind entsprechend nachgerechnet.
 
-Der Ertrag dieser Regel ist größer als die Korrektur. Denn wenn man beide Horizonte nebeneinanderlegt, wird eine Größe sichtbar, die vorher keine Rolle spielte: die /Zeit/, die ein Rahmen bis zur Herrschaft braucht. Parsons steht sofort oben (transversal 0,536 nach 1819 Schritten, 0,540 eingeschwungen). White und Habermas reifen nach. Bourdieu und Tilly aber legen den größten Teil ihres Weges erst nach dem Horizont zurück (0,120 auf 0,394 und 0,028 auf 0,264). Die Konzentration erzeugt Herrschaft rasch, die Schließung erzeugt sie langsam. Was zunächst wie ein Ablesefehler aussah, wurde so zu einer Kontrastachse (Abschnitt 11.2): Tillys /durable inequality/ ist gerade darum eine Theorie der Dauer, dass ihr Mechanismus Zeit braucht.
+Der Ertrag dieser Regel ist größer als die Korrektur. Denn wenn man beide Horizonte nebeneinanderlegt, wird eine Größe sichtbar, die vorher keine Rolle spielte: die /Zeit/, die ein Rahmen bis zur Herrschaft braucht. Parsons steht sofort oben (transversal 0,536 nach 1819 Schritten, 0,540 eingeschwungen). White und Habermas reifen nach. Bourdieu und Tilly aber legen den größten Teil ihres Weges erst nach dem Horizont zurück (0,120 auf 0,394 und 0,028 auf 0,264). Die Konzentration erzeugt Herrschaft rasch, die Schließung erzeugt sie langsam. Was zunächst wie ein Ablesefehler aussah, wurde so zu einer Kontrastachse (Abschnitt 10.2): Tillys /durable inequality/ ist gerade darum eine Theorie der Dauer, dass ihr Mechanismus Zeit braucht.
 
-** 12.5 Wo der Zwilling in die Irre führt
+** 11.5 Wo der Zwilling in die Irre führt
 
 Fünf Punkte sind zu nennen. Zwei sind Mängel und wurden behoben, drei sind Eigenschaften und wurden dokumentiert. Die Unterscheidung ist wichtig, denn nicht alles, was überrascht, ist ein Fehler.
 
 /Erstens/ setzte die Rücksetzfunktion die Satellisierung nicht zurück. Wer mehrere Läufe nacheinander im selben Programm rechnet, erbt damit die Satellisierung des vorherigen Laufs; die Ergebnisse werden von der Reihenfolge abhängig, in der man sie rechnet. Auch die eingebaute Serienfunktion der Anwendung war betroffen. Das ist ein handfester Mangel, und er ist behoben: Die Rücksetzfunktion nullt jetzt Satellisierung und Regentschaftsspeicher. Alle Zahlen dieses Buches bleiben davon unberührt, weil die Nachrechnung den Zustand ohnehin ausdrücklich genullt hatte.
 
-/Zweitens/ machen geladene Ketten die Plastizität wirkungslos. Legt ein Profil die Kette einer Struktur fest, überspringt der Rechenschritt für diese Struktur die Neuorientierung der inneren Ordnung. Das ist richtig so — ein Profil, das die Ketten festlegt, soll sie nicht wieder umschreiben lassen. Falsch war nur, dass die Anwendung darüber schwieg: Der Regler blieb bedienbar und tat nichts. Bei Tilly und Parsons, die alle vier Ketten setzen, ist er vollständig ohne Wirkung — was in Kapitel 7 eine Begründung trug, die der Zwilling gar nicht einlöste (die Stelle ist korrigiert; die Starrheit entsteht dort aus den eingefrorenen Ketten selbst, was eine /stärkere/ Starrheit ist als ein niedriger Regler). Auch dieser Punkt ist behoben, aber anders: Die Semantik bleibt, das Schweigen ist weg. Der Regler wird ausgegraut, sobald ein Profil alle vier Ketten fixiert.
+/Zweitens/ machen geladene Ketten die Plastizität wirkungslos. Legt ein Profil die Kette einer Struktur fest, überspringt der Rechenschritt für diese Struktur die Neuorientierung der inneren Ordnung. Das ist richtig so — ein Profil, das die Ketten festlegt, soll sie nicht wieder umschreiben lassen. Falsch war nur, dass die Anwendung darüber schwieg: Der Regler blieb bedienbar und tat nichts. Bei Tilly und Parsons, die alle vier Ketten setzen, ist er vollständig ohne Wirkung — was in Kapitel 6 eine Begründung trug, die der Zwilling gar nicht einlöste (die Stelle ist korrigiert; die Starrheit entsteht dort aus den eingefrorenen Ketten selbst, was eine /stärkere/ Starrheit ist als ein niedriger Regler). Auch dieser Punkt ist behoben, aber anders: Die Semantik bleibt, das Schweigen ist weg. Der Regler wird ausgegraut, sobald ein Profil alle vier Ketten fixiert.
 
 /Drittens/ — und das ist der ernsteste Punkt — ist der Zwilling gegenüber der /Umbenennung/ seiner Strukturen nicht symmetrisch. Die beiden Habermas-Profile gehen durch die Vertauschung von Macht und Geld auseinander hervor; spiegelbildliche Eingaben sollten spiegelbildliche Ausgaben liefern. Sie tun es nicht. Die Prüfung über acht Keime zeigt, warum: Fünf der fünfzehn geprüften Konfigurationen sind /bistabil/. Es gibt dort immer genau zwei Attraktoren, und der Keim entscheidet nur, in welches Becken das System fällt — die Größen sind sauber getrennt, etwa 49 Prozent gegen 62 Prozent, ohne Zwischenwerte.
 
@@ -92,9 +92,9 @@ Bemerkenswert ist dabei ein Muster: Die Bistabilität tritt nur bei hoher Konzen
 
 /Fünftens/ verdient die Rede von der Keimrobustheit eine Präzisierung. Sie ist nicht pauschal wahr und nicht pauschal falsch, sondern konfigurationsabhängig — wie die Tabelle zeigt. Wo ein Rahmen keimstabil ist, ist er es vollständig: Alle acht Läufe stimmen bis auf die dritte Stelle überein. Wo er es nicht ist, hilft kein Mittelwert, sondern nur die Bilanz.
 
-** 12.6 Zwei Hälften — und was daraus folgt
+** 11.6 Zwei Hälften — und was daraus folgt
 
-Zieht man die Summe, so hat die Nachprüfung wenig widerlegt und viel geschärft. Kein Befund der Kapitel 3 bis 10 ist gefallen. Verschoben haben sich Zahlen in der zweiten Stelle, eine Kettenwahl wurde zum begründeten Spiegelpaar, eine Definition wurde nachgetragen, ein Profil zurückgewonnen, ein Regler als wirkungslos entlarvt — und aus einem Ablesefehler wurde eine Kontrastachse.
+Zieht man die Summe, so hat die Nachprüfung wenig widerlegt und viel geschärft. Kein Befund der Kapitel 2 bis 9 ist gefallen. Verschoben haben sich Zahlen in der zweiten Stelle, eine Kettenwahl wurde zum begründeten Spiegelpaar, eine Definition wurde nachgetragen, ein Profil zurückgewonnen, ein Regler als wirkungslos entlarvt — und aus einem Ablesefehler wurde eine Kontrastachse.
 
 Entscheidend ist zum Schluss eine Unterscheidung, die erst durch diese Arbeit deutlich wurde: /Der digitale Zwilling hat zwei Hälften./ Er ist ein /Simulator/ — er lässt ein Feld unter gesetzten Bedingungen laufen und zeigt, wohin es strebt. Und er ist ein /Messinstrument/ — er löst einen gegebenen Zustand in die Kaskade der drei Ungleichheitsebenen auf und misst das Volumen der Vermittlung.
 
