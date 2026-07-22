@@ -1,15 +1,15 @@
-curseur,1900,2000
+Regler,1900,2000
 chaine_A,D,B,C
 chaine_D,A,B,C
 chaine_B,D,A,C
 chaine_C,B,A,D
-Circulation des acteurs,1.8,1.8
-Concentration vers le pôle dominant,1.0,1.0
-Redistribution interne,1.2,1.2
-Perméabilité entre structures,1.7,1.7
-Essoufflement des dominants,0.6,0.6
-Souplesse des parcours,0.25,0.25
-Migration des acteurs,0.6,0.6
-Déclassement des arrivants,0.65,0.65
-Avantage aux structures dynamiques,0.2,0.2
-Poids du nombre,0.6,0.6
+Zirkulation der Akteure,1.8,1.8
+Konzentration zum Pol,1.0,1.0
+interne Umverteilung,1.2,1.2
+Durchlässigkeit,1.7,1.7
+Erschöpfung der Herrschenden,0.6,0.6
+Plastizität der Ketten,0.25,0.25
+Migration der Akteure,0.6,0.6
+Deklassierung der Ankömmlinge,0.65,0.65
+Vorteil dynamischer Strukturen,0.2,0.2
+Gewicht der Zahl,0.6,0.6
