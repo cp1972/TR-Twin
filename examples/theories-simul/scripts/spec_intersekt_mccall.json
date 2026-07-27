@@ -1,0 +1,662 @@
+[
+ {
+  "label": "alpha 1.2 · mig 0.2 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 0.2,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 0.2 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 0.2,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 0.2 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 0.2,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 0.5 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 0.5,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 0.5 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 0.5,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 0.5 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 0.5,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 0.7 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 0.7,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 0.7 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 0.7,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 0.7 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 0.7,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 1.1 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 1.1,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 1.1 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 1.1,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 1.1 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 1.1,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 1.4 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 1.4,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 1.4 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 1.4,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.2 · mig 1.4 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.2,
+   "mig": 1.4,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 0.2 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 0.2,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 0.2 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 0.2,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 0.2 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 0.2,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 0.5 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 0.5,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 0.5 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 0.5,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 0.5 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 0.5,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 0.7 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 0.7,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 0.7 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 0.7,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 0.7 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 0.7,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 1.1 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 1.1,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 1.1 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 1.1,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 1.1 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 1.1,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 1.4 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 1.4,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 1.4 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 1.4,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.45 · mig 1.4 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.45,
+   "mig": 1.4,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 0.2 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 0.2,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 0.2 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 0.2,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 0.2 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 0.2,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 0.5 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 0.5,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 0.5 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 0.5,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 0.5 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 0.5,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 0.7 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 0.7,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 0.7 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 0.7,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 0.7 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 0.7,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 1.1 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 1.1,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 1.1 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 1.1,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 1.1 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 1.1,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 1.4 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 1.4,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 1.4 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 1.4,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.6 · mig 1.4 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.6,
+   "mig": 1.4,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 0.2 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 0.2,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 0.2 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 0.2,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 0.2 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 0.2,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 0.5 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 0.5,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 0.5 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 0.5,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 0.5 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 0.5,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 0.7 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 0.7,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 0.7 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 0.7,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 0.7 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 0.7,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 1.1 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 1.1,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 1.1 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 1.1,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 1.1 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 1.1,
+   "decl": 0.95
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 1.4 · decl 0.25",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 1.4,
+   "decl": 0.25
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 1.4 · decl 0.5",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 1.4,
+   "decl": 0.5
+  }
+ },
+ {
+  "label": "alpha 1.8 · mig 1.4 · decl 0.95",
+  "profile": null,
+  "steps": 5000,
+  "seed": 1,
+  "cursors": {
+   "alpha": 1.8,
+   "mig": 1.4,
+   "decl": 0.95
+  }
+ }
+]

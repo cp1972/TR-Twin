@@ -1,35 +1,53 @@
 <svg viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica,Arial,sans-serif">
-<rect width="720" height="430" fill="#fff"/>
-<text x="40" y="47" font-size="11" fill="#777">Dialektisiertes Profil (A↔C direkt gekoppelt): Kultur- und Wirtschaftskapital steigen nie gemeinsam zum Doppelpol — oberhalb der Schwelle brechen beide zusammen</text>
-<line x1="95" y1="350" x2="655" y2="350" stroke="#eee"/>
-<text x="89" y="353" font-size="9" fill="#9a9a9a" text-anchor="end">0%</text>
-<line x1="95" y1="254" x2="655" y2="254" stroke="#eee"/>
-<text x="89" y="257" font-size="9" fill="#9a9a9a" text-anchor="end">25%</text>
-<line x1="95" y1="157" x2="655" y2="157" stroke="#eee"/>
-<text x="89" y="160" font-size="9" fill="#9a9a9a" text-anchor="end">50%</text>
-<text x="95" y="372" font-size="9.5" fill="#666" text-anchor="middle">α=1.3</text>
-<text x="207" y="372" font-size="9.5" fill="#666" text-anchor="middle">α=1.45</text>
-<text x="319" y="372" font-size="9.5" fill="#666" text-anchor="middle">α=1.5</text>
-<text x="431" y="372" font-size="9.5" fill="#666" text-anchor="middle">α=1.6</text>
-<text x="543" y="372" font-size="9.5" fill="#666" text-anchor="middle">α=1.8</text>
-<text x="655" y="372" font-size="9.5" fill="#666" text-anchor="middle">α=2.0</text>
-<line x1="375" y1="70" x2="375" y2="350" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
-<text x="379" y="84" font-size="9.5" fill="#c0392b">Bifurkation</text>
-<polyline points="95,254 207,250 319,250 431,296 543,300 655,300" fill="none" stroke="#E8B14C" stroke-width="2.5"/>
-<circle cx="95" cy="254" r="3.5" fill="#E8B14C"/>
-<circle cx="207" cy="250" r="3.5" fill="#E8B14C"/>
-<circle cx="319" cy="250" r="3.5" fill="#E8B14C"/>
-<circle cx="431" cy="296" r="3.5" fill="#E8B14C"/>
-<circle cx="543" cy="300" r="3.5" fill="#E8B14C"/>
-<circle cx="655" cy="300" r="3.5" fill="#E8B14C"/>
-<rect x="500" y="86" width="13" height="13" fill="#E8B14C"/><text x="519" y="97" font-size="11" fill="#444">A — Kulturkapital</text>
-<polyline points="95,246 207,246 319,250 431,296 543,300 655,300" fill="none" stroke="#E36F9E" stroke-width="2.5"/>
-<circle cx="95" cy="246" r="3.5" fill="#E36F9E"/>
-<circle cx="207" cy="246" r="3.5" fill="#E36F9E"/>
-<circle cx="319" cy="250" r="3.5" fill="#E36F9E"/>
-<circle cx="431" cy="296" r="3.5" fill="#E36F9E"/>
-<circle cx="543" cy="300" r="3.5" fill="#E36F9E"/>
-<circle cx="655" cy="300" r="3.5" fill="#E36F9E"/>
-<rect x="500" y="106" width="13" height="13" fill="#E36F9E"/><text x="519" y="117" font-size="11" fill="#444">C — Wirtschaftskapital</text>
-<text x="375" y="400" font-size="10.5" fill="#888" text-anchor="middle">Unterhalb der Schwelle schwach gemeinsam erhöht, oberhalb gemeinsam zu Trabanten (~13%) zerfallend: ein stabiler Doppelpol existiert nicht.</text>
+<rect x="0" y="0" width="720" height="430" fill="#ffffff"/>
+<text x="40" y="30" font-size="11" fill="#777">Direkte A↔C-Kopplung: unterhalb der Schwelle steigt allein das Wirtschaftskapital, das Kulturkapital wird sein Satellit —</text>
+<text x="40" y="46" font-size="11" fill="#777">oberhalb der Schwelle brechen beide ein und die Politik übernimmt. Ein Doppelpol entsteht in keinem der beiden Profile.</text>
+<line x1="95" y1="350.0" x2="655" y2="350.0" stroke="#eee"/>
+<text x="89" y="353.0" font-size="9" fill="#9a9a9a" text-anchor="end">0%</text>
+<line x1="95" y1="254.0" x2="655" y2="254.0" stroke="#eee"/>
+<text x="89" y="257.0" font-size="9" fill="#9a9a9a" text-anchor="end">25%</text>
+<line x1="95" y1="158.0" x2="655" y2="158.0" stroke="#eee"/>
+<text x="89" y="161.0" font-size="9" fill="#9a9a9a" text-anchor="end">50%</text>
+<line x1="95" y1="62.0" x2="655" y2="62.0" stroke="#eee"/>
+<text x="89" y="65.0" font-size="9" fill="#9a9a9a" text-anchor="end">75%</text>
+<line x1="421.7" y1="62.0" x2="421.7" y2="350.0" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="421.7" y="56.0" font-size="9.5" fill="#c0392b" text-anchor="middle">Schwelle</text>
+<polyline points="95.0,254.0 188.3,254.0 281.7,254.0 375.0,254.0 468.3,301.6 561.7,302.0 655.0,302.4" fill="none" stroke="#9a9a9a" stroke-width="2.0" stroke-dasharray="5,4"/>
+<circle cx="95.0" cy="254.0" r="3.5" fill="#9a9a9a"/>
+<circle cx="188.3" cy="254.0" r="3.5" fill="#9a9a9a"/>
+<circle cx="281.7" cy="254.0" r="3.5" fill="#9a9a9a"/>
+<circle cx="375.0" cy="254.0" r="3.5" fill="#9a9a9a"/>
+<circle cx="468.3" cy="301.6" r="3.5" fill="#9a9a9a"/>
+<circle cx="561.7" cy="302.0" r="3.5" fill="#9a9a9a"/>
+<circle cx="655.0" cy="302.4" r="3.5" fill="#9a9a9a"/>
+<polyline points="95.0,126.5 188.3,125.4 281.7,146.9 375.0,146.5 468.3,300.5 561.7,300.5 655.0,300.5" fill="none" stroke="#E36F9E" stroke-width="2.5"/>
+<circle cx="95.0" cy="126.5" r="3.5" fill="#E36F9E"/>
+<circle cx="188.3" cy="125.4" r="3.5" fill="#E36F9E"/>
+<circle cx="281.7" cy="146.9" r="3.5" fill="#E36F9E"/>
+<circle cx="375.0" cy="146.5" r="3.5" fill="#E36F9E"/>
+<circle cx="468.3" cy="300.5" r="3.5" fill="#E36F9E"/>
+<circle cx="561.7" cy="300.5" r="3.5" fill="#E36F9E"/>
+<circle cx="655.0" cy="300.5" r="3.5" fill="#E36F9E"/>
+<polyline points="95.0,306.2 188.3,306.6 281.7,292.4 375.0,292.4 468.3,308.1 561.7,300.5 655.0,300.5" fill="none" stroke="#E8B14C" stroke-width="2.5"/>
+<circle cx="95.0" cy="306.2" r="3.5" fill="#E8B14C"/>
+<circle cx="188.3" cy="306.6" r="3.5" fill="#E8B14C"/>
+<circle cx="281.7" cy="292.4" r="3.5" fill="#E8B14C"/>
+<circle cx="375.0" cy="292.4" r="3.5" fill="#E8B14C"/>
+<circle cx="468.3" cy="308.1" r="3.5" fill="#E8B14C"/>
+<circle cx="561.7" cy="300.5" r="3.5" fill="#E8B14C"/>
+<circle cx="655.0" cy="300.5" r="3.5" fill="#E8B14C"/>
+<text x="95.0" y="372.0" font-size="9.5" fill="#555" text-anchor="middle">α=1,2</text>
+<text x="188.3" y="372.0" font-size="9.5" fill="#555" text-anchor="middle">α=1,3</text>
+<text x="281.7" y="372.0" font-size="9.5" fill="#555" text-anchor="middle">α=1,4</text>
+<text x="375.0" y="372.0" font-size="9.5" fill="#555" text-anchor="middle">α=1,5</text>
+<text x="468.3" y="372.0" font-size="9.5" fill="#555" text-anchor="middle">α=1,6</text>
+<text x="561.7" y="372.0" font-size="9.5" fill="#555" text-anchor="middle">α=1,8</text>
+<text x="655.0" y="372.0" font-size="9.5" fill="#555" text-anchor="middle">α=2,0</text>
+<line x1="470" y1="66.0" x2="500" y2="66.0" stroke="#E8B14C" stroke-width="2.5"/>
+<text x="507" y="69.5" font-size="10" fill="#444">dialektisiert — A Kulturkapital</text>
+<line x1="470" y1="83.0" x2="500" y2="83.0" stroke="#E36F9E" stroke-width="2.5"/>
+<text x="507" y="86.5" font-size="10" fill="#444">dialektisiert — C Wirtschaftskapital</text>
+<line x1="470" y1="100.0" x2="500" y2="100.0" stroke="#9a9a9a" stroke-width="2.5" stroke-dasharray="5,4"/>
+<text x="507" y="103.5" font-size="10" fill="#444">nicht dialektisiert — A = C</text>
+<text x="95" y="394.0" font-size="10.5" fill="#888">Endzustände nach 5000 Schritten, Keim 1. Die Apex-Identität ist über acht Keime stabil: unterhalb der Schwelle 8/8 Wirtschaft, oberhalb 8/8 Politik.</text>
 </svg>

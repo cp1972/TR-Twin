@@ -1,0 +1,6 @@
+[
+ {"label":"hub = A (Kultur)",     "profile":"./examples/theories-simul/profil_White_hub_A.csv", "steps":5000, "seed":1},
+ {"label":"hub = B (Politik)",    "profile":"./examples/theories-simul/profil_White_hub_B.csv", "steps":5000, "seed":1},
+ {"label":"hub = C (Wirtschaft)", "profile":"./examples/theories-simul/profil_White_hub_C.csv", "steps":5000, "seed":1},
+ {"label":"hub = D (Medien)",     "profile":"./examples/theories-simul/profil_White_hub_D.csv", "steps":5000, "seed":1}
+]

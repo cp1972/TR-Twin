@@ -184,15 +184,53 @@ order is skipped. Profiles that set *all four* chains (Parsons, Tilly) therefore
 =plast= cursor inert: the rigidity comes from the frozen chains themselves, not from the
 cursor.
 
-* Run horizon: 1819 steps is not convergence
+* Three things a profile does NOT fix
 
-The trajectory figures state 1819 steps. Some frameworks have not settled by then.
-Example Tilly (default mig = 0.7): after 1819 steps GINI 0.03 (quasi-symmetric), after
-~5000 steps GINI 0.26 with a single apex (economy 49 %) — stable afterwards. The sweep
-figures were clearly produced with converged runs: White's GINI at mig 0.8 is 0.18 after
-1819 steps but converges to 0.36 (figure: 0.35).
+A profile file names a set of cursors. That is not enough to determine a number. Three
+further things have to be stated with every metric, and all three change the result.
 
-Rule of thumb: trajectory figures 1819 steps; end-state and sweep figures ~5000 steps.
+** 1. The run horizon: 1819 steps is not convergence
+
+The twin is a dynamic model and needs time to settle. 1819 steps is the horizon of the
+*trajectory* figures — it is a snapshot on the way, not an end state.
+
+| profile | 1819 steps | 5000 steps (settled) |
+|---------+---------------------------------+----------------------------------|
+| TR      | 25/25/25/25 · GINI 0.002        | 25/25/25/25 · GINI 0.001         |
+| White   | 14/58/14/14 · GINI 0.329        | 13/62/13/13 · GINI 0.372         |
+| Tilly   | 24/23/26/26 · GINI 0.028        | 15/16/49/19 · GINI 0.264         |
+
+White only grows: the apex is already there at 1819 and rises from 58 % to 62 %. *Tilly is
+the warning case.* At 1819 steps his field is still quasi-symmetric (GINI 0.028 — below
+the 0.05 threshold at which we speak of domination at all). Stopping there would make the
+chapter conclude that Tilly's mechanisms produce no inequality, which is the opposite of
+the settled result. The same holds for the sweeps: White's GINI at mig 0.8 is 0.18 after
+1819 steps and converges to 0.36.
+
+Rule: *trajectory figures 1819 steps; end-state and sweep figures ~5000 steps.* State the
+horizon in the caption.
+
+** 2. The seed: some configurations are bistable
+
+Where a configuration is bistable there are always exactly two attractors and the seed only
+picks the basin. Run every apex claim over eight seeds and report in how many it holds.
+See =keim_audit.md= and the seed-audit section below. Grundprofil White is fully
+seed-stable (8/8 at 62.2 %); three of the four rewired hub configurations are not.
+
+** 3. The cursors the profile does not name
+
+=applyDefaults()= must be called before every profile, otherwise the unnamed cursors keep
+whatever the previous run left behind (pitfall 2 above). =batch.js= and =metrics.js= do
+this; *a browser session does not.*
+
+This has one consequence in the published material, recorded here rather than smoothed
+over. =profil_White.csv= does not set =mig=, so =mig= is the TR default 0.7, giving
+13/62/13/13 · GINI 0.372 · R 0.321 at 5000 steps. The originally published figure
+=white_kontrolle_apex.svg= showed 13/61/13/13 · GINI 0.36 · R 0.34, which reproduces at
+=mig= 0.8 (13/61/13/13 · GINI 0.364 · R 0.330) — the value left over from the migration
+sweep in the same browser session. Chapter 5 now carries *both* configurations side by
+side, with one figure each; the finding is unchanged (the apex forms either way, the
+difference is under one percentage point).
 
 * Reconstructed profile: "Parsons as damping"
 
@@ -206,6 +244,57 @@ raised circulation lifts reciprocity, which is what the reading claims. File:
 
 Caveat: a residual satellisation of about 0.2 remains (against 1.0 in the hierarchy
 reading), so "satellisation disappears" is to be read as relative, not absolute.
+
+* Reconstructed profile: White's "Interface" discipline
+
+Like the Parsons damping profile, the profile behind White's third discipline was lost.
+Chapter 5 describes it as "the region around the threshold, with a cascading chain
+ordering". Two readings of "cascading" were tested, both at 5000 steps:
+
+- *cyclic* — each position feeds the next (A→B→C→D→A). File:
+  =profil_White_interface.csv=.
+- *quality ladder* — each position feeds only the one directly above it.
+
+Result (alpha scanned in steps of 0.01 on the base profile):
+
+| alpha       | no chains       | cyclic cascade  | ladder          |
+|-------------+-----------------+-----------------+-----------------|
+| 1.20 – 1.50 | GINI 0.00       | GINI 0.00       | GINI 0.35       |
+| 1.52        | GINI 0.00 (K1)  | —               | —               |
+| 1.53 – 1.80 | GINI 0.37       | GINI 0.37       | GINI 0.36       |
+
+The threshold without chains lies between 1.50 and 1.53 and is *seed-dependent at 1.52*
+(1 of 8 seeds symmetric, 7 of 8 apex); from 1.53 all eight tip. The cyclic cascade keeps
+the threshold in the same place, the ladder pushes it below 1.40 — so under the ladder
+reading even the Council's control pressure produces an apex.
+
+What both readings share, and what the chapter's claim rests on: there is *no* alpha and
+*no* seed at which an intermediate value stands. GINI is either ≤ 0.002 or ≥ 0.35, never
+between, and the three subordinate structures stay within 12–14 % of each other rather
+than forming a graded order. The negative finding is therefore independent of which
+reconstruction is chosen. Spec: =spec_white_interface.json=.
+
+* The White profile family
+
+Eight files, all deviation profiles: they name only the cursors that differ from the TR
+defaults, everything else is restored by =applyDefaults()=. Settled values, 5000 steps,
+seed 1.
+
+| file                          | deviation                        | K/P/W/M          | GINI  |
+|-------------------------------+----------------------------------+------------------+-------|
+| =profil_White.csv=            | rate 1.8 · alpha 1.6             | 13/62/13/13      | 0.372 |
+| =profil_White_council.csv=    | rate 1.8 · alpha 1.2             | 25/25/25/25      | 0.001 |
+| =profil_White_interface.csv=  | rate 1.8 · alpha 1.6 · cascade   | 14/61/12/13      | 0.373 |
+| =profil_White_arena.csv=      | rate 1.8 · alpha 1.8             | 13/62/13/13      | 0.374 |
+| =profil_White_hub_A.csv=      | base + all chains → A            | 27/25/23/26      | 0.033 |
+| =profil_White_hub_B.csv=      | base + all chains → B            | 13/60/13/14      | 0.361 |
+| =profil_White_hub_C.csv=      | base + all chains → C            | 15/16/50/19      | 0.263 |
+| =profil_White_hub_D.csv=      | base + all chains → D            | 15/16/54/15      | 0.291 |
+
+Council, Interface and Arena were previously only described in prose here; they are now
+files, so the three disciplines of chapter 5 can be run without setting cursors by hand.
+Specs: =spec_white.json= (base + disciplines), =spec_white_hub.json= (rewiring),
+=spec_white_interface.json= (threshold scan).
 
 * Producing the figures
 
@@ -300,8 +389,16 @@ let crossOff = 0;
 for (let x=0;x<4;x++) for (let y=0;y<4;y++) if (x!==y) crossOff += crossViz[x][y];
 #+end_src
 
-Reference values (1819 steps): TR 0.264 · Luhmann 0.266 · Luhmann with over→0 0.270 ·
-Parsons 0.098. Closure does not lower the volume; only concentration does.
+Reference values, settled (5000 steps, seed 1, mig 0.7): TR 0.264 · White 0.161 ·
+Tilly 0.126 · Luhmann 0.266 · Luhmann with over→0 0.270 · Parsons 0.098. Closure does not
+lower the volume; only concentration does.
+
+crossOff is strongly mig-dependent and must always be quoted with both the horizon and the
+migration. At mig 1.4 the same three profiles read TR 0.578 · White 0.581 · Tilly 0.417 —
+White returns to the TR level while Tilly stays blocked, which is the comparison chapter 6
+makes. Quoting a crossOff without stating mig and the step count is meaningless: for Tilly
+the value runs from 0.260 (1819 steps) through 0.126 (settled, mig 0.7) to 0.417
+(settled, mig 1.4).
 
 ** The renderers
 
@@ -328,16 +425,28 @@ making one position the /hub/:
 - everything else — including White's cursors (rate 1.8, alpha 1.6) — stays identical.
 
 The four files are =profil_White_hub_A.csv= … =profil_White_hub_D.csv= (A culture,
-B politics, C economy, D media). Run them like any other profile:
+B politics, C economy, D media). *Note:* only =hub_C= was ever committed; A, B and D were
+missing from the repository and have been rebuilt from the rule above. They are now in
+=examples/theories-simul/= and reproduce the published figure =white_rewire.svg= exactly,
+so the reconstruction is confirmed rather than assumed. Run them like any other profile:
 
 #+begin_src sh
 node metrics.js ./tr-twin.html ./spec_white_hub.json ./out/white.json
 #+end_src
 
 with a spec listing the four profiles at 5000 steps (the apex is not settled at 1819).
-Result: hub=A → apex A but only 27 % · hub=B → apex B 60 % · hub=C → apex C 50 % ·
-hub=D → apex *C* 54 %. The apex therefore follows the hub neither reliably nor with equal
-strength — the residual gradient favours the economy.
+Result (seed 1):
+
+| hub          | K    | P    | W    | M    | GINI  | apex          |
+|--------------+------+------+------+------+-------+---------------|
+| A culture    | 27.0 | 24.5 | 22.9 | 25.6 | 0.033 | none (< 0.05) |
+| B politics   | 12.5 | 60.2 | 13.1 | 14.3 | 0.361 | B 60 %        |
+| C economy    | 15.2 | 16.4 | 49.6 | 18.8 | 0.263 | C 50 %        |
+| D media      | 15.3 | 15.9 | 53.7 | 15.0 | 0.291 | *C* 54 %      |
+
+The apex therefore follows the hub neither reliably nor with equal strength — the residual
+gradient favours the economy. Over eight seeds (=keim_audit.md=) three of the four are
+bistable; only hub=B holds in 8/8.
 
 Note on chain semantics: =setChain(x, o)= gives =WT[x][o[0]] = 3/6=, =WT[x][o[1]] = 2/6=,
 =WT[x][o[2]] = 1/6=. The first entry of a chain is the structure that *gains*: pointing all
