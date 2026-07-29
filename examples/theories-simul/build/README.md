@@ -53,18 +53,44 @@ sudo apt install pandoc librsvg2-bin libreoffice python3-pil
    werden auf den Cache umgebogen. Im Gesamtdokument entfallen zusätzlich die
    kapitelweisen `** Literatur`-Abschnitte, damit nur ein Verzeichnis am Ende
    steht.
-3. **Querverweise** — `[[fig:white-rewire]]` im Fließtext wird durch die
+3. **Unterstriche** — `#+OPTIONS: ^:nil` wird vorangestellt, sonst liest
+   Pandoc den Unterstrich in Dateinamen als Tiefstellung und macht aus
+   `stages_long_final.csv` ein `stages_(longfinal).csv`.
+4. **Querverweise** — `[[fig:white-rewire]]` im Fließtext wird durch die
    Nummer ersetzt, die im zugehörigen `#+CAPTION`-Präfix steht. Beide stammen
    damit aus derselben Quelle und können nicht auseinanderlaufen. Ein Verweis
    auf einen unbekannten Namen wird gemeldet und unverändert gelassen.
-4. **Pandoc** mit `--citeproc`, `Bericht.bib` und
+5. **Pandoc** mit `--citeproc`, `Bericht.bib` und
    `chicago-author-date-de-ibid.csl`, dazu `reference.docx` als Formatvorlage.
-5. **Nachbearbeitung der Tabellen** — drei Dinge schreibt Pandoc fest ins
+6. **Nachbearbeitung der Tabellen** — drei Dinge schreibt Pandoc fest ins
    Dokument, sie lassen sich deshalb nicht über die Formatvorlage steuern:
    die Tabellen werden zentriert (Pandoc setzt `jc="start"`), die
    Zellenabsätze bekommen das Format *Tabellentext* statt *Compact*
    (10 pt, einzeilig, kein Abstand nach dem Absatz), und nach jeder Tabelle
    wird eine Leerzeile eingefügt.
+
+## Abbildungen
+
+Zwei Skripte, weil die Abbildungen aus zwei Quellen stammen:
+
+* `figuren_kap11.py` zeichnet die zehn Abbildungen des Kapitels 11 aus den
+  Daten neu (zusammen mit `tr_svg.py`, das das Raster der Kapitel 2 bis 9
+  bereitstellt). Änderungen an Schriftgraden, Farben und Legendenlage gehören
+  in `tr_svg.py`.
+* `figuren_ueberarbeiten.py` arbeitet auf den fertigen SVG-Dateien der
+  Kapitel 2 bis 10. Deren Erzeugerskripte sind nur teilweise erhalten, deshalb
+  wird dort unmittelbar an der Datei gearbeitet. **Das Skript ist nicht
+  wiederholbar** — ein zweiter Lauf würde die Schrift ein zweites Mal
+  vergrößern. Vor einem erneuten Lauf die Originale aus dem Repository
+  zurückholen.
+
+Beide setzen dieselben Regeln um: kein Titel im Bild, Randnotizen nur wo
+nötig und dann schwarz, Legende auf halber Höhe rechts mit weißer
+Hinterlegung, kleinste Schrift im 15-cm-Satz nicht unter 7,5 pt, deutlicher
+Abstand zwischen Bild und Achsenbeschriftung.
+
+`pruefe_svg.py` prüft eine Abbildung maschinell: Text über dem Rand,
+übereinanderliegende Beschriftungen, zu kleine Schrift.
 
 ## Nummerierung von Abbildungen und Tabellen
 

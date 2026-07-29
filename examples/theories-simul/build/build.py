@@ -161,6 +161,9 @@ def verweise_aufloesen(text, pfad):
 def org_aufbereiten(pfad, karte, literatur_raus=False):
     t = open(pfad, encoding='utf-8').read()
     t = ORG_MUELL.sub('', t)                      # Schlüsselwörter, die Pandoc durchreicht
+    # Ohne ^:nil liest Pandoc den Unterstrich in Dateinamen als Tiefstellung:
+    # aus stages_long_final.csv wird sonst stages_(longfinal).csv
+    t = '#+OPTIONS: ^:nil\n' + t
     t = verweise_aufloesen(t, pfad)               # [[fig:x]] -> Nummer
     for alt, neu in karte.items():                # Abbildungspfade umbiegen
         t = t.replace('file:' + alt, 'file:' + neu)

@@ -11,11 +11,23 @@ Achsenbeschriftung #9a9a9a, Werte #2b2b2b, Fußzeile #555.
 Kein Titel im Bild — der steht in der Legende des Dokuments.
 """
 
+# --------------------------------------------------------------- Schriftgrade
+# Eine Abbildung von 780 Einheiten Breite wird 15 cm breit gesetzt, eine
+# Einheit entspricht also rund 0,55 pt. Damit die kleinste Beschriftung im
+# Druck nicht unter 7,5 pt fällt, liegt der Grundwert bei 14.
+SZ_TICK   = 14      # Achsenbeschriftung        ~7,6 pt
+SZ_LABEL  = 16      # Kategorien, Achsentitel   ~8,7 pt
+SZ_VALUE  = 17      # Werte über den Balken     ~9,3 pt
+SZ_LEG    = 16      # Legende                   ~8,7 pt
+SZ_PANEL  = 19      # Panelüberschrift          ~10,4 pt
+SZ_NOTE   = 15      # Randnotiz, nur wo nötig   ~8,2 pt
+
+
 # ------------------------------------------------------------------ Palette
 BG       = '#ffffff'
 FONT     = 'Helvetica,Arial,sans-serif'
 SERIF    = 'Georgia,serif'
-C_NOTE   = '#777'        # technische Randnotiz, 11 pt, x=40 y=47
+C_NOTE   = '#2b2b2b'     # Randnotiz — schwarz, damit lesbar
 C_GRID   = '#e7e7e7'
 C_TICK   = '#9a9a9a'
 C_VALUE  = '#2b2b2b'
@@ -54,16 +66,17 @@ class Bild:
                   f'<rect x="0" y="0" width="{w}" height="{h}" fill="{BG}"/>']
 
     # -------------------------------------------------------------- Bausteine
-    def notiz(self, text, y=47, x=40, size=11):
-        """Technische Randnotiz oben links (kein Titel)."""
+    def notiz(self, text, y=32, x=40, size=SZ_NOTE):
+        """Kurze technische Randnotiz — nur, wo die Abbildung ohne sie
+        unverständlich bliebe. Schwarz, nicht grau."""
         self.s.append(f'<text x="{x}" y="{y}" font-size="{size}" fill="{C_NOTE}">'
                       f'{esc(text)}</text>')
 
-    def panel(self, x, y, text, size=12.5):
+    def panel(self, x, y, text, size=SZ_PANEL):
         self.s.append(f'<text x="{x}" y="{y}" font-size="{size}" font-family="{SERIF}" '
                       f'fill="{C_VALUE}" text-anchor="middle">{esc(text)}</text>')
 
-    def text(self, x, y, t, size=10, fill=C_LABEL, anchor='middle',
+    def text(self, x, y, t, size=SZ_LABEL, fill=C_LABEL, anchor='middle',
              weight=None, style=None, family=None):
         a = f' font-weight="{weight}"' if weight else ''
         b = f' font-style="{style}"' if style else ''
@@ -90,38 +103,65 @@ class Bild:
     def punkt(self, x, y, farbe, r=3):
         self.s.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="{farbe}"/>')
 
-    def yraster(self, L, R, werte, yfun, nachkomma=2, size=9):
+    def yraster(self, L, R, werte, yfun, nachkomma=2, size=SZ_TICK):
         """Waagerechtes Raster mit Beschriftung links."""
         for v in werte:
             yy = yfun(v)
             self.linie(L, yy, R, yy)
-            self.text(L - 8, yy + 3, de(v, nachkomma) if nachkomma else f'{v:g}',
+            self.text(L - 10, yy + size * 0.35, de(v, nachkomma) if nachkomma else f'{v:g}',
                       size=size, fill=C_TICK, anchor='end')
 
-    def legende(self, x, y, eintraege, size=11, schritt=16, waagerecht=False):
+    def legende(self, x, y, eintraege, size=SZ_LEG, schritt=22, waagerecht=False):
         """eintraege: [(farbe, beschriftung), …]"""
         if waagerecht:
             cx = x
             for farbe, lab in eintraege:
-                self.rechteck(cx, y, 11, 11, farbe, rx=2)
-                self.text(cx + 16, y + 9, lab, size=size, fill=C_VALUE, anchor='start')
-                cx += 16 + len(lab) * size * 0.52 + 22
+                self.rechteck(cx, y, size - 3, size - 3, farbe, rx=2)
+                self.text(cx + size + 3, y + size - 4, lab, size=size,
+                          fill=C_VALUE, anchor='start')
+                cx += size + 3 + breite(lab, size) + 26
         else:
             cy = y
             for farbe, lab in eintraege:
-                self.rechteck(x, cy, 11, 11, farbe, rx=2)
-                self.text(x + 16, cy + 9, lab, size=size, fill=C_VALUE, anchor='start')
+                self.rechteck(x, cy, size - 3, size - 3, farbe, rx=2)
+                self.text(x + size + 3, cy + size - 4, lab, size=size,
+                          fill=C_VALUE, anchor='start')
                 cy += schritt
 
-    def linienlegende(self, x, y, eintraege, size=11):
+    def linienlegende(self, x, y, eintraege, size=SZ_LEG):
         cx = x
         for farbe, lab in eintraege:
-            self.linie(cx, y, cx + 20, y, farbe, 2.4)
-            self.text(cx + 25, y + 4, lab, size=size, fill=C_VALUE, anchor='start')
-            cx += 25 + len(lab) * size * 0.52 + 24
+            self.linie(cx, y, cx + 24, y, farbe, 2.8)
+            self.text(cx + 30, y + size * 0.35, lab, size=size,
+                      fill=C_VALUE, anchor='start')
+            cx += 30 + breite(lab, size) + 26
 
-    def fuss(self, x, y, text, size=11, anchor='middle'):
+    def fuss(self, x, y, text, size=SZ_LABEL, anchor='middle'):
         self.text(x, y, text, size=size, fill=C_LABEL, anchor=anchor)
+
+    def legende_rechts(self, rechts, mitte, eintraege, size=SZ_LEG, art='block'):
+        """Legende auf halber Höhe am rechten Rand, mit weißer Hinterlegung —
+        so kreuzt keine Datenlinie den Text. `rechts` ist die rechte Kante,
+        `mitte` die senkrechte Mitte des Blocks."""
+        schritt = size + 8
+        bh = len(eintraege) * schritt + 8
+        bb = max(breite(l, size) for _, l in eintraege) + size + 18
+        x0 = rechts - bb
+        y0 = mitte - bh / 2
+        self.rechteck(x0, y0, bb, bh, '#ffffff', rx=3)
+        self.s.append(f'<rect x="{x0:.1f}" y="{y0:.1f}" width="{bb:.1f}" '
+                      f'height="{bh:.1f}" fill="none" stroke="{C_GRID}" rx="3"/>')
+        cy = y0 + 8
+        for farbe, lab in eintraege:
+            if art == 'linie':
+                self.linie(x0 + 8, cy + size / 2 - 1, x0 + 8 + size, cy + size / 2 - 1,
+                           farbe, 2.8)
+            else:
+                self.rechteck(x0 + 8, cy, size - 3, size - 3, farbe, rx=2)
+            self.text(x0 + 8 + size + 6, cy + size - 4, lab, size=size,
+                      fill=C_VALUE, anchor='start')
+            cy += schritt
+        return x0
 
     # -------------------------------------------------------------- Heatmap
     def heatmap(self, L, T, spalten, zeilen, werte, rampe, zellw=None, zellh=None,
@@ -137,33 +177,40 @@ class Bild:
                 x, y = L + j * cw, T + i * ch
                 if leer is not None and v <= leer:
                     self.rechteck(x, y, cw - 3, ch - 3, '#f4f4f4', rx=2)
-                    self.text(x + (cw - 3) / 2, y + (ch - 3) / 2 + 4, '–',
-                              size=11, fill=C_TICK)
+                    self.text(x + (cw - 3) / 2, y + (ch - 3) / 2 + 6, '–',
+                              size=SZ_LABEL, fill=C_TICK)
                     continue
                 self.rechteck(x, y, cw - 3, ch - 3, misch(rampe[0], rampe[1], t), rx=2)
-                self.text(x + (cw - 3) / 2, y + (ch - 3) / 2 + 4, fmt(v),
-                          size=11, fill='#ffffff' if t > schwelle else C_VALUE,
+                self.text(x + (cw - 3) / 2, y + (ch - 3) / 2 + 6, fmt(v),
+                          size=SZ_VALUE, fill='#ffffff' if t > schwelle else C_VALUE,
                           weight='bold' if t > schwelle else None)
         for j, sp in enumerate(spalten):
-            self.text(L + j * cw + (cw - 3) / 2, T - 10, sp, size=11, fill=C_LABEL)
+            self.text(L + j * cw + (cw - 3) / 2, T - 12, sp, size=SZ_LABEL, fill=C_LABEL)
         for i, ze in enumerate(zeilen):
-            self.text(L - 10, T + i * ch + (ch - 3) / 2 + 4, ze, size=11,
+            self.text(L - 12, T + i * ch + (ch - 3) / 2 + 6, ze, size=SZ_LABEL,
                       fill=C_VALUE, anchor='end')
         return L + n_s * cw, T + n_z * ch
 
-    def skala(self, x, y, breite, rampe, links, rechts, hoehe=9):
+    def skala(self, x, y, breite, rampe, links, rechts, hoehe=13):
         """Kleine Farbskala unter einer Heatmap."""
         n = 40
         for k in range(n):
             self.rechteck(x + k * breite / n, y, breite / n + 0.6, hoehe,
                           misch(rampe[0], rampe[1], k / (n - 1)), rx=0)
-        self.text(x - 8, y + hoehe, links, size=9, fill=C_TICK, anchor='end')
-        self.text(x + breite + 8, y + hoehe, rechts, size=9, fill=C_TICK, anchor='start')
+        self.text(x - 10, y + hoehe, links, size=SZ_TICK, fill=C_TICK, anchor='end')
+        self.text(x + breite + 10, y + hoehe, rechts, size=SZ_TICK, fill=C_TICK,
+                  anchor='start')
 
     def speichern(self, pfad):
         self.s.append('</svg>')
         open(pfad, 'w', encoding='utf-8').write('\n'.join(self.s))
         return pfad
+
+
+def breite(s, size):
+    """Näherung der Textbreite in SVG-Einheiten (Helvetica)."""
+    schmal = set("iljtfrI.,:;'| ")
+    return sum(size * (0.34 if c in schmal else 0.56) for c in str(s))
 
 
 def misch(c1, c2, t):
