@@ -5,6 +5,30 @@
 
 # Status: version 62 (v62). Living document.
 
+* Before you start
+
+This document sets out the mechanisms of the model and the quantities they
+operate on. It is the reference for anyone who needs to know precisely what the
+twin computes, and it presupposes the vocabulary introduced in
+[[file:00-start-here.org][document 0]] and developed in
+[[file:01-theory-of-the-relation-purpose-and-concepts.org][document 1]].
+
+Three points of orientation may assist a first reading. The mapping table below
+is the pivot of the whole documentation: every quantity in the model is there
+assigned to the theoretical concept it is intended to render, and any mechanism
+described later can be traced back through it. The sections on the mathematical
+model proceed from the general to the particular and need not be read in order;
+each states the quantity it governs and the theoretical claim it implements.
+And the recurring notes marked *verified headless* record that a mechanism was
+tested outside the browser before it entered the application — these are
+records of what was checked, and they indicate the boundaries within which the
+behaviour described has actually been observed.
+
+A caution that applies throughout: the mechanisms below are formulated so as to
+have no effect at the symmetric reference state. Where a section describes a
+force, a threshold or a coupling, it describes something that remains inert
+until an asymmetry is introduced.
+
 * Mapping: theory → digital twin
 
 The following table maps the central concepts of the theory onto the quantities and mechanisms of the digital twin. The concrete relational-structure labels (Culture, Politics, Economy, Media) are an applied interpretation of the four abstract relational structures, chosen to make real data interpretable — they are not fixed by the theory.

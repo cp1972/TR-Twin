@@ -8,11 +8,17 @@
 
 * Before you start
 
-This document sets out the theory that the digital twin implements. It goes
-into detail and uses the theory's own vocabulary. If you have not met either
-the theory or the twin, read [[file:00-start-here.org][document 0]] first: it
-explains in plain terms what the twin is, what it assumes and what you can do
-with it, and it does not presuppose the theory.
+This document sets out the theory that the digital twin implements. It proceeds
+in detail and employs the theory's own vocabulary throughout. Readers unfamiliar
+with either the theory or the model are advised to begin with
+[[file:00-start-here.org][document 0]], which states in non-technical terms what
+the twin is, what it assumes and what may be done with it, and which
+presupposes no acquaintance with the theory.
+
+The exposition below is a theoretical argument rather than a description of the
+software. Where a concept has a counterpart in the model, that correspondence is
+established in [[file:02-digital-twin-of-the-theory-of-the-relation.org][document 2]],
+whose mapping table assigns each quantity to the concept it renders.
 
 * Purpose and structure of this documentation
 

@@ -5,6 +5,25 @@
 
 # Status: version 62 (v62). Living document.
 
+* Before you start
+
+This document concerns the conditions under which a run of the twin licenses a
+statement about a theory or about a body of data. It is the methodological
+counterpart to [[file:02-digital-twin-of-the-theory-of-the-relation.org][document 2]]:
+where that document states what the model computes, this one states what may be
+concluded from the computation.
+
+Three problems recur throughout and are worth holding in view. The first is the
+question of what a divergence between model and theory demonstrates — a
+divergence informs us about the theory only where the encoding is faithful, and
+otherwise informs us about the encoding. The second is the problem of thin
+material: a small number of cases can be read as a probe, but the reading is
+abductive and its resolution is limited by the number of cells across which the
+cases must be distributed. The third is the temptation to read into an output
+more structure than the model contains, an error illustrated below on a concrete
+case, where a plausible interpretation of an emergent result turns out to be
+projected onto the simulation rather than implemented within it.
+
 * Methodology: theories in the digital twin — hidden assumptions and falsification
 
 The digital twin serves not only to play back real data but also to test theories, by encoding their key arguments as a configuration (chains + controls over time) and observing what they bring about within and between the relational structures. Two uses complement each other: making visible the hidden presuppositions of a theory, and working out its consequences at the level of the relational orders — always in contrast to the Theory of the Relation itself.

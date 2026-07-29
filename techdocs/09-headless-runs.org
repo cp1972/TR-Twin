@@ -3,12 +3,25 @@
 #+LANGUAGE: en
 #+OPTIONS: toc:t num:t H:4 ^:nil
 
+* Before you start
+
+This document describes how to drive the twin from the command line, without a
+browser. It is addressed to readers who need results that can be regenerated
+exactly — for a publication, for a replication, or for a batch of runs too large
+to perform by hand.
+
+The remainder assumes familiarity with Node.js at the level of running a script
+from a terminal. Readers who do not need reproducible batch output can omit this
+document entirely: everything it describes can also be done in the interface,
+though less economically and without the guarantee of an identical repetition.
+
 * What this is for
 
 =tr-twin.html= is a self-contained web app, but its simulation is plain, deterministic
 JavaScript: the browser only draws the result. So the app can also be driven *without a
 browser* ("headless") from the command line, in order to produce reproducible metrics and
-figures — for example the figures of the book.
+figures — for example the figures reproduced in this documentation and in the
+worked examples.
 
 Same seed + same profile ⇒ bit-identical results. Every figure can therefore be traced
 back to: app version + profile + seed + run mode + number of steps.

@@ -3,6 +3,20 @@
 #+OPTIONS: toc:nil num:t ^:nil
 #+LANGUAGE: en
 
+* Before you start
+
+This document describes the procedure for reading a relational field from a very
+small number of cases, and the assumptions on which that reading rests. It is
+addressed to the situation in which a full cohort is unavailable — the common
+situation in qualitative research.
+
+The underlying idea is that a trajectory carries information about the field it
+traversed: the channels that stood open, the points at which movement was
+arrested, the instances that certified or refused. A single trajectory
+under-determines the field, and nothing in what follows should be taken to
+suggest otherwise. What the procedure offers is a disciplined way of making the
+structural hypotheses implicit in a biography explicit and therefore contestable.
+
 * What it is
 
 The /prism mode/ reads the whole system through a few units (N = 1–5) instead of aggregating the whole cohort. This document covers the *actor* side, now implemented in the twin: each biography is read as a test particle whose trajectory reveals the state of the field. Where the actor can pass, where they get stuck, how fast they circulate, and how their own status rises or falls are traces of the field they traverse (permeability, regime, satellisation, the actor's own category). The stance is abductive and heuristic — a single actor under-determines the field — but a well-chosen handful should reproduce, in miniature, the reading obtained from the full cohort (the falsification discipline, applied to the empirical run).

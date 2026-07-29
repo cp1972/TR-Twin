@@ -5,6 +5,20 @@
 
 # Status: version 62 (v62). Living document.
 
+* Before you start
+
+This document sets out a procedure for research designs that rest on a small
+number of interviews with people who staff mediation or control instances. It
+leads from such material to a scenario in the twin that is fictitious but
+defensible — that is, one whose assumptions are stated, whose consequences follow
+from them, and which can therefore be criticised on either count.
+
+The distinction between a scenario and a prediction should be kept in view
+throughout. A scenario extends a documented tendency under an explicit
+transformation and shows how the relational orders would reconfigure if that
+transformation held. It is an argument made precise. Nothing in the procedure
+licenses a claim about what will occur.
+
 * What this protocol is for
 
 Many qualitative master's projects rest on a small number of interviews (typically

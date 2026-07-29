@@ -5,6 +5,27 @@
 
 # Status: version 62 (v62). Living document.
 
+* Before you start
+
+This document describes how empirical material is brought into the twin and what
+the interface does with it once loaded. It covers three kinds of input —
+aggregate demographics, controller profiles, and actor cohorts — and the
+scenario panel that extends a loaded history into a projection.
+
+The three inputs answer different questions and are not interchangeable.
+Demographics supply population weights over time and suit material that is
+already aggregated. A controller profile governs the controls rather than the
+data, and is the form in which a theoretical reading is expressed. An actor
+cohort supplies individual trajectories and is the appropriate form for
+biographical or archival material; in this case the cohort governs the model
+directly, and the measures are read on the cohort itself.
+
+Which to use is a decision about the material rather than about the software.
+Where a cohort is thin, the caution stated in
+[[file:04-methodology-of-the-tr-digital-twin.org][document 4]] applies: it is to
+be read as a probe rather than as a census, and the resolution at which it can
+be analysed follows from its size.
+
 * Data import (CSV)
 
 Real demographics are read in as CSV in absolute numbers. Format: one column "sphère" (A–D), one column "catégorie" (possessing, aspirants, conservatives, excluded, in this order), and one column per year. The sum of the four categories of a relational structure gives its population weight, their normalisation the composition — a single table of real numbers thus supplies both. The years form the keyframes of the timeline; in between, interpolation is applied.
