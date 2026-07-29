@@ -13,8 +13,11 @@ twin computes, and it presupposes the vocabulary introduced in
 [[file:00-start-here.org][document 0]] and developed in
 [[file:01-theory-of-the-relation-purpose-and-concepts.org][document 1]].
 
-Three points of orientation may assist a first reading. The mapping table below
-is the pivot of the whole documentation: every quantity in the model is there
+Three points of orientation may assist a first reading. A section on vocabulary
+follows the mapping table and defines the recurring terms — self-replica, chain,
+terminal, regime, viability, fortune, drainage, permeability, satellisation —
+which are afterwards used without further gloss. The mapping table itself is
+the pivot of the whole documentation: every quantity in the model is there
 assigned to the theoretical concept it is intended to render, and any mechanism
 described later can be traced back through it. The sections on the mathematical
 model proceed from the general to the particular and need not be read in order;
@@ -48,6 +51,69 @@ The following table maps the central concepts of the theory onto the quantities 
 | Mobility between structures | Migration of actors | along the chain and into other relational structures |
 | Inequality | Gini index + three levels | the cascade of the three levels — transversal, horizontal, vertical — has been implemented as a measurement since v59 |
 | Mediation instances | Force per type + power matrix + cascade | relation/sequence/sub-sequence/control per structure |
+
+* A note on vocabulary
+
+Two sets of names for the actor categories occur in this documentation and in
+the application. The theory designates them by their relation to circulation —
+*the possessing*, *the aspirants*, *the conservatives*, *the excluded*. The
+interface uses plainer equivalents — *Established*, *Aspirants*,
+*Conservatives*, *Disappointed* — with the theoretical term available as a
+tooltip. The two sets are interchangeable and are used interchangeably below;
+where a passage is close to the theoretical argument the first set tends to
+appear, and where it describes the interface, the second.
+
+The following terms recur throughout and are defined here rather than at each
+occurrence.
+
+- *Self-replica (core sequence).* Each structure contains one sequence that
+  reproduces the structure's own principle — the sequence =g[x][x]=, in which
+  row and column coincide. A structure whose self-replica governs it is
+  autonomous; where another sequence governs, the structure is a satellite of
+  the structure to which that sequence belongs.
+
+- *Chain.* The ordered succession through which circulation traverses a
+  structure's four sequences. It is what distinguishes the structures from one
+  another, and it is plastic: the order can reorganise itself over the course of
+  a run.
+
+- *Terminal.* The sequence at which a chain ends, and toward which circulation
+  is drawn within that structure.
+
+- *Regime (ruler).* Which sequence currently governs a structure. Determined by
+  viability and held with hysteresis — a small margin that prevents the regime
+  from oscillating when two sequences are of nearly equal viability.
+
+- *Viability.* A bell-shaped function of a sequence's size: too small is not
+  viable, too large is not viable either, with an adjustable optimum between.
+  It is the quantity from which regime and expansion follow.
+
+- *Fortune.* The quantity governing vertical movement between actor categories
+  within a sequence, compounded from the viability of the sequence and the size
+  of its structure. High fortune drives ascent, low fortune descent.
+
+- *Drainage (Entleerung).* The release of mass from a sequence to the
+  corresponding sequences of the other structures, driven by its share of
+  excluded actors. It is the mechanism by which the features of one structure
+  propagate across society.
+
+- *Permeability.* An explicit diffusion between structures, distinct from
+  drainage: each sequence is drawn toward the cross-structural mean of its
+  column. High permeability makes the structures resemble one another
+  internally; low permeability lets each retain its own texture.
+
+- *Satellisation.* The condition of a structure that is at once shrinking and
+  dominated: it loses internal solidity, is absorbed by the dominant structure
+  and draws closer to it in the display. It is reversible.
+
+- *Verified headless.* A note recording that the mechanism in question was
+  tested outside the browser, from the command line, before entering the
+  application. The figures given in such notes state the range over which the
+  behaviour was observed, and thus the bounds within which the description holds.
+
+Quantities written in capitals — =KDIFF=, =KCAP= and the like — are model
+constants. Their values are given at the point of use and can be located in
+=tr-twin.html= by name.
 
 * Architecture of the digital twin
 
