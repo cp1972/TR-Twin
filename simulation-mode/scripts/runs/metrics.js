@@ -1,5 +1,5 @@
-// Compute end-state metrics for a list of configurations (profile + cursor overrides).
-// Usage: node metrics.js <app.html> <spec.json> [out.json]
+// Kennzahlen des Endzustands für eine Liste von Konfigurationen (Profil und abweichende Regler).
+// Aufruf: node metrics.js <app.html> <spec.json> [aus.json]
 // spec.json: [{ "label":"TR", "profile":null, "cursors":{} }, { "label":"Parsons", "profile":"./simulation-mode/profiles/profil_Parsons.csv" }, ...]
 const fs = require('fs');
 const path = require('path');

@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
-"""Cohorte d'instances complete pour le mode recensement : reprend les 60 instances du
-catalogue (fondation, structure, sequence, categorie) et ajoute une courbe de poids
-GENERIQUE (fondation -> apogee -> declin) sur une duree de vie estimee. Poids illustratifs."""
+"""
+Vollständige Instanzenkohorte für den Erhebungsmodus: übernimmt die 60 Instanzen des
+Verzeichnisses (Gründung, Struktur, Sequenz, Kategorie) und legt eine GENERISCHE
+Gewichtskurve darüber (Gründung -> Höhepunkt -> Rückgang) über eine geschätzte
+Lebensdauer. Die Gewichte sind illustrativ.
+"""
 import csv
 rows=list(csv.DictReader(open('data-mode/data/instances/instances_extract_contract.csv')))
 by={}
@@ -22,7 +25,7 @@ for a,rs in by.items():
     pky=f+round(0.40*(close-f))
     s=base['structure']; q=base['sequence']; c=base['categorie'] or 'aspirant'
     pts=[(f,0.12),(pky,round(peakh,2)),(close,0.08)]
-    # dedoublonnage annees
+    # doppelte Jahreseinträge entfernen
     seen=set(); cpts=[]
     for (yy,ww) in pts:
         if yy in seen: continue

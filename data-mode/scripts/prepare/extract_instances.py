@@ -1,19 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Step 1 of the instance side: harvest the mediation instances each actor touched,
-from the free-text fields of actors.csv (career_raw, affiliations_raw).
-
-Heuristic, NOISY by design — this is a candidate set for human review, not a clean
-register. It combines (a) role cues (editor of / correspondent for / member of / founded …)
-and (b) institution suffixes (… Times / Society / Union / Press …), dates each mention
-when a year sits nearby, and proposes a PROVISIONAL TR structure (A/B/C/D) and level.
-
-Output: instances_extracted.csv  +  a printed summary.
+Schritt 1 der Instanzenseite: die Vermittlungsinstanzen einsammeln, die jeder Akteur
+berührt hat, aus den Rohtexten der Biographien.
 """
 import csv, re, collections
 
-# ---- TR classification buckets (provisional) -------------------------------
+# ---- Einordnung nach der TR (vorläufig) ------------------------------------
 NEWSPAPER = ("Times","News","Mail","Guardian","Citizen","Express","Herald","Star","Gazette",
              "Chronicle","Mercury","Advertiser","Observer","Mirror","Telegraph","Courier",
              "Standard","Operative","Syndicalist","Reporter","Echo","Post","Dispatch","Clarion",
@@ -41,7 +34,7 @@ def classify(name):
 
 ALL_KW = NEWSPAPER+LITERARY+PUBLISH+CULTURE_S+POLITICAL+COMPANY
 
-# ---- name & cue patterns ---------------------------------------------------
+# ---- Namens- und Signalmuster ----------------------------------------------
 TOK  = r"[A-Z][A-Za-z0-9'’.\-&]+"
 CONN = r"(?:of|the|and|for|&|in|on|de|du|to)"
 NAME = r"(?:the\s+|of\s+)?(" + TOK + r"(?:\s+(?:" + CONN + r"\s+)?" + TOK + r"){0,5})"
@@ -72,13 +65,13 @@ def nearby_year(text, end):
 
 def extract(text):
     found = {}   # norm_name -> (display, cue, year)
-    # (a) cue-based
+    # (a) über Signalwörter
     for m in CUE_RE.finditer(text):
         nm = clean(m.group(1))
         if len(nm) < 3 or nm.split()[0] in STOP: continue
         yr = nearby_year(text, m.end())
         found.setdefault(nm.lower(), (nm, m.group(0).split()[0]+"…", yr))
-    # (b) suffix-based (names containing an institution keyword)
+    # (b) über die Endung (Namen, die ein Institutionswort enthalten)
     for m in SUF_RE.finditer(text):
         nm = clean(m.group(1))
         if has_kw(nm) and len(nm.split()) >= 2 and nm.split()[0] not in STOP:
@@ -105,7 +98,7 @@ def main():
     with open("instances_extracted.csv","w",newline="",encoding="utf-8") as f:
         w=csv.DictWriter(f,fieldnames=["entry_id","surname","instance","type","struct_guess","level_guess","year","cue","field"])
         w.writeheader(); w.writerows(rows)
-    # summary
+    # Zusammenfassung
     print("TOTAL mentions extracted:", len(rows),
           "across", len({r['entry_id'] for r in rows}), "actors\n")
     print("=== by type (provisional TR structure) ===")

@@ -1,16 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Prism-mode prototype — ACTOR side.
-Reads 1-5 cohort trajectories as PROBES (test particles) and produces, for each,
-a "prism reading sheet": the field-traces its biography reveals.
-
-Input  : out/cohorte_contrat.csv  (aid,annee,structure,categorie,sequence)
-         out/circulation_profiles.csv (names, birth)  + out/actors.csv (father,title)
-Output : prism_readings.csv  +  fig_prism_acteurs.png  +  printed sheets
-
-The same logic runs on the simulator's actor-transition export (long format),
-so the probe reading can later be produced live from the running model.
+Prototyp des Prismenmodus — Seite der Akteure.
+Liest ein bis fünf Laufbahnen der Kohorte als SONDEN (Testteilchen im relationalen Feld).
 """
 import csv, json
 import matplotlib
@@ -18,10 +10,10 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
-# --- probes (entry_id): an arc across the two regimes -----------------------
+# --- Sonden (entry_id): ein Bogen über beide Regime -------------------------
 PROBES = ["735", "430", "235", "108", "481"]   # Watson, Leno, Farish, Burgess, Mann
 
-# --- status scale (matches the vertical-Gini ranking in the simulator) ------
+# --- Statusskala (entspricht der vertikalen GINI-Reihung im Simulator) ------
 STATUS = {"etabli": 3, "aspirant": 2, "conservateur": 1, "decu": 0,
           "possedant": 3, "exclu": 0}            # tolerate synonyms
 STATUS_LABEL = {3: "established", 2: "aspirant", 1: "conservative", 0: "disappointed"}
@@ -73,11 +65,11 @@ def reading(aid, path, meta):
     structs = [s for _, s, _, _ in path]
     cats = [STATUS[c] for _, _, c, _ in path if c in STATUS]
     span = (path[0][0], path[-1][0])
-    # vertical fate
+    # vertikaler Werdegang
     net = (cats[-1] - cats[0]) if cats else None
     nrev = sum(1 for a, b, c in zip(cats, cats[1:], cats[2:])
                if (b - a) * (c - b) < 0) if len(cats) >= 3 else 0
-    # field reading heuristics
+    # Heuristiken zum Ablesen des Feldes
     cr = crossings(path)
     ends_B = structs[-1] == "B"
     a_to_c = any(s0 == "A" and s1 == "C" for s0, s1 in cr)

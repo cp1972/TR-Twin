@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Code le métier du père -> HISCLASS/HISCAM, puis compare origine->destination de la cohorte aux bases publiées.
+# Väterberufe nach HISCLASS/HISCAM codieren und Herkunft -> Ziel der Kohorte mit den veröffentlichten Daten vergleichen.
 import csv, re
 from collections import Counter, defaultdict
 
-# concept -> (hisclass, hiscam) depuis le lexique ; variants depuis code_structure_seq
+# Begriff -> (HISCLASS, HISCAM) aus dem Lexikon; die Varianten aus 04_code_structure_seq
 L={r['concept_or_term']:r for r in csv.DictReader(open('out/occupation_lexicon.csv',encoding='utf-8-sig'))}
-src=open('code_structure_seq.py').read(); ns={}; exec(src[src.index('VAR = {'):src.index('# avocational')],ns); VAR=ns['VAR']
+src=open('04_code_structure_seq.py').read(); ns={}; exec(src[src.index('VAR = {'):src.index('# avocational')],ns); VAR=ns['VAR']
 CC={c:(L[c]['hisclass'],L[c]['hiscam']) for c in L if L.get(c,{}).get('kind')=='concept' and L[c]['hisco']}
-# add generic proxies for fathers (often shopkeeper/clerk etc.)
+# generische Näherungen für die Väter ergänzen (oft Krämer, Schreiber und ähnliche)
 GEN={'manager':('3','84.88'),'clerk':('5','69.59'),'shopkeeper':('3','81.33'),'proprietor':('3','81.33'),
      'agent':('11','51.9'),'salesman':('4','73.55')}
 for g,v in GEN.items(): CC.setdefault(g,v)
@@ -43,13 +43,13 @@ for r in A:
     fhc=CC[fc][0]; band=cls_band(fhc)
     if band is None: continue
     n_father+=1; orig[band]+=1
-    # destination du fils : HISCLASS de l'étape au HISCAM max (pic)
+    # Ziel des Sohnes: HISCLASS der Etappe mit dem höchsten HISCAM-Wert
     p=prof.get(r['entry_id'],{})
     dest=None
     if p.get('cam_max'):
-        # retrouver l'étape codée au pic
+        # die codierte Etappe am Höhepunkt wiederfinden
         dest_hc=None
-        # approx : on relit stages
+        # Näherung: die Etappen werden erneut gelesen
         pairs.append((r['entry_id'],band,fc,float(p['cam_max']) if p['cam_max'] else None))
 print(f"pères codés : {n_father}/{len(A)}")
 print("\nclasse d'origine (père) :")
@@ -57,15 +57,15 @@ for b,c in orig.most_common(): print(f"  {b:<32} {c:>3} ({100*c/n_father:.0f}%)"
 father_manual=sum(orig[b] for b in MANUAL)
 print(f"\npères manuels (classe ouvrière) : {father_manual}/{n_father} ({100*father_manual/n_father:.0f}%)")
 
-# destination : reconstruire HISCLASS au pic depuis stages
+# Ziel: HISCLASS am Höhepunkt aus den Etappen rekonstruieren
 S=list(csv.DictReader(open('out/stages_long_final.csv',encoding='utf-8-sig')))
 byA=defaultdict(list)
 for s in S:
     if s['hiscam']: byA[s['entry_id']].append((float(s['hiscam']),s['hisclass']))
 dest_band={}
 for eid,lst in byA.items():
-    lst.sort(); dest_band[eid]=cls_band(lst[-1][1])  # au pic HISCAM
-# parmi pères manuels, destination des fils
+    lst.sort(); dest_band[eid]=cls_band(lst[-1][1])  # am HISCAM-Höhepunkt
+# unter den Vätern in manuellen Berufen: wohin die Söhne gelangen
 fm=[]
 for r in A:
     fc=code_father(r.get('father_occupation','') or r.get('father_raw',''))

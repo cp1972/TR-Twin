@@ -16,6 +16,6 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   console.log('Profil par séquence (capacité par cellule capCell[x][q]) :');
   console.log('        seqA   seqB   seqC   seqD');
   for(let x=0;x<4;x++)console.log('  '+NM[x]+'   '+cc.cell[x].map(v=>v.toFixed(3)).join('  '));
-  // sauvegarder pour la figure
+  // für die Abbildung sichern
   fs.writeFileSync('/tmp/capcell.json',JSON.stringify(cc));
 })();

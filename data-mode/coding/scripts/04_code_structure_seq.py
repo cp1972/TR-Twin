@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-# Structure (domaine) + Séquence (mode) par étape, couche occupationnelle + avocationnelle.
-# Structures : A=Kultur B=Politik C=Wirtschaft D=Medien
-# Séquences (mode dans la structure hôte) : A=noyau/relation B=représentation C=production D=diffusion/contrôle
+# Struktur (Bereich) und Sequenz (Modus) je Etappe, berufliche und avokationale Schicht.
+# Strukturen: A=Kultur B=Politik C=Wirtschaft D=Medien
+# Sequenzen (Modus in der aufnehmenden Struktur): A=Kern/Relation B=Repräsentation C=Produktion D=Verbreitung/Kontrolle
 import csv, re, statistics
 from collections import defaultdict, Counter
 
-# concept -> (structure, séquence, à_valider) ; ancres de l'utilisateur en dur
+# Begriff -> (Struktur, Sequenz, zu_prüfen); die Ankerfälle sind fest eingetragen
 SS = {
  # --- Kultur (A) ---
  'author':('A','A',False),'painter_artist':('A','A',False),'musician':('A','A',False),'actor':('A','A',False),
- 'teacher':('A','A',True),'lecturer':('A','A',False),                      # ancre A.A
- 'minister_religion':('A','B',False),'missionary':('A','B',False),          # ancre A.B
- 'printer':('A','C',False),'compositor':('A','C',False),                    # ancre A.C
+ 'teacher':('A','A',True),'lecturer':('A','A',False),                      # Anker A.A
+ 'minister_religion':('A','B',False),'missionary':('A','B',False),          # Anker A.B
+ 'printer':('A','C',False),'compositor':('A','C',False),                    # Anker A.C
  'publisher':('A','D',True),'bookseller':('A','D',True),
  # --- Politik (B) ---
  'legislator':('B','B',True),'union_official':('B','D',True),'secretary':('B','B',True),
@@ -47,19 +47,19 @@ VAR = {
  'proprietor':['proprietor'],'clerk':['clerk'],'shopkeeper':['shopkeeper','grocer','dealer'],'assistant':['assistant'],
  'miner':['miner','collier','pitman','colliery'],
 }
-# avocational lexicon (affiliations + publications) -> (structure, séquence)
+# avokationales Lexikon (Mitgliedschaften und Veröffentlichungen) -> (Struktur, Sequenz)
 AVOC = [
- # religion -> A.B
+ # Religion -> A.B
  (['church','chapel','methodist','baptist','congregational','wesleyan','quaker','catholic','dissenting',
    'lay preacher','sunday school','nonconformist','unitarian','salvation army'],'A','B'),
- # culture proper -> A.A
+ # Kultur im engeren Sinn -> A.A
  (['poet','poetry','poems','novel','novelist','hymn','playwright','painting','choir','literary society',
    'self-education','self-taught','botanist','naturalist'],'A','A'),
- # politics -> B (représentation)
+ # Politik -> B (Repräsentation)
  (['labour party','independent labour','ilp','socialist','social democratic','chartist','fabian',
    'trade union','miners federation','co-operative','co-op','guild','radical','liberal','political',
    'councillor','alderman','parliamentary','candidate'],'B','B'),
- # media -> D
+ # Medien -> D
  (['journal','newspaper','periodical','magazine','edited','editor','press','published in','contributor to'],'D','A'),
 ]
 def norm(s):
@@ -107,7 +107,7 @@ for eid in sorted(byact,key=lambda x:int(x)):
     avoc=avoc_touches((meta.get('affiliations_raw','') or '')+' '+(meta.get('content_tone','') or ''))
     touched_struct=set(x[0] for x in occ) | set(x[0] for x in avoc)
     touched_ss=set(occ) | avoc
-    # crossings on occupational order
+    # Übergänge in der Reihenfolge der Berufsetappen
     trans=sum(1 for i in range(len(occ)-1) if occ[i][0]!=occ[i+1][0])
     horiz=sum(1 for i in range(len(occ)-1) if occ[i][0]==occ[i+1][0] and occ[i][1]!=occ[i+1][1])
     path='-'.join([occ[0][0]+'.'+occ[0][1]]+[occ[i][0]+'.'+occ[i][1] for i in range(1,len(occ)) if occ[i]!=occ[i-1]]) if occ else ''
@@ -124,7 +124,7 @@ print(f"étapes occupationnelles taguées (struct+seq) : {occ_tagged}/{len(S)} (
 byst=Counter(s['structure'] for s in S if s['structure'])
 DOM=dict(A='Kultur',B='Politik',C='Wirtschaft',D='Medien')
 print("structures (étapes occ.) :", ' | '.join(f"{k}/{DOM[k]} {byst.get(k,0)}" for k in 'ABCD'))
-# QA avec couche avocationnelle
+# Qualitätskontrolle mit avokationaler Schicht
 ok=tot=0
 for p in prof:
     d=p['destinations']; 

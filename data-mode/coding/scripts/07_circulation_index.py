@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Indice de circulation composite : axes vertical (HISCAM) + horizontal (séquence) + transversal (structure)
+# Zusammengesetzter Zirkulationsindex aus drei Achsen: vertikal (HISCAM), horizontal (Sequenz), transversal (Struktur)
 import csv, statistics
 from collections import defaultdict
 
-W=(1/3,1/3,1/3)  # pondérations (vertical, horizontal, transversal) — modifiables
+W=(1/3,1/3,1/3)  # Gewichtung (vertikal, horizontal, transversal) — änderbar
 
 V={r['entry_id']:r for r in csv.DictReader(open('out/circulation_profiles.csv',encoding='utf-8-sig'))}
 T={r['entry_id']:r for r in csv.DictReader(open('out/structure_profiles.csv',encoding='utf-8-sig'))}
@@ -12,7 +12,7 @@ def num(x):
     try: return float(x)
     except: return None
 
-# rassembler les acteurs analysables : ≥2 étapes codées HISCAM ET ≥2 étapes structurées
+# auswertbare Akteure sammeln: mindestens zwei HISCAM-codierte UND zwei strukturierte Etappen
 rows=[]
 for eid in V:
     v=V[eid]; t=T.get(eid,{})
@@ -29,11 +29,11 @@ for eid in V:
     })
 
 def pctile(vals):
-    # rang centile : fraction d'acteurs avec valeur <= x (moyenne des rangs pour ex æquo)
+    # Perzentilrang: Anteil der Akteure mit Wert <= x, bei Gleichstand der mittlere Rang
     s=sorted(vals); n=len(vals)
     out=[]
     for x in vals:
-        # position moyenne
+        # mittlere Position
         lo=sum(1 for y in s if y<x); eq=sum(1 for y in s if y==x)
         out.append((lo+ (eq+1)/2)/n)
     return out
@@ -58,7 +58,7 @@ print(f"indice : méd {statistics.median(idx):.1f} | moy {statistics.mean(idx):.
 conf=defaultdict(int)
 for r in rows: conf[r['confiance']]+=1
 print("confiance :", dict(conf))
-# corrélation avec destination
+# Korrelation mit dem Zielzustand
 print("\nindice moyen par destination :")
 byd=defaultdict(list)
 for r in rows: byd[r['destinations']].append(r['index'])

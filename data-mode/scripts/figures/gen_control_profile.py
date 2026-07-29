@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Heatmap : capacite de controle PAR SEQUENCE (capCell[structure][sequence]) = regulation
-differentielle. Recalcule depuis le parc. Theme clair (publication)."""
+"""
+Wärmekarte der Kontrollkapazität JE SEQUENZ (capCell[Struktur][Sequenz]), also der
+differentiellen Regulierung. Aus dem Bestand neu berechnet. Helles Thema, satzfertig.
+"""
 import csv, math, sys
 KCAP,S0,LAM=1.0,0.5,0.8; YEAR=int(sys.argv[4]) if len(sys.argv)>4 else 1900
 THEME=sys.argv[1] if len(sys.argv)>1 else 'light'
@@ -43,7 +45,7 @@ W,H=720,575; L=150; T=120; cs=104
 def col(v):
     t=(v-1.0)/(mx-1.0) if mx>1 else 0
     t=max(0,min(1,t)); r,g,b=PAL['hue']
-    # mélange empty -> hue
+    # Übergang von der Leerfarbe zum Farbton
     import re
     er,eg,eb=(int(PAL['empty'][1:3],16),int(PAL['empty'][3:5],16),int(PAL['empty'][5:7],16))
     R=int(er+(r-er)*t); G=int(eg+(g-eg)*t); B=int(eb+(b-eb)*t)

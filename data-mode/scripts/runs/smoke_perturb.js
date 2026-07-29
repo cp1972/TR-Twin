@@ -28,7 +28,7 @@ setTimeout(()=>{
   }catch(e){ok=false;console.log("✗ exécution panneau :",e.message);}
   const pb=w.document.getElementById('perturbBox');
   console.log("✓ panneau de perturbation manuelle retiré ?", pb?'NON (présent)':'oui');
-  // pipeline POIDS
+  // Verarbeitungskette GEWICHTE
   try{const rec=w.parseContractCSV(fs.readFileSync('data-mode/data/instances/instances_probe_demo.csv','utf8'));
     const withW=rec.filter(r=>r.w!=null).length;
     const by=w.buildCohortByActor(rec);

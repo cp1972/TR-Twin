@@ -30,7 +30,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   await loadFile('contractfile',cohort,'cohorte_contrat.csv');
   const tlstart=w.document.getElementById('tlstart').value, tlend=w.document.getElementById('tlend').value;
   console.log('cohorte chargée · timeline',tlstart,'→',tlend,'· statut:',(w.document.getElementById('contractstatus').textContent||'').slice(0,60));
-  // run sans instances
+  // Lauf ohne Instanzen
   const rowsA=w.runSeries();
   await loadFile('probefile',insts,'data-mode/data/instances/instances_probe_demo.csv');
   console.log('instances · prismPick items:',w.document.getElementById('prismPick').children.length);
@@ -38,15 +38,15 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   let dmax=0;for(let i=0;i<Math.min(rowsA.length,rowsB.length);i++)dmax=Math.max(dmax,Math.abs(rowsA[i].gini-rowsB[i].gini));
   let dRG=0;for(let i=0;i<Math.min(rowsA.length,rowsB.length);i++)for(let x=0;x<4;x++)dRG=Math.max(dRG,Math.abs(rowsA[i].rGini[x]-rowsB[i].rGini[x]));
   console.log('Δgini global:',dmax.toFixed(4),'· Δgini interne max (par structure):',dRG.toFixed(4),dRG>0.003?'→ weightDrive ACTIF ✓':'');
-  // ---- circulation (depuis les transitions de la cohorte) ----
+  // ---- Zirkulation (aus den Übergängen der Kohorte) ----
   const rec=w.parseContractCSV(fs.readFileSync(COH,'utf8'));
   const tr=w.buildFullTransitions(rec); const FLUXW=40;
   function circAt(Y){const c=[0,0,0,0];let tot=0;for(const e of tr){if(e.year>Y-FLUXW&&e.year<=Y){if(e.sf===e.st)continue;c[e.sf]++;c[e.st]++;tot++;}}return {c,tot};}
-  // ---- force des instances (depuis les poids) ----
+  // ---- Stärke der Instanzen (aus den Gewichten) ----
   const byI=w.buildCohortByActor(w.parseContractCSV(insts));
   const istruct={}; for(const a in byI) istruct[a]=byI[a][0].s;
   function forceAt(Y){const f=[null,null,null,null];for(const a in byI){const wv=w.probeWeightAt(byI[a],Y);if(wv==null)continue;const x=istruct[a];f[x]=(f[x]==null)?wv:Math.max(f[x],wv);}return f.map(v=>v==null?0:v);}
-  // ---- assemblage ----
+  // ---- Zusammenführung ----
   const years=rowsB.map(r=>r.year);
   const struct={0:{circ:[],force:[],gini:[],recip:[]},1:{circ:[],force:[],gini:[],recip:[]},2:{circ:[],force:[],gini:[],recip:[]},3:{circ:[],force:[],gini:[],recip:[]}};
   const overall={circ:[],force:[],gini:[],recip:[]};

@@ -1,41 +1,41 @@
 # -*- coding: utf-8 -*-
-# Comparaisons A (destination, deux points) et B (intensité à résolution dégradée) vs table-référence.
+# Vergleich A (Zieldimension, zwei Punkte) und B (Intensität bei angeglichener Auflösung) gegen die Referenztabelle.
 import csv, math, statistics
 from collections import defaultdict
 
 A={r['entry_id']:r for r in csv.DictReader(open('out/actors.csv',encoding='utf-8-sig'))}
 S=list(csv.DictReader(open('out/stages_long_final.csv',encoding='utf-8-sig')))
 
-def band5(h):  # HISCLASS -> classe Miles (I..V) ; None si vide
+def band5(h):  # HISCLASS -> Klasse nach Miles (I bis V); None, wenn leer
     try:h=int(h)
     except:return None
     if h<=2:return 'I'      # Professional
-    if h<=5:return 'II'     # Intermediate (non-manuel inf.)
+    if h<=5:return 'II'     # Intermediate (unteres nicht-manuelles Segment)
     if h in(6,7):return 'III'  # Skilled
     if h==8:return 'F'      # Farmer
     if h in(9,10):return 'IV'  # Semi
     return 'V'              # Unskilled
 NONMAN={'I','II'}; MANUAL={'III','IV','V'}
 
-# ---- Wilson 95% CI ----
+# ---- Wilson-Konfidenzintervall, 95 % ----
 def wilson(k,n,z=1.96):
     if n==0:return (0,0)
     p=k/n; d=1+z*z/n
     c=(p+z*z/(2*n))/d; h=z*math.sqrt(p*(1-p)/n+z*z/(4*n*n))/d
     return (max(0,c-h),min(1,c+h))
 
-# ===== A : destination (deux points : père -> pic du fils) =====
-# pic HISCLASS via HISCAM max
+# ===== A: Zieldimension (zwei Punkte: Vater -> Höhepunkt des Sohnes) =====
+# HISCLASS am HISCAM-Höhepunkt
 byA=defaultdict(list)
 for r in S:
     if r['hiscam'] and r['hisclass']:
         byA[r['entry_id']].append((float(r['hiscam']),r['hisclass']))
 peak_band={eid:band5(sorted(v)[-1][1]) for eid,v in byA.items()}
 
-# pères manuels (réutilise le codage de father_coding)
+# Väter in manuellen Berufen (nutzt die Codierung aus 10_father_coding)
 import importlib.util
 spec=importlib.util.spec_from_file_location("fc","10_father_coding.py")
-# father_coding imprime ; on réimplémente le minimum ici pour récupérer la liste
+# 10_father_coding gibt nur aus; das Nötigste wird hier nachgebaut, um die Liste zu erhalten
 import re
 L={r['concept_or_term']:r for r in csv.DictReader(open('out/occupation_lexicon.csv',encoding='utf-8-sig'))}
 src=open('04_code_structure_seq.py').read(); ns={}; exec(src[src.index('VAR = {'):src.index('# avocational')],ns); VAR=ns['VAR']
@@ -68,7 +68,7 @@ print(f"  -> Professional (Miles I): {elite}/{n} = {100*elite/n:.0f}%  [95%-KI {
 print(f"  -> nicht-manuell (I–II)  : {nonman}/{n} = {100*nonman/n:.0f}%  [95%-KI {100*cn[0]:.0f}–{100*cn[1]:.0f}%]   Referenz ~5%   => RR ~{(nonman/n)/0.05:.0f}×")
 print(f"  konservativ (untere KI-Grenze Elite {100*ce[0]:.0f}% vs 0,2%) => RR ~{ce[0]/0.002:.0f}×")
 
-# ===== B : intensité à résolution dégradée =====
+# ===== B: Intensität bei angeglichener Auflösung =====
 def years(eid):
     by=A.get(eid,{}).get('birth_year','')
     try:base=int(by)
@@ -101,7 +101,7 @@ for eid,seq in traj.items():
     if len(seq)<2: continue
     tot+=1
     fine_changes.append(len(fc_seq)-1)
-    # manuel -> non-manuel (à un moment) au grain fin et décennal
+    # manuell -> nicht-manuell (irgendwann), fein und dekadisch aufgelöst
     if any(b in NONMAN for b in fine) and fine[0] in MANUAL: cross_fine+=1
     if len(dec)>=2:
         analys_dec+=1

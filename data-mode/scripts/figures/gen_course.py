@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""Figure d'approfondissement : circulation transversale atypique (presence des auteurs ouvriers
-en A et D) et ses mediations (instances de mediation + capacite de controle), + reciprocite.
-Theme clair (publication)."""
+"""
+Vertiefungsabbildung: die atypische transversale Zirkulation (Präsenz der Arbeiterautoren
+in A und D) und ihre Vermittlungen (Vermittlungsinstanzen und Kontrollkapazität),
+dazu die Reziprozität. Helles Thema, satzfertig.
+"""
 import json, math, sys
 d=json.load(open('/tmp/course.json'))
 THEME=sys.argv[1] if len(sys.argv)>1 else 'light'
@@ -41,7 +43,7 @@ for pi,(key,lab) in enumerate(panels):
     S.append(f'<rect x="{px:.1f}" y="{TOP}" width="{pw:.1f}" height="{ph}" fill="none" stroke="{PAL["frame"]}" stroke-width="1"/>')
     for gy in (0.5,1.0): S.append(f'<line x1="{px:.1f}" y1="{ys(gy):.1f}" x2="{px+pw:.1f}" y2="{ys(gy):.1f}" stroke="{PAL["grid"]}" stroke-width="1"/>')
     S.append(f'<text x="{px+pw/2:.1f}" y="{TOP-10}" fill="{PAL["title"]}" font-size="14" font-weight="600" text-anchor="middle">{lab}</text>')
-    # corrélations présence~médiation, présence~contrôle (sur la fenêtre où présence>0)
+    # Korrelationen Präsenz~Vermittlung und Präsenz~Kontrolle (nur wo Präsenz > 0)
     idx=[i for i in range(len(years)) if st['presence'][i]>0]
     if len(idx)>5:
         P=[st['presence'][i] for i in idx]; M=[st['med'][i] for i in idx]; C=[st['ctrl'][i] for i in idx]
@@ -54,7 +56,7 @@ for pi,(key,lab) in enumerate(panels):
     for sig,col,lab in SIG:
         arr=series[sig]; pts=' '.join(f'{xs(px,years[i]):.1f},{ys(arr[i]):.1f}' for i in range(len(years)))
         S.append(f'<polyline points="{pts}" fill="none" stroke="{col}" stroke-width="1.7" stroke-linejoin="round" opacity="0.92"/>')
-    # marqueur du pic de présence
+    # Marke für den Höhepunkt der Präsenz
     P=st['presence']; pmax=max(P); pi2=P.index(pmax); xx=xs(px,years[pi2])
     S.append(f'<line x1="{xx:.1f}" y1="{TOP}" x2="{xx:.1f}" y2="{TOP+ph}" stroke="#C0392B" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.5"/>')
     S.append(f'<text x="{xx:.1f}" y="{TOP-26}" fill="#C0392B" font-size="9.5" text-anchor="middle">peak {years[pi2]}: {pmax}</text>')

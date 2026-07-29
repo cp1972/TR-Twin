@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
-"""Figure : capacite de controle DERIVEE par structure (plancher de Ictrl) a partir d'un parc
-d'instances de controle. Gradation derivee, pas decretee. Theme clair (publication)."""
+"""
+Abgeleitete Kontrollkapazität je Struktur (die Untergrenze von Ictrl), berechnet aus
+einem Bestand von Kontrollinstanzen. Die Abstufung ist hergeleitet, nicht gesetzt.
+Helles Thema, satzfertig.
+"""
 import csv, math, sys
 KCAP,S0,LAM=1.0,0.5,0.8
 THEME=sys.argv[1] if len(sys.argv)>1 else 'light'
@@ -15,7 +18,7 @@ for a,rs in byA.items():
     rs=sorted(rs,key=lambda r:int(r['annee']))
     ys=[int(r['annee']) for r in rs]
     if YEAR<ys[0] or YEAR>ys[-1]: continue
-    # interp poids
+    # Gewichte interpolieren
     lo=rs[0]; hi=rs[-1]
     for r in rs:
         if int(r['annee'])<=YEAR: lo=r

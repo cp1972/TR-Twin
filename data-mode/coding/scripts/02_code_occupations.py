@@ -13,7 +13,7 @@ def find_code(*kws):
     cs.sort(key=lambda e:(sum(b in e['en'].lower() for b in BAD), len(e['en'])))
     return cs[0]
 
-# explicit, verified codes for unambiguous frequent concepts (from crosswalk probes)
+# geprüfte Festcodes für häufige, eindeutige Begriffe (aus Stichproben im Crosswalk)
 OVERRIDE={'teacher':'13000','journalist':'15915','editor':'15920','author':'15120',
  'printer':'92110','compositor':'92120','minister_religion':'14120','missionary':'14130',
  'messenger':'37040','legislator':'20110','musician':'17100','actor':'17320',
@@ -76,20 +76,20 @@ CODE={}
 for c,(vars_,kws,amb) in CONCEPTS.items():
     e = REF.get(OVERRIDE[c]) if c in OVERRIDE else (find_code(*kws) if kws else None)
     CODE[c]=(e,amb)
-# targeted corrections of misfiring auto-resolutions
-CODE['lecturer']=(REF.get('13000'),True)                                   # treat as teacher (generic), flag
+# gezielte Korrekturen fehlgehender automatischer Zuordnungen
+CODE['lecturer']=(REF.get('13000'),True)                                   # als Lehrkraft (generisch) behandeln, markieren
 _uo=find_code('labour','organ') or find_code('official','labour') or find_code('trade','union')
 CODE['union_official']=(_uo,True)
 _fl=find_code('agricultural','labourer') or find_code('field','crop') or find_code('agricultural')
 CODE['farm_labourer']=(_fl,False)
 _sol=find_code('armed','forces') or find_code('soldier')
 CODE['soldier']=(_sol,True)
-# batch corrections of ambiguous frequent concepts (defensible proxies, flagged for review)
+# Sammelkorrektur häufiger mehrdeutiger Begriffe (vertretbare Näherungen, zur Prüfung markiert)
 CODE['salesman']=(REF.get('43220'),False)          # Commercial Traveller 73.55
 CODE['manager']=(REF.get('21110'),True)            # General Manager 84.88
 CODE['agent']=(REF.get('45230'),True)              # Canvasser 51.9 (insurance/society agents)
 CODE['clerk']=(REF.get('39310'),True)              # Office Clerk, General 69.59
-CODE['secretary']=(REF.get('21110'),True)          # mostly union/org secretaries -> mgr proxy
+CODE['secretary']=(REF.get('21110'),True)          # überwiegend Gewerkschafts- und Verbandssekretäre, als Leitung genähert
 CODE['union_official']=(REF.get('21110'),True)
 CODE['shopkeeper']=(REF.get('41020'),True)         # Working Proprietor 81.33
 CODE['publisher']=(REF.get('41020'),True)
@@ -130,7 +130,7 @@ def resolve(term):
         if c:
             e,amb=CODE[c]
             if e: return c,e,'synonym',amb
-            if amb: return c,None,'ambiguous',True   # matched but deliberately uncoded -> review
+            if amb: return c,None,'ambiguous',True   # zugeordnet, aber bewusst nicht codiert, zur Prüfung
     simp=re.sub(r'[^a-z ]','',term)
     for e in REF.values():
         if simp and re.sub(r'[^a-z ]','',e['en'].lower())==simp: return term,e,'exact',False

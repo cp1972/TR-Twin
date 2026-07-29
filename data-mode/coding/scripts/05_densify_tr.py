@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Densification ciblée (niveau "trajectoire") + recalcul des deux règles TR.
-# Réintègre les codes-proxy des intitulés génériques (signalés approximatifs),
-# uniquement pour densifier les parcours, puis recalcule tr_absolute / tr_relative.
+# Gezielte Verdichtung auf Laufbahnebene, danach beide TR-Regeln neu berechnet.
+# Die Näherungscodes generischer Berufsbezeichnungen (als ungenau markiert) kommen wieder
+# hinein, allein um die Laufbahnen zu verdichten; dann tr_absolute und tr_relative neu.
 import csv, statistics, re
 from collections import defaultdict, Counter
 
-GENERIC_CODES = {  # concept -> (hisco, libellé, hisclass, hiscam)
+GENERIC_CODES = {  # Begriff -> (HISCO, Bezeichnung, HISCLASS, HISCAM)
  'manager':    ('21110','General Manager','3','84.88'),
  'agent':      ('45230','Canvasser','11','51.9'),
  'proprietor': ('41020','Working Proprietor (Wholesale/Retail)','3','81.33'),

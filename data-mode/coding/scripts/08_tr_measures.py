@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Lecture des mesures de la TR (§5.17) sur l'état empirique (S, g, act), formules portées du simulateur.
+# Die TR-Maße (§5.17) am empirischen Zustand ablesen (S, g, act), mit den Formeln des Simulators.
 import csv, json
 from collections import defaultdict
 
@@ -8,7 +8,7 @@ CAT={'Etablierte':0,'Anwaerter':1,'Bewahrende':2,'Enttaeuschte':3}  # val=[3,2,1
 VAL=[3,2,1,0]; N=4
 
 S=list(csv.DictReader(open('out/stages_long_final.csv',encoding='utf-8-sig')))
-# jeu cohérent : étapes ayant structure + sequence + tr_absolute
+# konsistenter Satz: Etappen mit Struktur, Sequenz und tr_absolute
 cnt=[[[0]*4 for _ in range(4)] for _ in range(4)]
 nused=0
 for r in S:
@@ -45,7 +45,7 @@ transv=gini(Sn)
 horiz=sum(structGini(x) for x in range(4))/N
 vert=sum(vertGiniX(x) for x in range(4))/N
 
-# baseline symétrique (P0 = composition par défaut)
+# symmetrischer Ausgangszustand (P0 = voreingestellte Zusammensetzung)
 P0=[0.22,0.28,0.28,0.22]
 mean0=sum(P0[c]*VAL[c] for c in range(4)); mad0=sum(P0[c]*P0[d]*abs(VAL[c]-VAL[d]) for c in range(4) for d in range(4))
 vert_base=mad0/(2*mean0)

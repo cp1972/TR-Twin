@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""Lignes de vie des instances de mediation : naissance -> force (poids) -> mort.
-Usage: python3 gen_lifelines.py [light|dark] [sortie.svg]
-Theme 'light' = fond blanc, pret pour publication."""
+"""
+Lebenslinien der Vermittlungsinstanzen: Entstehung -> Stärke (Gewicht) -> Ende.
+Aufruf: python3 gen_lifelines.py [light|dark] [ausgabe.svg]
+Das helle Thema hat weißen Grund und ist satzfertig.
+"""
 import csv, sys
 THEME = sys.argv[1] if len(sys.argv) > 1 else 'light'
 OUT = sys.argv[2] if len(sys.argv) > 2 else 'data-mode/figures/instances_lifelines.svg'

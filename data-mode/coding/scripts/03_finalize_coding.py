@@ -3,19 +3,20 @@ import csv, statistics
 from collections import Counter
 
 GENERIC_DROP = {'manager','agent','proprietor','clerk','shopkeeper','assistant'}
-# concepts kept WITH documented compromise:
+# Begriffe, die mit dokumentiertem Kompromiss bleiben:
 COMPROMISE = {'secretary','union_official','lecturer','engineer','bookseller','publisher','warehouseman','salesman'}
 
 S=list(csv.DictReader(open('out/stages_long_coded.csv',encoding='utf-8-sig')))
 L=list(csv.DictReader(open('out/occupation_lexicon.csv',encoding='utf-8-sig')))
 
-# map each stage to its lexicon line (by recomputing key is complex) -> instead use method:
-# Rule: keep a stage's code iff (it had a code) AND (its code came from a 'synonym' concept that is NOT generic-dropped).
-#  -> term/keyword/rescue codes are dropped (precision-first); generic concepts dropped.
-# We identify concept of each coded stage via its code_method: synonym=concept; others dropped.
-# But we also need the concept name; reconstruct from a concept->code map.
+# jede Etappe ihrer Lexikonzeile zuordnen; der Schlüssel ließe sich nur aufwendig neu bilden,
+# Regel: der Code einer Etappe bleibt nur, wenn sie einen hatte UND er aus einem
+#   Synonym-Begriff stammt, der nicht als generisch verworfen wurde.
+#   daher über code_method. Term-, Schlagwort- und Notcodes fallen weg (Präzision zuerst), generische Begriffe ebenfalls.
+# Der Begriff einer codierten Etappe steckt in code_method: synonym = Begriff, alles andere entfällt.
+# Den Begriffsnamen selbst rekonstruieren wir aus der Zuordnung Begriff -> Code.
 import importlib.util
-# Rebuild concept->hisco from the lexicon 'concept' lines:
+# Zuordnung Begriff -> HISCO aus den 'concept'-Zeilen des Lexikons neu aufbauen
 concept_code={r['concept_or_term']:r['hisco'] for r in L if r['kind']=='concept' and r['hisco']}
 code_concept={}
 for c,h in concept_code.items(): code_concept.setdefault(h,set()).add(c)
@@ -24,7 +25,7 @@ kept=0; dropped_generic=0; dropped_termnoise=0
 for st in S:
     keep=False
     if st['hisco_code'] and st['code_method']=='synonym':
-        # which concept? a synonym stage's code maps to a concept; if that concept is generic-dropped, drop
+        # welcher Begriff? eine Synonym-Etappe's code maps to a concept; if that concept is generic-dropped, drop
         cons=code_concept.get(st['hisco_code'],set())
         if cons & GENERIC_DROP and not (cons - GENERIC_DROP):
             dropped_generic+=1
@@ -38,14 +39,14 @@ for st in S:
         st['hisco_code']=st['hisclass']=st['hiscam']=''
         st['code_method']=st['code_review']=''
 
-# ---------- TR category rule (PROPOSAL): HISCAM level + trajectory direction ----------
+# ---------- Regel für die TR-Kategorie (Vorschlag): HISCAM-Niveau und Richtung der Laufbahn ----------
 cams=[float(s['hiscam']) for s in S if s['hiscam']]
-HIGH=round(statistics.quantiles(cams,n=3)[1],1)   # top tercile
-LOW =round(statistics.quantiles(cams,n=3)[0],1)   # bottom tercile
+HIGH=round(statistics.quantiles(cams,n=3)[1],1)   # oberes Terzil
+LOW =round(statistics.quantiles(cams,n=3)[0],1)   # unteres Terzil
 DELTA=3.0
 TRLABEL={3:'Etablierte',2:'Anwaerter',1:'Bewahrende',0:'Enttaeuschte'}
 
-# group by actor, in stage order, track previous coded HISCAM
+# nach Akteur gruppieren, in Etappenfolge, den vorigen codierten HISCAM-Wert mitführen
 from collections import defaultdict
 byact=defaultdict(list)
 for s in S: byact[s['entry_id']].append(s)

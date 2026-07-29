@@ -1,5 +1,5 @@
-// Hysteresis: run phase 1 with one cursor value, then CONTINUE (no reset) with another.
-// Usage: node hysteresis.js <app.html> <profile.csv> <cursorId> <v1> <n1> <v2> <n2> [out.json]
+// Hysterese: erste Phase mit einem Reglerwert fahren, dann OHNE Rücksetzen mit einem anderen weiter.
+// Aufruf: node hysteresis.js <app.html> <Profil.csv> <ReglerId> <v1> <n1> <v2> <n2> [aus.json]
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
 

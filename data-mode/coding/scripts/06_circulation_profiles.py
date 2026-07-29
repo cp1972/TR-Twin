@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Profils d'intensité de circulation par acteur, axe VERTICAL (HISCAM).
+# Zirkulationsintensität je Akteur auf der VERTIKALEN Achse (HISCAM).
 import csv, statistics
 from collections import defaultdict
 
-DELTA=3.0  # seuil pour qu'un pas compte comme montée/descente (sinon "plat")
+DELTA=3.0  # ab hier gilt ein Schritt als Auf- oder Abstieg, darunter als unverändert
 
 A={r['entry_id']:r for r in csv.DictReader(open('out/actors.csv',encoding='utf-8-sig'))}
 S=list(csv.DictReader(open('out/stages_long_final.csv',encoding='utf-8-sig')))
@@ -27,7 +27,7 @@ for eid,sts in byact.items():
     steps=[cams[i+1]-cams[i] for i in range(len(cams)-1)]
     amplitude=sum(abs(d) for d in steps)
     rng=max(cams)-min(cams)
-    # reversals: sign changes among non-flat steps
+    # Richtungswechsel: Vorzeichenwechsel unter den nicht unveränderten Schritten
     signs=[(1 if d>=DELTA else (-1 if d<=-DELTA else 0)) for d in steps]
     nz=[s for s in signs if s!=0]
     reversals=sum(1 for i in range(len(nz)-1) if nz[i]!=nz[i+1])
@@ -51,7 +51,7 @@ cols=['entry_id','surname','forename','destinations','birth_year','n_stages_tota
 with open('out/circulation_profiles.csv','w',encoding='utf-8-sig',newline='') as fh:
     w=csv.DictWriter(fh,fieldnames=cols); w.writeheader(); w.writerows(rows)
 
-# ---- résumé sur les acteurs avec ≥2 étapes codées (où l'amplitude a un sens) ----
+# ---- Auswertung der Akteure mit mindestens zwei codierten Etappen ----
 M=[r for r in rows if isinstance(r['n_stages_coded'],int) and r['n_stages_coded']>=2]
 def stat(key):
     v=[r[key] for r in M if r[key]!='']
@@ -66,7 +66,7 @@ print(f"  volatilité (ampl/étendue)   : {stat('volatility')}")
 rev=[r['n_reversals'] for r in M]
 print(f"\n  acteurs avec ≥1 renversement : {sum(1 for x in rev if x>=1)}/{len(M)} ({100*sum(1 for x in rev if x>=1)/len(M):.0f}%)")
 print(f"  acteurs avec ≥2 renversements: {sum(1 for x in rev if x>=2)}/{len(M)} ({100*sum(1 for x in rev if x>=2)/len(M):.0f}%)")
-# top circulateurs
+# die stärksten Zirkulierer
 print("\n--- top 8 « circulateurs » (amplitude verticale) ---")
 for r in sorted(M,key=lambda r:-r['amplitude'])[:8]:
     print(f"  {r['surname']:<14} ampl={r['amplitude']:>5} étendue={r['range']:>4} renvers.={r['n_reversals']} net={r['net']:>5} ({r['n_stages_coded']} ét. codées)")

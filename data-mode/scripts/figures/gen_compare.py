@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Figure de comparaison des 4 signaux (circulation, force des instances, inegalite, reciprocite)
-par structure A/B/C/D et pour l'ensemble. Theme clair (publication)."""
+"""
+Vergleich der vier Signale — Zirkulation, Stärke der Instanzen, Ungleichheit,
+Reziprozität — je Struktur A/B/C/D und für das Ganze. Helles Thema, satzfertig.
+"""
 import json, sys
 d=json.load(open('/tmp/signals.json'))
 THEME=sys.argv[1] if len(sys.argv)>1 else 'light'
@@ -11,11 +13,11 @@ SIG=[('circ','#D98A2B','circulation'),('force','#6B4F9E','instance force'),('gin
 years=d['years']; Y0,Y1=years[0],years[-1]
 panels=[('0','A \u00b7 Culture'),('1','B \u00b7 Politics'),('2','C \u00b7 Economy'),('3','D \u00b7 Media'),('overall','Overall')]
 def series(key,sig): return d['overall'][sig] if key=='overall' else d['struct'][key][sig]
-# normalisation circulation : structures comparables entre elles ; ensemble sur son propre max
+# Zirkulation normieren: Strukturen untereinander vergleichbar; das Ganze auf sein eigenes Maximum
 smax=max([max(d['struct'][str(x)]['circ']) for x in range(4)]+[1])
 omax=max(d['overall']['circ']+[1])
 def cnorm(key,v): return v/(omax if key=='overall' else smax)
-def val(key,sig,v): return cnorm(key,v) if sig=='circ' else v   # gini/recip/force deja 0-1
+def val(key,sig,v): return cnorm(key,v) if sig=='circ' else v   # GINI, Reziprozität und Stärke liegen schon zwischen 0 und 1
 
 W=1180; L=44; R=18; GAP=20; N=5
 pw=(W-L-R-(N-1)*GAP)/N; ph=232; TOP=92; BOT=40
@@ -32,16 +34,16 @@ for key,col,lab in SIG:
     S.append(f'<line x1="{lx}" y1="72" x2="{lx+22}" y2="72" stroke="{col}" stroke-width="2.6"/>')
     S.append(f'<text x="{lx+28}" y="76" fill="{PAL["sub"]}" font-size="11.5">{lab}</text>')
     lx+=28+len(lab)*6.6+22
-# agregation note (droite)
+# aggregierte Kennzahl (rechts)
 S.append(f'<text x="{W-R}" y="76" fill="{PAL["sub"]}" font-size="10" text-anchor="end">overall: total circ \u00b7 size-weighted force \u00b7 global Gini \u00b7 size-weighted recip</text>')
 for pi,(key,lab) in enumerate(panels):
     px=L+pi*(pw+GAP)
-    # cadre + grille
+    # Rahmen und Raster
     S.append(f'<rect x="{px:.1f}" y="{TOP}" width="{pw:.1f}" height="{ph}" fill="none" stroke="{PAL["frame"]}" stroke-width="1"/>')
     for gy in (0.5,1.0):
         S.append(f'<line x1="{px:.1f}" y1="{ys(gy):.1f}" x2="{px+pw:.1f}" y2="{ys(gy):.1f}" stroke="{PAL["grid"]}" stroke-width="1"/>')
     S.append(f'<text x="{px+pw/2:.1f}" y="{TOP-6}" fill="{PAL["title"]}" font-size="12.5" font-weight="600" text-anchor="middle">{lab}</text>')
-    # axes labels
+    # Achsenbeschriftung
     S.append(f'<text x="{px-4:.1f}" y="{ys(1.0)+4:.1f}" fill="{PAL["tick"]}" font-size="8.5" text-anchor="end" font-family="ui-monospace,monospace">1</text>')
     S.append(f'<text x="{px-4:.1f}" y="{ys(0.0)+2:.1f}" fill="{PAL["tick"]}" font-size="8.5" text-anchor="end" font-family="ui-monospace,monospace">0</text>')
     for yr in (1800,1850,1900,1950):

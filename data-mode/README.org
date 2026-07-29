@@ -51,7 +51,7 @@ with those instances — most tightly with the control apparatus (corr ≈ 0.97 
 | =scripts/prepare/= | extraction of the prism probe tables |
 | =scripts/runs/= | headless replays (Node.js + jsdom) |
 | =scripts/figures/= | figure generation (Python 3) |
-| =figures/= | the figures of the empirical run (SVG, light + =_dark=) |
+| =figures/= | the figures of the empirical run (SVG) |
 | =provenance/= | where the data comes from |
 
 * The data (=data/=)
@@ -66,7 +66,7 @@ with those instances — most tightly with the control apparatus (corr ≈ 0.97 
 - =instances/instances_cohort_demo.csv=, =control_parc_demo.csv=, =probes_extract_demo.csv= —
   illustrative/demo tables (generic weights) used by the documentation figures.
 
-* The figures (=figures/=, light + =_dark= variants)
+* The figures (=figures/=)
 
 - =instances_lifelines.svg= — birth → force (weight) → death of the mediation instances.
 - =signals_comparison.svg= — four signals (circulation, instance force, inequality, reciprocity)
