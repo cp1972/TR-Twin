@@ -83,6 +83,8 @@ data-mode/                  the empirical run
 
 In =techdocs/= (Org-mode, rendered by GitHub) — see [[file:techdocs/README.org][techdocs/README.org]] for the full index.
 
+*New here?* [[file:techdocs/00-start-here.org][Start here]] assumes no knowledge of the theory or the model: what the twin is, what it assumes, and what you can do with it — including when you have only a handful of cases.
+
 1. [[file:techdocs/01-theory-of-the-relation-purpose-and-concepts.org][Theory of the Relation: Purpose and Concepts]]
 2. [[file:techdocs/02-digital-twin-of-the-theory-of-the-relation.org][Digital Twin of the Theory of the Relation]] — theory → twin, architecture, the full model.
 3. [[file:techdocs/03-usage-of-the-tr-digital-twin.org][Usage]] — CSV import: demographics, controller profiles, actor cohorts.

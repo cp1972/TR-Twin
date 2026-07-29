@@ -6,6 +6,14 @@
 # Status: version 62 (v62). Living document, continuously updated.
 # Theoretical basis: Christian Papilloud & Eva-Maria Schultze, /Skizze einer Theorie der Relation/, Springer VS, Wiesbaden 2022 (ISBN 978-3-658-37922-3).
 
+* Before you start
+
+This document sets out the theory that the digital twin implements. It goes
+into detail and uses the theory's own vocabulary. If you have not met either
+the theory or the twin, read [[file:00-start-here.org][document 0]] first: it
+explains in plain terms what the twin is, what it assumes and what you can do
+with it, and it does not presuppose the theory.
+
 * Purpose and structure of this documentation
 
 This documentation describes the digital twin of the Theory of the Relation. It pursues two aims: first, to make visible the conceptual bridge between the sociological theory and its computational mechanisms, so that every quantity in the model can be assigned to a theoretical concept; second, to record the development state of the tool, so that later extensions remain traceable.

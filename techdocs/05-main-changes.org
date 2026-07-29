@@ -4,7 +4,6 @@
 #+LANGUAGE: en
 
 # Status: version 62 (v62). Living document.
-# Corresponds to point 8 of the master documentation.
 
 * Version history (selection)
 

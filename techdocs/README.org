@@ -2,11 +2,12 @@
 #+OPTIONS: toc:nil num:nil ^:nil
 #+LANGUAGE: en
 
-Ten chapters, in reading order. Chapters 1–2 are conceptual, 3–4 are for
-users, 5–10 are reference.
+Eleven chapters, in reading order. Document 0 is the entry point and assumes
+nothing; 1–2 are conceptual, 3–4 are for users, 5–10 are reference.
 
 | # | File | What it covers |
 |---+------+----------------|
+| 0 | [[file:00-start-here.org][Start here]] | what the twin is, what it assumes, what you can do with it |
 | 1 | [[file:01-theory-of-the-relation-purpose-and-concepts.org][Purpose and Concepts]] | the theory itself: structures, sequences, actor categories |
 | 2 | [[file:02-digital-twin-of-the-theory-of-the-relation.org][The Digital Twin]] | theory → twin, architecture, the full model |
 | 3 | [[file:03-usage-of-the-tr-digital-twin.org][Usage]] | CSV import: demographics, controller profiles, actor cohorts |

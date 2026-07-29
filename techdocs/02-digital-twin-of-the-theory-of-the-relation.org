@@ -4,7 +4,6 @@
 #+LANGUAGE: en
 
 # Status: version 62 (v62). Living document.
-# Corresponds to points 3, 4, 5, 6 of the master documentation.
 
 * Mapping: theory → digital twin
 
@@ -74,7 +73,7 @@ Migration is formulated as a mass flow and is fully conserving. It concerns abov
 
 *Declassing on arrival:* whoever switches into a foreign relational structure arrives declassed — they must resocialise. Their category is lowered on entry; if resocialisation succeeds (good fortune of the target structure), they rise again, otherwise they sink further (successive declassing). A control governs the level of these resocialisation costs.
 
-*Flight of the disappointed (fourth category).* Not only the established circulate: the disappointed too gradually leave their relational structure. A disappointed actor of the sequence (x, a) migrates into the relational structure a — that relational structure in which their sequence is the core sequence (Chapter 5 of the theory) — and arrives there "right at the bottom". If the switch succeeds (target structure not sclerosed), it relieves the abandoned relational structure and its mediation instances; if it is blocked, circulation backs up (friction). Freely possible out-migration thus reduces the questioning of the relational structure and maintains circulation; only the prevented flight is a sign of disturbed reciprocity.
+*Flight of the disappointed (fourth category).* Not only the established circulate: the disappointed too gradually leave their relational structure. A disappointed actor of the sequence (x, a) migrates into the relational structure a — that relational structure in which their sequence is the core sequence — the structure whose self-replica that sequence is — and arrives there "right at the bottom". If the switch succeeds (target structure not sclerosed), it relieves the abandoned relational structure and its mediation instances; if it is blocked, circulation backs up (friction). Freely possible out-migration thus reduces the questioning of the relational structure and maintains circulation; only the prevented flight is a sign of disturbed reciprocity.
 
 ** Fatigue of dominance and rupture
 
@@ -141,7 +140,7 @@ Each structure receives a force profile PT: the dominant instance stands at 1, t
 
 *** (2) Ascending coupling
 
-The surplus of a lower instance over its profile rises upward: max(0, I − PT) of the sub-sequence is added to the target of the sequence, that of the sequence to the target of the relation. The coupling factor LINK = [0.5; 0.6; 0.15; 0.5] (A/B/C/D) is deliberately weak in the economy (C) (0.15): the inertia of small instances whose local strength does not rise — the mathematical correlate of the volatility described in the Theory document.
+The surplus of a lower instance over its profile rises upward: max(0, I − PT) of the sub-sequence is added to the target of the sequence, that of the sequence to the target of the relation. The coupling factor LINK = [0.5; 0.6; 0.15; 0.5] (A/B/C/D) is deliberately weak in the economy (C) (0.15): the inertia of small instances whose local strength does not rise — the mathematical correlate of the volatility described in document 1 (Four diverging fates).
 
 *** (3) Threshold expansion (Pareto)
 
@@ -202,7 +201,7 @@ The Theory of the Relation thinks inequality on three nested levels. Up to v58 t
 
 *A positive baseline of the vertical level.* Unlike the transversal and the horizontal, the vertical level does not vanish at the symmetric state. Since each sequence carries from the outset a mixture of the four categories (default composition 0.22 / 0.28 / 0.28 / 0.22 for Established / Aspirants / Conservatives / Disappointed), it retains a positive baseline of ~0.40. This is theoretically coherent: status inequality is proper to any sequence that contains a spectrum of actor categories — it does not presuppose structural domination. Domination modulates this baseline, it does not produce it.
 
-*The cascade and its coupling.* The three levels form a nested hierarchy of scales — society → structure → sequence → actor — which the digital twin reads simultaneously. Theoretically central is their coupling: under domination the levels do not move in the same direction. The dominant structure, which takes in and socialises ever more actors, homogenises its apex — its inner differences flatten out (low horizontal and vertical inequality) — while the satellised structures stratify: their vertical inequality rises, since declassing and marginalisation drive their actors apart. Thus the transversal inequality between the structures translates downward into the vertical stratification of the dominated. This continues, at the level of the actor categories, what already holds for the sequences: satellisation reads on every scale. With this, the stratification anchored theoretically in the Theory document — the vertical, horizontal, and cross-structural mobility — receives, for each of its axes, its own inequality measure.
+*The cascade and its coupling.* The three levels form a nested hierarchy of scales — society → structure → sequence → actor — which the digital twin reads simultaneously. Theoretically central is their coupling: under domination the levels do not move in the same direction. The dominant structure, which takes in and socialises ever more actors, homogenises its apex — its inner differences flatten out (low horizontal and vertical inequality) — while the satellised structures stratify: their vertical inequality rises, since declassing and marginalisation drive their actors apart. Thus the transversal inequality between the structures translates downward into the vertical stratification of the dominated. This continues, at the level of the actor categories, what already holds for the sequences: satellisation reads on every scale. With this, the stratification set out in document 1 (Mobility and stratification) — the vertical, horizontal, and cross-structural mobility — receives, for each of its axes, its own inequality measure.
 
 *Display.* In the central panel a new block "Cascade · 3 levels (TR)" shows the three levels as bars (transversal, horizontal, vertical) and below them a row of the vertical inequality per structure (A/B/C/D), with the legend "the apex homogenises, the dominated stratify". The block sits between the evolution curve and the instance forces.
 

@@ -1,0 +1,243 @@
+#+TITLE: Start here: what the twin is, what it assumes, what you can do with it
+#+OPTIONS: toc:t num:t ^:nil
+#+LANGUAGE: en
+
+This document assumes nothing. Not the Theory of the Relation, not the book it
+comes from, not the model. Read it first if you have never met either; the
+other nine documents go into depth and expect you to have read this one.
+
+* What this is
+
+A digital twin is a runnable copy of something, kept close enough to the
+original that you can experiment on the copy instead of the thing. Usually the
+original is a machine. Here it is a *sociological theory*.
+
+The Theory of the Relation makes claims about how societies hold together and
+come apart: that people circulate between domains of social life, that
+institutions channel that circulation, and that inequality arises from the
+circulation being unequal. Those claims are stated in prose. Prose can be
+consistent-sounding and still contain a contradiction nobody notices.
+
+So the theory was rebuilt as a program. Every claim became a mechanism, every
+concept a quantity. You press play and watch what the theory does when it is
+made to run. If it produces something absurd, the theory has a problem — and
+you can see exactly where.
+
+That is the first use. Two others followed, and they turned out to matter more
+in practice: you can encode a *different* theory in the same machinery and
+watch where the two diverge; and you can feed the machinery *real data* and let
+it read the state of a social field off them. All three are described below.
+
+The twin is one file, =tr-twin.html=. Open it in a browser. No installation, no
+server, no account.
+
+* A note on how it was built
+
+This model was built in collaboration with an artificial intelligence. The
+theory, the sociological judgements and the decisions about what counts as a
+faithful translation are the author's; a large part of the implementation, of
+the headless verification and of the documentation was written with AI
+assistance.
+
+This is said here for three reasons. It is a fact about the provenance of the
+code and belongs in the open. It explains the unusual density of verification
+in the sections that follow — every mechanism was checked headless before it
+entered the application, which is cheap when a machine writes the harness and
+expensive when a person does. And it is itself a claim the reader may want to
+test: the code is here, and so are the verification scripts.
+
+* How the twin works, in five minutes
+
+** Four structures
+
+The model divides social life into four *relational structures*. In the
+interface they are labelled Culture (A), Politics (B), Economy (C) and Media
+(D), but those labels are an applied interpretation, chosen because they make
+real data readable. The theory itself derives four structures more abstractly,
+from a single distinction — whether a domain organises itself around the
+*positions* people hold or around the *exchanges* they enter into — and its
+deviations. What matters for using the twin is that there are four, that they
+differ in kind and not merely in content, and that each one carries traces of
+the other three.
+
+Each structure has a *size*: how much of the whole social field it occupies.
+The four sizes always sum to one, so a structure can only grow at another's
+expense. That constraint does a lot of work.
+
+** Sequences
+
+Each structure is internally divided into four *sequences* — roughly, modes of
+operating within a domain: its core, its way of representing itself, its way of
+producing, its way of circulating and controlling. Sixteen sequences in all.
+
+Structures differ in the *order* in which circulation runs through their
+sequences. That order — the model calls it the chain — is what distinguishes
+one structure from another. Change the chain and you change the structure's
+character.
+
+** Actors, in four categories
+
+People are not modelled one by one. Each sequence holds a *mixture* of four
+categories:
+
+- *Established* — mobile by conquest. Secure enough to leave a domain for a new
+  challenge. They circulate most.
+- *Aspirants* — building a position. They move within their domain rather than
+  out of it.
+- *Conservatives* — defending a position that is being devalued. Over time they
+  tend to lose, and become —
+- *Disappointed* — mobile by disappointment. They too leave, but downward and
+  outward rather than upward.
+
+The pairing is the interesting part: the most mobile categories sit at the top
+*and* the bottom. Movement is not the same as success.
+
+** Instances
+
+*Instances* are the institutions that take people in, socialise them and
+sanction them — schools, editorial boards, professional bodies, funding
+committees. They do not circulate; only actors do. An instance grows stronger
+as it successfully processes actors and weakens when it fails.
+
+They come at three reaches — the whole structure, one sequence, the joints
+between sequences — plus a fourth kind, *control*, which does not handle
+problems itself but restores the others when they exhaust themselves.
+
+** What comes out
+
+Two numbers matter most:
+
+- *Reciprocity* — how fluid the circulation between structures is. High when
+  people can move and be received; it falls when a structure closes or when one
+  structure swallows the others. It is measured, not set: there is no
+  reciprocity dial.
+- *Inequality* — a Gini coefficient, computed at three nested levels at once:
+  between structures (transversal), between sequences within a structure
+  (horizontal), and between actor categories within a sequence (vertical).
+
+Watching the three levels move against each other is where most of the
+analytical value sits. They do not move together.
+
+* What the model assumes
+
+Every model buys its results with assumptions. These are the ones this model
+makes. You do not have to accept them — but if you use the twin, you are using
+them, so they should be visible.
+
+1. *Circulation comes first.* Society is not made of positions that people
+   occupy but of movements that people make. Position is a residue of
+   circulation, not its ground. This is the theory's principal break with
+   Bourdieu, and it is built into the mechanics: the model moves actors and
+   reads structure off the movement.
+
+2. *Four structures, not three or seven.* The number follows from one
+   distinction and its first- and second-order deviations. If you think a
+   domain of your data belongs to none of the four, the model will make you
+   argue for that rather than adding a fifth.
+
+3. *Instances do not circulate.* Only actors do. So an institution that appears
+   to operate across several structures — a school, a legal system — is either
+   anchored in one structure with its reach carried by the people it socialised,
+   or it is a coarse label for several distinct instances. The model forces the
+   second reading. This is a genuine constraint and occasionally an awkward one.
+
+4. *Strength turns into weakness past an optimum.* A structure's dominant
+   instance grows by processing actors, which grows the structure, which is
+   healthy — up to a point. Past that point the same growth produces sclerosis.
+   Nothing is punished for being weak; things are punished for succeeding too
+   long. (After Pareto's notion of ophelimity.)
+
+5. *Deficits are relayed downward, not averaged.* When an instance fails, the
+   next narrower one takes over — and exhausts itself, because it acts at too
+   local a level to solve a structural problem. The load travels down until
+   control intervenes. There is no compensation term, no mean.
+
+6. *A well-run structure is not an equal one.* Internal legitimacy and systemic
+   reciprocity are different quantities and can move in opposite directions. A
+   domain whose institutions work beautifully may be admitting many people and
+   sorting them into stable ranks. The model keeps the two apart deliberately.
+
+7. *The perfect state is symmetric and does nothing.* At start-up all four
+   structures are equal, inequality is zero, reciprocity is one. Every mechanism
+   in the model is written so that it is *inert* at that state. Nothing happens
+   until something is made asymmetric. This is a discipline, not a decoration:
+   it means any effect you see has a cause you introduced.
+
+8. *The run is deterministic.* A fixed seed sets the initial perturbation. Same
+   settings, same trajectory, every time. The twin is a comparative instrument,
+   not a Monte Carlo simulation.
+
+* What you can do with it
+
+** With no data at all
+
+Take a theoretical framework you are reading — Parsons, Luhmann, Habermas,
+White, Tilly, Bourdieu — and encode how *it* construes circulation, mediation
+and reciprocity as a set of cursor settings. Run it. Compare the end state
+against the reference run. The difference is that framework's signature, made
+visible rather than argued.
+
+Twenty-four such profiles ship with the twin, in
+[[file:../simulation-mode/README.org][simulation-mode/]]. Reading them against
+each other is a way of doing theory comparison that does not depend on anyone's
+summary of anyone else.
+
+** With a handful of cases
+
+This is the case the twin was extended for, and it is the common one in
+qualitative sociology and in student projects: five interviews, twelve
+biographies, one archive.
+
+*Prism mode* reads the field through one to five actors treated as *probes* —
+test particles whose trajectories reveal the state of the field they moved
+through. Which channels were open to them? Where were they stopped? Which
+instances certified them? A single trajectory under-determines the field, and
+the documentation says so plainly; but a well-chosen handful reproduces, in
+miniature, what a full cohort shows. If it does not, that is a finding too.
+
+See [[file:07-prism-mode-actor-probes.org][document 7]] for the method, and
+[[file:08-scenario-protocol-for-students.org][document 8]] for a protocol that
+takes you from a few interviews to a defensible what-if scenario without
+pretending the sample is larger than it is.
+
+** With a full dataset
+
+Feed in a cohort as a table — who, when, which structure, which category, which
+sequence — plus the mediation and control instances they passed through. The
+twin reads the three levels of inequality off the data and shows how they moved
+over time.
+
+The worked example in [[file:../data-mode/README.org][data-mode/]] does this
+with 163 English working-class autobiographers between 1790 and 1945, and its
+coding pipeline is fully documented, down to the residue the coding could not
+resolve.
+
+* What it cannot do
+
+- It does not predict. Scenarios extend a trajectory under stated assumptions;
+  that is an argument, not a forecast.
+- It does not identify individuals or produce individual-level results. Actors
+  enter as distributions; even in prism mode a trajectory is read as evidence
+  about the *field*, not about the person.
+- It does not settle whether the Theory of the Relation is true. It settles
+  whether it is coherent, and it makes its consequences inspectable.
+- The four structure labels are an interpretation. If your material does not
+  sort into Culture / Politics / Economy / Media, the abstract four still apply
+  but you will have to do the mapping yourself and defend it.
+
+* Where to go next
+
+| If you want | Read |
+|-------------+------|
+| the theory behind the model | [[file:01-theory-of-the-relation-purpose-and-concepts.org][1 — Purpose and Concepts]] |
+| the mechanisms and the mathematics | [[file:02-digital-twin-of-the-theory-of-the-relation.org][2 — The Digital Twin]] |
+| to load your own data | [[file:03-usage-of-the-tr-digital-twin.org][3 — Usage]] |
+| the methodological discipline | [[file:04-methodology-of-the-tr-digital-twin.org][4 — Methodology]] |
+| to work with very few cases | [[file:07-prism-mode-actor-probes.org][7 — Prism Mode]] |
+| a protocol for a student project | [[file:08-scenario-protocol-for-students.org][8 — Scenario Protocol]] |
+| to drive the twin from a script | [[file:09-headless-runs.org][9 — Headless Runs]] |
+
+The theory is set out at length in Christian Papilloud and Eva-Maria Schultze,
+/Skizze einer Theorie der Relation/ (Springer VS, Wiesbaden 2022). This
+documentation is written so that you do not need it in hand: where a mechanism
+rests on a theoretical decision, the decision is stated here.
