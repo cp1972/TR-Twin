@@ -1,0 +1,20 @@
+#+LANGUAGE: de
+#+OPTIONS: toc:nil num:nil H:4 ^:nil
+#+STARTUP: showall
+#+LATEX_CLASS: book
+#+LATEX_CLASS_OPTIONS: [11pt,a4paper]
+
+#+TITLE: Der digitale Zwilling der Theorie der Relation
+#+SUBTITLE: Kohärenz, Epistemologie, Empirie
+#+AUTHOR: Christian Papilloud
+#+DATE:
+
+* Angaben zum Buch
+:PROPERTIES:
+:STATUS: DRAFT
+:END:
+
+Christian Papilloud
+Martin-Luther-Universität Halle-Wittenberg, Institut für Soziologie
+
+Modell, Reglerprofile, Ausführungsskripte, technische Dokumentation und die Daten der empirischen Anwendung können auf der folgenden Adresse bezogen werden: https://github.com/cp1972/TR-Twin
