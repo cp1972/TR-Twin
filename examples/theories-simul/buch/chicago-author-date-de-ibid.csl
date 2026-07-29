@@ -171,8 +171,10 @@
         </else-if>
       </choose>
     </group>
-    <text variable="DOI" prefix="doi:" suffix=", "/>
-    <text variable="URL"/>
+    <group delimiter=", ">
+      <text variable="DOI" prefix="doi:"/>
+      <text variable="URL"/>
+    </group>
     <group prefix=" (" suffix=")">
       <text term="accessed" suffix=": "/>
       <date variable="accessed">
