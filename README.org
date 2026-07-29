@@ -17,63 +17,87 @@ The interface switches between *English, German, and French* (the DE·EN·FR pil
 
 * Two modes
 
-The twin does two different things, and the =examples/= folder is split accordingly.
+The twin does two different things, and the repository is split accordingly.
 
-- *Simulation mode* (=examples/theories-simul/=): a cursor profile encodes a theoretical
-  framework — how it construes circulation, mediation, reciprocity and satellisation — and
-  the twin runs it. Comparing the runs against the TR's own reference state turns the twin
-  into an instrument for contrasting theories. The 24 profiles used in the book are here.
-- *Data mode* (=examples/working-class-authors/=): nothing is simulated. The twin ingests
-  empirical tables — actors, mediation and control instances — and reads the TR's three
-  levels of inequality off the data. See =docs/07= for the actor probes.
+- *[[file:simulation-mode/README.org][Simulation mode]]* — a cursor profile encodes a theoretical framework: how it construes
+  circulation, mediation, reciprocity and satellisation. The twin runs it. Comparing the runs
+  against the TR's own reference state turns the twin into an instrument for contrasting
+  theories. The 24 profiles are here.
+- *[[file:data-mode/README.org][Data mode]]* — nothing is simulated. The twin ingests empirical tables — actors, mediation
+  and control instances — and reads the TR's three levels of inequality off the data. The
+  worked example is a cohort of 163 English working-class autobiographers, 1790–1945.
+
+Both modes are laid out the same way, so what you learn in one carries over to the other:
+
+#+begin_example
+<mode>/
+  README.org      what the mode does and how to run it
+  scripts/runs/       headless replays (Node.js)
+  scripts/figures/    figure generation (Python)
+  figures/        the generated figures (SVG)
+#+end_example
 
 * Start here: the worked example
 
-If you just want to see it work on real data, go to *[[file:examples/working-class-authors/README.org][examples/working-class-authors/]]*. It walks you through loading a cohort of 163 English working-class autobiographers and the art/media instances they passed through, and reproduces the project's main finding — and its deepening: the *control instances* are the channels of the atypical transversal circulation.
+If you just want to see it work on real data, go to *[[file:data-mode/README.org][data-mode/]]*. It walks you through loading the cohort and the art/media instances they passed through, and reproduces the project's main finding — and its deepening: the *control instances* are the channels of the atypical transversal circulation.
 
-In short, in the twin: import =examples/working-class-authors/data/actors/cohorte_contrat.csv= (the actor cohort) and =examples/working-class-authors/data/instances/instances_full_empirical.csv= (the mediation + control instances), then press play.
+In short, in the twin: import =data-mode/data/actors/cohorte_contrat.csv= (the actor cohort) and =data-mode/data/instances/instances_full_empirical.csv= (the mediation + control instances), then press play.
 
 * Repository structure
 
 #+begin_example
-README.org                     ← you are here (entry point)
-tr-twin.html                   ← the application (open this)
-index.html                     ← redirect for GitHub Pages
-docs/                          ← theoretical + technical documentation (Org)
-examples/
-  working-class-authors/       ← DATA mode: the worked example, self-contained
-    README.org                 ← step-by-step: how to run this example
-    data/  actors/  instances/ ← the cohort and the instance tables (CSV)
-    figures/                   ← the figures (SVG, light + dark)
-    notes/                     ← provenance of the demo data
-  theories-simul/              ← SIMULATION mode: the contrast of theoretical frameworks
-    profil_*.csv               ← 24 cursor profiles (Parsons, Luhmann, Habermas, White,
-                                 Tilly, Bourdieu, Emirbayer, Donati, Archer, Fuhse …)
-    report/figures/            ← the figures of the contrast study
-scripts/
-  generators/                  ← gen_*.py / build_*.py : (re)build figures and data
-  harness/                     ← Node.js headless replays + smoke tests
+README.org                  ← you are here (entry point)
+tr-twin.html                ← the application (open this)
+index.html                  ← redirect for GitHub Pages
+CITATION.cff                ← how to cite
+
+techdocs/                   theoretical + technical documentation (10 chapters)
+
+simulation-mode/            contrasting theoretical frameworks
+  profiles/                 the 24 cursor profiles (Parsons, Luhmann, Habermas,
+                            White, Tilly, Bourdieu, Emirbayer, Donati, Archer, Fuhse …)
+  scenarios/                configuration sets for the metrics/search harnesses
+  scripts/runs/             headless replays: run, batch, sweep, search, hysteresis
+  scripts/figures/          figure generation
+  figures/                  the 26 figures of the contrast study
+  results/                  end states, sweeps, audits
+
+data-mode/                  the empirical run
+  data/actors/              the cohort as a contract table
+  data/instances/           mediation and control instances
+  data/prism/               single-unit probes
+  data/derived/             what the pipeline and the harnesses computed
+  coding/                   how the 390 autobiographies became data — see coding/README.md
+    scripts/                the 11 pipeline steps, in order
+    lookup/                 HISCO crosswalk, occupation lexicon, reference rates
+    results/                the coded corpus and the validation sheet
+    reports/                five reports on how and why it was coded that way
+  scripts/prepare/          data extraction for the prism probes
+  scripts/runs/             headless replays
+  scripts/figures/          figure generation
+  figures/                  the figures of the empirical run
+  provenance/               where the data comes from
 #+end_example
 
 * Documentation
 
-In =docs/= (Org-mode, rendered by GitHub):
+In =techdocs/= (Org-mode, rendered by GitHub) — see [[file:techdocs/README.org][techdocs/README.org]] for the full index.
 
-1. [[file:docs/01-theory-of-the-relation-purpose-and-concepts.org][Theory of the Relation: Purpose and Concepts]]
-2. [[file:docs/02-digital-twin-of-the-theory-of-the-relation.org][Digital Twin of the Theory of the Relation]] — theory → twin, architecture, the full model.
-3. [[file:docs/03-usage-of-the-tr-digital-twin.org][Usage]] — CSV import: demographics, controller profiles, actor cohorts.
-4. [[file:docs/04-methodology-of-the-tr-digital-twin.org][Methodology]] — the actor as a probe, falsification discipline, an empirical run.
-5. [[file:docs/05-main-changes.org][Main Changes]] — version history.
-6. [[file:docs/06-literature-to-technical-documentation.org][Literature]] — works cited.
-7. [[file:docs/07-prism-mode-actor-probes.org][Prism Mode — Actor and Instance Probes]] — probes, instance weights, control instances (capacity, usage, grip, differential by sequence), and the empirical control parc.
-8. [[file:docs/08-scenario-protocol-for-students.org][Scenario Protocol for Students]] — from a few qualitative interviews to a defensible what-if scenario; the "Auktion" worked example.
-
-[[file:docs/10-roadmap-planned-extensions.org][Roadmap]] lists implemented features and open follow-ups.
+1. [[file:techdocs/01-theory-of-the-relation-purpose-and-concepts.org][Theory of the Relation: Purpose and Concepts]]
+2. [[file:techdocs/02-digital-twin-of-the-theory-of-the-relation.org][Digital Twin of the Theory of the Relation]] — theory → twin, architecture, the full model.
+3. [[file:techdocs/03-usage-of-the-tr-digital-twin.org][Usage]] — CSV import: demographics, controller profiles, actor cohorts.
+4. [[file:techdocs/04-methodology-of-the-tr-digital-twin.org][Methodology]] — the actor as a probe, falsification discipline, an empirical run.
+5. [[file:techdocs/05-main-changes.org][Main Changes]] — version history.
+6. [[file:techdocs/06-literature-to-technical-documentation.org][Literature]] — works cited.
+7. [[file:techdocs/07-prism-mode-actor-probes.org][Prism Mode — Actor and Instance Probes]] — probes, instance weights, control instances.
+8. [[file:techdocs/08-scenario-protocol-for-students.org][Scenario Protocol for Students]] — from qualitative interviews to a defensible what-if scenario.
+9. [[file:techdocs/09-headless-runs.org][Headless Runs]] — driving the twin from Node.js.
+10. [[file:techdocs/10-roadmap-planned-extensions.org][Roadmap]] — implemented features and open follow-ups.
 
 * Reproducibility
 
-A fixed seed makes the twin deterministic: the same settings yield the same trajectory. Every mechanism was first calibrated and verified headless (Node.js) before entering the application. To rebuild the example's figures from the data, see =examples/working-class-authors/README.org= (the =scripts/= section).
+A fixed seed makes the twin deterministic: the same settings yield the same trajectory. Every mechanism was first calibrated and verified headless (Node.js) before entering the application. To rebuild the figures from the data, see the =scripts/= section of each mode's README.
 
 * How to cite
 
-Please cite the theoretical basis (Papilloud & Schultze 2022, above) together with this digital twin.
+Please cite the theoretical basis (Papilloud & Schultze 2022, above) together with this digital twin; see =CITATION.cff=.

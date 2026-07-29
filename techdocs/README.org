@@ -1,0 +1,26 @@
+#+TITLE: Technical documentation — index
+#+OPTIONS: toc:nil num:nil ^:nil
+#+LANGUAGE: en
+
+Ten chapters, in reading order. Chapters 1–2 are conceptual, 3–4 are for
+users, 5–10 are reference.
+
+| # | File | What it covers |
+|---+------+----------------|
+| 1 | [[file:01-theory-of-the-relation-purpose-and-concepts.org][Purpose and Concepts]] | the theory itself: structures, sequences, actor categories |
+| 2 | [[file:02-digital-twin-of-the-theory-of-the-relation.org][The Digital Twin]] | theory → twin, architecture, the full model |
+| 3 | [[file:03-usage-of-the-tr-digital-twin.org][Usage]] | CSV import: demographics, controller profiles, actor cohorts |
+| 4 | [[file:04-methodology-of-the-tr-digital-twin.org][Methodology]] | the actor as a probe, falsification discipline, an empirical run |
+| 5 | [[file:05-main-changes.org][Main Changes]] | version history |
+| 6 | [[file:06-literature-to-technical-documentation.org][Literature]] | works cited |
+| 7 | [[file:07-prism-mode-actor-probes.org][Prism Mode]] | probes, instance weights, control instances |
+| 8 | [[file:08-scenario-protocol-for-students.org][Scenario Protocol]] | from interviews to a defensible what-if scenario |
+| 9 | [[file:09-headless-runs.org][Headless Runs]] | driving the twin from Node.js |
+| 10 | [[file:10-roadmap-planned-extensions.org][Roadmap]] | implemented features and open follow-ups |
+
+* Where the material lives
+
+- The application itself: =tr-twin.html= at the repository root.
+- Contrasting theoretical frameworks: [[file:../simulation-mode/README.org][simulation-mode/]]
+- The empirical run: [[file:../data-mode/README.org][data-mode/]]
+- How the corpus was coded: [[file:../data-mode/coding/README.md][data-mode/coding/]]

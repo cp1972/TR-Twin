@@ -1,0 +1,87 @@
+<svg viewBox="0 0 780 440" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica,Arial,sans-serif">
+<rect x="0" y="0" width="780" height="440" fill="#ffffff"/>
+<text x="40" y="32" font-size="15" fill="#2b2b2b">Anteile in Prozent; S = Größe der Struktur am gesamten Feld</text>
+<rect x="268.0" y="104.0" width="115.0" height="53.0" fill="#7cdccd" rx="2"/>
+<text x="325.5" y="136.5" font-size="17" fill="#ffffff" text-anchor="middle" font-weight="bold">55</text>
+<rect x="386.0" y="104.0" width="115.0" height="53.0" fill="#ecfaf8" rx="2"/>
+<text x="443.5" y="136.5" font-size="17" fill="#2b2b2b" text-anchor="middle">8</text>
+<rect x="504.0" y="104.0" width="115.0" height="53.0" fill="#b9ece4" rx="2"/>
+<text x="561.5" y="136.5" font-size="17" fill="#2b2b2b" text-anchor="middle">29</text>
+<rect x="622.0" y="104.0" width="115.0" height="53.0" fill="#eefaf8" rx="2"/>
+<text x="679.5" y="136.5" font-size="17" fill="#2b2b2b" text-anchor="middle">7</text>
+<rect x="268.0" y="160.0" width="115.0" height="53.0" fill="#f4f4f4" rx="2"/>
+<text x="325.5" y="192.5" font-size="16" fill="#9a9a9a" text-anchor="middle">–</text>
+<rect x="386.0" y="160.0" width="115.0" height="53.0" fill="#46cdb8" rx="2"/>
+<text x="443.5" y="192.5" font-size="17" fill="#ffffff" text-anchor="middle" font-weight="bold">78</text>
+<rect x="504.0" y="160.0" width="115.0" height="53.0" fill="#fafefd" rx="2"/>
+<text x="561.5" y="192.5" font-size="17" fill="#2b2b2b" text-anchor="middle">2</text>
+<rect x="622.0" y="160.0" width="115.0" height="53.0" fill="#d0f2ed" rx="2"/>
+<text x="679.5" y="192.5" font-size="17" fill="#2b2b2b" text-anchor="middle">20</text>
+<rect x="268.0" y="216.0" width="115.0" height="53.0" fill="#e6f8f6" rx="2"/>
+<text x="325.5" y="248.5" font-size="17" fill="#2b2b2b" text-anchor="middle">10</text>
+<rect x="386.0" y="216.0" width="115.0" height="53.0" fill="#f4f4f4" rx="2"/>
+<text x="443.5" y="248.5" font-size="16" fill="#9a9a9a" text-anchor="middle">–</text>
+<rect x="504.0" y="216.0" width="115.0" height="53.0" fill="#65d5c4" rx="2"/>
+<text x="561.5" y="248.5" font-size="17" fill="#ffffff" text-anchor="middle" font-weight="bold">65</text>
+<rect x="622.0" y="216.0" width="115.0" height="53.0" fill="#c4efe8" rx="2"/>
+<text x="679.5" y="248.5" font-size="17" fill="#2b2b2b" text-anchor="middle">25</text>
+<rect x="268.0" y="272.0" width="115.0" height="53.0" fill="#8adfd2" rx="2"/>
+<text x="325.5" y="304.5" font-size="17" fill="#ffffff" text-anchor="middle" font-weight="bold">49</text>
+<rect x="386.0" y="272.0" width="115.0" height="53.0" fill="#f4f4f4" rx="2"/>
+<text x="443.5" y="304.5" font-size="16" fill="#9a9a9a" text-anchor="middle">–</text>
+<rect x="504.0" y="272.0" width="115.0" height="53.0" fill="#f6fcfb" rx="2"/>
+<text x="561.5" y="304.5" font-size="17" fill="#2b2b2b" text-anchor="middle">4</text>
+<rect x="622.0" y="272.0" width="115.0" height="53.0" fill="#90e1d5" rx="2"/>
+<text x="679.5" y="304.5" font-size="17" fill="#ffffff" text-anchor="middle" font-weight="bold">47</text>
+<text x="325.5" y="92.0" font-size="16" fill="#555" text-anchor="middle">Sequenz A</text>
+<text x="443.5" y="92.0" font-size="16" fill="#555" text-anchor="middle">Sequenz B</text>
+<text x="561.5" y="92.0" font-size="16" fill="#555" text-anchor="middle">Sequenz C</text>
+<text x="679.5" y="92.0" font-size="16" fill="#555" text-anchor="middle">Sequenz D</text>
+<text x="256.0" y="136.5" font-size="16" fill="#2b2b2b" text-anchor="end">A·Kultur (S = 29 %)</text>
+<text x="256.0" y="192.5" font-size="16" fill="#2b2b2b" text-anchor="end">B·Politik (S = 11 %)</text>
+<text x="256.0" y="248.5" font-size="16" fill="#2b2b2b" text-anchor="end">C·Wirtschaft (S = 44 %)</text>
+<text x="256.0" y="304.5" font-size="16" fill="#2b2b2b" text-anchor="end">D·Medien (S = 16 %)</text>
+<rect x="386.0" y="362.0" width="6.5" height="13.0" fill="#ffffff" rx="0"/>
+<rect x="391.9" y="362.0" width="6.5" height="13.0" fill="#fafefd" rx="0"/>
+<rect x="397.8" y="362.0" width="6.5" height="13.0" fill="#f6fcfb" rx="0"/>
+<rect x="403.7" y="362.0" width="6.5" height="13.0" fill="#f1fbfa" rx="0"/>
+<rect x="409.6" y="362.0" width="6.5" height="13.0" fill="#ecfaf8" rx="0"/>
+<rect x="415.5" y="362.0" width="6.5" height="13.0" fill="#e7f9f6" rx="0"/>
+<rect x="421.4" y="362.0" width="6.5" height="13.0" fill="#e3f7f4" rx="0"/>
+<rect x="427.3" y="362.0" width="6.5" height="13.0" fill="#def6f2" rx="0"/>
+<rect x="433.2" y="362.0" width="6.5" height="13.0" fill="#d9f5f0" rx="0"/>
+<rect x="439.1" y="362.0" width="6.5" height="13.0" fill="#d4f3ef" rx="0"/>
+<rect x="445.0" y="362.0" width="6.5" height="13.0" fill="#d0f2ed" rx="0"/>
+<rect x="450.9" y="362.0" width="6.5" height="13.0" fill="#cbf1eb" rx="0"/>
+<rect x="456.8" y="362.0" width="6.5" height="13.0" fill="#c6f0e9" rx="0"/>
+<rect x="462.7" y="362.0" width="6.5" height="13.0" fill="#c1eee7" rx="0"/>
+<rect x="468.6" y="362.0" width="6.5" height="13.0" fill="#bdede6" rx="0"/>
+<rect x="474.5" y="362.0" width="6.5" height="13.0" fill="#b8ece4" rx="0"/>
+<rect x="480.4" y="362.0" width="6.5" height="13.0" fill="#b3eae2" rx="0"/>
+<rect x="486.3" y="362.0" width="6.5" height="13.0" fill="#aee9e0" rx="0"/>
+<rect x="492.2" y="362.0" width="6.5" height="13.0" fill="#aae8de" rx="0"/>
+<rect x="498.1" y="362.0" width="6.5" height="13.0" fill="#a5e7dc" rx="0"/>
+<rect x="504.0" y="362.0" width="6.5" height="13.0" fill="#a0e5db" rx="0"/>
+<rect x="509.9" y="362.0" width="6.5" height="13.0" fill="#9be4d9" rx="0"/>
+<rect x="515.8" y="362.0" width="6.5" height="13.0" fill="#97e3d7" rx="0"/>
+<rect x="521.7" y="362.0" width="6.5" height="13.0" fill="#92e2d5" rx="0"/>
+<rect x="527.6" y="362.0" width="6.5" height="13.0" fill="#8de0d3" rx="0"/>
+<rect x="533.5" y="362.0" width="6.5" height="13.0" fill="#88dfd1" rx="0"/>
+<rect x="539.4" y="362.0" width="6.5" height="13.0" fill="#84ded0" rx="0"/>
+<rect x="545.3" y="362.0" width="6.5" height="13.0" fill="#7fdcce" rx="0"/>
+<rect x="551.2" y="362.0" width="6.5" height="13.0" fill="#7adbcc" rx="0"/>
+<rect x="557.1" y="362.0" width="6.5" height="13.0" fill="#75daca" rx="0"/>
+<rect x="563.0" y="362.0" width="6.5" height="13.0" fill="#71d9c8" rx="0"/>
+<rect x="568.9" y="362.0" width="6.5" height="13.0" fill="#6cd7c7" rx="0"/>
+<rect x="574.8" y="362.0" width="6.5" height="13.0" fill="#67d6c5" rx="0"/>
+<rect x="580.7" y="362.0" width="6.5" height="13.0" fill="#62d5c3" rx="0"/>
+<rect x="586.6" y="362.0" width="6.5" height="13.0" fill="#5ed3c1" rx="0"/>
+<rect x="592.5" y="362.0" width="6.5" height="13.0" fill="#59d2bf" rx="0"/>
+<rect x="598.4" y="362.0" width="6.5" height="13.0" fill="#54d1bd" rx="0"/>
+<rect x="604.3" y="362.0" width="6.5" height="13.0" fill="#4fd0bc" rx="0"/>
+<rect x="610.2" y="362.0" width="6.5" height="13.0" fill="#4bceba" rx="0"/>
+<rect x="616.1" y="362.0" width="6.5" height="13.0" fill="#46cdb8" rx="0"/>
+<text x="376.0" y="375.0" font-size="14" fill="#9a9a9a" text-anchor="end">0 %</text>
+<text x="632.0" y="375.0" font-size="14" fill="#9a9a9a" text-anchor="start">100 %</text>
+<text x="504.0" y="412.0" font-size="16" fill="#555" text-anchor="middle">Sequenz innerhalb der Relationsstruktur</text>
+</svg>

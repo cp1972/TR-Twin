@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: "Theory of the Relation — Digital Twin"
+message: "If you use this software, please cite both the software and the theoretical basis below."
+type: software
+authors:
+  - family-names: Papilloud
+    given-names: Christian
+    affiliation: "Martin-Luther-Universität Halle-Wittenberg, Institut für Soziologie"
+repository-code: "https://github.com/cp1972/TR-Twin"
+license: CC-BY-4.0
+references:
+  - type: book
+    title: "Skizze einer Theorie der Relation"
+    authors:
+      - family-names: Papilloud
+        given-names: Christian
+      - family-names: Schultze
+        given-names: Eva-Maria
+    publisher:
+      name: "Springer VS"
+    year: 2022
+    isbn: "978-3-658-37922-3"

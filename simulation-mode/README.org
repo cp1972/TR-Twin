@@ -1,0 +1,73 @@
+#+TITLE: Simulation mode — contrasting theoretical frameworks
+#+OPTIONS: toc:nil num:nil ^:nil
+#+LANGUAGE: en
+
+In this mode nothing empirical is loaded. A *cursor profile* encodes how a
+theoretical framework construes circulation, mediation, reciprocity and
+satellisation; the twin then runs that framework and you watch what it
+produces. Held against the TR's own reference state, the difference is the
+framework's signature.
+
+* Run a profile
+
+1. Open =tr-twin.html= (repository root) in a browser.
+2. *Import a controller profile (CSV)* → any file from =profiles/=.
+3. Press play, and compare the end state against the reference run
+   (no profile loaded).
+
+* What is here
+
+| Folder | Contents |
+|--------+----------|
+| =profiles/= | the 24 cursor profiles |
+| =scenarios/= | configuration sets for the =metrics= and =search= harnesses |
+| =scripts/runs/= | headless replays (Node.js + jsdom) |
+| =scripts/figures/= | figure generation (Python 3) |
+| =figures/= | the 26 figures of the contrast study (SVG) |
+| =results/= | end states, sweeps, the seed audit |
+
+* The profiles (=profiles/=)
+
+Twenty-four profiles covering Parsons (plus a damped variant), Luhmann,
+Habermas (ideal and two colonisation variants), White (with interface, arena,
+council and four hub variants), Tilly, Bourdieu (dialectical and
+non-dialectical), the two intersectionality readings, Emirbayer, Donati,
+Archer, Dépelteau and Fuhse/Mische.
+
+* Headless runs (=scripts/runs/=)
+
+Node.js with =jsdom=. Run from the repository root.
+
+#+begin_src sh
+node simulation-mode/scripts/runs/run.js tr-twin.html \
+     simulation-mode/profiles/profil_Parsons.csv
+
+node simulation-mode/scripts/runs/batch.js      # all profiles, 1819 steps
+node simulation-mode/scripts/runs/sweep.js      # parameter sweep
+node simulation-mode/scripts/runs/metrics.js tr-twin.html \
+     simulation-mode/scenarios/spec_white.json
+#+end_src
+
+- =run.js= / =run_steps.js= — a single run, free or with fixed cursors
+- =batch.js= — every profile in step mode
+- =sweep.js= / =search.js= — parameter sweep and targeted search
+- =hysteresis.js= — run a phase, then continue without reset
+- =metrics.js= — end-state metrics for a set of configurations
+
+See [[file:../techdocs/09-headless-runs.org][techdocs/09]] for the details.
+
+* Figures (=scripts/figures/=)
+
+- =render_trajektorie.py= — the trajectory and end-state figures
+- =render_schema.py= — the schematic diagrams
+- =rework_figures.py= — a *one-off* pass that brought the existing SVGs to the
+  present typographic standard (larger type, legend at mid-right, no title in
+  the image). It is *not* idempotent: running it twice enlarges the type twice.
+  It is kept for provenance, not for routine use.
+
+* Results (=results/=)
+
+- =endzustaende_alle_profile.txt= — end state of every profile after 1819 steps
+- =sweep_tilly_white.txt= — the Tilly/White parameter sweep
+- =keim_audit.md= — seed audit: which findings survive a change of seed
+- =beispiel_Emirbayer_zeitreihe.json= — a sample time series from =run.js=
