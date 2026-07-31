@@ -5,30 +5,19 @@
 
 * Before you start
 
-This document describes how to drive the twin from the command line, without a
-browser. It is addressed to readers who need results that can be regenerated
-exactly — for a publication, for a replication, or for a batch of runs too large
-to perform by hand.
+This document describes how to drive the digital twin of the Theory of the Relation from the command line, without a browser. It is addressed to readers who need results that can be regenerated exactly for a publication, for a replication, or for a batch of runs too large to perform by hand.
 
-The remainder assumes familiarity with Node.js at the level of running a script
-from a terminal. Readers who do not need reproducible batch output can omit this
-document entirely: everything it describes can also be done in the interface,
-though less economically and without the guarantee of an identical repetition.
+The remainder assumes familiarity with Node.js at the level of running a script from a terminal. Readers who do not need reproducible batch output can omit this document entirely: everything it describes can also be done in the interface, though less economically and without the guarantee of an identical repetition.
 
 * What this is for
 
-=tr-twin.html= is a self-contained web app, but its simulation is plain, deterministic
-JavaScript: the browser only draws the result. So the app can also be driven *without a
-browser* ("headless") from the command line, in order to produce reproducible metrics and
-figures — for example the figures reproduced in this documentation and in the
-worked examples.
+The simulation modus of =tr-twin.html= is plain, deterministic JavaScript: the browser only draws the result. So the app can also be driven *without a browser* ("headless") from the command line, in order to produce reproducible metrics and figures, for example the figures reproduced in this documentation and in the worked examples.
 
-Same seed + same profile ⇒ bit-identical results. Every figure can therefore be traced
-back to: app version + profile + seed + run mode + number of steps.
+Same seed + same profile ⇒ bit-identical results. Every figure can therefore be traced back to: app version + profile + seed + run mode + number of steps.
 
 * Install once
 
-Node.js is required (tested with v22). In the folder where you keep the scripts:
+Node.js is required (tested from v22). In the folder where you keep the scripts:
 
 #+begin_src sh
 npm install jsdom
@@ -71,8 +60,7 @@ end:
 → series written: out/Emirbayer.json
 #+end_example
 
-The full year-by-year series is written as JSON (one row per year, with sizes, gini,
-reciprocity, ruler, satellisation, per-structure metrics).
+The full year-by-year series is written as JSON (one row per year, with sizes, gini, reciprocity, ruler, satellisation, per-structure metrics).
 
 ** Step mode (N steps, cursors held fixed)
 
@@ -93,8 +81,7 @@ Output:
 → ./out/parsons.json
 #+end_example
 
-The cursors are set to the profile's last-year values and held constant; this is the mode
-behind the trajectory figures ("neutral scenario, seed 1, 1819 steps").
+The cursors are set to the profile's last-year values and held constant; this is the mode behind the trajectory figures ("neutral scenario, seed 1, 1819 steps").
 
 * Run ALL profiles (batch)
 
@@ -108,8 +95,7 @@ Concretely, from the repository root:
 node batch.js  ./tr-twin.html  ./simulation-mode  ./out/profiles  1819
 #+end_src
 
-All arguments are optional; the defaults are exactly the values above. The command prints
-one line per profile and writes one JSON trajectory per profile into the output folder:
+All arguments are optional; the defaults are exactly the values above. The command prints one line per profile and writes one JSON trajectory per profile into the output folder:
 
 #+begin_example
 19 profiles · 1819 steps each
@@ -132,19 +118,13 @@ node batch.js  ./tr-twin.html  ./simulation-mode  ./out/converged  5000
 
 * How it works (three lines)
 
-1. *Load*: =jsdom= parses =tr-twin.html= and executes its script, which initialises
-   everything (=reset()=, neutral reference state, cursors, timeline).
-2. *Stub*: =canvas.getContext= and =requestAnimationFrame= are replaced by dummies —
-   nothing is drawn and the animation loop never starts, so the simulation stands still
-   until we drive it.
-3. *Drive*: the app's own functions are called inside the page: =parseCursorCSV(profile)=
-   for the cursor curves, then either =runSeries()= (year mode) or =reset()= + =step(dt)=
-   in a loop (step mode), with =dt = 1/60*0.68=.
+1. *Load*: =jsdom= parses =tr-twin.html= and executes its script, which initialises everything (=reset()=, neutral reference state, cursors, timeline).
+2. *Stub*: =canvas.getContext= and =requestAnimationFrame= are replaced by dummies — nothing is drawn and the animation loop never starts, so the simulation stands still until we drive it.
+3. *Drive*: the app's own functions are called inside the page: =parseCursorCSV(profile)= for the cursor curves, then either =runSeries()= (year mode) or =reset()= + =step(dt)= in a loop (step mode), with =dt = 1/60*0.68=.
 
 * Profile files
 
-First column = cursor (id or French label), following columns = years (linear
-interpolation between them). Rows =chain_A,C,B,D= set the structural coupling.
+First column = cursor (id or French label), following columns = years (linear interpolation between them). Rows =chain_A,C,B,D= set the structural coupling.
 
 | cursor id | French label                        | meaning                        |
 |-----------+-------------------------------------+--------------------------------|
@@ -161,51 +141,11 @@ interpolation between them). Rows =chain_A,C,B,D= set the structural coupling.
 | dynam     | Avantage aux structures dynamiques  | advantage to dynamic structures|
 | anchor    | Weight du nombre                     | weight of numbers              |
 
-* Three pitfalls (found empirically — read this)
-
-** 1. =reset()= does not clear the satellisation
-
-=reset()= reseeds the RNG and clears sizes, chains, actors and tensions — but *not* =satS=
-(satellisation) and not =rulerHold=. Only =playScnFrom()= clears them explicitly; the app's
-own =runSeries()= does not. After page load =satS = 0=, so the *first* run is always clean.
-But if several runs are computed *in the same page*, each run inherits the previous run's
-satellisation and results become order-dependent.
-
-Rule: before every =reset()=, set explicitly
-
-#+begin_src js
-satS=[0,0,0,0]; rulerHold=[0,0,0,0];
-#+end_src
-
-or compute every run in a fresh process. Both ways were cross-checked and give identical
-numbers. The scripts above already do this.
-
-** 2. Reset the cursors before every profile
-
-A profile only sets the cursors it names; all others keep the previous run's values. Call
-=applyDefaults()= before each profile. It restores the TR reference values (rate 2.2 ·
-alpha 1.4 · back 1.0 · over 1.0 · rho 1.0 · peak 0.5 · cap 0.7 · plast 0.4 · mig 0.7 ·
-decl 0.5 · dynam 0.5 · anchor 0.5) — exactly the "TR" column of the operationalisation
-tables. =batch.js= already does this.
-
-** 3. Loaded chains disable the plasticity
-
-In =step()=: =if(plast>0){for(...){ if(loadedChains && loadedChains[x]!=null) continue; ...=
-
-For every structure whose chain is fixed by a profile, the reorientation of the internal
-order is skipped. Profiles that set *all four* chains (Parsons, Tilly) therefore make the
-=plast= cursor inert: the rigidity comes from the frozen chains themselves, not from the
-cursor.
-
 * Three things a profile does NOT fix
-
-A profile file names a set of cursors. That is not enough to determine a number. Three
-further things have to be stated with every metric, and all three change the result.
 
 ** 1. The run horizon: 1819 steps is not convergence
 
-The twin is a dynamic model and needs time to settle. 1819 steps is the horizon of the
-*trajectory* figures — it is a snapshot on the way, not an end state.
+The twin is a dynamic model and needs time to settle. 1819 steps is the horizon of the *trajectory* figures — it is a snapshot on the way, not an end state. The end state is reached around 5000 steps, and this is the same for the sweep. Here an example with three profiles from the book:
 
 | profile | 1819 steps | 5000 steps (settled) |
 |---------+---------------------------------+----------------------------------|
@@ -213,107 +153,13 @@ The twin is a dynamic model and needs time to settle. 1819 steps is the horizon 
 | White   | 14/58/14/14 · GINI 0.329        | 13/62/13/13 · GINI 0.372         |
 | Tilly   | 24/23/26/26 · GINI 0.028        | 15/16/49/19 · GINI 0.264         |
 
-White only grows: the apex is already there at 1819 and rises from 58 % to 62 %. *Tilly is
-the warning case.* At 1819 steps his field is still quasi-symmetric (GINI 0.028 — below
-the 0.05 threshold at which we speak of domination at all). Stopping there would make the
-chapter conclude that Tilly's mechanisms produce no inequality, which is the opposite of
-the settled result. The same holds for the sweeps: White's GINI at mig 0.8 is 0.18 after
-1819 steps and converges to 0.36.
-
-Rule: *trajectory figures 1819 steps; end-state and sweep figures ~5000 steps.* State the
-horizon in the caption.
-
 ** 2. The seed: some configurations are bistable
 
-Where a configuration is bistable there are always exactly two attractors and the seed only
-picks the basin. Run every apex claim over eight seeds and report in how many it holds.
-See =keim_audit.md= and the seed-audit section below. Grundprofil White is fully
-seed-stable (8/8 at 62.2 %); three of the four rewired hub configurations are not.
-
-** 3. The cursors the profile does not name
-
-=applyDefaults()= must be called before every profile, otherwise the unnamed cursors keep
-whatever the previous run left behind (pitfall 2 above). =batch.js= and =metrics.js= do
-this; *a browser session does not.*
-
-This has one consequence in the published material, recorded here rather than smoothed
-over. =profil_White.csv= does not set =mig=, so =mig= is the TR default 0.7, giving
-13/62/13/13 · GINI 0.372 · R 0.321 at 5000 steps. The originally published figure
-=white_kontrolle_apex.svg= showed 13/61/13/13 · GINI 0.36 · R 0.34, which reproduces at
-=mig= 0.8 (13/61/13/13 · GINI 0.364 · R 0.330) — the value left over from the migration
-sweep in the same browser session. Chapter 5 now carries *both* configurations side by
-side, with one figure each; the finding is unchanged (the apex forms either way, the
-difference is under one percentage point).
-
-* Reconstructed profile: "Parsons as damping"
-
-The profile for the second reading of Parsons' control ("control as homeostatic damping")
-was lost and had to be reconstructed: Parsons base with concentration (alpha) 1.0, weight
-of numbers (anchor) 0.6, exhaustion (cap) 0.6 — and, against the hierarchy reading, raised
-migration (mig) 0.5 → 0.6. Result at 1819 steps: reciprocity 0.515, GINI 0.213, against
-the documented 0.51 and 0.22. The first three cursors alone give only 0.41; only the
-raised circulation lifts reciprocity, which is what the reading claims. File:
-=profil_Parsons_daempfung.csv=.
-
-Caveat: a residual satellisation of about 0.2 remains (against 1.0 in the hierarchy
-reading), so "satellisation disappears" is to be read as relative, not absolute.
-
-* Reconstructed profile: White's "Interface" discipline
-
-Like the Parsons damping profile, the profile behind White's third discipline was lost.
-Chapter 5 describes it as "the region around the threshold, with a cascading chain
-ordering". Two readings of "cascading" were tested, both at 5000 steps:
-
-- *cyclic* — each position feeds the next (A→B→C→D→A). File:
-  =profil_White_interface.csv=.
-- *quality ladder* — each position feeds only the one directly above it.
-
-Result (alpha scanned in steps of 0.01 on the base profile):
-
-| alpha       | no chains       | cyclic cascade  | ladder          |
-|-------------+-----------------+-----------------+-----------------|
-| 1.20 – 1.50 | GINI 0.00       | GINI 0.00       | GINI 0.35       |
-| 1.52        | GINI 0.00 (K1)  | —               | —               |
-| 1.53 – 1.80 | GINI 0.37       | GINI 0.37       | GINI 0.36       |
-
-The threshold without chains lies between 1.50 and 1.53 and is *seed-dependent at 1.52*
-(1 of 8 seeds symmetric, 7 of 8 apex); from 1.53 all eight tip. The cyclic cascade keeps
-the threshold in the same place, the ladder pushes it below 1.40 — so under the ladder
-reading even the Council's control pressure produces an apex.
-
-What both readings share, and what the chapter's claim rests on: there is *no* alpha and
-*no* seed at which an intermediate value stands. GINI is either ≤ 0.002 or ≥ 0.35, never
-between, and the three subordinate structures stay within 12–14 % of each other rather
-than forming a graded order. The negative finding is therefore independent of which
-reconstruction is chosen. Spec: =spec_white_interface.json=.
-
-* The White profile family
-
-Eight files, all deviation profiles: they name only the cursors that differ from the TR
-defaults, everything else is restored by =applyDefaults()=. Settled values, 5000 steps,
-seed 1.
-
-| file                          | deviation                        | K/P/W/M          | GINI  |
-|-------------------------------+----------------------------------+------------------+-------|
-| =profil_White.csv=            | rate 1.8 · alpha 1.6             | 13/62/13/13      | 0.372 |
-| =profil_White_council.csv=    | rate 1.8 · alpha 1.2             | 25/25/25/25      | 0.001 |
-| =profil_White_interface.csv=  | rate 1.8 · alpha 1.6 · cascade   | 14/61/12/13      | 0.373 |
-| =profil_White_arena.csv=      | rate 1.8 · alpha 1.8             | 13/62/13/13      | 0.374 |
-| =profil_White_hub_A.csv=      | base + all chains → A            | 27/25/23/26      | 0.033 |
-| =profil_White_hub_B.csv=      | base + all chains → B            | 13/60/13/14      | 0.361 |
-| =profil_White_hub_C.csv=      | base + all chains → C            | 15/16/50/19      | 0.263 |
-| =profil_White_hub_D.csv=      | base + all chains → D            | 15/16/54/15      | 0.291 |
-
-Council, Interface and Arena were previously only described in prose here; they are now
-files, so the three disciplines of chapter 5 can be run without setting cursors by hand.
-Specs: =spec_white.json= (base + disciplines), =spec_white_hub.json= (rewiring),
-=spec_white_interface.json= (threshold scan).
+Where a configuration is bistable there are always exactly two attractors and the seed only picks the basin. Run every apex claim over eight seeds and report in how many it holds. See =keim_audit.md= and the seed-audit section below reporting for the book.
 
 * Producing the figures
 
-The figures of the book are produced in two steps: *(1)* a headless run writes the numbers
-to JSON, *(2)* a small Python renderer draws the SVG in the report style. Nothing is drawn
-by the browser, and every figure can be regenerated from the app + a profile.
+The figures of the book are produced in two steps: *(1)* a headless run writes the numbers to JSON, *(2)* a small Python renderer draws the SVG in the report style. Nothing is drawn by the browser, and every figure can be regenerated from the app + a profile.
 
 ** The three data commands
 
@@ -353,8 +199,7 @@ over     GINI    R       >30%  sizes K/P/W/M %
 0        0.002   0.945   0     24.9/24.9/25.1/25.1
 #+end_example
 
-The swept cursor always overrides the profile. =>30%= counts the structures above 30 %
-(needed for the bifurcation figure).
+The swept cursor always overrides the profile. =>30%= counts the structures above 30 % (needed for the bifurcation figure).
 
 *** C) End-state metrics for several configurations
 
@@ -369,8 +214,7 @@ Write a small spec file, =spec.json=:
 ]
 #+end_src
 
-=profile: null= means the TR reference itself (all cursors at their default values).
-=cursors= overrides single cursors. =steps= may be set per entry (default 1819). Then:
+=profile: null= means the TR reference itself (all cursors at their default values).  =cursors= overrides single cursors. =steps= may be set per entry (default 1819). Then:
 
 #+begin_src sh
 node metrics.js ./tr-twin.html ./spec.json ./out/luhmann_bars.json
@@ -386,32 +230,18 @@ Parsons (Konzentration)        6.9  77.0   9.7   6.5 | 0.536 0.347  0.098
 
 ** The metrics written to JSON
 
-=S= (sizes of the four structures), =gini= (transversal inequality), =recip=
-(reciprocity), =sat= (satellisation), =ruler=, =resid= (overload), =structRecip=,
-=structGini=, =vertGini= (vertical inequality per structure) — and =crossOff=.
+=S= (sizes of the four structures), =gini= (transversal inequality), =recip= (reciprocity), =sat= (satellisation), =ruler=, =resid= (overload), =structRecip=, =structGini=, =vertGini= (vertical inequality per structure) — and =crossOff=.
 
 *** crossOff — the volume of inter-structural circulation
 
-=crossOff= is not a function of the app; it is derived from the app's =crossViz= matrix,
-which smooths the cross-structural actor flows computed in =migrate()=
-(=crossViz[x][y] += 0.12*((cf[x][y]/dt) - crossViz[x][y])=, where =cf= are exactly the
-flows that leave a structure). The figure metric is the sum of the off-diagonal entries:
+=crossOff= is not a function of the app; it is derived from the app's =crossViz= matrix, which smooths the cross-structural actor flows computed in =migrate()= (=crossViz[x][y] += 0.12*((cf[x][y]/dt) - crossViz[x][y])=, where =cf= are exactly the flows that leave a structure). The figure metric is the sum of the off-diagonal entries:
 
 #+begin_src js
 let crossOff = 0;
 for (let x=0;x<4;x++) for (let y=0;y<4;y++) if (x!==y) crossOff += crossViz[x][y];
 #+end_src
 
-Reference values, settled (5000 steps, seed 1, mig 0.7): TR 0.264 · White 0.161 ·
-Tilly 0.126 · Luhmann 0.266 · Luhmann with over→0 0.270 · Parsons 0.098. Closure does not
-lower the volume; only concentration does.
-
-crossOff is strongly mig-dependent and must always be quoted with both the horizon and the
-migration. At mig 1.4 the same three profiles read TR 0.578 · White 0.581 · Tilly 0.417 —
-White returns to the TR level while Tilly stays blocked, which is the comparison chapter 6
-makes. Quoting a crossOff without stating mig and the step count is meaningless: for Tilly
-the value runs from 0.260 (1819 steps) through 0.126 (settled, mig 0.7) to 0.417
-(settled, mig 1.4).
+crossOff is strongly mig-dependent and must always be quoted with both the horizon and the migration. At mig 1.4 the same three profiles read TR 0.578 · White 0.581 · Tilly 0.417 — White returns to the TR level while Tilly stays blocked, which is the comparison chapter 6 makes in the book. Quoting a crossOff without stating mig and the step count is meaningless: for Tilly the value runs from 0.260 (1819 steps) through 0.126 (settled, mig 0.7) to 0.417 (settled, mig 1.4).
 
 ** The renderers
 
@@ -421,84 +251,54 @@ the value runs from 0.260 (1819 steps) through 0.126 (settled, mig 0.7) to 0.417
 | =render_sweep.py=       | =render_sweep(rows, xkey, series, xlabel, subtitle, out)= |
 | =render_schema.py=      | =render_bars(...)= and =render_endzustand(panels, ...)=   |
 
-All of them write SVG in the report style: viewBox 780×410/430, Helvetica, the grey
-subtitle line at =y=47=, the structure colours (culture =#E8B14C=, politics =#46CDB8=,
-economy =#E36F9E=, media =#8C92EC=) — and *no* burnt-in "Abbildung …" title, because the
-caption is set by Org (=#+CAPTION:=) and numbered automatically.
+All of them write SVG in the report style: viewBox 780×410/430, Helvetica, the grey subtitle line at =y=47=, the structure colours (culture =#E8B14C=, politics =#46CDB8=, economy =#E36F9E=, media =#8C92EC=) — and *no* burnt-in "Abbildung …" title, because the caption can be set by another program.
 
 ** Rewiring the network: the hub profiles
 
-Chapter 6 (White) asks whether the apex simply follows the network position, as pure
-structural equivalence would require. The test rewires the network four times, each time
-making one position the /hub/:
+Chapter 6 (White) asks whether the apex simply follows the network position, as pure structural equivalence would require. The test rewires the network four times, each time making one position the /hub/:
 
-- every non-hub structure gets a chain whose *first* entry is the hub, so its circulation
-  is directed at the hub;
+- every non-hub structure gets a chain whose *first* entry is the hub, so its circulation is directed at the hub;
 - the hub's own chain runs through the remaining structures in unchanged (index) order;
 - everything else — including White's cursors (rate 1.8, alpha 1.6) — stays identical.
 
-The four files are =profil_White_hub_A.csv= … =profil_White_hub_D.csv= (A culture,
-B politics, C economy, D media). *Note:* only =hub_C= was ever committed; A, B and D were
-missing from the repository and have been rebuilt from the rule above. They are now in
-=simulation-mode/= and reproduce the published figure =white_rewire.svg= exactly,
-so the reconstruction is confirmed rather than assumed. Run them like any other profile:
+The four files are =profil_White_hub_A.csv= … =profil_White_hub_D.csv= (A culture, B politics, C economy, D media). Run them like any other profile:
 
 #+begin_src sh
 node metrics.js ./tr-twin.html ./spec_white_hub.json ./out/white.json
 #+end_src
 
-with a spec listing the four profiles at 5000 steps (the apex is not settled at 1819).
-Result (seed 1):
+with a spec listing the four profiles at 5000 steps (the apex is not settled at 1819). Result (seed 1):
 
 | hub          | K    | P    | W    | M    | GINI  | apex          |
 |--------------+------+------+------+------+-------+---------------|
 | A culture    | 27.0 | 24.5 | 22.9 | 25.6 | 0.033 | none (< 0.05) |
 | B politics   | 12.5 | 60.2 | 13.1 | 14.3 | 0.361 | B 60 %        |
 | C economy    | 15.2 | 16.4 | 49.6 | 18.8 | 0.263 | C 50 %        |
-| D media      | 15.3 | 15.9 | 53.7 | 15.0 | 0.291 | *C* 54 %      |
+| D media      | 15.3 | 15.9 | 53.7 | 15.0 | 0.291 | *C* 54 %        |
 
-The apex therefore follows the hub neither reliably nor with equal strength — the residual
-gradient favours the economy. Over eight seeds (=keim_audit.md=) three of the four are
-bistable; only hub=B holds in 8/8.
+The apex therefore follows the hub neither reliably nor with equal strength — the residual gradient favours the economy. Over eight seeds (=keim_audit.md=) three of the four are bistable; only hub=B holds in 8/8.
 
-Note on chain semantics: =setChain(x, o)= gives =WT[x][o[0]] = 3/6=, =WT[x][o[1]] = 2/6=,
-=WT[x][o[2]] = 1/6=. The first entry of a chain is the structure that *gains*: pointing all
-chains at one structure makes that structure grow. Chains also silence the =plast= cursor
-for every structure they fix (see the pitfalls above).
+Note on chain semantics: =setChain(x, o)= gives =WT[x][o[0]] = 3/6=, =WT[x][o[1]] = 2/6=, =WT[x][o[2]] = 1/6=. The first entry of a chain is the structure that *gains*: pointing all chains at one structure makes that structure grow. Chains also silence the =plast= cursor for every structure they fix (see the pitfalls above).
 
 * Two fixes applied to the app
 
-The audit produced two changes to =tr-twin.html= itself. Both were verified not to change
-any published number: the whole profile batch and the Luhmann/Parsons/Tilly runs give
-bit-identical results before and after.
+The audit produced two changes to =tr-twin.html= itself.
 
 ** 1. =reset()= now clears the satellisation
 
 : function reset(){reseed();rulerHold=[0,0,0,0];satS=[0,0,0,0];S=[0.25,0.25,0.25,0.25]; ...
 
-This is the bug described under the pitfalls: =satS= and =rulerHold= survived =reset()=, so
-consecutive runs in one page inherited the previous run's satellisation — including the
-app's own =runSeries()=. All ten callers of =reset()= were checked; only the series
-function at the end of the file relies on the old behaviour, and it restores =satS=
-*after* calling =reset()=, so the order still holds. =playScnFrom()= already zeroed both
-explicitly and is now simply redundant.
+=satS= and =rulerHold= survived =reset()=, so consecutive runs in one page inherited the previous run's satellisation — including the app's own =runSeries()=. All ten callers of =reset()= were checked; only the series function at the end of the file relies on the old behaviour, and it restores =satS= *after* calling =reset()=, so the order still holds. =playScnFrom()= already zeroed both explicitly and is now simply redundant.
 
-The headless scripts kept their own =satS=[0,0,0,0]; rulerHold=[0,0,0,0];= line: it is
-harmless with the fixed app and keeps the scripts working against older copies.
+The headless scripts kept their own =satS=[0,0,0,0]; rulerHold=[0,0,0,0];= line: it is harmless with the fixed app and keeps the scripts working against older copies.
 
 ** 2. The =plast= cursor now shows when it has no effect
 
-Chains fixed by a profile silence the plasticity for those structures (see the pitfalls).
-The cursor stayed fully operable and silently did nothing. A new =syncPlastState()= greys
-the slider out when a profile fixes all four chains, adds a tooltip, and writes a short
-red note next to the label ("sans effet : chaînes fixées"). It is called once at start-up
-and after every profile import. The *semantics are unchanged* — a profile that fixes the
-chains should not have them rewritten; only the silence is gone.
+Chains fixed by a profile silence the plasticity for those structures.  The cursor stayed fully operable and silently did nothing. A new =syncPlastState()= greys the slider out when a profile fixes all four chains, adds a tooltip, and writes a short red note next to the label. It is called once at start-up and after every profile import.
 
 ** What was deliberately not "fixed"
 
-The bistability (see below) is not a defect but a property of the model, and the
-sensitivity at the bifurcation point is the phenomenon itself. Neither was touched.
+The bistability (see below) is not a defect but a property of the model, and the sensitivity at the bifurcation point is the phenomenon itself. Neither was touched.
 
 * Seed audit: which findings are seed-stable?
 
@@ -508,10 +308,4 @@ sensitivity at the bifurcation point is the phenomenon itself. Neither was touch
 [{"label":"Tilly K1", "profile":"./simulation-mode/profiles/profil_Tilly.csv", "steps":5000, "seed":1}]
 #+end_src
 
-Running every apex configuration of the book over eight seeds (120 runs) gives: ten
-findings are seed-stable, five are not. Where a configuration is bistable there are always
-*exactly two attractors* and the seed only picks the basin; the politics attractor is the
-stronger one and wins even when every chain points at another structure. Bistability
-appears only at high concentration (alpha 1.6); at alpha 1.4 the same construction is
-stable. Criterion: GINI ≤ 0.05 means "no domination" — in a symmetric field the argmax is
-meaningless. Full table: =keim_audit.md=.
+Running every apex configuration of the book over eight seeds (120 runs) gives: ten findings are seed-stable, five are not. Where a configuration is bistable there are always *exactly two attractors* and the seed only picks the basin; the politics attractor is the stronger one and wins even when every chain points at another structure. Bistability appears only at high concentration (alpha 1.6); at alpha 1.4 the same construction is stable. Criterion: GINI ≤ 0.05 means "no domination" — in a symmetric field the argmax is meaningless. Full table: =keim_audit.md=.

@@ -5,21 +5,13 @@
 
 * Before you start
 
-This document describes the procedure for reading a relational field from a very
-small number of cases, and the assumptions on which that reading rests. It is
-addressed to the situation in which a full cohort is unavailable — the common
-situation in qualitative research.
+This document describes the procedure for reading a relational field from a very small number of cases. It addresses the situation in which a full cohort is unavailable — the common situation in qualitative research.
 
-The underlying idea is that a trajectory carries information about the field it
-traversed: the channels that stood open, the points at which movement was
-arrested, the instances that certified or refused. A single trajectory
-under-determines the field, and nothing in what follows should be taken to
-suggest otherwise. What the procedure offers is a disciplined way of making the
-structural hypotheses implicit in a biography explicit and therefore contestable.
+The underlying idea is that a trajectory carries information about the field it traversed. What the procedure offers is a disciplined way of making the structural hypotheses implicit in a biography explicit and therefore contestable.
 
 * What it is
 
-The /prism mode/ reads the whole system through a few units (N = 1–5) instead of aggregating the whole cohort. This document covers the *actor* side, now implemented in the twin: each biography is read as a test particle whose trajectory reveals the state of the field. Where the actor can pass, where they get stuck, how fast they circulate, and how their own status rises or falls are traces of the field they traverse (permeability, regime, satellisation, the actor's own category). The stance is abductive and heuristic — a single actor under-determines the field — but a well-chosen handful should reproduce, in miniature, the reading obtained from the full cohort (the falsification discipline, applied to the empirical run).
+The /prism mode/ reads the whole system through a few units (N = 1–5) instead of aggregating the whole cohort. This document covers the *actor* side implemented in the twin: each biography is read as a test particle whose trajectory reveals the state of the field. Where the actor can pass, where they get stuck, how fast they circulate, and how their own status rises or falls are traces of the field they traverse (permeability, regime, satellisation, the actor's own category). The stance is abductive and heuristic — a single actor under-determines the field — but a well-chosen handful should reproduce, in miniature, the reading obtained from the full cohort (the falsification discipline, applied to the empirical run).
 
 This is deliberately useful for *small samples*, which are common in sociology and in student projects: rather than forcing a thin dataset through a full simulation it cannot support, one follows a few actors and reads the field through them — with the explicit caveat that this is a probe, not a census.
 
@@ -29,11 +21,11 @@ This is deliberately useful for *small samples*, which are common in sociology a
 2. In the *Prism mode · probes* panel, load a small /probe extract/ through its own file button: a contract table of just the units you want to trace (columns =aid, year, structure, category, sequence=; one dated stage per row). Every actor in the extract is traced — keep it to 1–5. If no full cohort is loaded, the extract also serves as the field.
 3. Start the timeline. Each probe appears on the scene as a dot coloured by its current category, with a halo on its current structure and a dotted line tracing its whole path; the side panel reports, for the current year, each probe's structure/sequence/category and the field it sits in (the regime of its structure — autonomous or satellite of another — and the satellisation level).
 
-The reading is language-aware (DE/EN/FR) and updates as the timeline advances. Selecting probes by /loading a file/ rather than ticking a long list keeps the mechanism simple and scales to any cohort size: a student drops in a two-row extract and reads the field through it immediately, while a researcher can drive the field with the full cohort and trace a chosen handful. The very same loader will carry /instance/ probes once an instance layer is harvested from the sources.
+The reading is language-aware (DE/EN/FR) and updates as the timeline advances. Selecting probes by /loading a file/ rather than ticking a long list keeps the mechanism simple and scales to any cohort size: a student drops in a two-row extract and reads the field through it immediately, while a researcher can drive the field with the full cohort and trace a chosen handful cases. The same loader will carry /instance/ probes once an instance layer is harvested from the sources.
 
 * Worked example — five probes across two regimes
 
-On the cohort of English working-class autobiographers (art and media), five probes form an arc across the two regimes the full cohort revealed (19th c.: the economy C draws Culture A and Media D into its orbit; 20th c.: Politics B rises and recruits them).
+On the cohort of English working-class autobiographers in our book, five probes form an arc across the two regimes the full cohort revealed (19th c.: the economy C draws Culture A and Media D into its orbit; 20th c.: Politics B rises and recruits them).
 
 | Probe | Span | Path (dominant) | Vertical fate | Field reading |
 |-------+------+-----------------+---------------+---------------|
@@ -56,7 +48,7 @@ An instance is located by its structure and sequence, and read as a /lane/ rathe
 - =A·seqD= — publishing bridge, i.e. the D-sequence of Culture g[A][D]: a press still embedded in the cultural field, poised to migrate to structure D when the actors who run it leave A for D;
 - =D= — media proper (newspapers, agencies).
 
-Instances do not circulate. They are shown only while they exist (between their founding and closing rows); before and after, they are absent from the scene. They strengthen by socialising the actors who come to them, and weaken under satellisation or when the demand for socialisation (actor circulation toward them) becomes too strong or too weak.
+Instances do not circulate. They are shown only while they exist (between their founding and closing rows). Before and after, they are absent from the scene. They strengthen by socialising the actors who come to them, and weaken under satellisation or when the demand for socialisation (actor circulation toward them) becomes too strong or too weak.
 
 ** The =category= column in an instance file
 
@@ -64,28 +56,28 @@ The instance file reuses the cohort header =aid, year, structure, category, sequ
 
 In a *cohort* (contract table) =category= is load-bearing: it is the actor's own status (=established= / =aspirant= / =conservative= / =excluded=) and feeds the per-structure actor composition and hence the vertical inequality. In an *instance* file the same column plays two narrower roles and nothing more:
 
-1. *Type flag (the one load-bearing use).* If the value matches =control= / =kontrolle= the row is read as a *control* instance — it joins the control parc and feeds the control-capacity layer; otherwise the row is a *mediation* instance. So on a control row =control= is required, but it is a routing keyword, not an actor category.
+1. *Type flag (the one load-bearing use).* If the value matches =control= the row is read as a *control* instance — it joins the control parc and feeds the control-capacity layer; otherwise the row is a *mediation* instance. So on a control row =control= is required, but it is a routing keyword, not an actor category.
 2. *Display label only.* On a mediation row the value is mapped to a category colour for the probe dot in the prism/census panel. The dynamics ignore it entirely.
 
-What the model never does is read this column as "the actor category that the instance socialises preferentially". That reading is intuitive but not implemented. An instance is targeted by /structure × sequence/ (× weight), as the Lanes and Weights sections describe; its differential effect on the actor categories is not declared on the instance, it /emerges/ from the cascade — the vertical level (v59), where the apex homogenises and the dominated stratify. Declaring a privileged category on the instance would be a model extension (routing an instance's effect by category), not a relabelling, and it sits in some tension with the principle that instances act on sequences while categories are positions /within/ sequences.
+What the model never does is read this column as "the actor category that the instance socialises preferentially". That reading is intuitive but not implemented. An instance is targeted by /structure × sequence/ (× weight), as the Lanes and Weights sections describe. Its differential effect on the actor categories is not declared on the instance, it /emerges/ from the cascade — the vertical level (v59), where the apex homogenises and the dominated stratify. Declaring a privileged category on the instance would be a model extension (routing an instance's effect by category), not a relabelling, and it sits in some tension with the principle that instances act on sequences while categories are positions /within/ sequences.
 
-Practical guidance: keep =control= on control rows; on mediation rows put any mnemonic label you like, or leave the field as in the cohort vocabulary — it changes the dot colour, not the result. The header is thus a deliberately retained inheritance from the cohort schema (documented rather than renamed), not a hidden parameter.
+Practical guidance: keep =control= on control rows; on mediation rows put any mnemonic label you like, or leave the field as in the cohort vocabulary — it changes the dot colour, not the result. The header is thus a deliberately retained inheritance from the cohort schema, not a hidden parameter.
 
 ** Weights (the =weight= column)
 
 The contract table accepts an optional =weight= column (0–1) per dated row. It encodes the instance's /empirical force trajectory/ — its rise, peak and decline. In instance mode the twin reads the time-interpolated weight and drives the instance's cell g[structure][sequence] toward it as a *target share*: g[s][q] relaxes toward the weight and the renormalisation redistributes the remainder over the other sequences. The probe dot grows and shrinks with the weight.
 
 Two design points worth stating, because they matter:
-- *Soft anchor, not a clamp.* The weight is a gentle pull (a moderate rate), not a lock. The field and the actor circulation can still push the cell off its weight, and that deviation is exactly what one wants to read — it is informative, not noise.
-- *Aggregation by maximum.* When several instances share one cell (e.g. several papers in D·seqD), the cell's target is the /maximum/ of the active weights: the strongest instance present sets the sequence's force.
+- *Soft anchor, not a clamp.* The weight is a gentle pull (a moderate rate), not a lock. The field and the actor circulation can still push the cell off its weight, and that deviation is exactly what one wants to read.
+- *Aggregation by maximum.* When several instances share one cell (e.g. several newspapers in D·seqD), the cell's target is the /maximum/ of the active weights: the strongest instance present sets the sequence's force.
 
 ** No collision with actor circulation
 
-Driving an instance's weight does not collide with the actor circulation, by construction. The weight writes g[s][q] — the instance's force. The actor circulation never writes that variable; it acts through other channels (it modulates mobility, hence the internal flux and the size dynamics; excluded actors drive dispersion). The two meet only at the structure level (size, reciprocity, the inequality cascade), where both effects sum. Actor circulation is therefore one /revealer/ of the perturbations an instance undergoes — not a co-driver of its force. Keeping the weight a soft anchor preserves precisely this revealing role: had the cell been clamped to the weight, circulation could no longer reveal a gap.
+Driving an instance's weight does not collide with the actor circulation, by construction. The weight writes g[s][q] — the instance's force. The actor circulation never writes that variable; it acts through other channels (it modulates mobility, hence the internal flux and the size dynamics; excluded actors drive dispersion). The two meet only at the structure level (size, reciprocity, the inequality cascade), where both effects sum. Actor circulation is therefore one /revealer/ of the perturbations an instance undergoes, and not a co-driver of its force. Keeping the weight a soft anchor preserves precisely this revealing role.
 
 ** Perturbation (the counterfactual) — through the weight column
 
-Perturbation is expressed through the data, not through manual controls. To explore a counterfactual — "what if this instance had been stronger or weaker, or had died earlier?" — edit the instance's =weight= curve in the extract and reload. The twin drives the cell toward the new curve and the ripple propagates through the existing within-structure dynamics — to the /other sequences/ of the structure (horizontal) and up to the structure's size, reciprocity and inequality cascade (transversal). Whether a perturbed instance recovers or collapses /emerges/ from the satellisation of its structure and the demand it faces: a strong satellisation combined with an ill-suited demand is the worst case and drives the instance toward disappearance. (Earlier builds offered manual pulse/sustained buttons; these were removed once the weight column made perturbation data-driven and reproducible.)
+Perturbation is expressed through the data, not through manual controls. To explore a counterfactual — "what if this instance had been stronger or weaker, or had died earlier?" — edit the instance's =weight= curve in the extract and reload. The twin drives the cell toward the new curve and the ripple propagates through the existing within-structure dynamics — to the /other sequences/ of the structure (horizontal) and up to the structure's size, reciprocity and inequality cascade (transversal). Whether a perturbed instance recovers or collapses /emerges/ from the satellisation of its structure and the demand it faces: a strong satellisation combined with an ill-suited demand is the worst case and drives the instance toward disappearance.
 
 ** The demo extract
 
@@ -93,10 +85,10 @@ Perturbation is expressed through the data, not through manual controls. To expl
 
 * Comparative read-out: four signals and their aggregation
 
-Alongside the field reading, four time-series summarise the system, each given /per structure A·B·C·D and overall/:
-(1) *actor circulation* — windowed volume of structure-to-structure transitions; (2) *instance strengthening/weakening* — the instances' force (=weight=), aggregated by maximum per cell; (3) *inequality* — concentration, as a Gini; (4) *reciprocity* — symmetry of exchange.
+Alongside the field reading, four time-series summarise the system, each given /per structure A·B·C·D and overall/: (1) *actor circulation* — windowed volume of structure-to-structure transitions; (2) *instance strengthening/weakening* — the instances' force (=weight=), aggregated by maximum per cell; (3) *inequality* — concentration, as a Gini; (4) *reciprocity* — symmetry of exchange.
 
 The overall figure is /not/ a plain mean of the four structures — a plain mean treats the structures as interchangeable equal units and erases what the theory most cares about. The aggregation is signal-specific:
+
 - circulation overall = *total* (a volume sums);
 - instance force and reciprocity overall = *size-weighted mean* (weight each structure by its size S[x]: a large structure's reciprocity matters more to the system than a tiny one's);
 - inequality overall = the *global, between-structure Gini* (the Gini of the four structure sizes), which captures the transversal inequality /between/ structures — exactly the level that a mean of the within-structure Ginis would miss.
@@ -106,41 +98,42 @@ The bundled figures =figures/fig_instance_lifelines.svg= (birth, strength and de
 ** Instance cohort (census) vs prism probe
 
 Two left-panel inputs load instances, and they are not the same:
+
 - /Prism probe/ (=probefile=, in the prism panel) is a *lens*: a small extract (capped at 8), each instance drawn and read individually, for close inspection.
 - /Instance cohort/ (=instcohortfile=) is a *census*: it loads the whole instance stock uncapped, drives every cell by the weight (max aggregation), and draws all live instances at once with a compact per-structure readout (no per-dot labels; overlapping instances in a cell are slightly jittered).
 
 The census is the teaching configuration: load a full actor cohort (which animates the field — circulation, sizes, Gini, reciprocity) and a full instance cohort (which animates the instances' force), and the whole relational order moves at once. =instances_cohort_demo.csv= provides 60 instances with generic rise–peak–decline weight curves (illustrative); the six in =instances_probe_demo.csv= carry milestone-anchored curves.
 
-** Control instances and their grip (emprise)
+** Control instances and their grip
 
 Each relational structure carries a /control/ instance — in the engine, a per-structure control strength that rises when the structure is in distress (over-extension or marginalisation) and that already restores the structure's subordinate instances through their energy reserve.
 
 Faithful to the theory, the control does not dampen the other instances — it /improves their reactivity/. A strong control of structure x makes that structure's data-driven instances track their weight faster, and restores weakened sequences more vigorously: an /asymmetric/ gain — it speeds recovery upward, it does not accelerate decline — with a floor that keeps the structure's sequences from collapsing. Think of the numerical grade introduced into schooling: a control device that lets the system evaluate its public better, adapt recruitment, and so strengthen the whole of structure A at once.
 
-The /grip/ (emprise) is the flip side: this gain is entirely contingent on the control. The sequences react better, but their improved reactivity is governed by the control's strength — if the control weakens or is captured, the structure loses its enhanced responsiveness at once. Reactivity is bought with dependence.
+The /grip/ (emprise) is the flip side: this gain is entirely contingent on the control. The sequences react better, but their improved reactivity is governed by the control's strength — if the control weakens or is captured, the structure loses its enhanced responsiveness at once.
 
-** Control capacity: derived, not decreed
+** Control capacity is derived
 
-The control of a structure is an /apparatus/, not a point: a parc of control instances (literary criticism, audits, opinion polls, watchdogs…). Its strength is read off that parc, not stipulated. A row in an instance contract is a control instance when =category = control=; its =weight= is the instance's own authority over time. Such rows do not drive a sequence cell — they feed the structure's control capacity.
+The control of a structure is an /apparatus/, not a point: a parc of control instances (literary criticism, audits, opinion polls, watchdogs…). Its strength is read off that parc. A row in an instance contract is a control instance when =category = control=; its =weight= is the instance's own authority over time. Such rows feed the structure's control capacity.
 
 Per structure x, the capacity (a floor for the control strength Ictrl[x]) is:
 
 : Ictrl_floor[x] = 1 + K · sat(Σ wᵢ) · ( S₀ + (1−S₀)·Strat_x )
 
-the sum running over the active control instances of x, with sat(W)=1−e^(−λW) saturating the aggregate and the stratification Strat_x = Gini(wᵢ)·(1−1/n), n = number of active control instances. Two deliberate choices: the parc enters by the /sum of weights/ (ten powerless graders weigh less than one that makes law), not by a flat count; and stratification /multiplies/ rather than adds — several identifiable, ordered levels control far more than a heap of equivalent voices, while the (1−1/n) term refuses to credit a single instance (a monopoly is not a graded ladder).
+the sum running over the active control instances of x, with sat(W)=1−e^(−λW) saturating the aggregate and the stratification Strat_x = Gini(wᵢ)·(1−1/n), n = number of active control instances. Two deliberate choices: the parc enters by the /sum of weights/ (ten powerless graders weigh less than one that makes law), not by a flat count.Stratification /multiplies/ rather than adds — several identifiable, ordered levels control far more than a heap of equivalent voices, while the (1−1/n) term refuses to credit a single instance (a monopoly is not a graded ladder).
 
-Capacity and usage are kept separate: the data sets the capacity (the floor), while the endogenous control — which rises with the structure's real distress — plays the usage on top. With a realistic parc, structure D (which lives off control) derives the highest capacity and A the lowest: the gradation A < B < C < D is /derived from the parc, not decreed/ (see =control_parc_demo.csv= and =control_capacity.svg=).
+Capacity and usage are kept separate: the data sets the capacity (the floor), while the endogenous control — which rises with the structure's real distress — plays the usage on top. With a realistic parc, structure D (which lives off control) derives the highest capacity and A the lowest: the gradation A < B < C < D is /derived from the parc/ (see =control_parc_demo.csv= and =control_capacity.svg=).
 
 ** Differential regulation by sequence
 
 Control is not uniform across a structure's sequences. Each control instance regulates a /target sequence/ — its =sequence= column — and amplifies the reactivity of that cell, not the whole structure flatly. Literary criticism (A·seqD) sharpens the selection of cultural works; an attendance survey would bear on a different sequence. So the capacity is read per cell, capCell[x][q], from the control instances that target q, and the structure's sequences are amplified unevenly. The endogenous usage (the structure's distress response) still spreads over the whole structure on top, so a sequence with no dedicated control still benefits when its structure is under strain — but the data-driven differential favours the sequences that are actually watched. With a realistic parc, structure D stratifies its control across all four sequences while A concentrates it on one (see =control_parc_demo.csv= and =control_profile.svg=).
 
-** Empirical control parc (art-and-media corpus)
+** Empirical control parc (working-class corpus)
 
-Applied to the 60 instances of =instances_extract_contract.csv=, the control labelling yields a real parc for A and D (plus one C instance), with B kept illustrative for contrast (see =control_parc_empirical.csv= and =control_parc_empirical_notes.md=). The derived capacity at 1950 — A 1.55 > D 1.29 > B 1.25 > C 1.12 — /inverts/ the theoretical A<B<C<D prior, and rightly so: the corpus catches the media sphere being born and emancipating from the State, so Culture still carries the established control apparatus (certification /and/ criticism) while Media is only building its own, with Reuters the durable anchor. A finding read off the parc, not decreed (=control_capacity_empirical.svg=, =control_profile_empirical.svg=).
+Applied to the 60 instances of =instances_extract_contract.csv=, the control labelling yields a real parc for A and D (plus one C instance), with B kept illustrative for contrast (see =control_parc_empirical.csv= and =control_parc_empirical_notes.md=). The derived capacity at 1950 — A 1.55 > D 1.29 > B 1.25 > C 1.12 — /inverts/ the theoretical A<B<C<D prior, and rightly so: the corpus catches the media sphere being born and emancipating from the State, so Culture still carries the established control apparatus (certification /and/ criticism) while Media is only building its own, with Reuters the durable anchor (=control_capacity_empirical.svg=, =control_profile_empirical.svg=).
 
-* Caveats (read before using on your own data)
+* Caveats
 
 - A probe is a heuristic, not a measurement of the population. With a thin cohort the field state it traverses is itself estimated from few actors; treat the reading as a hypothesis to explore, not a result.
-- Status is ranked Established > Aspirant > Conservative > Disappointed; a flat status path means the actor neither rose nor fell in the field, not that nothing happened.
+- Status is ranked Established > Aspirant > Conservative > Disappointed; a flat status path means the actor neither rose nor fell in the field.
 - Choose probes that actually cross structures — a single-structure actor reads only its own corner of the field.
