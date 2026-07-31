@@ -1,283 +1,125 @@
-#+TITLE: Start here: what the twin is, what it assumes, what can be done with it
+#+TITLE: Start here: what the digital twin of the Theory of the Relation is, what it assumes, what can be done with it
 #+OPTIONS: toc:t num:t ^:nil
 #+LANGUAGE: en
 
-This document presupposes neither the Theory of the Relation, nor the book in
-which it is set out, nor any acquaintance with the model. It is intended as the
-entry point; the nine documents that follow go into detail and assume that this
-one has been read.
-
 * What this is
 
-A digital twin is an executable representation of something, held close enough
-to the original that experiments can be carried out on the representation
-rather than on the thing itself. The original is usually a technical system.
-Here it is a sociological theory.
+A digital twin is an executable representation of something, held close enough to the original that experiments can be carried out on the representation rather than on the thing itself. The original is usually a technical system.  Here it is a sociological theory.
 
-The Theory of the Relation advances claims about how societies cohere and come
-apart: that actors circulate between domains of social life, that institutions
-channel this circulation, and that inequalities arise from its unevenness.
-These claims are formulated in prose. A prose argument can be coherent in its
-exposition and still contain tensions that become apparent only when its
-propositions are required to operate simultaneously.
+The Theory of the Relation advances claims about how societies cohere and come apart: actors circulate between domains of social life, institutions channel this circulation, and inequalities arise from its unevenness. These claims are formulated in prose. A prose argument can be coherent in its exposition and still contain tensions that become apparent only when its propositions operate simultaneously.
 
-The theory was therefore reconstructed as a program. Each claim was rendered as
-a mechanism and each concept as a quantity. Running the model shows what
-follows from the theory's own premises once they are made to interact, and
-where a consequence appears implausible the mechanism responsible can be
-located. This is the first use of the twin: an examination of the theory's
-internal coherence.
+The theory was therefore reconstructed as a program. Each claim was rendered as a mechanism and each concept as a quantity. Running the model shows what follows from the theory's own premises once they are made to interact, and where a consequence appears implausible. This is the first use of the twin: an examination of the theory's internal coherence.
 
-Two further uses emerged in the course of the work and have proved at least as
-consequential. Alternative theoretical frameworks can be encoded in the same
-machinery, so that their divergences become observable rather than merely
-assertable. And empirical data can be supplied to the model, which then reads
-the state of a social field from them. All three are described below.
+Two further uses emerged in the course of the work and have proved at least as consequential. Alternative theoretical frameworks can be encoded in the same machinery, so that their divergences become observable rather than merely assertable. And empirical data can be supplied to the model, which then reads the state of a social field from them. All three are described below.
 
-The twin is a single file, =tr-twin.html=, which opens in any current browser.
-It requires no installation, no server and no account.
+The twin is a single file, =tr-twin.html=, which opens in any current browser. It requires no installation, no server and no account.
 
-* A note on the mode of construction
+* A note on the mode of construction under assistance of AI
 
-The model was developed in collaboration with an artificial intelligence. The
-theory, the sociological judgements and the decisions as to what constitutes a
-faithful translation from concept to mechanism are the author's; a substantial
-part of the implementation, of the headless verification and of this
-documentation was written with AI assistance.
-
-This is recorded for three reasons. It is a fact about the provenance of the
-code and belongs in the open. It accounts for the density of verification
-described in the sections that follow: each mechanism was tested headless
-before entering the application, a practice whose cost falls considerably when
-the test harness itself can be generated. And it is a claim the reader may wish
-to examine, for which purpose both the code and the verification scripts are
-included in this repository.
+The model was developed in collaboration with Opus 4.8, an artificial intelligence known as one LLM from Anthropic. The theory, the sociological judgements and the decisions as to what constitutes a faithful translation from concept to mechanism are the author's. A substantial part of the implementation in JavaScript, and of the headless verification was written with AI assistance. Each mechanism was tested headless before entering the application, a practice whose cost falls considerably when the test harness itself can be generated. And it is a claim the reader may wish to examine, for which purpose both the code and the verification scripts are included in this repository.
 
 * How the twin operates
 
 ** Four relational structures
 
-The model divides social life into four *relational structures*. In the
-interface these are labelled Culture (A), Politics (B), Economy (C) and Media
-(D). The labels are an applied interpretation, adopted because they render
-empirical material legible; the theory derives the four structures more
-abstractly, from a single distinction — whether a domain organises itself
-around the *positions* actors hold or around the *exchanges* they enter — and
-from its first- and second-order deviations. For present purposes it is
-sufficient that there are four, that they differ in kind rather than in
-content, and that each carries the features of the other three in subordinate
-form.
+The model mimics the Theory of the Relation. It conceives social life at the interface of four *relational structures*. In the digital twin these are labeled in a shortened way "Culture" (A), "Politics" (B), "Economy" (C) and "Media" (D). The labels are an applied interpretation from the Theory. The theory derives the four structures more abstractly, from a single distinction — whether a domain organises itself around the *positions* actors hold or around the *exchanges* they enter — and from its first- and second-order deviations. For present purposes it is sufficient to know that there are four relational structures that differ in kind rather than in content, each carrying the features of the other three in subordinate form.
 
-Each structure has a *size*, understood as its weight within the social field
-as a whole. The four sizes are normalised to sum to one, so that a structure
-can grow only at the expense of the others. This is not merely a convenience of
-implementation: it encodes the claim that relational weight is a distributional
-quantity.
+Each structure has a *size*, understood as its weight within the social field as a whole. The four sizes are normalised to sum to one, so that a structure can grow only at the expense of the others. This is not merely a convenience of implementation: it encodes the claim that relational weight is a distributional quantity.
 
 ** Sequences
 
-Each structure is internally articulated into four *sequences* — modes of
-operating within a domain: its core, its mode of representation, its mode of
-production, and its mode of circulation and control. There are sixteen
-sequences in all.
+Each structure is internally articulated into four *sequences*. These are four modes of operating within each relational structure named in the Theory the investment in relations, their representation, their materialisation and their attractiveness. There are sixteen sequences in all.
 
-The structures differ in the *order* in which circulation traverses their
-sequences. This order, termed the chain in the model, is what distinguishes one
-structure from another; altering it alters the structure's character.
+The structures differ in the *order* of the sequences in each relational structure which describes their specific circulation. This dynamic order of the sequences in each relational structure is termed the chain in the digital twin. It is a specific circulation where each sequence is one of the steps through which this circulation goes in order to support the identity and the legitimacy of its relational structure. Altering this circulation alters the structure's character of a relational structure, its identity and its legitimacy. It makes it behave like another of the three relational structures of which it progressively becomes a satellite. Therefore we speak of satellisation as the influence that a relational structure can have on the other, i. e. as the power that a relational structure has to make other relational structures behave like itself.
 
 ** Actor categories
 
-Actors are not represented individually. Each sequence holds a distribution
-over four categories:
+Actors are not represented individually. Each sequence holds a distribution over four categories:
 
-- *Established* — mobile through conquest; sufficiently free of structural
-  constraint to leave one domain for another. They circulate most.
-- *Aspirants* — consolidating a position, and therefore moving within their
-  domain rather than out of it.
-- *Conservatives* — defending a position undergoing devaluation. Over time they
-  tend to lose it and pass into the fourth category.
-- *Disappointed* — mobile through disappointment; they too depart, but by way
-  of declassing rather than of advancement.
+- *Established* — mobile through conquest; sufficiently free of structural constraint to leave one domain for another. They circulate most.
+- *Aspirants* — consolidating a position, and therefore moving within their domain rather than out of it.
+- *Conservatives* — defending a position under ongoing devaluation. Over time they tend to lose it and pass into the fourth category.
+- *Disappointed* — mobile through disappointment; they too depart, but by way of declassing rather than of advancement.
 
-The two most mobile categories occupy the extremes of the distribution rather
-than one end of it. Mobility in this model is accordingly not an indicator of
-success, and readings that treat it as one will misconstrue the output.
+The two most mobile categories occupy the extremes of the distribution rather than one end of it. Mobility in this model is accordingly not an indicator of success, and therefore mobility has to be understood as circulation first that stimulates upwards as well as downwards mobility within sequences of relational structures, horizontal social mobility between sequences of relational structures or transversal social mobility between relational structures.
 
 ** Mediation instances
 
-*Instances* are the institutions that admit actors, socialise them and sanction
-them — schools, editorial boards, professional bodies, funding committees. They
-do not circulate; only actors do. An instance gains force as it successfully
-processes actors and loses force when it fails to.
+*Instances* are the institutions that admit actors, socialise them and sanction them — schools, editorial boards, professional bodies, funding committees. They do not circulate; only actors do. An instance gains force as it successfully processes actors and loses force when it fails to.
 
-They operate at three reaches — the structure as a whole, a single sequence,
-and the transitions between sequences — alongside a fourth kind, *control*,
-which does not address problems directly but restores the other instances when
-they become exhausted.
+They operate at three reaches — the structure as a whole, a single sequence, and the transitions between sequences — alongside a fourth kind, *control*, which does not address problems directly but restores the other instances when they become exhausted.
 
 ** What the model computes
 
 Two measures carry most of the interpretative weight:
 
-- *Reciprocity*, understood as the fluidity of circulation between structures.
-  It is high where actors can move and be received, and falls where a structure
-  closes or where one structure absorbs the others. It is measured rather than
-  set: the interface provides no reciprocity control.
-- *Inequality*, computed as a Gini coefficient at three nested levels
-  simultaneously — between structures (transversal), between sequences within a
-  structure (horizontal), and between actor categories within a sequence
-  (vertical).
+- *Reciprocity*, understood as the fluidity of circulation between structures, and therefore as a systemic product of this circulation that impact this circulation. It is high where actors can move and join instances, and falls where a structure closes or where one structure absorbs the others. It is measured rather than set: the digital twin provides no control for reciprocity.
+- *Inequality*, computed as a Gini coefficient at three nested levels simultaneously — between structures (transversal), between sequences within a structure (horizontal), and between actor categories within a sequence (vertical).
 
-The three levels do not move in concert, and their divergence is generally more
-informative than any of them taken singly.
+The three levels do not move in concert, and their divergence is generally more informative than any of them taken in itself.
 
 * What the model assumes
 
-The results a model yields are purchased with its assumptions. Those made here
-are set out below. They need not be accepted; but they are operative whenever
-the twin is used, and should therefore be visible.
+The results a model yields are related to the assumptions of the Theory of the Relation, and these assumptions are the following ones:
 
-1. *The primacy of circulation.* Society is conceived not as an arrangement of
-   positions that actors occupy but as a set of movements they undertake, with
-   position understood as a sediment of circulation rather than as its ground.
-   This constitutes the theory's principal departure from Bourdieu, and it is
-   built into the mechanics: the model moves actors and derives structure from
-   the movement.
+1. *The primacy of circulation.* Society is conceived not as an arrangement of positions that actors occupy but as a set of movements they undertake, with position understood as a sediment of circulation rather than as its ground. This constitutes the theory's principal departure from Bourdieu, and it is built into the mechanics: the model moves actors and derives structure from this movement.
 
-2. *Four structures.* The number follows from one distinction together with its
-   first- and second-order deviations. Where a domain of empirical material
-   appears to belong to none of the four, the model requires that this be
-   argued rather than accommodated by the addition of a fifth.
+2. *Four structures.* The number follows from one distinction together with its first- and second-order deviations. Where a domain of empirical material appears to belong to none of the four, the model requires that this be argued rather than accommodated by the addition of a new relational structure.
 
-3. *Instances do not circulate.* Only actors do. An institution that appears to
-   operate across several structures is therefore either anchored in one
-   structure, its reach carried by the actors it has socialised, or else a
-   collective designation for several distinct instances. The model admits only
-   the second reading. This is a substantive constraint, and in some
-   applications an inconvenient one.
+3. *Instances do not circulate.* Only actors circulate. An institution that appears to operate across several structures (instances of law or of education for example) tells the story of past satellisations, where such an institution has been carried by the actors to other relational structure and implemented there according to the specific identity and legitimacy of this relational structure. Like the positions of actors, the positions of institutions are sedimentations of past circulations which show them as product of a history of the influence that relational structures have exerted in the relational space.
 
-4. *Strength becomes vulnerability beyond an optimum.* A structure's dominant
-   instance grows by processing actors, which in turn enlarges the structure —
-   a process that remains viable up to a threshold, beyond which the same
-   growth produces sclerosis. The mechanism follows Pareto's notion of
-   ophelimity; its consequence is that structures become vulnerable at the
-   point of their greatest strength rather than at that of their weakness.
+4. *Strength becomes vulnerability beyond an optimum.* A structure's dominant instance grows by processing actors, which in turn enlarges the structure — a process that remains viable up to a threshold, beyond which the same growth produces sclerosis. The mechanism follows Pareto's notion of ophelimity; its consequence is that structures become vulnerable at the point of their greatest strength rather than at that of their weakness.
 
-5. *Deficits are relayed, not averaged.* Where an instance fails, the next
-   narrower one assumes the load and is in turn exhausted, since it operates at
-   a level too local to resolve a structural problem. The load descends until
-   control intervenes. The model contains no compensation term: a deficit at
-   one level is not offset by strength at another.
+5. *Deficits are relayed, not averaged.* Where an instance fails, the next one in the order of the sequences of a relational structure assumes the load and is in turn exhausted, since it operates at a level either too local to resolve a structural problem, or too structural to solve local problems. The load goes along the sequences of relational structures until control intervenes. The model contains no compensation term: a deficit at one level is not offset by strength at another.
 
-6. *Internal legitimacy is distinct from systemic reciprocity.* The two are
-   separate quantities and may move in opposite directions. A domain whose
-   institutions function effectively may be admitting many actors and
-   distributing them across stable and unequal ranks. The model keeps the two
-   apart deliberately, and conflating them in interpretation is a frequent
-   error.
+6. *Internal legitimacy is distinct from systemic reciprocity.* The two are separate quantities and may move in opposite directions. A domain whose institutions function effectively may be admitting many actors and distributing them across stable and unequal ranks. The model keeps the two apart deliberately.
 
-7. *The symmetric state is inert.* At start-up the four structures are of equal
-   size, inequality is zero and reciprocity is one. Every mechanism is written
-   so as to have no effect at that state. This is a methodological constraint
-   rather than a presentational one: any effect observed in a run can be traced
-   to an asymmetry that was introduced deliberately.
+7. *The symmetric state is inert.* At start-up the four structures are of equal size, inequality is zero and reciprocity is one. Every mechanism is written so as to have no effect at that state. This is a methodological constraint: any effect observed in a run can be traced to an asymmetry that was introduced deliberately.
 
-8. *Runs are deterministic.* A fixed seed governs the initial perturbation, so
-   that identical settings yield identical trajectories. The twin is a
-   comparative instrument and not a stochastic simulation; determinism secures
-   reproducibility but bears on validity not at all.
+8. *Runs are deterministic.* A fixed seed governs the initial perturbation, so that identical settings yield identical trajectories. The digital twin is a comparative instrument and not a stochastic simulation. Determinism secures reproducibility of the runs only.
 
 * What can be done with it
 
 ** Without empirical data
 
-A theoretical framework — Parsons, Luhmann, Habermas, White, Tilly, Bourdieu
-and others — can be encoded as a set of cursor settings expressing how that
-framework construes circulation, mediation and reciprocity. The run is then
-compared against the reference state, and the divergence constitutes the
-framework's signature within this machinery.
+A theoretical framework can be encoded as a set of cursor settings expressing how that framework represents circulation, mediation and reciprocity. The run is then compared against the reference state, and the divergence constitutes the framework's signature within this machinery.
 
-Twenty-four such profiles are supplied in
-[[file:../simulation-mode/README.org][simulation-mode/]]. A qualification
-belongs here: a divergence is a property of the encoding as much as of the
-framework encoded. The profiles are interpretations, and their construction is
-documented so that it can be contested. A comparison of this kind is best read
-as an argument rendered precise rather than as a measurement of a theory.
+Twenty-four such profiles are supplied in [[file:../simulation-mode/README.org][simulation-mode/]] which has been use in the frame of a publication demonstrating the simulation mode of the digital twin. Obviously, there a divergences between the digital twin and the encoded theoretical framework, and such divergences as conceived as residuals that the digital twin can not represent. The profiles are therefore interpretations that have to be documented in order to make clear what the digital twin can take up from the framework to encode, what it can not take up and why. A comparison of this kind is best read as an argument rendered precise and that can be contested, rather than as a measurement of a theory.
 
 ** With a small number of cases
 
-This is the situation the twin was extended to accommodate, and the one most
-frequently encountered in qualitative sociology and in student research: a
-handful of interviews, a dozen biographies, a single archive.
+This is the situation that we most frequently encountered in qualitative sociology and in student research: a handful of interviews, a dozen biographies, a single archive. Therefore we have extended the digital twin to a prism mode.
 
-*Prism mode* reads the field through one to five actors treated as *probes* —
-trajectories from which the state of the field they traversed may be inferred:
-which channels stood open to them, at which points they were arrested, which
-instances certified them. A single trajectory under-determines the field, and
-the method makes no claim to the contrary; a well-chosen set, however, should
-reproduce in miniature what a full cohort exhibits. Where it does not, the
-discrepancy is itself informative, and the appropriate first step is to
-re-examine the selection of probes rather than to revise the reading of the
-field.
+In *prism mode,* the digital twin reads the relational space through few actors (at least five actors) treated as *probes*, i.e. as trajectories from which the state of the field they traversed may be inferred: which channels stood open to them, at which points they were stopped, which instances certified them. A single trajectory under-determines the field. With a few more probes however, it is possible to reproduce in miniature what a full cohort would exhibit. Where it does not, the discrepancy is itself informative, and the appropriate first step is to re-examine the selection of probes rather than to revise the reading of the field.
 
-See [[file:07-prism-mode-actor-probes.org][document 7]] for the method and
-[[file:08-scenario-protocol-for-students.org][document 8]] for a protocol
-leading from a small number of interviews to a defensible scenario without
-overstating the evidential weight of the sample.
+See [[file:05-prism-mode-actor-probes.org][document 5]] for the method, including the conditions under which a small set of probes may be read as evidence about the field, and the point at which it may not.
 
 ** With a full dataset
 
-A cohort may be supplied as a table — actor, year, structure, category,
-sequence — together with the mediation and control instances traversed. The
-twin then reads the three levels of inequality from the data and displays their
-movement over time.
+A cohort may be supplied as a table — actor, year, structure, category, sequence — together with the mediation and control instances. The digital twin reads the three levels of inequality from the data and displays their movement over time.
 
-The worked example in [[file:../data-mode/README.org][data-mode/]] applies this
-to 163 English working-class autobiographers between 1790 and 1945. Its coding
-pipeline is documented in full, including the residue that the coding was
-unable to resolve.
+The worked example in [[file:../data-mode/README.org][data-mode/]] applies this to 163 English working-class autobiographers between 1790 and 1945 that we have analysed in one of our publication. Its coding pipeline is documented in full, including the residue that the coding was unable to resolve.
 
 * Reading what the model produces
 
-The twin returns curves, indices and end states. These are artefacts of the
-model as much as they are findings about the world, and their interpretation
-calls for some care.
+The digital twin returns curves, indices and end states. These are artefacts of the model as much as they are findings about the world, and their interpretation calls for some care.
 
-*The reference state is a construction, not a norm.* The symmetric start state
-serves as a baseline against which deviations can be measured. It is not a
-description of a desirable society, and departures from it are not defects.
+*The reference state is a construction, not a norm.* The symmetric start state serves as a baseline against which deviations can be measured. It mimics what the Theorie of the Relation says when it speaks of the state of a perfect relation which does only exist as an abstract representation of a full harmonious societal state which does not exist.
 
-*Outputs are conditional on settings.* Every trajectory is the trajectory of a
-particular configuration. Comparisons are informative between runs that differ
-in one respect and are otherwise identical; the discipline of varying a single
-element at a time applies here as elsewhere.
+*Outputs are conditional on settings.* Every trajectory is the trajectory of a particular configuration. Comparisons are informative between runs that differ in one respect and are otherwise identical; the discipline of varying a single element at a time applies here as elsewhere.
 
-*Reproducibility is not validity.* The determinism of the model guarantees that
-a result can be regenerated. It carries no implication as to whether the result
-corresponds to anything outside the model.
+*Reproducibility is not validity.* The determinism of the model guarantees that a result can be regenerated. It carries no implication as to whether the result corresponds to anything outside the model.
 
-*The structure labels are interpretative.* Culture, Politics, Economy and Media
-constitute one reading of four abstract structures. Empirical material that
-does not sort readily into them can still be analysed, but the mapping must
-then be constructed and defended explicitly.
+*The structure labels are interpretative.* Culture, Politics, Economy and Media constitute one shortened reading of four abstract relational structures. Empirical material that does not sort readily into them can still be analysed, but the mapping must then be constructed and defended explicitly.
 
-*A measure is not yet a finding.* A Gini coefficient of 0.37 is a quantity
-produced under stated assumptions. What it licenses one to say about the
-material depends on the coding decisions upstream of it, which is why the
-worked example documents those decisions at length.
+*A measure is not yet a finding.* A Gini coefficient of 0.37 is a quantity produced under stated assumptions. What it licenses one to say about the material depends on the coding decisions upstream of it, which is why the worked example documents those decisions at length.
 
-* What the twin does not do
+* What the digital twin does not do
 
-- It does not forecast. Scenarios extend a trajectory under stated assumptions
-  and are to be read as arguments rendered explicit rather than as predictions.
-- It does not yield individual-level results. Actors enter as distributions;
-  even in prism mode a trajectory is evidence concerning the field rather than
-  concerning the person.
-- It does not establish whether the Theory of the Relation is true. It bears on
-  the theory's coherence and renders its consequences inspectable.
-- It does not dispense with sociological judgement at any point — neither in
-  the construction of a profile, nor in the coding of a corpus, nor in the
-  reading of an output.
+- It does not forecast. The digital twin enable to produce scenarios from given data which extend a trajectory under stated assumptions. They have to be read as arguments rendered explicit to formulate hypotheses on the future rather than as predictions.
+- It does not yield individual-level results. Actors enter as distributions. Even in prism mode a trajectory is evidence concerning the field rather than concerning the person.
+- It does not establish whether the Theory of the Relation is true. It bears on the theory's coherence and renders its consequences inspectable.
+- It does not dispense with sociological judgement at any point — neither in the construction of a profile, nor in the coding of a corpus, nor in the reading of an output.
 
 * Where to go next
 
@@ -286,12 +128,10 @@ worked example documents those decisions at length.
 | the theory the model implements | [[file:01-theory-of-the-relation-purpose-and-concepts.org][1 — Purpose and Concepts]] |
 | the mechanisms and the mathematics | [[file:02-digital-twin-of-the-theory-of-the-relation.org][2 — The Digital Twin]] |
 | to load your own data | [[file:03-usage-of-the-tr-digital-twin.org][3 — Usage]] |
-| the methodological discipline | [[file:04-methodology-of-the-tr-digital-twin.org][4 — Methodology]] |
-| to work with very few cases | [[file:07-prism-mode-actor-probes.org][7 — Prism Mode]] |
-| a protocol for a student project | [[file:08-scenario-protocol-for-students.org][8 — Scenario Protocol]] |
-| to drive the twin from a script | [[file:09-headless-runs.org][9 — Headless Runs]] |
+| to drive the twin from a script | [[file:04-headless-runs.org][4 — Headless Runs]] |
+| to work with very few cases, or the methodological discipline | [[file:05-prism-mode-actor-probes.org][5 — Prism Mode]] |
+| what changed when | [[file:06-main-changes.org][6 — Main Changes]] |
+| the works cited | [[file:07-literature-to-technical-documentation.org][7 — Literature]] |
+| what is implemented and what remains open | [[file:08-roadmap-planned-extensions.org][8 — Roadmap]] |
 
-The theory is set out at length in Christian Papilloud and Eva-Maria Schultze,
-/Skizze einer Theorie der Relation/ (Springer VS, Wiesbaden 2022). This
-documentation is written so that the book need not be at hand: where a
-mechanism rests on a theoretical decision, that decision is stated here.
+The theory is set out at length in Christian Papilloud and Eva-Maria Schultze, /Skizze einer Theorie der Relation/ (Springer VS, Wiesbaden 2022). This documentation is written so that the book need not be at hand: where a mechanism rests on a theoretical decision, that decision is stated here.

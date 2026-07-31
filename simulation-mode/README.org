@@ -54,7 +54,7 @@ node simulation-mode/scripts/runs/metrics.js tr-twin.html \
 - =hysteresis.js= — run a phase, then continue without reset
 - =metrics.js= — end-state metrics for a set of configurations
 
-See [[file:../techdocs/09-headless-runs.org][techdocs/09]] for the details.
+See [[file:../techdocs/04-headless-runs.org][techdocs/09]] for the details.
 
 * Figures (=scripts/figures/=)
 

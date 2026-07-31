@@ -13,14 +13,14 @@ byA={}
 for r in rows: byA.setdefault(r['aid'],[]).append(r)
 cellW={x:{q:[] for q in range(4)} for x in range(4)}
 for a,rs in byA.items():
-    rs=sorted(rs,key=lambda r:int(r['annee'])); ys=[int(r['annee']) for r in rs]
+    rs=sorted(rs,key=lambda r:int(r['year'])); ys=[int(r['year']) for r in rs]
     if YEAR<ys[0] or YEAR>ys[-1]: continue
     lo=rs[0]; hi=rs[-1]
     for r in rs:
-        if int(r['annee'])<=YEAR: lo=r
+        if int(r['year'])<=YEAR: lo=r
     for r in reversed(rs):
-        if int(r['annee'])>=YEAR: hi=r
-    wl,wh=float(lo['poids']),float(hi['poids']); yl,yh=int(lo['annee']),int(hi['annee'])
+        if int(r['year'])>=YEAR: hi=r
+    wl,wh=float(lo['weight']),float(hi['weight']); yl,yh=int(lo['year']),int(hi['year'])
     wv=wl if yh==yl else wl+(wh-wl)*(YEAR-yl)/(yh-yl)
     cellW[SX[rs[0]['structure']]][SX[rs[0]['sequence']]].append(wv)
 def gini(a):

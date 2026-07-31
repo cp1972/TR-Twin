@@ -4,9 +4,9 @@ from collections import defaultdict
 
 A={r['entry_id']:r for r in csv.DictReader(open('out/actors.csv',encoding='utf-8-sig'))}
 S=list(csv.DictReader(open('out/stages_long_final.csv',encoding='utf-8-sig')))
-CATFR={'Etablierte':'etabli','Anwaerter':'aspirant','Bewahrende':'conservateur','Enttaeuschte':'decu'}
+CATFR={'Etablierte':'established','Anwaerter':'aspirant','Bewahrende':'conservative','Enttaeuschte':'excluded'}
 
-# ---- 1) Vertragstabelle als CSV (Format des Simulators: aid,annee,structure,categorie,sequence) ----
+# ---- 1) Vertragstabelle als CSV (Format des Simulators: aid,year,structure,category,sequence) ----
 rows=[]
 for r in S:
     st=r.get('structure','')
@@ -20,7 +20,7 @@ for r in S:
     rows.append([eid,yr,st,cat,sq])
 rows.sort(key=lambda x:(x[0],x[1]))
 with open('out/cohorte_contrat.csv','w',encoding='utf-8',newline='') as fh:
-    w=csv.writer(fh); w.writerow(['aid','annee','structure','categorie','sequence']); w.writerows(rows)
+    w=csv.writer(fh); w.writerow(['aid','year','structure','category','sequence']); w.writerows(rows)
 print(f"cohorte_contrat.csv : {len(rows)} lignes")
 
 # ---- Übergangsmatrix (Struktur -> Struktur), je Akteur in Etappenfolge ----

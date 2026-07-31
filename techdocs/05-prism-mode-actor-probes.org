@@ -26,7 +26,7 @@ This is deliberately useful for *small samples*, which are common in sociology a
 * How to use it in the twin
 
 1. Open =tr-twin.html=. Optionally load a full cohort via /Import an actor cohort (contract table CSV)/ — when present, the whole cohort builds the relational field that the probes are read against.
-2. In the *Prism mode · probes* panel, load a small /probe extract/ through its own file button: a contract table of just the units you want to trace (columns =aid, annee, structure, categorie, sequence=; one dated stage per row). Every actor in the extract is traced — keep it to 1–5. If no full cohort is loaded, the extract also serves as the field.
+2. In the *Prism mode · probes* panel, load a small /probe extract/ through its own file button: a contract table of just the units you want to trace (columns =aid, year, structure, category, sequence=; one dated stage per row). Every actor in the extract is traced — keep it to 1–5. If no full cohort is loaded, the extract also serves as the field.
 3. Start the timeline. Each probe appears on the scene as a dot coloured by its current category, with a halo on its current structure and a dotted line tracing its whole path; the side panel reports, for the current year, each probe's structure/sequence/category and the field it sits in (the regime of its structure — autonomous or satellite of another — and the satellisation level).
 
 The reading is language-aware (DE/EN/FR) and updates as the timeline advances. Selecting probes by /loading a file/ rather than ticking a long list keeps the mechanism simple and scales to any cohort size: a student drops in a two-row extract and reads the field through it immediately, while a researcher can drive the field with the full cohort and trace a chosen handful. The very same loader will carry /instance/ probes once an instance layer is harvested from the sources.
@@ -58,22 +58,22 @@ An instance is located by its structure and sequence, and read as a /lane/ rathe
 
 Instances do not circulate. They are shown only while they exist (between their founding and closing rows); before and after, they are absent from the scene. They strengthen by socialising the actors who come to them, and weaken under satellisation or when the demand for socialisation (actor circulation toward them) becomes too strong or too weak.
 
-** The =categorie= column in an instance file
+** The =category= column in an instance file
 
-The instance file reuses the cohort header =aid, annee, structure, categorie, sequence, poids=, but the =categorie= column does /not/ mean the same thing here, and it is worth stating plainly to avoid a tempting misreading.
+The instance file reuses the cohort header =aid, year, structure, category, sequence, weight=, but the =category= column does /not/ mean the same thing here, and it is worth stating plainly to avoid a tempting misreading.
 
-In a *cohort* (contract table) =categorie= is load-bearing: it is the actor's own status (=etabli= / =aspirant= / =conservateur= / =decu=) and feeds the per-structure actor composition and hence the vertical inequality. In an *instance* file the same column plays two narrower roles and nothing more:
+In a *cohort* (contract table) =category= is load-bearing: it is the actor's own status (=established= / =aspirant= / =conservative= / =excluded=) and feeds the per-structure actor composition and hence the vertical inequality. In an *instance* file the same column plays two narrower roles and nothing more:
 
-1. *Type flag (the one load-bearing use).* If the value matches =control= / =kontrolle= the row is read as a *control* instance — it joins the control parc and feeds the control-capacity layer; otherwise the row is a *mediation* instance. So on a control row =controle= is required, but it is a routing keyword, not an actor category.
+1. *Type flag (the one load-bearing use).* If the value matches =control= / =kontrolle= the row is read as a *control* instance — it joins the control parc and feeds the control-capacity layer; otherwise the row is a *mediation* instance. So on a control row =control= is required, but it is a routing keyword, not an actor category.
 2. *Display label only.* On a mediation row the value is mapped to a category colour for the probe dot in the prism/census panel. The dynamics ignore it entirely.
 
 What the model never does is read this column as "the actor category that the instance socialises preferentially". That reading is intuitive but not implemented. An instance is targeted by /structure × sequence/ (× weight), as the Lanes and Weights sections describe; its differential effect on the actor categories is not declared on the instance, it /emerges/ from the cascade — the vertical level (v59), where the apex homogenises and the dominated stratify. Declaring a privileged category on the instance would be a model extension (routing an instance's effect by category), not a relabelling, and it sits in some tension with the principle that instances act on sequences while categories are positions /within/ sequences.
 
-Practical guidance: keep =controle= on control rows; on mediation rows put any mnemonic label you like, or leave the field as in the cohort vocabulary — it changes the dot colour, not the result. The header is thus a deliberately retained inheritance from the cohort schema (documented rather than renamed), not a hidden parameter.
+Practical guidance: keep =control= on control rows; on mediation rows put any mnemonic label you like, or leave the field as in the cohort vocabulary — it changes the dot colour, not the result. The header is thus a deliberately retained inheritance from the cohort schema (documented rather than renamed), not a hidden parameter.
 
-** Weights (the =poids= column)
+** Weights (the =weight= column)
 
-The contract table accepts an optional =poids= column (0–1) per dated row. It encodes the instance's /empirical force trajectory/ — its rise, peak and decline. In instance mode the twin reads the time-interpolated weight and drives the instance's cell g[structure][sequence] toward it as a *target share*: g[s][q] relaxes toward the weight and the renormalisation redistributes the remainder over the other sequences. The probe dot grows and shrinks with the weight.
+The contract table accepts an optional =weight= column (0–1) per dated row. It encodes the instance's /empirical force trajectory/ — its rise, peak and decline. In instance mode the twin reads the time-interpolated weight and drives the instance's cell g[structure][sequence] toward it as a *target share*: g[s][q] relaxes toward the weight and the renormalisation redistributes the remainder over the other sequences. The probe dot grows and shrinks with the weight.
 
 Two design points worth stating, because they matter:
 - *Soft anchor, not a clamp.* The weight is a gentle pull (a moderate rate), not a lock. The field and the actor circulation can still push the cell off its weight, and that deviation is exactly what one wants to read — it is informative, not noise.
@@ -85,7 +85,7 @@ Driving an instance's weight does not collide with the actor circulation, by con
 
 ** Perturbation (the counterfactual) — through the weight column
 
-Perturbation is expressed through the data, not through manual controls. To explore a counterfactual — "what if this instance had been stronger or weaker, or had died earlier?" — edit the instance's =poids= curve in the extract and reload. The twin drives the cell toward the new curve and the ripple propagates through the existing within-structure dynamics — to the /other sequences/ of the structure (horizontal) and up to the structure's size, reciprocity and inequality cascade (transversal). Whether a perturbed instance recovers or collapses /emerges/ from the satellisation of its structure and the demand it faces: a strong satellisation combined with an ill-suited demand is the worst case and drives the instance toward disappearance. (Earlier builds offered manual pulse/sustained buttons; these were removed once the weight column made perturbation data-driven and reproducible.)
+Perturbation is expressed through the data, not through manual controls. To explore a counterfactual — "what if this instance had been stronger or weaker, or had died earlier?" — edit the instance's =weight= curve in the extract and reload. The twin drives the cell toward the new curve and the ripple propagates through the existing within-structure dynamics — to the /other sequences/ of the structure (horizontal) and up to the structure's size, reciprocity and inequality cascade (transversal). Whether a perturbed instance recovers or collapses /emerges/ from the satellisation of its structure and the demand it faces: a strong satellisation combined with an ill-suited demand is the worst case and drives the instance toward disappearance. (Earlier builds offered manual pulse/sustained buttons; these were removed once the weight column made perturbation data-driven and reproducible.)
 
 ** The demo extract
 
@@ -94,7 +94,7 @@ Perturbation is expressed through the data, not through manual controls. To expl
 * Comparative read-out: four signals and their aggregation
 
 Alongside the field reading, four time-series summarise the system, each given /per structure A·B·C·D and overall/:
-(1) *actor circulation* — windowed volume of structure-to-structure transitions; (2) *instance strengthening/weakening* — the instances' force (=poids=), aggregated by maximum per cell; (3) *inequality* — concentration, as a Gini; (4) *reciprocity* — symmetry of exchange.
+(1) *actor circulation* — windowed volume of structure-to-structure transitions; (2) *instance strengthening/weakening* — the instances' force (=weight=), aggregated by maximum per cell; (3) *inequality* — concentration, as a Gini; (4) *reciprocity* — symmetry of exchange.
 
 The overall figure is /not/ a plain mean of the four structures — a plain mean treats the structures as interchangeable equal units and erases what the theory most cares about. The aggregation is signal-specific:
 - circulation overall = *total* (a volume sums);
@@ -121,7 +121,7 @@ The /grip/ (emprise) is the flip side: this gain is entirely contingent on the c
 
 ** Control capacity: derived, not decreed
 
-The control of a structure is an /apparatus/, not a point: a parc of control instances (literary criticism, audits, opinion polls, watchdogs…). Its strength is read off that parc, not stipulated. A row in an instance contract is a control instance when =categorie = controle=; its =poids= is the instance's own authority over time. Such rows do not drive a sequence cell — they feed the structure's control capacity.
+The control of a structure is an /apparatus/, not a point: a parc of control instances (literary criticism, audits, opinion polls, watchdogs…). Its strength is read off that parc, not stipulated. A row in an instance contract is a control instance when =category = control=; its =weight= is the instance's own authority over time. Such rows do not drive a sequence cell — they feed the structure's control capacity.
 
 Per structure x, the capacity (a floor for the control strength Ictrl[x]) is:
 

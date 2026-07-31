@@ -965,9 +965,9 @@ function parseDemoCSV(text){
   keys.sort((a,b)=>a.year-b.year); return keys;
 }
 // ---- couche acteurs : cohorte réelle -> démographie (paliers) ----
-function catIdx(s){const k=cnorm(s);if(k.startsWith('etabli')||k.startsWith('possed'))return 0;if(k.startsWith('aspir'))return 1;if(k.startsWith('conserv'))return 2;if(k.startsWith('decu')||k.startsWith('exclu'))return 3;return -1;}
+function catIdx(s){const k=cnorm(s);if(k.startsWith('etabli')||k.startsWith('establi')||k.startsWith('possed'))return 0;if(k.startsWith('aspir')||k.startsWith('anwaerter')||k.startsWith('anwarter'))return 1;if(k.startsWith('conserv')||k.startsWith('bewahr'))return 2;if(k.startsWith('decu')||k.startsWith('exclu')||k.startsWith('enttaeusch')||k.startsWith('enttausch'))return 3;return -1;}
 function parseContractCSV(text){const rows=text.replace(/^\uFEFF/,'').trim().split(/\r?\n/);const head=rows[0].split(',').map(s=>cnorm(s));
-  const iA=head.indexOf('aid'),iY=head.indexOf('annee'),iS=head.indexOf('structure'),iC=head.indexOf('categorie'),iQ=head.indexOf('sequence'),iW=(head.indexOf('poids')>=0?head.indexOf('poids'):head.indexOf('weight'));if(iA<0||iY<0||iS<0||iC<0)return null;
+  const pick=(...n)=>{for(const k of n){const i=head.indexOf(k);if(i>=0)return i;}return -1;};const iA=pick('aid'),iY=pick('annee','year','jahr'),iS=pick('structure','struktur'),iC=pick('categorie','category','kategorie'),iQ=pick('sequence','sequenz'),iW=pick('poids','weight','gewicht');if(iA<0||iY<0||iS<0||iC<0)return null;
   const rec=[];for(let r=1;r<rows.length;r++){const f=rows[r].split(',');const sk=cnorm(f[iS]).replace(/[^abcd]/g,'');const sx=L2I[sk[0]];if(sx==null)continue;const yr=parseInt(f[iY],10);if(isNaN(yr))continue;const cx=catIdx(f[iC]);let qx=sx;if(iQ>=0){const qk=cnorm(f[iQ]).replace(/[^abcd]/g,'');if(L2I[qk[0]]!=null)qx=L2I[qk[0]];}let wx=null;if(iW>=0){const wv=parseFloat(f[iW]);if(!isNaN(wv))wx=Math.max(0,Math.min(1,wv));}const isCtrl=/control|kontrolle/.test(cnorm(f[iC]||''));rec.push({aid:f[iA],year:yr,s:sx,q:qx,c:cx<0?2:cx,w:wx,ctrl:isCtrl});}
   return rec.length?rec:null;}
 function buildCohortKeys(rec){const byA={};for(const r of rec){(byA[r.aid]=byA[r.aid]||[]).push(r);}let ymin=Infinity,ymax=-Infinity;

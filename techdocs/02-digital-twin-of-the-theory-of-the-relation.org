@@ -7,39 +7,20 @@
 
 * Before you start
 
-This document sets out the mechanisms of the model and the quantities they
-operate on. It is the reference for anyone who needs to know precisely what the
-twin computes, and it presupposes the vocabulary introduced in
-[[file:00-start-here.org][document 0]] and developed in
-[[file:01-theory-of-the-relation-purpose-and-concepts.org][document 1]].
+This document sets out the mechanisms of the model and the quantities they operate on. It is the reference for anyone who needs to know precisely what the twin computes, and it presupposes the vocabulary introduced in [[file:00-start-here.org][document 0]] and developed in [[file:01-theory-of-the-relation-purpose-and-concepts.org][document 1]].
 
-Three points of orientation may assist a first reading. A section on vocabulary
-follows the mapping table and defines the recurring terms — self-replica, chain,
-terminal, regime, viability, fortune, drainage, permeability, satellisation —
-which are afterwards used without further gloss. The mapping table itself is
-the pivot of the whole documentation: every quantity in the model is there
-assigned to the theoretical concept it is intended to render, and any mechanism
-described later can be traced back through it. The sections on the mathematical
-model proceed from the general to the particular and need not be read in order;
-each states the quantity it governs and the theoretical claim it implements.
-And the recurring notes marked *verified headless* record that a mechanism was
-tested outside the browser before it entered the application — these are
-records of what was checked, and they indicate the boundaries within which the
-behaviour described has actually been observed.
+Three points of orientation may assist a first reading. A section on vocabulary follows the mapping table and defines the recurring terms — self-replica, chain, terminal, regime, viability, fortune, drainage, permeability, satellisation — which are afterwards used without further gloss. The mapping table itself is the pivot of the whole documentation: every quantity in the model is there assigned to the theoretical concept it is intended to render, and any mechanism described later can be traced back through it. The sections on the mathematical model proceed from the general to the particular. Each states the quantity it governs and the theoretical claim it implements. And the recurring notes marked *verified headless* record that a mechanism was tested outside the browser before it entered the application. These are records of what was checked, and they indicate the boundaries within which the behaviour described has actually been observed.
 
-A caution that applies throughout: the mechanisms below are formulated so as to
-have no effect at the symmetric reference state. Where a section describes a
-force, a threshold or a coupling, it describes something that remains inert
-until an asymmetry is introduced.
+A caution that applies throughout: the mechanisms below are formulated so as to have no effect at the symmetric reference state. Where a section describes a force, a threshold or a coupling, it describes something that remains inert until an asymmetry is introduced.
 
 * Mapping: theory → digital twin
 
-The following table maps the central concepts of the theory onto the quantities and mechanisms of the digital twin. The concrete relational-structure labels (Culture, Politics, Economy, Media) are an applied interpretation of the four abstract relational structures, chosen to make real data interpretable — they are not fixed by the theory.
+The following table maps the central concepts of the theory onto the quantities and mechanisms of the digital twin. The concrete relational-structure labels (Culture, Politics, Economy, Media) are an applied interpretation of the four abstract relational structures, chosen to make the relational structure more understandable for a public that does not want to read the entire Theory first.
 
 | Theory | Digital Twin | Note |
 |--------+-----------+------|
-| Relational structure (R1–R4) | Relational structure A, B, C, D | applied interpretation: A=Culture, B=Politics, C=Economy, D=Media |
-| Sequence / sub-sequence | Sequence (16 = 4×4) | each relational structure contains four sequences, including its self-replica (core) |
+| Relational structure (R1–R4) | Relational structure A, B, C, D | shortened interpretation: A=Culture, B=Politics, C=Economy, D=Media |
+| Sequence / sub-sequence | Sequence (16 = 4×4) | each relational structure contains four sequences, including its self-replica (core sequence) |
 | sequential order | Chain (re-orderable, plastic) | determines the order in which circulation traverses the sequences |
 | actor- / exchange-centred | Regime: autonomous / satellite | whether a relational structure circulates independently or serves another |
 | primacy of circulation | Mobility, pump, migration | movement of actors as the driving force |
@@ -49,71 +30,36 @@ The following table maps the central concepts of the theory onto the quantities 
 | Monopoly / monopoly actors | Dominance → fatigue → rupture | over-power undermines itself (progressive disintegration) |
 | Declassing | Declassing / descent | descent of the categories; arrival of migrants "far down" |
 | Mobility between structures | Migration of actors | along the chain and into other relational structures |
-| Inequality | Gini index + three levels | the cascade of the three levels — transversal, horizontal, vertical — has been implemented as a measurement since v59 |
+| Inequality | Gini index + three levels | the cascade of the three levels — transversal, horizontal, vertical — is implemented as a measurement |
 | Mediation instances | Force per type + power matrix + cascade | relation/sequence/sub-sequence/control per structure |
 
 * A note on vocabulary
 
-Two sets of names for the actor categories occur in this documentation and in
-the application. The theory designates them by their relation to circulation —
-*the possessing*, *the aspirants*, *the conservatives*, *the excluded*. The
-interface uses plainer equivalents — *Established*, *Aspirants*,
-*Conservatives*, *Disappointed* — with the theoretical term available as a
-tooltip. The two sets are interchangeable and are used interchangeably below;
-where a passage is close to the theoretical argument the first set tends to
-appear, and where it describes the interface, the second.
+For the actor categories, the interface of the digital twin uses *Established*, *Aspirants*, *Conservatives*, *Disappointed* with the theoretical term available as a tooltip.
 
-The following terms recur throughout and are defined here rather than at each
-occurrence.
+The following terms recur throughout and are defined here rather than at each occurrence.
 
-- *Self-replica (core sequence).* Each structure contains one sequence that
-  reproduces the structure's own principle — the sequence =g[x][x]=, in which
-  row and column coincide. A structure whose self-replica governs it is
-  autonomous; where another sequence governs, the structure is a satellite of
-  the structure to which that sequence belongs.
+- *Self-replica (core sequence).* Each structure contains one sequence that reproduces the structure's own principle — the sequence =g[x][x]=, in which row and column coincide. A structure whose self-replica governs it is autonomous; where another sequence governs, the structure is a satellite of the structure to which that sequence belongs.
 
-- *Chain.* The ordered succession through which circulation traverses a
-  structure's four sequences. It is what distinguishes the structures from one
-  another, and it is plastic: the order can reorganise itself over the course of
-  a run.
+- *Chain.* The ordered succession through which circulation traverses a structure's four sequences -- the Theory names it 'butterfly channeling' because of its visual butterfly form. It is what distinguishes the structures from one another, and it is plastic: the order can reorganise itself over the course of a run.
 
-- *Terminal.* The sequence at which a chain ends, and toward which circulation
-  is drawn within that structure.
+- *Terminal.* The sequence at which a chain ends, and toward which circulation is drawn within that structure.
 
-- *Regime (ruler).* Which sequence currently governs a structure. Determined by
-  viability and held with hysteresis — a small margin that prevents the regime
-  from oscillating when two sequences are of nearly equal viability.
+- *Regime (ruler).* This is the sequence currently governing a structure. It is determined by viability and held with hysteresis — a small margin that prevents the regime from oscillating when two sequences are of nearly equal viability.
 
-- *Viability.* A bell-shaped function of a sequence's size: too small is not
-  viable, too large is not viable either, with an adjustable optimum between.
-  It is the quantity from which regime and expansion follow.
+- *Viability.* A bell-shaped function of a sequence's size: too small is not viable, too large is not viable either, with an adjustable optimum between. It is the quantity from which regime and expansion follow.
 
-- *Fortune.* The quantity governing vertical movement between actor categories
-  within a sequence, compounded from the viability of the sequence and the size
-  of its structure. High fortune drives ascent, low fortune descent.
+- *Fortune.* The quantity governing vertical movement between actor categories within a sequence, compounded from the viability of the sequence and the size of its structure. High fortune drives ascent, low fortune descent.
 
-- *Drainage (Entleerung).* The release of mass from a sequence to the
-  corresponding sequences of the other structures, driven by its share of
-  excluded actors. It is the mechanism by which the features of one structure
-  propagate across society.
+- *Drainage (Entleerung).* The release of mass from a sequence to the corresponding sequences of the other structures, driven by its share of excluded actors. It is the mechanism by which the features of one structure propagate across society.
 
-- *Permeability.* An explicit diffusion between structures, distinct from
-  drainage: each sequence is drawn toward the cross-structural mean of its
-  column. High permeability makes the structures resemble one another
-  internally; low permeability lets each retain its own texture.
+- *Permeability.* An explicit diffusion between structures, distinct from drainage: each sequence is drawn toward the cross-structural mean of its column. High permeability makes the structures resemble one another internally; low permeability lets each retain its own texture.
 
-- *Satellisation.* The condition of a structure that is at once shrinking and
-  dominated: it loses internal solidity, is absorbed by the dominant structure
-  and draws closer to it in the display. It is reversible.
+- *Satellisation.* The condition of a structure that is at once shrinking and dominated: it loses internal solidity, it is absorbed by the dominant structure and it draws closer to it in the display. It is reversible.
 
-- *Verified headless.* A note recording that the mechanism in question was
-  tested outside the browser, from the command line, before entering the
-  application. The figures given in such notes state the range over which the
-  behaviour was observed, and thus the bounds within which the description holds.
+- *Verified headless.* A note recording that the mechanism in question was tested outside the browser, from the command line, before entering the application. This enables to test configurations of the digital twin beyond hundred steps, because we have observed that for some configuration, they do not reach their end state at hundred steps, but need (sometimes a lot) more.
 
-Quantities written in capitals — =KDIFF=, =KCAP= and the like — are model
-constants. Their values are given at the point of use and can be located in
-=tr-twin.html= by name.
+Quantities written in capitals — =KDIFF=, =KCAP= and the like — are model constants. Their values are given at the point of use and can be located in =tr-twin.html= by name.
 
 * Architecture of the digital twin
 
@@ -133,93 +79,93 @@ The model advances in small time steps. A global speed factor scales the time st
 
 ** Viability and regime
 
-The viability of a sequence follows a bell curve over its size: too small is not viable, too large likewise not; an adjustable optimum lies in between. The regime of a relational structure is that sequence with the highest viability (with hysteresis, so that the regime does not flicker under close conditions). If the self-replica reigns, the relational structure is autonomous (actor-centred); if another sequence reigns, the relational structure is a satellite (exchange-centred) of that other one.
+The viability of a sequence follows a bell curve over its size: too small is not viable, too large likewise not; an adjustable optimum lies in between. The regime of a relational structure is that sequence with the highest viability (with hysteresis, so that the regime does not flicker under close conditions). If the self-replica reigns, the relational structure is autonomous; if another sequence reigns, the relational structure becomes a satellite of that other one.
 
 ** Chains and plasticity
 
-Each relational structure possesses a chain — an ordered succession of its sequences (sequential order). Along this chain, circulation flows toward the reigning terminal. The chains are plastic: the attraction matrix WT slowly relaxes toward reachable targets, so that the sequential order can reorganise itself over time.
+Each relational structure possesses a chain — an ordered succession of its sequences (sequential order). Along this chain, circulation flows toward the reigning terminal. The chains are plastic: the attraction matrix WT slowly relaxes toward reachable targets, so that the sequential order can reorganise itself over time. This is the case when a relational structure becomes staellised, its dynamic order changes leading to another configuration of its chain.
 
 ** Actor categories and vertical mobility
 
-In each sequence, actors rise and fall between the four categories according to "fortune" (a mixture of the viability of the sequence and the size of the relational structure). High fortune drives the ascent toward the possessing, low fortune the descent toward the excluded. At the same time the composition relaxes gently toward the prescribed demographics of the relational structure. The mobility of a sequence — its share of circulating actors — is carried strongly by the possessing, more weakly by the aspirants.
+In each sequence, actors rise and fall between the four categories according to "fortune" (a mixture of the viability of the sequence and the size of the relational structure). High fortune drives the ascent toward the possessing, low fortune the descent toward the excluded. At the same time the composition relaxes gently toward the prescribed demographics of the relational structure. The mobility of a sequence — its share of circulating actors — is carried strongly by the possessing and the disappointed actors, more weakly by the aspirants and the conservatives.
 
 ** Circulation: pump, feedback, mirroring
 
-Within each relational structure a "pump" transports mass along the chain toward the terminal, weighted by the mobility of the actors involved; a feedback redistributes a part back. Between the relational structures, reciprocity acts as mirroring: the sequences mirror the sizes of the other relational structures, so that the relational structures mutually influence one another.
+Within each relational structure a "pump" transports mass along the chain toward the terminal, weighted by the mobility of the actors involved. A feedback redistributes a part back. Between the relational structures, reciprocity acts as mirroring: the sequences mirror the sizes of the other relational structures, so that the relational structures mutually influence one another.
 
 ** Inter-structure coupling, drainage, and permeability
 
-The excluded drive the drainage (Entleerung): a sequence releases the more mass to the corresponding sequences of the other relational structures, the greater its share of excluded. Thus features of one relational structure spread across society, and a strong core radiates into the other relational structures.
+The excluded drive the drainage. When a sequence releases more mass to the corresponding sequences of the other relational structures, its share of excluded grows. Thus features of one relational structure spread across society, and a strong core radiates into the other relational structures.
 
-*Permeability (diffusion of the inner composition).* Beyond the drainage driven by the excluded, an explicit diffusion acts between the structures: each sequence is drawn toward the cross-structural mean of its column, to the degree over · KDIFF (KDIFF = 1.5). High permeability homogenises the inner textures — the structures become alike (the same sequences) — while low permeability lets each keep its own texture. Verified headless: between over = 0 and over = 2.5 the cross-structural dispersion of the sequences falls from ~0.098 to ~0.012. The operation preserves the per-structure normalisation (the pull toward the column mean does not change the row sum) and is zero at the perfect, symmetric state. The control is named "Permeability between structures" in the interface.
+*Permeability (diffusion of the inner composition).* Beyond the drainage driven by the excluded, an explicit diffusion acts between the structures. Each sequence is drawn toward the cross-structural mean of its column, to the degree over · KDIFF (KDIFF = 1.5). High permeability homogenises the inner textures. The relational structures become alike (the same sequences). Low permeability lets each keep its own texture. Verified headless: between over = 0 and over = 2.5 the cross-structural dispersion of the sequences falls from ~0.098 to ~0.012. The operation preserves the per-structure normalisation (the pull toward the column mean does not change the row sum) and is zero at the perfect, symmetric state. The control is named "Permeability between structures" in the interface.
 
 ** Migration of actors
 
 Migration is formulated as a mass flow and is fully conserving. It concerns above all the possessing (the circulating category):
 
 - *Possessing in the self-replica (x,x)* advance one step in the chain of their relational structure and remain in the same relational structure (accumulation of advantages).
-- *Possessing in another sequence (x,y):* the majority advance in the chain; a minority dare the switch into the relational structure y itself — into its reigning core — in order to maximise the advantage of their position (for instance the scientist who, via the "politics of science", switches into politics).
-- *Sclerosis condition:* this switch succeeds only if the target structure is not sclerosed (core not over-powerful, not in rupture). Otherwise it fails, and the migrants stay.
+- *Possessing in another sequence (x,y):* the majority advance in the chain; a minority dare the switch into the relational structure y itself — into its core sequence — in order to maximise the advantage of their position (for instance the scientist who, via the "politics of science", switches into politics in the sequence 'representation' which is the core sequence of the relational structure 'politics').
+- *Sclerosis condition:* this switch succeeds only if the target structure is not sclerosed (core sequence not over-powerful, not in rupture). Otherwise it fails, and the migrants stay.
 
 *Declassing on arrival:* whoever switches into a foreign relational structure arrives declassed — they must resocialise. Their category is lowered on entry; if resocialisation succeeds (good fortune of the target structure), they rise again, otherwise they sink further (successive declassing). A control governs the level of these resocialisation costs.
 
-*Flight of the disappointed (fourth category).* Not only the established circulate: the disappointed too gradually leave their relational structure. A disappointed actor of the sequence (x, a) migrates into the relational structure a — that relational structure in which their sequence is the core sequence — the structure whose self-replica that sequence is — and arrives there "right at the bottom". If the switch succeeds (target structure not sclerosed), it relieves the abandoned relational structure and its mediation instances; if it is blocked, circulation backs up (friction). Freely possible out-migration thus reduces the questioning of the relational structure and maintains circulation; only the prevented flight is a sign of disturbed reciprocity.
+*Flight of the disappointed (fourth category).* Not only the established circulate: the disappointed too gradually leave their relational structure. A disappointed actor of the sequence (x, a) migrates into the relational structure a — that relational structure in which their sequence is the core sequence — and arrives there "right at the bottom". If the switch succeeds (target structure not sclerosed), it relieves the abandoned relational structure and its mediation instances. If it is blocked, circulation backs up (friction). Thus, possible out-migration reduces the questioning of the relational structure and maintains circulation. Only the prevented flight is a sign of disturbed reciprocity.
 
 ** Fatigue of dominance and rupture
 
-An over-endowed relational structure builds up fatigue. If this exceeds a threshold, a progressive rupture sets in: the relational structure gradually releases its surplus to the smaller relational structures, its core erodes, the fatigue is reduced. Thus arises — as the theory suggests for monopolies — a cycle of ascent, over-power, and disintegration, without abrupt jumps.
+An over-endowed relational structure builds up fatigue. If this exceeds a threshold, a progressive rupture sets in: the relational structure gradually releases its surplus to the smaller relational structures, its core sequence erodes, the fatigue is reduced. As the theory suggests for monopolies, a cycle of ascent arises, it can get to over-power and disintegration without abrupt jumps.
 
 ** Demographics per relational structure: weight and composition
 
-Each relational structure carries, over time, two data: a population weight (its size) and a composition (the four categories). The weight anchors the size S of the relational structure — S is drawn gently toward the normalised weight — while the composition governs mobility. A control for the "demographic anchoring" determines how closely the sizes follow the data: with strong anchoring the circle reads as a population, with weak anchoring as relational power.
+Each relational structure carries, over time, two data: a population weight (its size) and a composition (the four categories of actors). The weight anchors the size S of the relational structure — S is drawn gently toward the normalised weight — while the composition governs mobility. A control for the "demographic anchoring" determines how closely the sizes follow the data: with strong anchoring the circle reads as a population, with weak anchoring as relational power.
 
-Important insight: a globally uniform demographics cannot differentiate the relational structures (equal forces on normalised sizes cancel out). Only a structure-specific demographics makes the data effective.
+A globally uniform demographics cannot differentiate the relational structures (equal forces on normalised sizes cancel out). Only a structure-specific demographics differentiates the relational structures.
 
 ** Relational dynamism principle
 
-So that the relational size of a relational structure can deviate strongly from its population, influence flows to the relational structures with the most mobile composition — independently of their population count. This is formulated conservatively (what the dynamic ones gain, the inert ones lose). Thus, for example, culture, though sparsely populated, can extend its influence over the century far beyond its numerical weight — a core concern of the theory, that relational power does not coincide with number.
+The relational size of a relational structure can deviate strongly from its population, and it is the same for its influence. It flows to the relational structures with the most mobile composition, independently of their population count. This is formulated conservatively (what the dynamic relational structures gain, the inert relational structures lose). Thus, for example, culture, though sparsely populated, can extend its influence over time far beyond its numerical weight. Therefore, relational power does not coincide with the number of actors within a relational structure.
 
 ** Inequality (Gini)
 
-As a summary measure of the inequality between the relational structures, the model continuously computes a Gini index and shows its trajectory. The finer resolution into three levels — vertical (within a sequence), horizontal (between sequences of a relational structure), and transversal (between the relational structures) — was, up to v58, a planned extension; since v59 it is implemented as a measurement cascade. It is developed in detail below.
+As a summary measure of the inequality between the relational structures, the model continuously computes a Gini index and shows its trajectory. The finer resolution into three levels of inequality — vertical (within a sequence), horizontal (between sequences of a relational structure), and transversal (between the relational structures) — is implemented as a measurement cascade. It is developed in detail below.
 
 ** Reciprocity as a measured curve
 
-The theory understands reciprocity not as a control variable but as a product of circulation: as a more or less strong degree of the legitimacy of that circulation, carried by actors and mediation instances. The digital twin therefore measures it as an emergent curve in the range (0, 1] — analogous to the Gini, but complementary: the Gini measures the inequality of the sizes, reciprocity the fluidity and legitimacy of circulation.
+The theory understands reciprocity not as a control variable but as a product of circulation. Reciprocity is a more or less strong degree of the legitimacy of that circulation, carried by actors and mediation instances. The digital twin therefore measures it as an emergent curve in the range (0, 1]. It is analogous to the Gini, and it complement the Gini. The Gini measures the inequality of the sizes, reciprocity the fluidity and legitimacy of circulation.
 
-It is computed as: reciprocity = (0.5 + 0.5 · instance health) − (0.50 · inequality + 0.30 · friction + 0.10 · rupture + 0.05 · sclerosis) − 0.40 · unresolved remainder, bounded to [0, 1]. Instance health is the size-weighted mean of the mediating health of the structures; the unresolved remainder (meanResid) is the size-weighted share of the structural problems that the cascade, control included, does not solve (shown in the interface as "overload"). Friction is the share of attempted structure switches (established as well as disappointed) that fail at a sclerosed target structure. In the perfect, symmetric state reciprocity is ~1; it falls with inequality, with blocked circulation, and with unresolved overload, but always remains positive.
+It is computed as: reciprocity = (0.5 + 0.5 · instance health) − (0.50 · inequality + 0.30 · friction + 0.10 · rupture + 0.05 · sclerosis) − 0.40 · unresolved remainder, bounded to [0, 1]. Instance health is the size-weighted mean of the mediating health of the structures. The unresolved remainder (meanResid) is the size-weighted share of the structural problems that the cascade, control included, does not solve (shown in the interface as "overload"). Friction is the share of attempted structure switches (established as well as disappointed) that fail at a sclerosed target structure. In the perfect, symmetric state reciprocity is ~1. It falls with inequality, with blocked circulation, and with unresolved overload, but always remains positive.
 
-This clarified theoretically: the free out-migration of the disappointed does not lower reciprocity (it relieves the system), but the blocked out-migration does. Both curves — inequality and reciprocity — are shown in the central panel next to the relational structures, so that their fluctuations become immediately visible together with the movement of the relational structures.
+This makes clear, that the free out-migration of the disappointed does not lower reciprocity (it relieves the system), but the blocked out-migration does. Both curves — inequality and reciprocity — are shown in the central panel next to the relational structures, so that their fluctuations become immediately visible together with the movement of the relational structures.
 
 ** Morphological and structural determinants: a communicating vessel
 
-The control "weight of number" (demographic anchoring) is more than a display option: it governs the relation between the morphological determinants (population) and the structural determinants (position and circulation) — that relation which, according to the theory, determines the actor categories and the whole system. The two behave like communicating vessels: what the one gains, the other loses.
+The control "weight of number" (demographic anchoring) is more than a display option. It governs the relation between the morphological determinants (determinants of the population) and the structural determinants (determinants of the circulation), following a point in the theory stating that relation determines the actor categories and the whole system. The two behave like communicating vessels: what the one gains, the other loses.
 
-If the relational order leads (low anchoring), a relational structure draws its weight from its circulation — from the mobility of its actors and its viability — not from its head count. A sparsely populated but dynamic relational structure therefore retains relational weight, and the distributive logic of circulation (pump, migration, coupling) continues to redistribute between the relational structures. Inequality stays low, reciprocity high — the primacy of circulation.
+If the relational order leads (low anchoring), a relational structure draws its weight from its circulation — from the mobility of its actors and its viability — not from its population. A sparsely populated but dynamic relational structure therefore retains relational weight, and the distributive logic of circulation (pump, migration, coupling) continues to redistribute between the relational structures. Inequality stays low, reciprocity stays high, and the primacy of circulation dominates.
 
-If, by contrast, the demographic order leads (high anchoring), the relational sizes are drawn toward the population distribution. If this population is itself unbalanced — for instance an ageing society with a very low birth rate, which puts under pressure the renewal of the economic sector and the financing of pensions — then this demographic imbalance translates immediately into relational inequality: the distributive logic of circulation is braked by the weight of number, inequality rises, reciprocity falls. It is precisely here that the capacity or incapacity of circulation to maintain the sequences and relational structures is decided.
+If, by contrast, the demographic order leads (high anchoring), the relational sizes are drawn toward the population distribution. If this population is itself unbalanced — for instance an ageing society with a very low birth rate, which puts under pressure the renewal of the economic sector and the financing of pensions — then this demographic imbalance translates immediately into relational inequality. The distributive logic of circulation is braked by the weight of number, inequality rises, reciprocity falls. It is precisely here that the capacity or incapacity of circulation to maintain the sequences and relational structures is at stake.
 
-Two qualifications are essential. First, the control does not change the demographics itself (birth rate, age pyramid) — this is the datum fed in over the time series; the control determines only to what degree this demographic fact may govern the relational order. Second, it acts only if the demographics is itself unbalanced: on a balanced population it remains without effect. Precisely where the data are tense, the choice between morphological and structural determination decides the outcome.
+Two observation here are essential. First, the control does not change the demography itself (birth rate, age pyramid). The control determines only to what degree this demography may govern the relational order. Second, it acts only if the demography is itself unbalanced. On a balanced population it remains without effect. Precisely where the data are tense, the interplay between morphological and structural determinations determines the outcome.
 
-From this it follows immediately how essential it will be to be able to feed not only the demographics but also the controls themselves from real data via a CSV and to vary them over time. Thus the effects on inequality and reciprocity could be observed along the real tensions between social morphology and structural determinants.
+This makes the simulation of real demographic data possible. The digital twin could be fed with not only the demographics but also the controls themselves via a CSV encoding their variations over time. Thus the effects on inequality and reciprocity could be observed along the real tensions between social morphology and structural determinants.
 
 ** Mediation instances: force, power matrix, and degraded relay
 
-Each structure carries three substantial instance forces (relation, sequence, sub-sequence) and one control force. The three are fed by the actor flow they process at their level: the relation by inter-structure migration, the sequence by the internal pump, the sub-sequence by the flow at the two joints (Established↔Aspirants, Conservatives↔Disappointed). The flows are normalised to a neutral reference value, so that the perfect state keeps the forces at ~1; if the flow dries up, the force falls toward zero — the instance is destroyed.
+Each relational structure carries three substantial instance forces at the levels of the relational structure, the sequence, the sub-sequence, and one control force. The first three levels are fed by the actor flow they process at their level: the relation by inter-structure migration, the sequence by the internal pump, the sub-sequence by the flow at the two joints (Established↔Aspirants, Conservatives↔Disappointed). The flows are normalised to a neutral reference value, so that the perfect state keeps the forces at ~1. If the flow dries up, the force falls toward zero, and the instance is destroyed.
 
-Power matrix (profile per structure). The health of a structure is the mean of its three instances weighted by the power matrix, so that the dominant instance counts the most (A→relation, B→sequence, C→sub-sequence; control is dominant in D). This weighted health feeds reciprocity: a structure becomes sensitive where its strength lies.
+Power matrix (profile per relational structure). The health of a relational structure is the mean of its three instances weighted by the power matrix, so that the dominant instance counts the most (A→relation, B→sequence, C→sub-sequence; control is dominant in D). This weighted health feeds reciprocity: a structure becomes sensitive where its strength lies.
 
-Degraded relay. From the instability of a structure (fatigue, sclerosis) a normalised structural problem P ∈ [0, 1] is formed. It descends in a cascade: each instance solves a capped fraction (suitability ceiling 0.95 / 0.40 / 0.15, scaled with the force) and passes the remainder to the subordinate one. The taking-over instance is first strengthened (its target force rises) but in doing so draws on an energy reserve that is exhausted under sustained overload (rapid activation, slow exhaustion). The remainder left after the sub-sequence calls on control: its force rises with the remainder and restores the energy of the others. The unresolved remainder — the "unregulated tension" — diminishes reciprocity. In the perfect state P = 0, there is no cascade, and reciprocity stays at ~1.
+Degraded relay. The instability of a relational structure (fatigue, sclerosis) is conceived as a normalised structural problem P ∈ [0, 1]. It descends in a cascade: each instance solves a capped fraction (suitability ceiling 0.95 / 0.40 / 0.15, scaled with the force) and passes the remainder, i. e. what remains from the problem to the subordinate one. The taking-over instance is first strengthened (its target force rises) but in doing so draws on an energy reserve that is exhausted under sustained overload (rapid activation, slow exhaustion). The remainder left after the sub-sequence calls on control: its force rises with the remainder and restores the energy of the others. The unresolved remainder — the "unregulated tension" — diminishes reciprocity. In the perfect state P = 0, there is no cascade, and reciprocity stays at ~1.
 
-*Completed (v28–v31):* the physical fate of the structure — the complete Pareto loop. How the cascade now actively intervenes in the size and rupture mechanics is described in the following section.
+How the cascade intervenes in the size and rupture mechanics is described in the following section.
 
 ** The physical fate: profiled forces, ascending coupling, threshold expansion, and control
 
-This stage couples mediation to the size and rupture mechanics. Like all preceding ones, it was first calibrated and verified headless (Node.js) and only afterwards taken into the application. Four building blocks mesh.
+This stage couples the instances of mediation to the size of relational structures and the rupture mechanics. Like all preceding ones, it was first calibrated and verified headless (Node.js) and only afterwards taken into the application. It has four building blocks..
 
 *** (1) Profiled target forces
 
-Each structure receives a force profile PT: the dominant instance stands at 1, the subordinate ones at 0.45. The health contributing to reciprocity is normalised with min(1, I/PT), so that the perfect state — forces on the respective profile — is preserved and no structure appears favoured merely by its profile.
+Each relational structure receives a force profile PT: the dominant instance stands at 1, the subordinate ones at 0.45. The health contributing to reciprocity is normalised with min(1, I/PT), so that the perfect state — forces on the respective profile — is preserved and no structure appears favoured by its profile.
 
 | Structure | Relation | Sequence | Sub-sequence |
 |-----------+----------+----------+--------------|
@@ -230,80 +176,74 @@ Each structure receives a force profile PT: the dominant instance stands at 1, t
 
 *** (2) Ascending coupling
 
-The surplus of a lower instance over its profile rises upward: max(0, I − PT) of the sub-sequence is added to the target of the sequence, that of the sequence to the target of the relation. The coupling factor LINK = [0.5; 0.6; 0.15; 0.5] (A/B/C/D) is deliberately weak in the economy (C) (0.15): the inertia of small instances whose local strength does not rise — the mathematical correlate of the volatility described in document 1 (Four diverging fates).
+The surplus of a lower instance over its profile rises upward: max(0, I − PT) of the sub-sequence is added to the target of the sequence, that of the sequence to the target of the relation. The coupling factor LINK = [0.5; 0.6; 0.15; 0.5] (A/B/C/D) is deliberately weak in the economy (C) (0.15): the inertia of small instances whose local strength does not rise. This is the mathematical correlate of the volatility described in document 1 (Four diverging fates).
 
 *** (3) Threshold expansion (Pareto)
 
-Above a threshold value the dominant instance drives the expansion: ex = KEXP · max(0, dd − 1.15) · S, with KEXP = 0.9 and dd = the value of the dominant instance (relation in A, sequence in B, sub-sequence in C; in D the substantial drive is absent, since control dominates). The threshold 1.15 stabilises the perfect state: below it nothing expands of itself; only the instance driven past the optimum produces expansive pressure — the Pareto loop. Without this threshold even the neutral state would expand (a bug discovered and fixed in v29).
+Above a threshold value, the dominant instance drives the expansion: ex = KEXP · max(0, dd − 1.15) · S, with KEXP = 0.9 and dd = the value of the dominant instance (relation in A, sequence in B, sub-sequence in C; in D the substantial drive is absent, since control dominates). The threshold 1.15 stabilises the perfect symmetric state. Below it nothing expands of itself. Only the instance driven past the optimum produces expansive pressure. This is the Pareto loop. Without this threshold even the neutral state would expand (this was an error that has been corrected in the course of verification).
 
 *** (4) Control solves the remainder; coupling to fatigue
 
-Control reduces the remainder left before it: resCtrl = resPre · max(0, 1 − kc · min(1.5; Ictrl)), with kc = 0.45 in D, otherwise 0.18; at the same time it restores the energy of the exhausted instances (ctrlR = 0.45 · Ictrl · resPre, in D with the factor 1.6). The descending coupling to fatigue proceeds via the factor gm = max(0, 1 + KACCEL · RESID − KBUF · RESOLVED) with KACCEL = 1.5 and KBUF = 0.8, which multiplies the growth of fatigue: solved problems (RESOLVED) dampen it, unregulated remainder (RESID) accelerates it.
+Control reduces the remainder, i. e. the remaining part of the problem left before it: resCtrl = resPre · max(0, 1 − kc · min(1.5; Ictrl)), with kc = 0.45 in D, otherwise 0.18. At the same time it restores the energy of the exhausted instances (ctrlR = 0.45 · Ictrl · resPre, in D with the factor 1.6). The descending coupling to fatigue proceeds via the factor gm = max(0, 1 + KACCEL · RESID − KBUF · RESOLVED) with KACCEL = 1.5 and KBUF = 0.8, which multiplies the growth of fatigue. The solved problems (RESOLVED) dampen it, the unregulated remainder (RESID) accelerates it.
 
-*Display and ceiling.* So that the lower instance hitting the ceiling in C does not appear artificially capped, the force ceiling was raised from 1.7 to 2.5 (v30). The control panel has since shown the three substantial forces of each structure separately (relation, sequence, sub-sequence) instead of a single, capped mean — for a mean hides precisely the hallmark of C: the strength sitting in the wrong place. Since v31 a fourth bar is added, showing the engagement of control above its rest value.
+*Display and ceiling.* The instance hitting the ceiling in C must not appear artificially capped. Therefore, the force ceiling is 2.5 rather than 1.7. The control panel shows the three substantial forces of each relational structure separately (relation, sequence, sub-sequence) instead of a single, capped mean. A fourth bar shows the engagement of control above its rest value.
 
-*Modelling lineage and references.* The saturating, capped force dynamics and the growth up to an optimum stand in the tradition of logistic growth (Verhulst 1838) and the Pareto optimum (Pareto 1909); the relaxation of forces toward a target, the hysteresis of the regime, and the threshold triggering are elementary building blocks of nonlinear dynamics (Strogatz 1994). The control instance, which restores energy and regulates the others, follows the cybernetic notion of a regulator (Ashby 1956). Reciprocity as a systemic measure ties in with the sociological norm of reciprocity (Mauss 1925; Gouldner 1960); inequality is measured via the Gini coefficient (Gini 1912). These references name the provenance of the model's building blocks; they do not claim an exact adoption of the respective original formulas.
+*Modelling lineage and references.* The saturating, capped force dynamics and the growth up to an optimum stand in the tradition of logistic growth (Verhulst 1838) and the Pareto optimum (Pareto 1909). The relaxation of forces toward a target, the hysteresis of the regime, and the threshold triggering are elementary building blocks of nonlinear dynamics (Strogatz 1994). The control instance, which restores energy and regulates the others, follows the cybernetic notion of a regulator (Ashby 1956). Reciprocity as a systemic measure ties in with the sociological norm of reciprocity (Mauss 1925; Gouldner 1960). Inequality is measured via the Gini coefficient (Gini 1912). These references name the provenance of the model's building blocks, but they do not claim an exact adoption of the respective original formulas or theoretical views.
 
-** Satellisation: distress of marginalisation, erosion, active satellisation, and ruler debouncing
+** Satellisation: distress of marginalisation, erosion, active satellisation
 
-This stage complements the physical fate with its second pole. Like all preceding ones, it was first calibrated and verified headless (Node.js). Four building blocks and one stabilisation.
+This stage complements the physical fate with its second pole. Like all preceding ones, it was first calibrated and verified headless (Node.js). It contains four building blocks.
 
 *** (1) The degree of satellisation
 
-With the fair share φ = 1/N, the deficit d[x] = max(0, (φ − S[x])/φ) measures how far a structure falls below its share; the dominance dom = max(0, (Smax − φ)/φ) how far the largest exceeds it. Satellisation is their product: sat[x] = min(1, d[x] · dom). Both factors are zero at the symmetric state — satellisation awakens only when a structure is at once shrunk (deficit) and dominated (dominance).
+With the fair share φ = 1/N, the deficit d[x] = max(0, (φ − S[x])/φ) measures how far a relational structure falls below its share. The domination dom = max(0, (Smax − φ)/φ) measures how far the largest relational structure exceeds it. Satellisation is their product: sat[x] = min(1, d[x] · dom). Both factors are zero at the symmetric state. Satellisation awakens only when a structure is at once shrunk (deficit) and dominated (dominance).
 
 *** (2) Registered distress
 
-Satellisation is fed, with the weight WSAT = 1.0, into the structural problem: P[x] = clamp(1.3·F + 1.2·(g_core − rupt) + WSAT·sat). The marginalised structure thereby receives a problem that engages its cascade and its control; since its instances are weak, a high remainder persists, which enters reciprocity via meanResid. Thus satellisation lowers reciprocity through two channels: the remainder (the satellite cannot regulate itself) and the Gini (the inequality itself).
+Satellisation is fed with the weight WSAT = 1.0 into the structural problem: P[x] = clamp(1.3·F + 1.2·(g_core − rupt) + WSAT·sat). The marginalised structure thereby receives a problem that engages its cascade and its control. Since its instances are weak, a high remainder persists, which enters reciprocity via meanResid. Thus satellisation lowers reciprocity through two channels: the remainder (the satellite cannot regulate itself) and the Gini (the inequality itself).
 
 *** (3) Erosion of internal solidity
 
-The energy of the instances is dampened by KEROD · sat (KEROD = 0.5), in addition to the mere flow shortage. The value is deliberately chosen high: the relation erodes deeply but is never destroyed. As soon as sat falls (liberation), the erosion ceases, the energy recovers (rate 0.13), and the forces rebuild — re-emancipation. Verified headless: after liberation the relation returns from ~0.25 to ~0.69, slowly but completely.
+The energy of the instances is dampened by KEROD · sat (KEROD = 0.5), in addition to the mere flow shortage. The value is deliberately high: the relation erodes deeply but is never destroyed. As soon as sat falls (liberation), the erosion ceases, the energy recovers (rate 0.13), and the forces rebuild. This is the re-emancipation of the relational structure from a satellising relational structure. Verified headless: after liberation the relation returns from ~0.25 to ~0.69, slowly but completely.
 
 *** (4) Active satellisation: absorption and orbit
 
-Absorption: mass passes from the satellite to the dominant, to the degree KABS · sat · max(0, S − SMIN) (KABS = 1.0, SMIN = 0.05). The lower bound SMIN prevents disappearance — the satellite shrinks without extinguishing — and makes the absorption self-limiting (it dies out at the bound). A spiral does not occur: the dominant grows (up to ~0.69 under full satellisation) but remains limited by its own fatigue. Orbit: the display position of the satellite glides continuously toward the dominant, by min(0.42; KORB · sat) (KORB = 0.6) — the more satellised, the closer, up to entry, without overlap.
-
-*** (5) Ruler debouncing (resolution of a limit cycle)
-
-Under strong encapsulation (low viability optimum or strong dominance), the ruler of an encapsulated structure flickered frame by frame between self-rule and encapsulation — and thereby drove a genuine limit cycle: the size oscillated by up to ±0.05, the relational structures jumped visibly. A temporal debouncing remedies this: a ruler change must persist for RULER_DWELL = 0.6 s to take hold. This resolves the limit cycle (amplitude from 53·10⁻³ to ~1·10⁻³) without suppressing the genuine encapsulation — it takes place, only stably. The oscillation was thus a flicker-driven limit cycle, not a deep instability; stabilising the ruler resolves it. Such limit cycles and their damping by hysteresis or dwell time belong to the standard repertoire of nonlinear dynamics (Strogatz 1994); the debouncing acts as a hysteretic regulator (Ashby 1956).
-
-*Validation.* Verified: the perfect state remains untouched (sat = 0, no orbit, no oscillation, even under strong erosion and absorption); in no tested regime does a limit cycle occur; the absorption does not spiral (lower bound, dominant limited by fatigue); and the erosion is reversible (re-emancipation of the relation).
+Absorption: the mass passes from the satellite to the dominant, to the degree KABS · sat · max(0, S − SMIN) (KABS = 1.0, SMIN = 0.05). The lower bound SMIN prevents disappearance. The satellite shrinks without extinguishing and it makes the absorption self-limiting (it dies out at the bound). A spiral does not occur: the dominant grows (up to ~0.69 under full satellisation) but remains limited by its own fatigue. Orbit: the display position of the satellite glides continuously toward the dominant, by min(0.42; KORB · sat) (KORB = 0.6). The more satellised, the closer to the satellising relational structure, up to entry, without overlap.
 
 ** Gini and reciprocity per structure; contributions to the global level
 
-Beyond the global measures (Gini of the sizes, measured reciprocity), the digital twin resolves both onto the level of the individual structure — in two complementary readings: the structure's own (internal) situation and its contribution to the global level. All four measures were verified headless; at the perfect state the deficits and contributions vanish, the own reciprocity stands at ~1.
+Beyond the global measures (Gini of the sizes, measured reciprocity), the digital twin resolves both Gini and reciprocity at the level of the individual relational structure in two complementary readings: the structure's own (internal) situation and its contribution to the global level of inequality/reciprocity. All four measures were verified headless. At the perfect state the deficits and contributions vanish, the own reciprocity stands at ~1.
 
-- *Own reciprocity R[x].* The relational health of the structure itself: R[x] = clamp[(0.5 + 0.5 · instance health[x]) − (0.40 · remainder[x] + 0.45 · satellisation[x] + 0.10 · sclerosis[x] + 0.10 · rupture[x])]. High when the structure is well mediated and neither satellised nor sclerosed; low for a satellite as for a sclerosed dominant. Headless: at the perfect state R = 1 for all; under dominance the dominant keeps a high own reciprocity (~0.9), while the satellites fall (the most strongly satellised the deepest).
-- *Internal Gini G[x].* The inequality within the structure — the Gini of its sequences — as the "within" counterpart to the global "between" Gini. Low for balanced sequences, high for a concentrated or skewed structure.
-- *Contribution to global inequality.* Signed: sign(S[x] − 1/N) · Σⱼ|S[x] − S[j]|/(2N). Positive (over-dimensioned) = the structure enlarges the inequality; negative (under-endowed) = it suffers it. The sum of the magnitudes yields exactly the global Gini; zero at the equality state. In the interface: amber if the structure aggravates the inequality, blue if it suffers it.
-- *Contribution to the weakening of global reciprocity.* A per-structure decomposition of the deficit (1 − R): each term of the global formula is attributed to the structure (health deficit, share of inequality, rupture, sclerosis, unresolved remainder). The sum yields the global deficit, zero at the perfect state. Headless (dominance): the dominant weakens global reciprocity the most — although its own reciprocity is the highest. Precisely this contrast makes the two readings legible: the same structure can function well for itself and at the same time undermine systemic reciprocity the most.
+- *Own reciprocity R[x].* The relational health of the structure itself: R[x] = clamp[(0.5 + 0.5 · instance health[x]) − (0.40 · remainder[x] + 0.45 · satellisation[x] + 0.10 · sclerosis[x] + 0.10 · rupture[x])]. It is high when the structure is well mediated and neither satellised nor sclerosed. It is low for a satellite as for a sclerosed dominant relational structure. Headless: at the perfect state R = 1 for all; under domination the dominant keeps a high own reciprocity (~0.9), while the satellites fall (the most strongly satellised the deepest).
+- *Internal Gini G[x].* The inequality within the relational structure — the Gini of its sequences — as the "within" counterpart to the global "between" Gini. It is low for balanced sequences, high for a concentrated or skewed relational structure.
+- *Contribution to global inequality.* Signed: sign(S[x] − 1/N) · Σⱼ|S[x] − S[j]|/(2N). Positive (over-dimensioned) = the relational structure enlarges the inequality; negative (under-endowed) = it suffers it. The sum of the magnitudes yields exactly the global Gini. It is zero at the equality state. In the interface, it has following colors: amber if the structure aggravates the inequality, blue if it suffers it.
+- *Contribution to the weakening of global reciprocity.* A per-relational structure decomposition of the deficit (1 − R): each term of the global formula is attributed to the relational structure (health deficit, share of inequality, rupture, sclerosis, unresolved remainder). The sum yields the global deficit, which is zero at the perfect state. Headless (domination): the dominant weakens global reciprocity the most, although its own reciprocity is the highest. Precisely this contrast makes the two readings legible: the same structure can function well for itself and at the same time undermine systemic reciprocity the most.
 
-Display: the four measures appear per structure (columns A/B/C/D) in the right-hand block of the central panel, in the same column logic as the instance forces.
+Display in the browser: the four measures appear per structure (columns A/B/C/D) in the right-hand block of the central panel, in the same column logic as the instance forces.
 
 ** The cascade of the three inequality levels
 
-The Theory of the Relation thinks inequality on three nested levels. Up to v58 the model grasped them only as the global Gini of the sizes and, per structure, as the internal Gini of the sequences. Version 59 makes the full resolution explicit and connects the three levels as a cascade — from the widest (between the structures) to the narrowest (between the actor categories within a sequence). It is a pure measurement layer: it is read directly from the existing state (S, g, act) and adds no new force — the mechanics of the model remain unchanged.
+The Theory of the Relation thinks inequality on three nested levels. The model resolves all three and connects them as a cascade — from the widest (between the relational structures) to the narrowest (between the actor categories within a sequence). It is a pure measurement layer: it is read directly from the existing state (S, g, act) and adds no new force. The mechanics of the model remain unchanged.
 
-- *Transversal level (between the structures).* The inequality of the relational sizes S between the four structures — the global Gini already shown above. It is the widest level and coincides with the Gini of the sizes; at the symmetric state (equally large structures) it is zero.
-- *Horizontal level (between the sequences of a structure).* The mean of the internal Ginis G[x] over the four structures: how unequally the sequences within a structure are dimensioned. At the symmetric state (equally large sequences) likewise zero.
-- *Vertical level (between the actor categories of a sequence).* New in v59. The status gap between the four actor categories within a sequence. The categories are ranked by status (Established = 3 > Aspirants = 2 > Conservatives = 1 > Disappointed = 0); for each sequence the model computes the Gini of this status distribution (mean absolute difference / 2 · mean), weighted by the size of the sequence, and averages over the sequences — globally as well as per structure (A/B/C/D). A sequence with only one category has vertical inequality zero; a sequence in which the extremes coexist (Established beside Disappointed) reaches a high value.
+- *Transversal level (between the relational structures).* The inequality of the relational sizes S between the four structures. This is the global Gini already shown above. It is the widest level and it coincides with the Gini of the sizes. At the symmetric state (equally large structures) it is zero.
+- *Horizontal level (between the sequences of a structure).* The mean of the internal Ginis G[x] over the four structures. It shows how unequally the sequences within a structure are dimensioned. At the symmetric state (equally large sequences), it is likewise zero.
+- *Vertical level (between the actor categories of a sequence).* The status gap between the four actor categories within a sequence. The categories are ranked by status (Established = 3 > Aspirants = 2 > Conservatives = 1 > Disappointed = 0). For each sequence, the model computes the Gini of this status distribution (mean absolute difference / 2 · mean), weighted by the size of the sequence, and averages over the sequences — globally as well as per structure (A/B/C/D). A sequence with only one category has vertical inequality zero. A sequence in which the extremes coexist (Established beside Disappointed) reaches a high value.
 
-*A positive baseline of the vertical level.* Unlike the transversal and the horizontal, the vertical level does not vanish at the symmetric state. Since each sequence carries from the outset a mixture of the four categories (default composition 0.22 / 0.28 / 0.28 / 0.22 for Established / Aspirants / Conservatives / Disappointed), it retains a positive baseline of ~0.40. This is theoretically coherent: status inequality is proper to any sequence that contains a spectrum of actor categories — it does not presuppose structural domination. Domination modulates this baseline, it does not produce it.
+*A positive baseline of the vertical level.* Unlike the transversal and the horizontal inequalities, the vertical level does not vanish at the symmetric state. Since each sequence carries from the outset a mixture of the four categories (default composition 0.22 / 0.28 / 0.28 / 0.22 for Established / Aspirants / Conservatives / Disappointed), it retains a positive baseline of ~0.40. This is theoretically coherent: status inequality is proper to any sequence that contains a spectrum of actor categories. It does not presuppose structural domination. Domination modulates this baseline, it does not produce it.
 
-*The cascade and its coupling.* The three levels form a nested hierarchy of scales — society → structure → sequence → actor — which the digital twin reads simultaneously. Theoretically central is their coupling: under domination the levels do not move in the same direction. The dominant structure, which takes in and socialises ever more actors, homogenises its apex — its inner differences flatten out (low horizontal and vertical inequality) — while the satellised structures stratify: their vertical inequality rises, since declassing and marginalisation drive their actors apart. Thus the transversal inequality between the structures translates downward into the vertical stratification of the dominated. This continues, at the level of the actor categories, what already holds for the sequences: satellisation reads on every scale. With this, the stratification set out in document 1 (Mobility and stratification) — the vertical, horizontal, and cross-structural mobility — receives, for each of its axes, its own inequality measure.
+*The cascade and its coupling.* The three levels form a nested hierarchy of scales — society → structure → sequence → actor — which the digital twin reads simultaneously. Theoretically central is their coupling: under domination the levels do not move in the same direction. The dominant structure, which takes in and socialises ever more actors, homogenises its apex. Its inner differences flatten out (low horizontal and vertical inequality), while the satellised structures stratify. Their vertical inequality rises, since declassing and marginalisation drive their actors apart. Thus the transversal inequality between the structures translates downward into the vertical stratification of the dominated. This continues, at the level of the actor categories, what already holds for the sequences. The satellisation reads on every scale. With this, the stratification set out in document 1 (Mobility and stratification) — the vertical, horizontal, and cross-structural mobility — receives, for each of its axes, its own inequality measure.
 
-*Display.* In the central panel a new block "Cascade · 3 levels (TR)" shows the three levels as bars (transversal, horizontal, vertical) and below them a row of the vertical inequality per structure (A/B/C/D), with the legend "the apex homogenises, the dominated stratify". The block sits between the evolution curve and the instance forces.
+*Browser Display.* In the central panel a new block "Cascade · 3 levels (TR)" shows the three levels as bars (transversal, horizontal, vertical) and below them a row of the vertical inequality per structure (A/B/C/D), with the legend "the apex homogenises, the dominated stratify". The block sits between the evolution curve and the instance forces.
 
-*State of the outputs.* The cascade is at present a display of the interface; it is continuously computed from the living state but is not yet part of the deterministic result outputs (CSV time series and SVG figures, 5.16 and v48), which still carry the global Gini and the internal Gini per structure. Its inclusion in the outputs — in particular a column per level and a figure of the three levels over time — is an obvious next step.
+*State of the outputs.* The cascade is at the moment a display of the interface. It is continuously computed from the living state but it is not yet part of the deterministic result outputs (CSV time series and SVG figures), which still carry the global Gini and the internal Gini per structure.
 
 * User interface and controls
 
-The scene shows the four relational structures as glowing circles in a diamond arrangement. Top left lies — as a horizontal panel of four blocks — the central evaluation: (1) the evolution curve of Gini and reciprocity together with the global bars (Gini, reciprocity, overload); (2) the cascade of the three inequality levels (transversal, horizontal, vertical) with the vertical inequality per structure; (3) the instance forces per structure (relation/sequence/sub-sequence/control, columns A/B/C/D); (4) the four per-structure measures (own reciprocity, internal Gini, contribution to inequality, weakening of reciprocity). The right-hand control panel contains the legend, the actor-composition bars, the sequence inspector, the chain editor, the structure-specific demographics (A/B/C/D selection, composition and weight controls), the CSV import, and the timeline.
+The scene shows the four relational structures as glowing circles in a diamond arrangement. Top left lies — as a horizontal panel of four blocks — the central evaluation: (1) the evolution curve of Gini and reciprocity together with the global bars (Gini, reciprocity, overload); (2) the cascade of the three inequality levels (transversal, horizontal, vertical) with the vertical inequality per relational structure; (3) the instance forces per relational structure (relation/sequence/sub-sequence/control, columns A/B/C/D); (4) the four per relational structure measures (own reciprocity, internal Gini, contribution to inequality, weakening of reciprocity). The right-hand control panel contains the legend, the actor-composition bars, the sequence inspector, the chain editor, the structure-specific demographics (A/B/C/D selection, composition and weight controls), the CSV import, and the timeline.
 
-*Visual coding of the structures.* Each structure is an inner circle in its own colour; its radius encodes the size (r ∝ √S). If a second, somewhat larger ring appears around it — the "double-circle" sign — then the structure is no longer autonomous: its regime (ruler) is that of another structure. Decisive is the colour of this ring: it carries the colour of the dominating structure. The inner circle thus says "who I am and how big", the outer ring "under whose regime I fall" — the visual counterpart to the regime note in the bars (·autonomous vs. ·▸X) and the visible expression of satellisation: a satellite orbits the dominant and follows its regime, and the ring shows which one. Two further, transient rings are to be distinguished from this: a dashed orange ring during an ongoing rupture and a pulsing white ring on the currently stimulated structure. Golden, moving dots show migrating established actors; the smaller dots inside are the sequences, their lines the chain.
+*Visual coding of the structures.* Each structure is an inner circle in its own colour. Its radius encodes the size (r ∝ √S). If a second, somewhat larger ring appears around it — the "double-circle" sign — then the structure is no longer autonomous. Its regime (ruler) is that of another structure. Decisive is the colour of this ring: it carries the colour of the dominating structure. The inner circle thus says "who I am and how big", the outer ring "under whose regime I fall". This is the visual counterpart to the regime note in the bars (·autonomous vs. ·▸X) and the visible expression of satellisation: a satellite orbits the dominant and follows its regime, and the ring shows which one. Two further, transient rings are to be distinguished from this: a dashed orange ring during an ongoing rupture and a pulsing white ring on the currently stimulated structure. Golden, moving dots simulate migrating actors. The smaller dots inside are the sequences, their lines the chain.
 
-The most important controls and their theoretical meaning:
+Here are the most important controls and their theoretical meaning:
 
 | Control | Theoretical meaning |
 |---------+---------------------|
@@ -311,7 +251,7 @@ The most important controls and their theoretical meaning:
 | Circulation of actors | intensity of the force-driven circulation between structures (assimilation) |
 | Pump | intensity of the mass transport to the terminal |
 | Feedback | redistribution against the chain direction |
-| Permeability between structures | diffusion of the inner composition between structures (drainage + alignment) |
+| Permeability between structures | diffusion of the inner composition between relational structures (drainage + alignment) |
 | Mirror effect | strength of the mirroring between the relational structures |
 | Viability optimum | location of the bell maximum (from when oversize harms) |
 | Fatigue of dominance | tempo at which over-power leads to rupture |
@@ -321,17 +261,17 @@ The most important controls and their theoretical meaning:
 | Relational dynamism | degree to which influence flows to the most mobile relational structure |
 | Demographic anchoring | how closely the sizes follow the population data |
 
-*Defaults of the perfect state.* At start-up all controls stand on a non-deviant reference value and the demographics is symmetric (equally large relational structures) — inequality 0, reciprocity ~1. Mobility is here explicitly active: migration and a medium declassing (0.5) mean that newcomers do arrive declassed but resocialise in a healthy relation; and a medium value for "advantage for dynamic structures" (0.5) gives circulation its weight against the mere population count, in accordance with the primacy of circulation. Since the start state is symmetric, these values remain without effect there; they unfold only on asymmetric data. The control "weight of number" is not a pure display option but a determinant: it determines how strongly the relational size follows the demographic one — which is why it actually changes inequality and reciprocity (the demographic and the relational determination carry different inequalities, which forms precisely the core of the theory).
+*Defaults of the perfect state.* At start-up all controls stand on a non-deviant reference value and the demographics is symmetric (equally large relational structures) — inequality 0, reciprocity ~1. Mobility is here explicitly active: migration and a medium declassing (0.5) mean that newcomers do arrive declassed but resocialise in a healthy relation. A medium value for "advantage for dynamic structures" (0.5) gives circulation its weight against the mere population count, in accordance with the primacy of circulation. Since the start state is symmetric, these values remain without effect there. They unfold only on asymmetric data. The control "weight of number" is not a pure display option but a determinant: it determines how strongly the relational size follows the demographic one — which is why it actually changes inequality and reciprocity (the demographic and the relational determination carry different inequalities, see above).
 
 *Reproducibility:* a random seed fixes the small initial perturbation; the same seed and the same settings yield the same trajectory. This makes the digital twin a comparative analysis tool.
 
 ** Multilingualism of the interface and the outputs (DE/EN/FR)
 
-*Trilingualism (v52–v58).* The digital twin is a single application that switches between German, English, and French (the DE·EN·FR pill at the top right of the central panel; English default). A central dictionary holds every string in three languages; the language switch instantly rewrites the entire interface — labels, tooltips, structure names on the circles, actor categories, the regime note (autonom / autonomous / autonome), and the control labels. The pedagogical tooltips were revised for first-time users (v55).
+*Trilingualism.* The digital twin is a single application that switches between German, English, and French (the DE·EN·FR pill at the top right of the central panel; English default). A central dictionary holds every string in three languages. The language switch instantly rewrites the entire interface — labels, tooltips, structure names on the circles, actor categories, the regime note (autonom / autonomous / autonome), and the control labels. The pedagogical tooltips were revised for first-time users (v55).
 
 *Localisation of the outputs.* The exported files too follow the language: file names (Zeitreihen.csv / time_series.csv / series_temporelles.csv; transitions.csv; the six figures), titles and legends of the SVG figures, and the status messages. Deliberate exception: the CSV column headers always stay English and machine-readable (year, size_A, reciprocity, struct_from …), so that analysis scripts work language-independently; the actor categories as data values, by contrast, follow the language (Established / Aspirants / Conservatives / Disappointed). The CSV files are prefixed with a UTF-8 BOM, so that umlauts appear correctly in Excel. Verified headless in all three languages.
 
-The consistently used, validated terminology:
+Here is the consistently used, validated terminology:
 
 | German | English | Français |
 |--------+---------+----------|
@@ -352,3 +292,16 @@ The consistently used, validated terminology:
 | Erschöpfung der Herrschenden | exhaustion of the dominants | essoufflement des dominants |
 | Flexibilität der Strecken | path flexibility | souplesse des parcours |
 | Zeitleiste · Stützpunkt | timeline · keyframe | frise · point de repère |
+
+* A note on the development history
+
+The model was built incrementally, and earlier drafts of this document recorded at which version each mechanism entered — a form of annotation useful during construction and a distraction afterwards. The descriptions above therefore state what the model does now.
+
+Where the history matters, it is kept in one place:
+
+- [[file:06-main-changes.org][Document 6]] carries the version history and records what changed when.
+- [[file:08-roadmap-planned-extensions.org][Document 8]] distinguishes what is implemented from what remains open, and is the place to look before relying on a feature.
+
+Two features described above are worth singling out, because their status is asymmetric in a way that affects use. The *inequality cascade* is computed continuously and shown in the interface, but it is not yet part of the deterministic result outputs: a run's CSV and SVG exports carry the global Gini and the internal Gini per structure, not the three levels separately. And the *sequence layer of the actor cohort* is descriptive: it appears in the contract table, in the transitions of the export and in an aggregated figure, but it does not govern the running model, since sixteen cells cannot be filled reliably from a thin cohort. Both restrictions are deliberate, and both are stated where the mechanism is described.
+
+Constants cited in this document — =KEXP=, =KDIFF=, =KCAP= and the rest, together with thresholds such as 1.15 and ceilings such as 2.5 — are the values in force in the current application and can be located in =tr-twin.html= by name. Where a verification note reports a range, that range is the interval over which the behaviour was actually observed.

@@ -144,7 +144,7 @@ node batch.js  ./tr-twin.html  ./simulation-mode  ./out/converged  5000
 * Profile files
 
 First column = cursor (id or French label), following columns = years (linear
-interpolation between them). Rows =chaine_A,C,B,D= set the structural coupling.
+interpolation between them). Rows =chain_A,C,B,D= set the structural coupling.
 
 | cursor id | French label                        | meaning                        |
 |-----------+-------------------------------------+--------------------------------|
@@ -159,7 +159,7 @@ interpolation between them). Rows =chaine_A,C,B,D= set the structural coupling.
 | mig       | Migration des acteurs               | actor migration                |
 | decl      | Déclassement des arrivants          | downgrading of newcomers       |
 | dynam     | Avantage aux structures dynamiques  | advantage to dynamic structures|
-| anchor    | Poids du nombre                     | weight of numbers              |
+| anchor    | Weight du nombre                     | weight of numbers              |
 
 * Three pitfalls (found empirically — read this)
 

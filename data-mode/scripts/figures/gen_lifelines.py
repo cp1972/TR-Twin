@@ -21,7 +21,7 @@ COL = PAL['lane']
 rows = list(csv.DictReader(open('data-mode/data/instances/instances_probe_demo.csv')))
 inst = {}
 for r in rows:
-    inst.setdefault(r['aid'], []).append((int(r['annee']), float(r['poids']), r['structure'], r['sequence']))
+    inst.setdefault(r['aid'], []).append((int(r['year']), float(r['weight']), r['structure'], r['sequence']))
 for a in inst: inst[a].sort()
 def lane(s, q):
     return 'culture' if (s=='A' and q=='A') else ('bridge' if (s=='A' and q=='D') else ('media' if s=='D' else 'other'))

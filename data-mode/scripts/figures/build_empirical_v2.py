@@ -45,24 +45,24 @@ ALLCTRL={**CTRLC,**ILLUS}
 # Verzeichnis: Gründung und Metadaten der Vermittlungsinstanzen (ohne Kontrolle)
 found={}; meta={}
 for r in csv.DictReader(open(CAT)):
-    a=r['aid']; y=int(r['annee'])
+    a=r['aid']; y=int(r['year'])
     if a not in found or y<found[a]: found[a]=y
     meta.setdefault(a,r)
 END=1966
 def ctrl_rows(target):
     rows=[]
     for a,(s,q,curve) in target.items():
-        for (yy,ww) in curve: rows.append((a,yy,s,'controle',q,ww))
+        for (yy,ww) in curve: rows.append((a,yy,s,'control',q,ww))
     return rows
 # 1) nur der Bestand der Kontrollinstanzen
-ctrl=[('aid','annee','structure','categorie','sequence','poids')]+ctrl_rows(ALLCTRL)
+ctrl=[('aid','year','structure','category','sequence','weight')]+ctrl_rows(ALLCTRL)
 with open('data-mode/data/instances/control_parc_empirical.csv','w',newline='') as fo: csv.writer(fo).writerows(ctrl)
 # 2) vollständige Kohorte: Kontrolle (Kurven) und Vermittlung (generisch)
-full=[('aid','annee','structure','categorie','sequence','poids')]+ctrl_rows(ALLCTRL)
+full=[('aid','year','structure','category','sequence','weight')]+ctrl_rows(ALLCTRL)
 nmed=0
 for a,f in found.items():
     if a in CTRLC: continue   # steht bereits unter Kontrolle
-    m=meta[a]; s=m['structure']; q=m['sequence']; c=m['categorie'] or 'aspirant'
+    m=meta[a]; s=m['structure']; q=m['sequence']; c=m['category'] or 'aspirant'
     h=0
     for ch in a: h=(h*31+ord(ch))&0x7fffffff
     span=35+(h%26); close=min(END,max(f+span,f+30)); pky=f+round(0.40*(close-f)); peak=round(0.40+(h%5)*0.05,2)

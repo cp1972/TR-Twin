@@ -14,7 +14,7 @@ from matplotlib.lines import Line2D
 PROBES = ["735", "430", "235", "108", "481"]   # Watson, Leno, Farish, Burgess, Mann
 
 # --- Statusskala (entspricht der vertikalen GINI-Reihung im Simulator) ------
-STATUS = {"etabli": 3, "aspirant": 2, "conservateur": 1, "decu": 0,
+STATUS = {"established": 3, "aspirant": 2, "conservative": 1, "excluded": 0,
           "possedant": 3, "exclu": 0}            # tolerate synonyms
 STATUS_LABEL = {3: "established", 2: "aspirant", 1: "conservative", 0: "disappointed"}
 STRUCT_NAME = {"A": "Culture", "B": "Politics", "C": "Economy", "D": "Media"}
@@ -34,7 +34,7 @@ def load():
         for r in csv.DictReader(f):
             if r["aid"] in PROBES:
                 traj.setdefault(r["aid"], []).append(
-                    (int(r["annee"]), r["structure"], (r["categorie"] or "").strip(), r["sequence"]))
+                    (int(r["year"]), r["structure"], (r["category"] or "").strip(), r["sequence"]))
     for a in traj:
         traj[a].sort()
     meta = {}

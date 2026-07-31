@@ -7,51 +7,48 @@
 
 * Before you start
 
-This document describes how empirical material is brought into the twin and what
-the interface does with it once loaded. It covers three kinds of input —
-aggregate demographics, controller profiles, and actor cohorts — and the
-scenario panel that extends a loaded history into a projection.
+This document describes how empirical material is brought into the digital twin of the Theory of the Relation, and what the interface does with it once loaded. It covers three kinds of input — aggregate demographics, controller profiles, and actor cohorts — and the scenario panel that extends a loaded history into a projection.
 
-The three inputs answer different questions and are not interchangeable.
-Demographics supply population weights over time and suit material that is
-already aggregated. A controller profile governs the controls rather than the
-data, and is the form in which a theoretical reading is expressed. An actor
-cohort supplies individual trajectories and is the appropriate form for
-biographical or archival material; in this case the cohort governs the model
-directly, and the measures are read on the cohort itself.
+The three inputs answer different questions and are not interchangeable. Demographics supply population weights over time and suit material that is already aggregated. A controller profile governs the controls rather than the data, and is the form in which a theoretical reading is expressed. An actor cohort supplies individual trajectories and is the appropriate form for biographical or archival material. In this case the cohort governs the model directly, and the measures are read on the cohort itself.
 
-Which to use is a decision about the material rather than about the software.
-Where a cohort is thin, the caution stated in
-[[file:04-methodology-of-the-tr-digital-twin.org][document 4]] applies: it is to
-be read as a probe rather than as a census, and the resolution at which it can
-be analysed follows from its size.
+Which to use is a decision about the material rather than about the software. Where a cohort is thin, the caution set out in [[file:05-prism-mode-actor-probes.org][document 5]] applies: it is to be read as a probe rather than as a census, and the resolution at which it can be analysed follows from its size.
 
 * Data import (CSV)
 
-Real demographics are read in as CSV in absolute numbers. Format: one column "sphère" (A–D), one column "catégorie" (possessing, aspirants, conservatives, excluded, in this order), and one column per year. The sum of the four categories of a relational structure gives its population weight, their normalisation the composition — a single table of real numbers thus supplies both. The years form the keyframes of the timeline; in between, interpolation is applied.
+Real demographics are read in as CSV in absolute numbers. Format: one column "structure" (A–D), one column "category" (established, aspirants, conservatives, excluded, in this order), and one column per year. The sum of the four categories of a relational structure gives its population weight, their normalisation the composition. A single table of real numbers thus supplies both. The years build the keyframes of the timeline. In between, interpolation is applied.
 
-Use as an analysis tool: one loads the data, lowers the speed, and starts the chronology. What then becomes visible is the mutual influence of the orders, the expansion of individual orders beyond the others, the becoming-satellite of others, the unequal circulation of actors, and the inequalities that follow from it.
+Use as an analysis tool: one loads the data, lowers the speed, and starts the chronology. What then becomes visible is the mutual influence of the relational structures, the expansion of individual relational structures beyond the others, the becoming-satellite of others, the unequal circulation of actors, and the inequalities that follow from it.
 
 ** Controller profiles and chain coupling (theory profiles)
 
-Besides the demographics, a second CSV can be loaded — a "controller profile" — which governs the controls over time. Format as with the demographics: first column = control (machine identifier or label as an alias), one column per year; between the years a linear interpolation is applied (held before the first and after the last point). During playback the governed controls move by themselves and are marked turquoise; controls not listed remain manual. Such a profile is the named, reloadable theory profile, with which the same data can be played under different readings.
+Besides the demographics, a second CSV can be loaded — a "controller profile" — which governs the controls over time. The format mimics the one with the demographics: first column = control labels (machine identifier or label as an alias), one column per year with control value. Between the years a linear interpolation is applied (held before the first and after the last point). During playback the governed controls move by themselves and are marked turquoise. Controls not listed remain at the default value of the digital twin. Such a controller profile has been use as a theory profile, providing a comparison between the Theory of the Relation and other theoretical frameworks in sociology. The profile can be edited to support different readings of the same theory or different theories.
 
-Since dialectising two structures is a structural operation (chain coupling, not a control), a profile can also set chains: a row "chaine_A,C,B,D" fixes the coupling order of A (here C first). Thus a single profile carries the temporal mechanics (controls) and the structural coupling (chains) — a complete theory configuration. Verified headless (parser, interpolation, alias, chain application).
+Since dialectising two structures is a structural operation (chain coupling, not a control), a profile can also set chains. A row "chain_A,C,B,D" fixes the coupling order of A (here C first). Thus a single profile carries the temporal mechanics (controls) and the structural coupling (chains), enabling a complete theory configuration.
+
+** A note on column names
+
+The column names of the contract table were originally French (=annee=,
+=categorie=, =poids=) and the files distributed with this repository now use
+their English equivalents (=year=, =category=, =weight=). The reader accepts
+both, together with the German forms, so that files written against the earlier
+convention continue to load. The same holds for the category values: =etabli=
+and =established=, =decu= and =excluded= are read alike, and a chain row may be
+written =chain_A= or =chaine_A=.
 
 ** Actor cohort and circulation flows
 
-Instead of a macro-demographic curve, a real cohort can be loaded (contract table: actor, dated stages → structure, category). Each actor holds their position from one stage to the next (step function), over their documented career (first to last stage); the sum over the living actors gives, per year, a cohort demographics. In variant 2a the cohort /is/ the population: it governs the model directly, and all measures read on the cohort itself. The interpolation proceeds in steps (switch linear/steps; v44); the macro-demographics remains linear.
+Instead of a macro-demographic curve, a real cohort can be loaded (contract table: actor, dated stages → structure, category). Each actor holds their position from one stage to the next (step function), over their documented career (first to last stage). The sum over the living actors gives, per year, a cohort demographics. In this variant, the cohort /is/ the population: it governs the model directly, and all measures read on the cohort itself. The interpolation proceeds in steps (switch linear/steps; introduced in v44). The macro-demographics remains linear.
 
-A second element shows the circulation flows (v45/v46): a 4×4 matrix (row = origin structure, column = target structure) counts the structure switches of the actors in a sliding window around the current year and so makes visible which paths the actors carry and how the circulation regime shifts over time. Important caution: the cohort is thin (in the test case 6–14 active actors) — it is to be read as a probe, not as a census (see the "Methodology" document).
+A second element shows the circulation flows (introduced incrementally from version v45 to version v46): a 4×4 matrix (row = origin structure, column = target structure) counts the structure switches of the actors in a sliding window around the current year and so makes visible which paths the actors carry and how the circulation regime shifts over time. Important caution: the cohort is thin (in the test case 6–14 active actors) — it is to be read as a probe, not as a census (see [[file:05-prism-mode-actor-probes.org][document 5]]).
 
-The contract table has carried, since v50, an additional column "sequence" (sequence stake per stage, A/B/C/D; default = the identity sequence of the structure). Each actor is thus described by a triple (structure, sequence, category). This sequence layer is kept descriptive — it does not govern the living model (too thin a cohort for 16 cells per year) but appears in the actor file, in the sequence transitions of the export, and in an aggregated figure (see the "Methodology" document).
+The contract table has carried, since v50, an additional column "sequence" (sequence stake per stage, A/B/C/D; default = the identity sequence of the structure). Each actor is thus described by a triple layer (relational structure, sequence, category). This layer is kept descriptive. It does not govern the living model, but appears in the actor file, in the sequence transitions of the export, and in an aggregated figure (see [[file:05-prism-mode-actor-probes.org][document 5]]).
 
-* What-if scenarios ("et si")
+* What-if scenarios
 
-The scenario panel turns the loaded history into a no-code projection tool, designed for students with no programming background. The principle is fixed: a scenario is a historical /trend/ × a /transformation/ × a /horizon/ — never code.
+The scenario panel turns the loaded history into a no-code projection tool, designed for students with no programming background. The principle is fixed: a scenario is a historical /trend/ × a /transformation/ × a /horizon/.
 
-The workflow has three steps. First, *extract the trends*: the twin derives them deterministically from the whole loaded history — presence trends from the structural shares, control trends from the capacity floor — read directly from the drivers (no stochastic replay), so the same data always yields the same trends. Second, *choose a trend, a transformation and a horizon*. The transformation comes from a trilingual verb menu — continue, accelerate, dampen, reverse, freeze, and redirect (X→Y) — its intensity from a magnitude slider, and the reach from a horizon in years. Third, *compute*: the timeline is extended by the horizon and the projection is played. The structures visibly move, the bar sweeps from a few years before the pivot into the projected tail, and a readout (shown in the central panel, beside the circulation flows) contrasts the starting state with the projection at the horizon, stating the consequence in plain language.
+The workflow has three steps. First, *it extracts the trends*: the twin derives them deterministically from the whole loaded history — presence trends from the structural shares, control trends from the capacity floor — read directly from the drivers (no stochastic replay), so the same data always yields the same trends. Second, *it chooses a trend, a transformation and a horizon*. The transformation comes from a trilingual verb menu — continue, accelerate, dampen, reverse, freeze, and redirect (X→Y) — its intensity from a magnitude slider, and the reach from a horizon in years. Third, *compute*: the timeline is extended by the horizon and the projection is played. The structures visibly move, the bar sweeps from a few years before the pivot into the projected tail, and a readout (shown in the central panel, beside the circulation flows) contrasts the starting state with the projection at the horizon, stating the consequence in plain language.
 
-Two design points make the levers honest and legible. Presence is projected as an /additive share shift/ rather than a multiplication, so a structure that is nearly absent at the pivot (as the working-class cohort is outside A·Culture) can still grow visibly; magnitude and horizon therefore have a real, visible effect. The projection is deterministic, so a saved scenario card replays identically. The *reset* button removes the projection and restores the historical frieze; *⬇ SVG* exports the projected trajectory (reciprocity, transversal inequality, target stratification, with a dashed pivot marker) as a print-ready figure in the same aesthetic as the other publication figures.
+Two design points make the levers honest and legible. Presence is projected as an /additive share shift/ rather than a multiplication, so a structure that is nearly absent at the pivot can still grow visibly. Magnitude and horizon therefore have a real, visible effect. The projection is deterministic, so a saved scenario card replays identically. The *reset* button removes the projection and restores the historical frieze; *⬇ SVG* exports the projected trajectory (reciprocity, transversal inequality, target stratification, with a dashed pivot marker) as a print-ready figure in the same aesthetic as the other publication figures.
 
-A scenario is a reading aid, not a forecast: it shows how the relational orders /would/ reconfigure if a documented tendency were continued or transformed, in the terms of the Theory of the Relation (see the "Methodology" document).
+A scenario is a reading aid, not a forecast. It shows how the relational orders /would/ reconfigure if a documented tendency were continued or transformed, in the terms of the Theory of the Relation (see [[file:05-prism-mode-actor-probes.org][document 5]]).
