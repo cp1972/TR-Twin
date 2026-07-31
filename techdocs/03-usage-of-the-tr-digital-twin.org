@@ -27,13 +27,7 @@ Since dialectising two structures is a structural operation (chain coupling, not
 
 ** A note on column names
 
-The column names of the contract table were originally French (=annee=,
-=categorie=, =poids=) and the files distributed with this repository now use
-their English equivalents (=year=, =category=, =weight=). The reader accepts
-both, together with the German forms, so that files written against the earlier
-convention continue to load. The same holds for the category values: =etabli=
-and =established=, =decu= and =excluded= are read alike, and a chain row may be
-written =chain_A= or =chaine_A=.
+The column names of the contract table were originally French (=annee=, =categorie=, =poids=) and the files distributed with this repository now use their English equivalents (=year=, =category=, =weight=). The reader accepts both, together with the German forms, so that files written against the earlier convention continue to load. The same holds for the category values: =etabli= and =established=, =decu= and =excluded= are read alike, and a chain row may be written =chain_A= or =chaine_A=.
 
 ** Actor cohort and circulation flows
 
