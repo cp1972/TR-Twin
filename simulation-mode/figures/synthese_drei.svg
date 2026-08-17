@@ -1,0 +1,28 @@
+<svg viewBox="0 0 780 430" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica,Arial,sans-serif">
+<rect x="0" y="0" width="780" height="430" fill="#ffffff"/>
+<rect x="40" y="34" width="340" height="196" rx="12" fill="#46CDB8" opacity="0.10" stroke="#46CDB8"/>
+<text x="210" y="66" font-size="19" font-family="Georgia,serif" fill="#2f9e8c" text-anchor="middle">Symmetrische Reziprozität</text>
+<text x="210" y="88" font-size="15" fill="#2b2b2b" text-anchor="middle">das gemeinsame Ideal</text>
+<text x="210" y="126" font-size="16" fill="#2b2b2b" text-anchor="middle">Theorie der Relation (Ideal)</text>
+<text x="210" y="152" font-size="16" fill="#2b2b2b" text-anchor="middle">Habermas — kommunikatives Ideal</text>
+<text x="210" y="178" font-size="16" fill="#2b2b2b" text-anchor="middle">Luhmann — das Darstellbare</text>
+<text x="210" y="204" font-size="16" fill="#2b2b2b" text-anchor="middle">Autonomie, keine Hierarchie</text>
+<rect x="400" y="34" width="340" height="196" rx="12" fill="#E36F9E" opacity="0.10" stroke="#E36F9E"/>
+<text x="570" y="66" font-size="19" font-family="Georgia,serif" fill="#c45680" text-anchor="middle">Einziger Apex</text>
+<text x="570" y="88" font-size="15" fill="#2b2b2b" text-anchor="middle">Satellisierung</text>
+<text x="570" y="126" font-size="16" fill="#2b2b2b" text-anchor="middle">Parsons — kybernetische Hierarchie</text>
+<text x="570" y="152" font-size="16" fill="#2b2b2b" text-anchor="middle">Habermas — Kolonialisierung</text>
+<text x="570" y="178" font-size="16" fill="#2b2b2b" text-anchor="middle">ein Pol dominiert,</text>
+<text x="570" y="204" font-size="16" fill="#2b2b2b" text-anchor="middle">drei Satelliten</text>
+<line x1="40" y1="264" x2="740" y2="264" stroke="#e7e7e7"/>
+<text x="40" y="292" font-size="16" fill="#2b2b2b">Die drei Übergänge zwischen den beiden Regimen</text>
+<rect x="40" y="309" width="6" height="16" fill="#2b2b2b" rx="2"/>
+<text x="56" y="322" font-size="16" font-family="Georgia,serif" fill="#2b2b2b">Parsons</text>
+<text x="152" y="322" font-size="15" fill="#2b2b2b">Hierarchie führt zum Apex — darstellbar, mit innerer Spannung</text>
+<rect x="40" y="339" width="6" height="16" fill="#8C92EC" rx="2"/>
+<text x="56" y="352" font-size="16" font-family="Georgia,serif" fill="#2b2b2b">Luhmann</text>
+<text x="152" y="352" font-size="15" fill="#2b2b2b">operative Schließung fällt in die Symmetrie zurück — nicht darstellbar</text>
+<rect x="40" y="369" width="6" height="16" fill="#E36F9E" rx="2"/>
+<text x="56" y="382" font-size="16" font-family="Georgia,serif" fill="#2b2b2b">Habermas</text>
+<text x="152" y="382" font-size="15" fill="#2b2b2b">die Bipolarität von System und Lebenswelt kippt in den Apex — nicht darstellbar</text>
+</svg>

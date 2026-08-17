@@ -1,0 +1,126 @@
+#+TITLE: Atypizität der Zirkulation: Vergleich der Kohorte mit der englischen Arbeiterklasse 1839–1914
+#+SUBTITLE: Theorie der Relation — empirischer Teil, Referenzvergleich
+#+AUTHOR:
+#+DATE: 2026-06-24
+#+OPTIONS: toc:t num:t ^:nil
+#+LANGUAGE: de
+
+* 1. Fragestellung
+
+Die vorangehenden Berichte messen die /Zirkulationsintensität/ der 163 Autobiographen (drei Achsen, zusammengesetzter Index, Ungleichheitskaskade). Dieser Bericht stellt die folgende für die Untersuchung entscheidende Frage: Ist diese Zirkulation /typisch/ für die englische Arbeiterklasse dieser Epoche, oder ist sie im Gegenteil /atypisch/? Die Antwort ergibt zwei klar zu trennende Teile — die erreichte Zielposition und die Intensität der Bewegung selbst —, weil die verfügbare Referenzliteratur diese beiden Dimensionen ungleich abdeckt. Das eigentliche Ergebnis des Berichts ist jedoch ein theoretischer Befund, den erst diese geschichtete Lesart sichtbar macht (Abschnitt 6): die Theorie der Relation /sagt vorher/, in welcher Struktur sich die vertikale Ungleichheit lagern muss, und die unabhängig kodierten Daten bestätigen diese Vorhersage.
+
+* 2. Referenzlage
+
+Die maßgebliche Referenz für die Mobilität der englischen Arbeiterklasse 1839–1914 stammt aus Andrew Miles' Auswertung von 10 835 Heiratsregistern (Miles 1999) sowie aus jüngeren Arbeiten mit verknüpften Zensus- und Heiratsdaten (s. unsere anderen Berichte). Drei Befunde sind für unseren Vergleich sehr wichtig:
+
+- Die intergenerationelle Aufwärtsmobilität über die Klassengrenze war gering: noch im Jahr 1914 wurden rund 90 % der Söhne von Arbeitern ebenfalls Arbeiter, wenn sie Erwachsene wurde. Nur etwa 5 % von ihnen stiegen in die Mittelklasse auf. Der Aufstieg an die Spitze war nahezu ausgeschlossen. In Miles' Stichprobe wechselten nur neunzehn Männer (≈ 0,2 %) aus der Arbeiterklasse in die obere unternehmerisch-professionelle Schicht.
+- Innerhalb der manuellen Ränge war die Fluidität hingegen erheblich: nur etwa ein Drittel der ungelernten jungen Männer blieb ungelernt; rund 40 % stiegen zu einer gelernten Tätigkeit auf. Der Übertritt ins Angestellten- bzw. Akademiker-Milieu (Klassen I–II) blieb jedoch intra- wie intergenerationell selten.
+- Entscheidend für unser Vorhaben: die /intragenerationelle/ Mobilität (die Mobilität/die Zirkulation im Verlauf eines Lebens) ist kaum dokumentiert. Seit den 1970er Jahren hat keine Studie ihre Trends systematisch erfasst. Unsere dreiachsige Messung erfasst somit eine Größe, für die in der Allgemeinbevölkerung kein etablierter Vergleichspunkt vorliegt.
+
+* 3. Vergleich auf der Zieldimension (vertikale Ankunft)
+
+Die Herkunft der Kohorte wurde über das kodierte Vaterberuf-Feld bestimmt (45 von 163 Vätern können kodiert werden). Davon sind 69 % manuelle Arbeiter (36 % gelernt, HISCLASS VI–VII; 33 % gering-/ungelernt, IX–XII). Zusätzlich dazu gibt es 11 % Bauern, 13 % unteres Angestelltenmilieu und 7 % Elite. Für die Söhne manueller Väter (n = 29) wurde die Zielposition als HISCLASS der statushöchsten kodierten Etappe (Gipfel) bestimmt:
+
+| Zielposition (am Gipfel)        | Kohorte | Referenz 1839–1914 |
+|---------------------------------+---------+--------------------|
+| Angestellten-/Akademikermilieu (I–V) |   79 %  | ~5–10 %            |
+| Professionelle Elite (I–II)          |   62 %  | ~0,2 %             |
+
+Der Befund ist eindeutig. Auf der Zieldimension ist die Kohorte /radikal atypisch/. Wo 90 % ihrer Klassengenossen Arbeiter blieben und nur etwa 0,2 % die professionelle Spitze erreichten, gelangen dort 62 % der Söhne manueller Väter aus unserer Kohorte. Dieser Abstand ist in der Größenordnung von 300 Mal mehr. Deshalb sind die selektierte Personen im Archiv bemerkenswert, weil sie eine Autobiographie hinterlassen haben und die Kultur bzw. die Medien erreicht. Sie bilden den 0,2-%-Schweif ab, davon Miles spricht.
+
+* 4. Vergleich auf der Dimension der Zirkulationsintensität
+
+Hier ist die Antwort differenzierter:
+
+- Die allgemeine Arbeiterklasse zirkulierte durchaus stark /innerhalb/ der manuellen Ränge (ungelernt → gelernt). Eine hohe intra-generationelle Zirkulation ist also nicht das Eigentümliche unserer Kohorte.
+- Unsere Kohorte unterscheidet sich vom Rest der Arbeiterklasse zweierlei: erstens die Amplitude der Kohorte — unsere Akteure besetzen die gesamte Statusskala vom manuellen Ursprung (HISCAM ≈ 50) bis zur Elite (≈ 85–97), während die gewöhnliche Fluidität der Arbeiterklasse in dieser Zeit im unteren Drittel verbleibt; zweitens die /transversale Reichweite/ — die Akteure der Kohorte überschreiten die Grenze manuell → nicht-manuell und zirkulieren durch Kultur, Medien und Politik; für die Allgemeinheit der Arbeiter in dieser Zeit waren solche Übergänge nahezu verschlossen.
+- Die /reine/ Intensität (Richtungsumkehrungen, Volatilität, Strukturwechsel) lässt sich wegen des Mangels an Referenzen nicht gegen alle Mitglieder der Arbeiterklasse in England in dieser Zeit prüfen. Hier misst der dreiachsige Index etwas, das die Referenzliteratur bislang nicht erhoben hat.
+
+* 5. Formaler Vergleich A und B gegen die Referenztabelle
+
+Mit der nun zusammengestellten Referenztabelle (Bericht_Referenztabelle) lassen sich die beiden im Protokoll vorgesehenen Vergleiche quantitativ ausführen.
+
+** 5.1 Vergleich A — Zieldimension (auflösungsrobust)
+
+Für die 29 Söhne manueller Väter mit kodierter Zielposition (Gipfel-HISCLASS) ergibt sich Folgendes. Der Aufstieg in die professionelle Elite (Miles I, HISCLASS 1–2) erfolgt für 62 % der Akteure in unserer Kohorte (18/29; 95 %-Konfidenzintervall nach Wilson 44–77 %) gegenüber einer Referenzrate von etwa 0,2 %; das ist ein Risikoverhältnis von rund 310. Selbst die untere Konfidenzgrenze (44 %) ergibt noch ein Risikoverhältnis von etwa 220. Der Aufstieg ins Nicht-Manuelle (Miles I–II, HISCLASS 1–5) liegt bei 79 % der Akteure unserer Kohorte (23/29; KI 62–90 %) gegenüber etwa 5 % in der Referenztabelle; das Risikoverhältnis ist bei rund 16. Dieser Vergleich ist auflösungsrobust, weil er nur zwei Positionen (Herkunft, Gipfel) vergleicht, die auch die Referenztabelle auflöst. Siehe dazu die Abbildung ~fig6_atypicite.png~.
+
+** 5.2 Vergleich B — Intensität bei angeglichener Auflösung
+
+Auf 109 Akteuren, die in der Analyse berücksichtigt werden können (≥ 2 kodierte HISCLASS-Etappen), zeigt sich ein zweigeteiltes Bild (Abbildung ~fig7_vergleich_AB.png~):
+
+- /Grenzüberschreitung manuell → nicht-manuell im Leben/: 52 % (57/109). Die Referenztabelle beziffert diesen intra-generationellen Übertritt als „sehr selten“ (Miles); intergenerationell liegt dieser Übergang bei etwa 5 % (Referenztabelle). Es handelt sich um einen großen, dauerhaften Sprung. Er übersteht die Herabstufung der Zeit-Skala auf Dekaden, was die Richtungsumkehrungen nicht übersteht.
+- /Gewöhnliche Fluidität ungelernt → gelernt/: hier ist die Kohorte /unauffällig, sogar eher unterdurchschnittlich/. Von den Akteuren, die ungelernt (Miles V) sind (n = 17), erreichen nur 29 % die gelernte Stufe (III); Longs Referenz ist diesbezüglich bei etwa 40 % (Long 2013, S. 10). Der Grund dafür besteht darin, dass 76 % dieser ungelernten Akteure unmittelbar das Nicht-Manuelle erreichen; sie /überspringen/ die Stufe "gelernt" auf dem Weg nach oben.
+
+Daraus folgt die schärfere Lesart der Atypizität. Die Zirkulation /innerhalb/ der manuellen Ränge unterscheidet die Kohorte vom Rest der Arbeiterklasse in England für die beobachtete Zeit nicht. Diesbezüglich ist die Kohorte gewöhnlich, wenn sie nicht sogar etwas schwächer da steht. Das /Überschreiten der Grenze/ manuell → nicht-manuell und die /erreichte Zielposition/ unterscheidet die Kohorte vom Rest der Arbeiterklasse. Genau die Zirkulation, die für die den Rest der Arbeiterklasse nahezu verschlossen war, ist hier der Normalfall.
+
+** 5.3 Das feinauflösende Residuum
+
+Was die Referenzquellen prinzipiell nicht sehen, ist Folgendes. Die Richtungsumkehrungen fallen von 37 % (feine Auflösung) auf 11 % (dekadisch). Die Zahl der Klassenwechsel je Lebenslauf sinkt von 1,63 auf 1,26. Die transversale Reichweite (Wechsel zwischen Relationsstrukturen Kultur/Politik/Wirtschaft/Medien) hat in der Mobilitätsliteratur gar kein Gegenstück. Dieser Rest ist der eigene Beitrag der Autobiographien und zugleich eine untere Schranke für die (unbekannte) wahre Intensität der gesamten Arbeiterklasse in England in dieser Zeit.
+
+** 5.4 Ergebnisübersicht
+
+| Vergleich | Maß                                  | Kohorte            | Referenz            | Verhältnis / Lesart        |
+|-----------+--------------------------------------+--------------------+---------------------+----------------------------|
+| A         | → Elite (Miles I)                    | 62 % [44–77]       | ~0,2 %              | ~310× (konservativ ~220×)  |
+| A         | → nicht-manuell (I–II)               | 79 % [62–90]       | ~5 %                | ~16×                       |
+| B         | manuell → nicht-manuell (intra-vital)| 52 %               | „sehr selten“ / ~5 %| ~10× — distinktiv          |
+| B         | ungelernt → gelernt                  | 29 %               | ~40 % (Long 2013, S. 10) | unauffällig (Palier übersprungen) |
+| B-Residuum| ≥ 1 Richtungsumkehr (fein→dekadisch) | 37 % → 11 %        | nicht erfassbar     | Beitrag der Autobiographien|
+
+Vorbehalte zu den Zahlen: A beruht auf wenigen Akteuren (n = 29), aber das Verhältnis ist so bedeutsam, dass es gegen die Konfidenzgrenzen robust bleibt. Die B-Überschreitungen bei dekadischer Auflösung hängen von der ungenauen Datierung der Zirkulationsetappen ab und sind als Größenordnung zu lesen. Diese B-Überschreitungen lassen sich auch deshalb für längere Karrieren besser bestimmen, was eine eine Verzerrung der Ergebnisse im Vorteil dieser Karriere ergibt..
+
+* 6. Theoretisches Ergebnis: Die Theorie der Relation sagt vorher, wo sich die Ungleichheit lagert
+
+Der bisherige Vergleich zeigt, wieso die Kohorte atypisch ist und worin diese Atypizität besteht. Er geht jetzt eine Stufe tiefer. Die Theorie der Relation liefert nicht nur ein Vokabular zur Beschreibung dieser Lebensläufe, sondern eine /strukturelle Vorhersage/ darüber, an welcher Stelle des Systems die vertikale Ungleichheit sich konzentrieren muss. Die unabhängig kodierten Daten bestätigen diese Vorhersage, und im Folgenden geben wir den Detail zu diesem Ergebnis.
+
+** 6.1 Die Vorhersage
+
+Die Theorie der Relation verknüpft die Stratifikation einer Relationsstruktur mit ihrer Stellung im relationalen Raum. Unter Herrschaft /homogenisiert sich der Apex bzw. die herrschende Relationsstruktur, während die beherrschten Relationsstrukturen stratifiziert werden/. Der Mechanismus ist relational bzw. er ist nicht demografisch. Eine herrschende „erreichte“ Relationsstruktur rekrutiert selektiv aus den erfolgreichen Akteuren — an ihrer Spitze stehen fast nur Etablierte. Ihre interne vertikale Stratifikation ist gering. Eine beherrschte „satellisierte“ Relationsstruktur dagegen hält beide Pole zugleich bzw. jene Akteure, die aus ihr aufgestiegen sind, /und/ jene Akteure, die in ihr verblieben oder abgestiegen sind. Etablierte und Enttäuschte koexistieren, und die vertikale Ungleichheit ist hoch bzw. höher als im Apex. Die Theorie unterscheidet dabei ausdrücklich die /interne Legitimität/ einer Relationsstruktur (ihre Instanzen funktionieren) von der /systemischen Reziprozität/ (die Zirkulation zwischen den Relationsstrukturen bleibt flüssig). Eine gut vermittelte Relationsstruktur kann gerade deshalb eine stabile Hierarchie stärken — „enn jeder die Küche betreten darf, wird jedoch nicht jeder Küchenchef“. Die vertikale Homogenität im Apex und die vertikale Stratifikation in den satellisierten Relationsstrukturen sind deshalb keine Zufälle der Stichprobe, sondern Strukturmerkmale.
+
+** 6.2 Die realen Daten
+
+Die in Abschnitt 5.17 des digitalen Zwilling der TR implementierte Messkaskade liest die vertikale Ungleichheit je Relationsstruktur unmittelbar aus dem empirischen Zustand (S, g, act), der aus den kodierten Etappen gebildet wird (Methode: Bericht_Zirkulationsanalyse, §10). Das Ergebnis (Abbildung ~fig2_vertikal_struktur.png~) zeichnet die Vorhersage nach:
+
+| Struktur       | vertikale Ungleichheit (Gini) | Lesart                                   |
+|----------------+-------------------------------+------------------------------------------|
+| B · Politik    | 0,02                          | homogener Apex — fast nur Etablierte     |
+| A · Kultur     | 0,15                          | mäßig ausdifferenziert                   |
+| D · Medien     | 0,16                          | mäßig ausdifferenziert                   |
+| C · Wirtschaft | 0,72                          | stratifizierter Pol — Etablierte + Enttäuschte |
+
+In dieser Kohorte ist die /Politik/ der erreichte Gipfel. Wer sie erreicht, ist nahezu durchweg etabliert; die interne vertikale Ungleichheit in dieser Relationsstruktur verschwindet (0,02). Die /Wirtschaft/ ist der erlittene Ursprung für die Akteure dieser Kohorte. Dort koexistieren die Aufgestiegenen und die Gescheiterten. Die vertikale Ungleichheit ist maximal (0,72). Kultur und Medien liegen erwartungsgemäß dazwischen. Die globale Kaskade ordnet dies ein (transversal 0,28, horizontal 0,51, vertikal im Durchschnitt 0,26) und kontrastiert mit dem symmetrischen Referenzzustand des Modells (transversal 0, horizontal 0, vertikal ≈ 0,40), von dem die reale Verteilung gerade auf den oberen beiden Ebenen weit entfernt ist.
+
+** 6.3 Warum ist dieser Befund wichtig
+
+Dieser Befund ist wichtig aus zwei Gründen. /Erstens/ handelt es sich um eine Vorhersage und keine nachträgliche Beschreibung. Die Theorie legt fest, /wo/ — an welchem Pol des Systems bzw. in welcher Relationsstruktur — die vertikale Ungleichheit gelagert werden muss, bevor diese Lagerung tatsächlich stattfindet. Die aus Berufs- und Tätigkeitsangaben unabhängig kodierten Autobiographien bestätigen es. Die TR funktioniert in dieser Hinsicht als Werkzeug der empirischen Untersuchung struktur-lokalisierend: die Beobachtungsdaten erlauben, die Aussagen der TR zu prüfen.
+
+/Zweitens/ ist der Atypizitäts-Befund überhaupt lesbar, weil die TR teilt, was die klassische Mobilitätsforschung zusammenstellt. Die klassische Mobilitätsforschung stellt Herkunft, Ziel und Bewegung zu einer einzigen Rate zusammen. Die Theorie der Relation trennt sie in drei Ebenen: die vertikale Ankunft (Ziel), die transversale Grenzüberschreitung, die horizontale bzw. die für die Arbeiterklasse in dieser Zeit gewöhnliche Fluidität innerhalb der Ränge. Erst diese Trennung zeigt das kontrastreiche Ergebnis (§5): Die Kohorte ist atypisch in Bezug auf die Grenzüberschreitung und der Zielposition, aber sie ist unauffällig in der Fluidität der manuellen Ränge. Ohne die relationale Auflösung bliebe der Befund undifferenziert -- wir hätten mit unserer Kohorte mit Arbeitern zu tun, die einfach aufsteigen. Die Theorie ist hier also ein /Messinstrument/, das den empirischen Befund hervorbringt und differenziert hervorbringt.
+
+** 6.4 Reichweite und Vorbehalt
+
+Diese Arbeit ruht auf einer /statische/ Lesung aus 463 kodierten Etappen. Die vertikale Ungleichheit je Relationsstruktur beruht auf der kodierten Teilmenge, und B · Politik ist gering besetzt. Die Bestätigung ist daher /strukturell-qualitativ/. Sie betrifft die Anordnung der Pole (Apex homogen, Satelliten stratifiziert), nicht den exakten Zahlenwert. Sie ist robust und über die Relationsstrukturen hinweg konsistent.
+
+* 7. Methodische Vorbehalte
+
+- /Selektion/: die Autobiographien sind nach „erzählbaren“ Leben selbstselektiert. Miles selbst verwendet sie nur als qualitatives Ergänzungsmaterial neben seinen 10 835 Heiratsurkunden. Der Vergleich auf der Zieldimension ist daher als Beleg der Atypizität robust. Das ist aber keine unverzerrte Schätzung einer Rate.
+- /Auflösungsasymmetrie/: die Autobiographien sehen feine intra-generationelle Bewegungen, die die Zensus-Momentaufnahmen verfehlen. Der belastbare Vergleich betrifft deshalb die /Zielposition/ (auflösungsrobust). Die Intensitätsmaße sind nur kohortenintern und als untere Schranke zu lesen.
+- /Bescheidene Grundlage/: wir haben nur 45 kodierte Väter; die Werte 62 %/79 % sind Schätzungen auf dieser bescheidenen Grundlage. Der Abstand zur Referenz ist jedoch so groß, dass der Schluss überzeugend aussieht.
+
+* 8. Fazit
+
+Das Ergebnis der Analyse dieser Kohorte von Akteuren der englischen Arbeiterklasse zeigt, dass diese Kohorte /atypisch nach ihrer Zielposition/ ist (sie besetzt den 0,2-%-Schweif, der die kulturell-mediale Elite erreicht) und /distinktiv nach dem Überschreiten der Klassengrenze/ manuell → nicht-manuell (52 % gegenüber „sehr selten“), während sie auf der /gewöhnlichen Fluidität innerhalb der manuellen Ränge/ unauffällig bleibt (ungelernt → gelernt 29 % gegenüber ~40 %). Die Zirkulationsintensität (Umkehrungen, transversale Reichweite) bleibt für diese Kohorte eigen. Der formale Vergleich mit der allgemeinen Arbeiterklasse in England in dieser Zeit (§5) untermauert dieses Urteil quantitativ und gegen die Konfidenzgrenzen robust.
+
+Dieselbe relationale Auflösung (§6), die den kontrastreichen Befund lesbar macht, führt in der Theorie der Relation zur folgenden /strukturellen Vorhersage/: Die vertikale Ungleichheit lagert sich am beherrschten Pol (Wirtschaft, 0,72), nicht am erreichten Apex (Politik, 0,02). Die unabhängig kodierten Daten bestätigen diese Vorhersage. Die TR wirkt diesbezüglich als methodologisches Werkzeug der empirischen Untersuchung struktur-lokalisierend.
+
+Abbildungen: ~fig6_atypicite.png~ (Vergleich A — Austritt aus der Arbeiterklasse) und ~fig7_vergleich_AB.png~ (Vergleich B — Intensität bei angeglichener Auflösung).
+
+* 9. Ausblick: rigoroser Vergleich über verknüpfte Zensus-Panels (I-CeM)
+
+Der Benchmark von Miles erlaubt die Aussage zum Atypizitäts-Urteil bezogen auf die Zieldimension. Ein vollständig kontrollierter Vergleich — auch der Intensität — verlangt verknüpfte Längsschnittdaten der Allgemeinbevölkerung, die nach Vaterberuf, Geburtskohorte und Region abgeglichen werden. Das zugehörige Matching-Protokoll (I-CeM) wird gesondert ausgearbeitet.
+
+* Literatur
+
+- Miles, A. (1999). /Social Mobility in Nineteenth- and Early Twentieth-Century England/. Basingstoke: Macmillan.
+- Long, J. (2013). „The surprising social mobility of Victorian Britain“. /European Review of Economic History/ 17(1), 1–23.
+- Long, J., Ferrie, J. (2013). „Intergenerational Occupational Mobility in Great Britain and the United States since 1850“. /American Economic Review/ 103(4), 1109–1137.
+- Mitch, D. (1993). „‚Inequalities which everyone may remove‘“. In: Miles, A., Vincent, D. (Hg.), /Building European Society/. Manchester University Press.

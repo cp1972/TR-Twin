@@ -1,0 +1,25 @@
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica,Arial,sans-serif">
+<rect width="700" height="420" fill="#fff"/>
+<line x1="150" y1="360.0" x2="660" y2="360.0" stroke="#e7e7e7"/>
+<text x="144" y="363.0" font-size="15" fill="#666" text-anchor="end">0%</text>
+<line x1="150" y1="277.0" x2="660" y2="277.0" stroke="#e7e7e7"/>
+<text x="144" y="280.0" font-size="15" fill="#666" text-anchor="end">20%</text>
+<line x1="150" y1="194.0" x2="660" y2="194.0" stroke="#e7e7e7"/>
+<text x="144" y="197.0" font-size="15" fill="#666" text-anchor="end">40%</text>
+<line x1="150" y1="111.0" x2="660" y2="111.0" stroke="#e7e7e7"/>
+<text x="144" y="114.0" font-size="15" fill="#666" text-anchor="end">60%</text>
+<rect x="185.0" y="246.5" width="92" height="113.5" fill="#E8B14C" rx="3"/>
+<text x="231.0" y="239.5" font-size="18.8" fill="#2b2b2b" text-anchor="middle">27%</text>
+<text x="231.0" y="378.0" font-size="15.2" fill="#555" text-anchor="middle">Kultur (A)</text>
+<rect x="303.0" y="108.0" width="92" height="252.0" fill="#46CDB8" rx="3"/>
+<text x="349.0" y="101.0" font-size="18.8" fill="#2b2b2b" text-anchor="middle">61%</text>
+<text x="349.0" y="378.0" font-size="15.2" fill="#555" text-anchor="middle">Politik (B)</text>
+<rect x="421.0" y="154.3" width="92" height="205.7" fill="#E36F9E" rx="3"/>
+<text x="467.0" y="147.3" font-size="18.8" fill="#2b2b2b" text-anchor="middle">50%</text>
+<text x="467.0" y="378.0" font-size="15.2" fill="#555" text-anchor="middle">Wirtschaft (C)</text>
+<rect x="539.0" y="246.5" width="92" height="113.5" fill="#8C92EC" rx="3"/>
+<text x="585.0" y="239.5" font-size="18.8" fill="#2b2b2b" text-anchor="middle">27%</text>
+<text x="585.0" y="378.0" font-size="15.2" fill="#555" text-anchor="middle">Medien (D)</text>
+<text x="244" y="398" font-size="15" fill="#666" text-anchor="middle">— vermittelnde Strukturen: „leicht" —</text>
+<text x="490" y="398" font-size="15" fill="#666" text-anchor="middle">— akkumulierende: „schwer" —</text>
+</svg>

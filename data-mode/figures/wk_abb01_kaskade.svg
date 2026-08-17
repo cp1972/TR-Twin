@@ -1,0 +1,42 @@
+<svg viewBox="0 0 780 440" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica,Arial,sans-serif">
+<rect x="0" y="0" width="780" height="440" fill="#ffffff"/>
+<line x1="92.0" y1="318.0" x2="512.0" y2="318.0" stroke="#e7e7e7" stroke-width="1"/>
+<text x="82.0" y="322.9" font-size="14" fill="#9a9a9a" text-anchor="end">0,0</text>
+<line x1="92.0" y1="274.3" x2="512.0" y2="274.3" stroke="#e7e7e7" stroke-width="1"/>
+<text x="82.0" y="279.2" font-size="14" fill="#9a9a9a" text-anchor="end">0,1</text>
+<line x1="92.0" y1="230.7" x2="512.0" y2="230.7" stroke="#e7e7e7" stroke-width="1"/>
+<text x="82.0" y="235.6" font-size="14" fill="#9a9a9a" text-anchor="end">0,2</text>
+<line x1="92.0" y1="187.0" x2="512.0" y2="187.0" stroke="#e7e7e7" stroke-width="1"/>
+<text x="82.0" y="191.9" font-size="14" fill="#9a9a9a" text-anchor="end">0,3</text>
+<line x1="92.0" y1="143.3" x2="512.0" y2="143.3" stroke="#e7e7e7" stroke-width="1"/>
+<text x="82.0" y="148.2" font-size="14" fill="#9a9a9a" text-anchor="end">0,4</text>
+<line x1="92.0" y1="99.7" x2="512.0" y2="99.7" stroke="#e7e7e7" stroke-width="1"/>
+<text x="82.0" y="104.6" font-size="14" fill="#9a9a9a" text-anchor="end">0,5</text>
+<line x1="92.0" y1="56.0" x2="512.0" y2="56.0" stroke="#e7e7e7" stroke-width="1"/>
+<text x="82.0" y="60.9" font-size="14" fill="#9a9a9a" text-anchor="end">0,6</text>
+<rect x="108.0" y="196.1" width="50.0" height="121.9" fill="#5B6CB8" rx="2"/>
+<text x="133.0" y="188.1" font-size="17" fill="#2b2b2b" text-anchor="middle" font-weight="bold">0,28</text>
+<line x1="166.0" y1="318.0" x2="216.0" y2="318.0" stroke="#b9b9b9" stroke-width="3"/>
+<text x="191.0" y="310.0" font-size="16" fill="#555" text-anchor="middle">0,00</text>
+<text x="162.0" y="346.0" font-size="16" fill="#2b2b2b" text-anchor="middle">transversal</text>
+<text x="162.0" y="366.0" font-size="14" fill="#555" text-anchor="middle">zwischen Strukturen</text>
+<rect x="248.0" y="95.2" width="50.0" height="222.8" fill="#E08A3C" rx="2"/>
+<text x="273.0" y="87.2" font-size="17" fill="#2b2b2b" text-anchor="middle" font-weight="bold">0,51</text>
+<line x1="306.0" y1="318.0" x2="356.0" y2="318.0" stroke="#b9b9b9" stroke-width="3"/>
+<text x="331.0" y="310.0" font-size="16" fill="#555" text-anchor="middle">0,00</text>
+<text x="302.0" y="346.0" font-size="16" fill="#2b2b2b" text-anchor="middle">horizontal</text>
+<text x="302.0" y="366.0" font-size="14" fill="#555" text-anchor="middle">zwischen Sequenzen</text>
+<rect x="388.0" y="203.1" width="50.0" height="114.9" fill="#7BB661" rx="2"/>
+<text x="413.0" y="195.1" font-size="17" fill="#2b2b2b" text-anchor="middle" font-weight="bold">0,26</text>
+<rect x="446.0" y="145.3" width="50.0" height="172.7" fill="#b9b9b9" rx="2"/>
+<text x="471.0" y="137.3" font-size="16" fill="#555" text-anchor="middle">0,40</text>
+<text x="442.0" y="346.0" font-size="16" fill="#2b2b2b" text-anchor="middle">vertikal</text>
+<text x="442.0" y="366.0" font-size="14" fill="#555" text-anchor="middle">zwischen Kategorien</text>
+<rect x="557.0" y="159.0" width="201.0" height="56.0" fill="#ffffff" rx="3"/>
+<rect x="557.0" y="159.0" width="201.0" height="56.0" fill="none" stroke="#e7e7e7" rx="3"/>
+<rect x="565.0" y="167.0" width="13.0" height="13.0" fill="#5B6CB8" rx="2"/>
+<text x="587.0" y="179.0" font-size="16" fill="#2b2b2b" text-anchor="start">Kohorte (empirisch)</text>
+<rect x="565.0" y="191.0" width="13.0" height="13.0" fill="#b9b9b9" rx="2"/>
+<text x="587.0" y="203.0" font-size="16" fill="#2b2b2b" text-anchor="start">symmetrische Referenz</text>
+<text x="302.0" y="408.0" font-size="16" fill="#555" text-anchor="middle">Ebene der Ungleichheit (GINI)</text>
+</svg>
