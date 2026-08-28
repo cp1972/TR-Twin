@@ -204,6 +204,7 @@
       <h2 data-i18n="sheet_head">Summary of the run</h2>
       <div id="sheetBody"></div>
       <div class="bar2">
+        <button id="sheetDl" data-i18n="sheet_dl">download CSV</button>
         <button id="sheetCopy" data-i18n="sheet_copy">copy table</button>
         <button id="sheetClose" data-i18n="sheet_close">close</button>
       </div>
@@ -538,6 +539,17 @@ const I18N={
   alert_cohort:{fr:'Charge d\'abord une cohorte d\'acteurs (table-contrat).',de:'Lade zuerst eine Akteurskohorte (Vertragstabelle).',en:'Load an actor cohort first (contract table).'},
   alert_cohort2:{fr:'Charge d\'abord une cohorte d\'acteurs.',de:'Lade zuerst eine Akteurskohorte.',en:'Load an actor cohort first.'},
   ccat:{fr:['etabli','aspirant','conservateur','decu'],de:['etabliert','aspirant','konservativ','enttaeuscht'],en:['established','aspirant','conservative','disappointed']},
+  sheet_dl:{fr:'télécharger le CSV',de:'CSV herunterladen',en:'download CSV'},
+  fn_sheet:{fr:'bilan',de:'bilanz',en:'summary'},
+  sheet_period:{fr:'Période',de:'Zeitraum',en:'Period'},
+  sheet_years:{fr:'années',de:'Jahre',en:'years'},
+  sheet_c_start:{fr:'Début',de:'Start',en:'Start'},
+  sheet_c_end:{fr:'Fin',de:'Ende',en:'End'},
+  sheet_c_min:{fr:'Min',de:'Min',en:'Min'},
+  sheet_c_max:{fr:'Max',de:'Max',en:'Max'},
+  sheet_c_mean:{fr:'Moyenne',de:'Mittel',en:'Mean'},
+  sheet_endstate:{fr:'état final',de:'Endzustand',en:'end state'},
+  sheet_replay:{fr:'Rejeu déterministe de toute la période — indépendant de l’image affichée.',de:'Deterministischer Wiederholungslauf über den ganzen Zeitraum — unabhängig vom angezeigten Bild.',en:'Deterministic replay of the whole period — independent of the frame on screen.'},
   btn_sheet:{fr:'Σ Bilan',de:'Σ Bilanz',en:'Σ Summary'},
   sheet_head:{fr:'Bilan du lancement',de:'Bilanz des Laufs',en:'Summary of the run'},
   sheet_close:{fr:'fermer',de:'schließen',en:'close'},
@@ -962,7 +974,6 @@ function updateReadouts(){for(let i=0;i<N;i++){bars[i].fill.style.width=(S[i]*10
   for(let x=0;x<N;x++){const fs=[Irel[x],Iseq[x],Iteil[x]];
     for(let t=0;t<3;t++){const el=document.getElementById(idc[x]+t);if(el)el.style.width=Math.min(100,(fs[t]/2.0)*100).toFixed(0)+"%";}
     const ec=document.getElementById(idc[x]+"3");if(ec)ec.style.width=Math.min(100,Math.max(0,(Ictrl[x]-1.0)/0.7*100)).toFixed(0)+"%";}
-  renderSheet();
   const tb=document.getElementById("tensBar"),tv=document.getElementById("tensVal");
   if(tb){tb.style.width=Math.min(100,meanResid*150).toFixed(0)+"%";tv.textContent=meanResid.toFixed(2);}
   for(let x=0;x<N;x++){const pr=document.getElementById("pr"+x);if(pr)pr.style.width=(structRecip(x)*100).toFixed(0)+"%";
@@ -978,59 +989,88 @@ function updateReadouts(){for(let i=0;i<N;i++){bars[i].fill.style.width=(S[i]*10
    for(let x=0;x<N;x++)sb("pv"+x,vertGiniX(x),150);}
   }
 
-// ---- summary sheet: every headline figure of the run in one place ----
-function sheetRows(){
-  const h=[0,1,2,3].map(structGini), v=[0,1,2,3].map(vertGiniX);
+// ---- summary sheet: a deterministic replay of the whole period, summarised ----
+// Not a snapshot of the current frame: endTimeline() resets the model when a run
+// finishes, so a live reading would fall back to the initial state. runSeries()
+// replays the entire period from a fixed seed, which is also what the headless
+// harness does — the figures here are reproducible and citable.
+let SHEET=null;
+function computeSheet(){
+  const rows=runSeries(); if(!rows.length){SHEET=null;return;}
+  const A=rows[0], Z=rows[rows.length-1];
   const mean=a=>a.reduce((x,y)=>x+y,0)/a.length;
-  const blocked=migAtt>1e-9?migBlk/migAtt:0;
-  return {
-    glob:[['sheet_transv',gini()],['sheet_horiz',mean(h)],['sheet_vert',mean(v)],
-          ['sheet_recip',reciprocity()],['sheet_over',meanResid]],
-    mob:[['sheet_mobx',mobX],['sheet_mobq',mobQ],['sheet_blocked',blocked]],
-    per:[0,1,2,3].map(x=>({n:SN(x),size:S[x],ruler:SN(ruler[x]),recip:structRecip(x),
-          horiz:h[x],vert:v[x],sat:satS[x],contrib:structContribIneq(x),comp:structComp(x)}))
+  const col=fn=>{const v=rows.map(fn);
+    return {start:fn(A),end:fn(Z),min:Math.min(...v),max:Math.max(...v),mean:mean(v)};};
+  SHEET={
+    y0:A.year, y1:Z.year, n:rows.length,
+    glob:[['sheet_transv',col(r=>r.gini)],
+          ['sheet_horiz', col(r=>mean(r.rGini))],
+          ['sheet_vert',  col(r=>mean(r.vGini))],
+          ['sheet_recip', col(r=>r.recip)],
+          ['sheet_over',  col(r=>r.sur)]],
+    mob:[['sheet_mobx',col(r=>r.mobX)],['sheet_mobq',col(r=>r.mobQ)],['sheet_blocked',col(r=>r.blk)]],
+    per:[0,1,2,3].map(x=>({n:SN(x),size:Z.S[x],ruler:SN(Z.ruler[x]),recip:Z.rRecip[x],
+          horiz:Z.rGini[x],vert:Z.vGini[x],sat:Z.sat[x],contrib:Z.cIneg[x],comp:Z.comp[x]})),
+    cohort: cohortRec ? new Set(cohortRec.map(r=>r.aid)).size : 0,
+    profile: !!tl.cursorKeys
   };
 }
+function sheetSource(){
+  const a = SHEET.cohort ? t('sheet_note_data').replace('{n}',SHEET.cohort) : t('sheet_note_sim');
+  return [a, SHEET.profile?t('sheet_note_cursor'):t('sheet_note_nocursor'), t('sheet_replay')];
+}
 function renderSheet(){
-  const box=document.getElementById('sheetBox'); if(!box||!box.classList.contains('on'))return;
-  const R=sheetRows(), f=x=>x.toFixed(3), pc=x=>(x*100).toFixed(0);
-  let o='<div class="sh">'+t('sheet_global')+'</div><table>';
-  for(const [k,v] of R.glob) o+='<tr><td>'+t(k)+'</td><td class="n">'+f(v)+'</td></tr>';
-  o+='</table><div class="sh">'+t('sheet_mob')+'</div><table>';
-  for(const [k,v] of R.mob) o+='<tr><td>'+t(k)+'</td><td class="n">'+f(v)+'</td></tr>';
-  o+='</table><div class="sh">'+t('sheet_perstruct')+'</div><table class="pst"><tr>'+
+  const box=document.getElementById('sheetBox');
+  if(!box||!box.classList.contains('on')||!SHEET)return;
+  const f=x=>x.toFixed(3), pc=x=>(x*100).toFixed(0);
+  const head=['sheet_c_start','sheet_c_end','sheet_c_min','sheet_c_max','sheet_c_mean'];
+  const blk=(title,rowsIn)=>{
+    let o='<div class="sh">'+t(title)+'</div><table class="pst"><tr><th></th>'+
+          head.map(k=>'<th>'+t(k)+'</th>').join('')+'</tr>';
+    for(const [k,c] of rowsIn) o+='<tr><td>'+t(k)+'</td><td>'+f(c.start)+'</td><td>'+f(c.end)+
+      '</td><td>'+f(c.min)+'</td><td>'+f(c.max)+'</td><td>'+f(c.mean)+'</td></tr>';
+    return o+'</table>';
+  };
+  let o='<div class="src" style="border:0;padding:0;margin:0 0 4px">'+t('sheet_period')+' '+
+        SHEET.y0+'\u2013'+SHEET.y1+' \u00b7 '+SHEET.n+' '+t('sheet_years')+'</div>';
+  o+=blk('sheet_global',SHEET.glob)+blk('sheet_mob',SHEET.mob);
+  o+='<div class="sh">'+t('sheet_perstruct')+' \u00b7 '+t('sheet_endstate')+'</div><table class="pst"><tr>'+
      ['sheet_c_struct','sheet_c_size','sheet_c_ruler','sheet_c_recip','sheet_c_horiz',
       'sheet_c_vert','sheet_c_sat','sheet_c_contrib'].map(k=>'<th>'+t(k)+'</th>').join('')+'</tr>';
-  for(const r of R.per) o+='<tr><td>'+r.n+'</td><td>'+f(r.size)+'</td><td>'+r.ruler+'</td><td>'+
+  for(const r of SHEET.per) o+='<tr><td>'+r.n+'</td><td>'+f(r.size)+'</td><td>'+r.ruler+'</td><td>'+
      f(r.recip)+'</td><td>'+f(r.horiz)+'</td><td>'+f(r.vert)+'</td><td>'+f(r.sat)+'</td><td>'+
      (r.contrib>=0?'+':'')+f(r.contrib)+'</td></tr>';
-  o+='</table><div class="sh">'+t('sheet_c_comp')+'</div><table class="pst">';
-  for(const r of R.per) o+='<tr><td>'+r.n+'</td>'+r.comp.map(c=>'<td>'+pc(c)+'%</td>').join('')+'</tr>';
-  o+='</table><div class="src"><b>'+t('sheet_src')+'</b><br>';
-  o+= cohortRec ? t('sheet_note_data').replace('{n}',new Set(cohortRec.map(r=>r.aid)).size)
-                : t('sheet_note_sim');
-  o+='<br>'+(tl.cursorKeys?t('sheet_note_cursor'):t('sheet_note_nocursor'))+'</div>';
+  o+='</table><div class="sh">'+t('sheet_c_comp')+' \u00b7 '+t('sheet_endstate')+'</div><table class="pst">';
+  for(const r of SHEET.per) o+='<tr><td>'+r.n+'</td>'+r.comp.map(c=>'<td>'+pc(c)+'%</td>').join('')+'</tr>';
+  o+='</table><div class="src">'+sheetSource().join('<br>')+'</div>';
   document.getElementById('sheetBody').innerHTML=o;
 }
-function sheetTSV(){
-  const R=sheetRows(),L=[];
-  L.push(t('sheet_global'));
-  for(const [k,v] of R.glob) L.push(t(k)+'\t'+v.toFixed(4));
-  L.push('',t('sheet_mob'));
-  for(const [k,v] of R.mob) L.push(t(k)+'\t'+v.toFixed(4));
-  L.push('',t('sheet_perstruct'));
-  L.push(['sheet_c_struct','sheet_c_size','sheet_c_ruler','sheet_c_recip','sheet_c_horiz',
-          'sheet_c_vert','sheet_c_sat','sheet_c_contrib'].map(t).join('\t')+'\t'+t('sheet_c_comp'));
-  for(const r of R.per) L.push([r.n,r.size.toFixed(4),r.ruler,r.recip.toFixed(4),r.horiz.toFixed(4),
-     r.vert.toFixed(4),r.sat.toFixed(4),r.contrib.toFixed(4)].join('\t')+'\t'+
-     r.comp.map(c=>(c*100).toFixed(1)+'%').join(' / '));
-  L.push('', cohortRec?t('sheet_note_data').replace('{n}',new Set(cohortRec.map(r=>r.aid)).size)
-                     :t('sheet_note_sim'));
-  L.push(tl.cursorKeys?t('sheet_note_cursor'):t('sheet_note_nocursor'));
+function sheetTable(sep){
+  if(!SHEET)return '';
+  const L=[], head=['sheet_c_start','sheet_c_end','sheet_c_min','sheet_c_max','sheet_c_mean'].map(t);
+  const j=a=>a.join(sep);
+  L.push(j([t('sheet_period'),SHEET.y0+'\u2013'+SHEET.y1,SHEET.n+' '+t('sheet_years')]));
+  L.push('');
+  L.push(j([t('sheet_global')].concat(head)));
+  for(const [k,c] of SHEET.glob) L.push(j([t(k),c.start.toFixed(4),c.end.toFixed(4),
+    c.min.toFixed(4),c.max.toFixed(4),c.mean.toFixed(4)]));
+  L.push('');
+  L.push(j([t('sheet_mob')].concat(head)));
+  for(const [k,c] of SHEET.mob) L.push(j([t(k),c.start.toFixed(4),c.end.toFixed(4),
+    c.min.toFixed(4),c.max.toFixed(4),c.mean.toFixed(4)]));
+  L.push('');
+  L.push(j([t('sheet_perstruct')+' ('+t('sheet_endstate')+')','sheet_c_size','sheet_c_ruler',
+    'sheet_c_recip','sheet_c_horiz','sheet_c_vert','sheet_c_sat','sheet_c_contrib']
+    .map((x,i)=>i?t(x):x).concat(CATS_EN)));
+  for(const r of SHEET.per) L.push(j([r.n,r.size.toFixed(4),r.ruler,r.recip.toFixed(4),
+    r.horiz.toFixed(4),r.vert.toFixed(4),r.sat.toFixed(4),r.contrib.toFixed(4)]
+    .concat(r.comp.map(c=>c.toFixed(4)))));
+  L.push('');
+  sheetSource().forEach(x=>L.push(x));
   return L.join('\n');
 }
 
-// ---- central mini-curve: inequality (white) + reciprocity (turquoise) over time ----
+// ---- central mini-curve// ---- central mini-curve: inequality (white) + reciprocity (turquoise) over time ----
 const mcv=document.getElementById("miniCurves"),mctx=mcv.getContext("2d");
 function sizeMini(){const r=Math.min(2,window.devicePixelRatio||1);mcv.width=mcv.clientWidth*r;mcv.height=mcv.clientHeight*r;mctx.setTransform(r,0,0,r,0,0);}
 let tframe=0;
@@ -1185,7 +1225,7 @@ function runSeries(){const dt=1/60*0.68,K=Math.max(4,Math.round(tl.dur*60*0.68/M
   for(let Y=tl.start;Y<=tl.end;Y++){tl.year=Y;const D=compAt(Y);Pcur=D.comp;Wcur=norm(D.w.slice());
     if(tl.cursorKeys)for(const cid in tl.cursorKeys){const el=document.getElementById(cid),v=cursorAt(cid,Y);if(el&&v!=null){el.value=v;el.dispatchEvent(new Event('input'));}}
     for(let k=0;k<K;k++)step(dt);
-    rows.push({year:Y,S:S.slice(),gini:gini(),recip:reciprocity(),sur:meanResid,rRecip:[0,1,2,3].map(structRecip),rGini:[0,1,2,3].map(structGini),cIneg:[0,1,2,3].map(structContribIneq),aRecip:[0,1,2,3].map(structContribRecip),ruler:ruler.slice(),sat:satS.slice(),comp:[0,1,2,3].map(structComp)});}
+    rows.push({year:Y,S:S.slice(),gini:gini(),recip:reciprocity(),sur:meanResid,rRecip:[0,1,2,3].map(structRecip),rGini:[0,1,2,3].map(structGini),vGini:[0,1,2,3].map(vertGiniX),mobX:mobX,mobQ:mobQ,blk:(migAtt>1e-9?migBlk/migAtt:0),cIneg:[0,1,2,3].map(structContribIneq),aRecip:[0,1,2,3].map(structContribRecip),ruler:ruler.slice(),sat:satS.slice(),comp:[0,1,2,3].map(structComp)});}
   reset();tl.year=_ty;lastCursorYear=null;return rows;}
 function exportData(){const rows=runSeries();const head=['year','size_A','size_B','size_C','size_D','gini','reciprocity','overload'];
   NMS.forEach(n=>head.push('recip_'+n,'gini_int_'+n,'contrib_ineq_'+n,'weakens_recip_'+n,'ruler_'+n,'satellisation_'+n));
@@ -1644,12 +1684,16 @@ function renderScnCards(){const el=$('scnCards');if(!el)return;el.innerHTML='';c
 function refreshScnLang(){populateVerbs();if(detectedTrends.length)renderScnTrendOptions();renderScnCards();if(lastScn)renderScnRead(lastScn.p,lastScn.rows);}
 // --- wiring ---
 {const bx=document.getElementById('sheetBox'),bt=document.getElementById('btnSheet');
- const tog=()=>{bx.classList.toggle('on');bt.classList.toggle('on',bx.classList.contains('on'));renderSheet();};
- bt.onclick=tog; document.getElementById('sheetClose').onclick=tog;
+ const open=()=>{tl.playing=false;running=false;syncPlayBtn();computeSheet();
+   bx.classList.add('on');bt.classList.add('on');renderSheet();};
+ const close=()=>{bx.classList.remove('on');bt.classList.remove('on');};
+ bt.onclick=()=>bx.classList.contains('on')?close():open();
+ document.getElementById('sheetClose').onclick=close;
+ document.getElementById('sheetDl').onclick=()=>{ if(SHEET) dl(t('fn_sheet')+'.csv','\ufeff'+sheetTable(','),'text/csv'); };
  document.getElementById('sheetCopy').onclick=async e=>{
    const b=e.target,old=b.textContent;
-   try{await navigator.clipboard.writeText(sheetTSV());}catch(_){
-     const ta=document.createElement('textarea');ta.value=sheetTSV();document.body.appendChild(ta);
+   try{await navigator.clipboard.writeText(sheetTable('\t'));}catch(_){
+     const ta=document.createElement('textarea');ta.value=sheetTable('\t');document.body.appendChild(ta);
      ta.select();try{document.execCommand('copy');}catch(__){}ta.remove();}
    b.textContent=t('sheet_copied');setTimeout(()=>{b.textContent=old;},1200);};}
 
