@@ -1221,12 +1221,12 @@ function drawProbes(){if(!prismSel.length||!probeByActor)return;const Y=Math.rou
     ctx.fillStyle='rgba(233,234,242,'+(live?0.95:0.45)+')';ctx.fillText('#'+aid,p.x,p.y-8);}}}
 function dl(name,text,mime){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:(mime||'text/plain')+';charset=utf-8'}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500);}
 function structComp(x){const c=[0,0,0,0];let gs=0;for(let y=0;y<N;y++){gs+=g[x][y];for(let k=0;k<4;k++)c[k]+=g[x][y]*act[x][y][k];}if(gs>0)for(let k=0;k<4;k++)c[k]/=gs;return c;}
-function runSeries(){const dt=1/60*0.68,K=Math.max(4,Math.round(tl.dur*60*0.68/Math.max(1,tl.end-tl.start)));reset();const rows=[];const _ty=tl.year;
+function runSeries(){const dt=1/60*0.68,K=Math.max(4,Math.round(tl.dur*60*0.68/Math.max(1,tl.end-tl.start)));const _rx=RELAXcur;RELAXcur=0.15;/* fixed relaxation: replay independent of the live animation state (v63) */reset();const rows=[];const _ty=tl.year;
   for(let Y=tl.start;Y<=tl.end;Y++){tl.year=Y;const D=compAt(Y);Pcur=D.comp;Wcur=norm(D.w.slice());
     if(tl.cursorKeys)for(const cid in tl.cursorKeys){const el=document.getElementById(cid),v=cursorAt(cid,Y);if(el&&v!=null){el.value=v;el.dispatchEvent(new Event('input'));}}
     for(let k=0;k<K;k++)step(dt);
     rows.push({year:Y,S:S.slice(),gini:gini(),recip:reciprocity(),sur:meanResid,rRecip:[0,1,2,3].map(structRecip),rGini:[0,1,2,3].map(structGini),vGini:[0,1,2,3].map(vertGiniX),mobX:mobX,mobQ:mobQ,blk:(migAtt>1e-9?migBlk/migAtt:0),cIneg:[0,1,2,3].map(structContribIneq),aRecip:[0,1,2,3].map(structContribRecip),ruler:ruler.slice(),sat:satS.slice(),comp:[0,1,2,3].map(structComp)});}
-  reset();tl.year=_ty;lastCursorYear=null;return rows;}
+  reset();tl.year=_ty;lastCursorYear=null;RELAXcur=_rx;return rows;}
 function exportData(){const rows=runSeries();const head=['year','size_A','size_B','size_C','size_D','gini','reciprocity','overload'];
   NMS.forEach(n=>head.push('recip_'+n,'gini_int_'+n,'contrib_ineq_'+n,'weakens_recip_'+n,'ruler_'+n,'satellisation_'+n));
   NMS.forEach(n=>CATS_EN.forEach(c=>head.push('comp_'+n+'_'+c)));
