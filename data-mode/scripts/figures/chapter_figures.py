@@ -375,7 +375,7 @@ def abb09_atypizitaet(ziel):
     kats = [('Angestelltenstand', '(HISCLASS I–V)'),
             ('berufliche Elite', '(HISCLASS I–II)')]
     kohorte = [79, 62]
-    referenz = [8, 0.2]
+    referenz = [5, 0.2]   # Miles 1999, 23–24; Miles 1993, Tab. 1
 
     L, R, TOP, BOT = 92, 452, 60, 318
     ys = lambda v: BOT - v / 90 * (BOT - TOP)

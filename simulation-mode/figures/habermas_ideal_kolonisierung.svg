@@ -28,7 +28,7 @@
 <text x="205.0" y="294.9" font-size="15" fill="#2b2b2b" text-anchor="middle">25</text>
 <text x="205.0" y="385.0" font-size="15" fill="#555" text-anchor="middle">D</text>
 <text x="205.0" y="403.3" font-size="15" fill="#555" text-anchor="middle">Leb.</text>
-<text x="147" y="422.3" font-size="15.9" fill="#444" text-anchor="middle">R = 1.00   ·   GINI = 0.001</text>
+<text x="147" y="422.3" font-size="15.9" fill="#444" text-anchor="middle">R = 1,00   ·   GINI = 0,001</text>
 <text x="390" y="50" font-size="16" font-family="Georgia,serif" fill="#2b2b2b" text-anchor="middle">Kolonialisierung</text>
 <text x="390" y="70" font-size="16" font-family="Georgia,serif" fill="#2b2b2b" text-anchor="middle">Ketten auf B (Macht)</text>
 <line x1="293" y1="370.0" x2="488" y2="370.0" stroke="#e7e7e7"/>
@@ -57,7 +57,7 @@
 <text x="448.0" y="328.8" font-size="15" fill="#2b2b2b" text-anchor="middle">13</text>
 <text x="448.0" y="385.0" font-size="15" fill="#555" text-anchor="middle">D</text>
 <text x="448.0" y="403.3" font-size="15" fill="#555" text-anchor="middle">Leb.</text>
-<text x="390" y="422.3" font-size="15.9" fill="#444" text-anchor="middle">R = 0.27   ·   GINI = 0.37</text>
+<text x="390" y="422.3" font-size="15.9" fill="#444" text-anchor="middle">R = 0,27   ·   GINI = 0,37</text>
 <text x="633" y="50" font-size="16" font-family="Georgia,serif" fill="#2b2b2b" text-anchor="middle">Kolonialisierung</text>
 <text x="633" y="70" font-size="16" font-family="Georgia,serif" fill="#2b2b2b" text-anchor="middle">Ketten auf C (Geld)</text>
 <line x1="536" y1="370.0" x2="731" y2="370.0" stroke="#e7e7e7"/>
@@ -86,5 +86,5 @@
 <text x="691.0" y="319.5" font-size="15" fill="#2b2b2b" text-anchor="middle">16</text>
 <text x="691.0" y="385.0" font-size="15" fill="#555" text-anchor="middle">D</text>
 <text x="691.0" y="403.3" font-size="15" fill="#555" text-anchor="middle">Leb.</text>
-<text x="633" y="422.3" font-size="15.9" fill="#444" text-anchor="middle">R = 0.36   ·   GINI = 0.27</text>
+<text x="633" y="422.3" font-size="15.9" fill="#444" text-anchor="middle">R = 0,36   ·   GINI = 0,27</text>
 </svg>

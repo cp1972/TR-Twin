@@ -6,11 +6,11 @@
 <text x="89" y="256.5" font-size="15" fill="#666" text-anchor="end">25%</text>
 <line x1="95" y1="157.0" x2="655" y2="157.0" stroke="#e7e7e7"/>
 <text x="89" y="160.0" font-size="15" fill="#666" text-anchor="end">50%</text>
-<text x="95.0" y="372" font-size="15" fill="#666" text-anchor="middle">α=1.3</text>
-<text x="207.0" y="372" font-size="15" fill="#666" text-anchor="middle">α=1.45</text>
-<text x="319.0" y="372" font-size="15" fill="#666" text-anchor="middle">α=1.5</text>
-<text x="431.0" y="372" font-size="15" fill="#666" text-anchor="middle">α=1.6</text>
-<text x="543.0" y="372" font-size="15" fill="#666" text-anchor="middle">α=1.8</text>
+<text x="95.0" y="372" font-size="15" fill="#666" text-anchor="middle">α=1,3</text>
+<text x="207.0" y="372" font-size="15" fill="#666" text-anchor="middle">α=1,45</text>
+<text x="319.0" y="372" font-size="15" fill="#666" text-anchor="middle">α=1,5</text>
+<text x="431.0" y="372" font-size="15" fill="#666" text-anchor="middle">α=1,6</text>
+<text x="543.0" y="372" font-size="15" fill="#666" text-anchor="middle">α=1,8</text>
 <text x="655.0" y="372" font-size="15" fill="#666" text-anchor="middle">α=2</text>
 <text x="375" y="386" font-size="15.9" fill="#555" text-anchor="middle"></text>
 <polyline points="95.0,306.6 207.0,292.2 319.0,292.2 431.0,307.8 543.0,300.3 655.0,300.4" fill="none" stroke="#E8B14C" stroke-width="2.4"/>

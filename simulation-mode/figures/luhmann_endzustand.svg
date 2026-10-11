@@ -23,7 +23,7 @@
 <rect x="260.0" y="289.8" width="42" height="70.2" fill="#8C92EC" rx="2"/>
 <text x="281.0" y="284.8" font-size="15" fill="#2b2b2b" text-anchor="middle">25</text>
 <text x="281.0" y="375.0" font-size="15" fill="#555" text-anchor="middle">M</text>
-<text x="190" y="392" font-size="15.9" fill="#444" text-anchor="middle">R = 1.00   ·   GINI = 0.002</text>
+<text x="190" y="392" font-size="15.9" fill="#444" text-anchor="middle">R = 1,00   ·   GINI = 0,002</text>
 <text x="560" y="70" font-size="18.1" font-family="Georgia,serif" fill="#2b2b2b" text-anchor="middle">Luhmann (operative Schließung)</text>
 <line x1="428" y1="360.0" x2="676" y2="360.0" stroke="#e7e7e7"/>
 <text x="422" y="363.0" font-size="15" fill="#666" text-anchor="end">0</text>
@@ -47,5 +47,5 @@
 <rect x="630.0" y="289.6" width="42" height="70.4" fill="#8C92EC" rx="2"/>
 <text x="651.0" y="284.6" font-size="15" fill="#2b2b2b" text-anchor="middle">25</text>
 <text x="651.0" y="375.0" font-size="15" fill="#555" text-anchor="middle">M</text>
-<text x="560" y="392" font-size="15.9" fill="#444" text-anchor="middle">R = 0.95   ·   GINI = 0.002</text>
+<text x="560" y="392" font-size="15.9" fill="#444" text-anchor="middle">R = 0,95   ·   GINI = 0,002</text>
 </svg>

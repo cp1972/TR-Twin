@@ -1,13 +1,13 @@
 <svg viewBox="0 0 769 440" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica,Arial,sans-serif">
 <rect width="769" height="440" fill="#fff"/>
 <line x1="85" y1="360.0" x2="700" y2="360.0" stroke="#eee"/>
-<text x="79" y="363.0" font-size="15" fill="#666" text-anchor="end">0.00</text>
+<text x="79" y="363.0" font-size="15" fill="#666" text-anchor="end">0,00</text>
 <line x1="85" y1="252.9" x2="700" y2="252.9" stroke="#eee"/>
-<text x="79" y="255.9" font-size="15" fill="#666" text-anchor="end">0.20</text>
+<text x="79" y="255.9" font-size="15" fill="#666" text-anchor="end">0,20</text>
 <line x1="85" y1="145.7" x2="700" y2="145.7" stroke="#eee"/>
-<text x="79" y="148.7" font-size="15" fill="#666" text-anchor="end">0.40</text>
+<text x="79" y="148.7" font-size="15" fill="#666" text-anchor="end">0,40</text>
 <line x1="85" y1="60.0" x2="700" y2="60.0" stroke="#eee"/>
-<text x="79" y="63.0" font-size="15" fill="#666" text-anchor="end">0.56</text>
+<text x="79" y="63.0" font-size="15" fill="#666" text-anchor="end">0,56</text>
 <rect x="105" y="359.2" width="22" height="0.8" fill="#5B6CB8" rx="2"/>
 <rect x="132" y="332.3" width="22" height="27.7" fill="#E08A3C" rx="2"/>
 <rect x="159" y="360.0" width="22" height="0.0" fill="#7BB661" rx="2"/>
