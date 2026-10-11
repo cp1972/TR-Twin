@@ -1,0 +1,67 @@
+{
+ "Topics": {
+  "n": 732,
+  "n_typ": {
+   "Sequenzwechsel": 129,
+   "gleiche Position": 260,
+   "Strukturwechsel": 343
+  },
+  "tab": {
+   "Sequenzwechsel|auf": 15,
+   "gleiche Position|ab": 17,
+   "Strukturwechsel|auf": 50,
+   "Sequenzwechsel|gleich": 5,
+   "Sequenzwechsel|ab": 11,
+   "Sequenzwechsel|None": 98,
+   "Strukturwechsel|None": 243,
+   "gleiche Position|None": 177,
+   "gleiche Position|gleich": 50,
+   "Strukturwechsel|gleich": 30,
+   "Strukturwechsel|ab": 20,
+   "gleiche Position|auf": 16
+  },
+  "agree": {
+   "auf|auf": 37,
+   "auf|gleich": 17,
+   "ab|ab": 12,
+   "ab|gleich": 11,
+   "auf|ab": 8,
+   "ab|auf": 7,
+   "gleich|auf": 6,
+   "gleich|gleich": 2
+  }
+ },
+ "Lexikon": {
+  "n": 437,
+  "n_typ": {
+   "Strukturwechsel": 230,
+   "gleiche Position": 140,
+   "Sequenzwechsel": 67
+  },
+  "tab": {
+   "Strukturwechsel|auf": 70,
+   "gleiche Position|ab": 10,
+   "gleiche Position|gleich": 61,
+   "Sequenzwechsel|ab": 19,
+   "Sequenzwechsel|None": 22,
+   "Sequenzwechsel|gleich": 7,
+   "gleiche Position|auf": 19,
+   "Strukturwechsel|ab": 34,
+   "Sequenzwechsel|auf": 19,
+   "Strukturwechsel|gleich": 42,
+   "Strukturwechsel|None": 84,
+   "gleiche Position|None": 50
+  },
+  "agree": {
+   "auf|auf": 63,
+   "gleich|auf": 6,
+   "gleich|ab": 8,
+   "ab|gleich": 13,
+   "auf|gleich": 15,
+   "ab|ab": 24,
+   "gleich|gleich": 14,
+   "ab|auf": 1,
+   "auf|ab": 2
+  }
+ }
+}

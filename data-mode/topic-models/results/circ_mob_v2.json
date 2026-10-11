@@ -1,0 +1,35 @@
+{
+ "Topics": {
+  "n": 728,
+  "n_typ": {
+   "Sequenzwechsel": 114,
+   "gleiche Position": 226,
+   "Strukturwechsel": 388
+  },
+  "tab": {
+   "Sequenzwechsel|auf": 15,
+   "gleiche Position|ab": 13,
+   "Strukturwechsel|auf": 51,
+   "Sequenzwechsel|gleich": 4,
+   "Sequenzwechsel|ab": 7,
+   "Sequenzwechsel|None": 88,
+   "Strukturwechsel|None": 272,
+   "gleiche Position|None": 156,
+   "gleiche Position|gleich": 42,
+   "Strukturwechsel|ab": 27,
+   "Strukturwechsel|gleich": 38,
+   "gleiche Position|auf": 15
+  },
+  "agree": {
+   "auf|auf": 41,
+   "ab|ab": 16,
+   "auf|gleich": 21,
+   "gleich|gleich": 4,
+   "ab|gleich": 13,
+   "gleich|ab": 2,
+   "gleich|auf": 3,
+   "auf|ab": 9,
+   "ab|auf": 7
+  }
+ }
+}

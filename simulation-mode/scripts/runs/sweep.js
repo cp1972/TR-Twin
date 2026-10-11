@@ -1,6 +1,7 @@
 const fs=require('fs'); const {JSDOM}=require('jsdom');
-const DIR='/home/claude/TR-Twin-extract/simulation-mode';
-const html=fs.readFileSync('/home/claude/TR-Twin-extract/tr-twin.html','utf8');
+const REPO = require('path').resolve(__dirname, '..', '..', '..');   // Wurzel des Repositoriums
+const DIR=require('path').join(REPO,'simulation-mode','profiles');
+const html=fs.readFileSync(require('path').join(REPO,'tr-twin.html'),'utf8');
 const ctxStub=new Proxy({},{get:()=>(()=>ctxStub),set:()=>true});
 const dom=new JSDOM(html,{runScripts:'dangerously',pretendToBeVisual:true,beforeParse(w){
   w.HTMLCanvasElement.prototype.getContext=()=>ctxStub; w.requestAnimationFrame=()=>0; w.cancelAnimationFrame=()=>{};

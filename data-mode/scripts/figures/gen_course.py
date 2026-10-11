@@ -5,7 +5,7 @@ in A und D) und ihre Vermittlungen (Vermittlungsinstanzen und Kontrollkapazität
 dazu die Reziprozität. Helles Thema, satzfertig.
 """
 import json, math, sys
-d=json.load(open('/tmp/course.json'))
+d=json.load(open('data-mode/data/derived/course.json'))
 THEME=sys.argv[1] if len(sys.argv)>1 else 'light'
 OUT=sys.argv[2] if len(sys.argv)>2 else 'data-mode/figures/course_transversal.svg'
 years=d['years']; Y0,Y1=years[0],years[-1]

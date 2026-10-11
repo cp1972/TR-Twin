@@ -1,3 +1,4 @@
+process.chdir(require('path').resolve(__dirname, '..', '..', '..'));   // Pfade relativ zur Wurzel des Repositoriums
 const fs=require("fs");
 const {JSDOM,VirtualConsole}=require("jsdom");
 const ctxProxy=new Proxy({},{get:(o,p)=>{
@@ -54,6 +55,6 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
     let sw=0,fw=0;for(let x=0;x<4;x++){sw+=r.S[x];fw+=r.S[x]*ff[x];}
     for(let x=0;x<4;x++){struct[x].circ.push(cc.c[x]);struct[x].force.push(ff[x]);struct[x].gini.push(r.rGini[x]);struct[x].recip.push(r.rRecip[x]);}
     overall.circ.push(cc.tot);overall.force.push(sw>0?fw/sw:0);overall.gini.push(r.gini);overall.recip.push(r.recip);}
-  fs.writeFileSync('/tmp/signals.json',JSON.stringify({years,struct,overall}));
-  console.log('✓ signaux écrits /tmp/signals.json ·',years.length,'années ·',years[0],'→',years[years.length-1]);
+  fs.writeFileSync('data-mode/data/derived/signals.json',JSON.stringify({years,struct,overall}));
+  console.log('✓ signaux écrits data-mode/data/derived/signals.json ·',years.length,'années ·',years[0],'→',years[years.length-1]);
 })();

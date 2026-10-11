@@ -3,8 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const { JSDOM } = require('jsdom');
 
-const APP = process.argv[2] || '/home/claude/TR-Twin-extract/tr-twin.html';
-const PROFILE = process.argv[3] || '/home/claude/TR-Twin-extract/simulation-mode/profiles/profil_Emirbayer.csv';
+const REPO = require('path').resolve(__dirname, '..', '..', '..');   // Wurzel des Repositoriums
+const APP = process.argv[2] || path.join(REPO, 'tr-twin.html');
+const PROFILE = process.argv[3] || path.join(REPO, 'simulation-mode', 'profiles', 'profil_Emirbayer.csv');
 
 const html = fs.readFileSync(APP, 'utf8');
 const profileCsv = fs.readFileSync(PROFILE, 'utf8');

@@ -1,8 +1,9 @@
 // Alle Theorie-Profile headless durchrechnen (Schritt-Modus, 1819 Schritte).
 const fs=require('fs'), path=require('path');
 const {JSDOM}=require('jsdom');
-const APP=process.argv[2]||'./tr-twin.html';
-const DIR=process.argv[3]||'./simulation-mode';
+const REPO = require('path').resolve(__dirname, '..', '..', '..');   // Wurzel des Repositoriums
+const APP=process.argv[2]||path.join(REPO,'tr-twin.html');
+const DIR=process.argv[3]||path.join(REPO,'simulation-mode','profiles');
 const OUT=process.argv[4]||'./out/profiles';
 const NSTEPS=+(process.argv[5]||1819);
 fs.mkdirSync(OUT,{recursive:true});

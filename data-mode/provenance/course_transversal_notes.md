@@ -34,3 +34,11 @@ through instances — co-emerging with them in D, scaling them in A.
 Correlations are computed over the years where presence > 0; series come from a deterministic
 replay of the twin (actors + mediation + control). Control authority curves are sourced for the
 structuring instances (see `control_parc_empirical_notes.md`).
+
+**Caveat (book chapter 12, Oct. 2026).** The correlations above use the estimated years of the
+contract table and are computed on levels, which share a common upward trend. Re-run with the years
+taken from the notices (`../topic-models/contracts/N1_lexikon_hiscam_echte_jahre.csv`), the levels
+barely change (A: 0.86 mediation / 0.78 control; D: 0.74 / 0.97), but on ten-year changes the
+coupling remains clear only for mediation in A (0.56; control in A −0.05; D 0.26 / 0.22). The
+same-time rise of workers and instances in D is thus compatible with co-emergence but does not
+prove it from the series alone. See `../topic-models/results/kanaele.json` and `x_kanaele.js`.

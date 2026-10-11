@@ -1,0 +1,54 @@
+{
+ "N0_lexikon_hiscam_alte_jahre.csv": {
+  "years": [
+   1758,
+   1966
+  ],
+  "A": {
+   "r_med": 0.813,
+   "r_ctrl": 0.775,
+   "r_med_10j": 0.532,
+   "r_ctrl_10j": -0.05,
+   "n_jahre": 192,
+   "erste_praesenz": 1775,
+   "hoehepunkt": 1934,
+   "pmax": 54
+  },
+  "D": {
+   "r_med": 0.632,
+   "r_ctrl": 0.985,
+   "r_med_10j": -0.026,
+   "r_ctrl_10j": 0.594,
+   "n_jahre": 172,
+   "erste_praesenz": 1784,
+   "hoehepunkt": 1930,
+   "pmax": 31
+  }
+ },
+ "N1_lexikon_hiscam_echte_jahre.csv": {
+  "years": [
+   1753,
+   1962
+  ],
+  "A": {
+   "r_med": 0.858,
+   "r_ctrl": 0.784,
+   "r_med_10j": 0.562,
+   "r_ctrl_10j": -0.054,
+   "n_jahre": 191,
+   "erste_praesenz": 1764,
+   "hoehepunkt": 1954,
+   "pmax": 55
+  },
+  "D": {
+   "r_med": 0.74,
+   "r_ctrl": 0.968,
+   "r_med_10j": 0.262,
+   "r_ctrl_10j": 0.222,
+   "n_jahre": 176,
+   "erste_praesenz": 1767,
+   "hoehepunkt": 1936,
+   "pmax": 32
+  }
+ }
+}

@@ -63,7 +63,7 @@ def render_trajektorie(data, untertitel="Neutrales Szenario, Seed 1, 1819 Schrit
     return out
 
 if __name__ == "__main__":
-    inp = sys.argv[1] if len(sys.argv) > 1 else "/home/claude/tr-headless/out/traj_emirbayer.json"
-    out = sys.argv[2] if len(sys.argv) > 2 else "/home/claude/tr-headless/out/trajektorie_report.svg"
+    inp = sys.argv[1] if len(sys.argv) > 1 else "out/traj_emirbayer.json"
+    out = sys.argv[2] if len(sys.argv) > 2 else "out/trajektorie_report.svg"
     data = json.load(open(inp, encoding="utf-8"))
     print("gerendert:", render_trajektorie(data, out=out))

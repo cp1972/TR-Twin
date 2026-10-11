@@ -1,3 +1,4 @@
+process.chdir(require('path').resolve(__dirname, '..', '..', '..'));   // Pfade relativ zur Wurzel des Repositoriums
 const fs=require("fs");const {JSDOM,VirtualConsole}=require("jsdom");
 const ctxProxy=new Proxy({},{get:(o,p)=>{if(p==='createRadialGradient'||p==='createLinearGradient')return ()=>({addColorStop(){}});if(p==='measureText')return ()=>({width:10});return typeof p==='string'?(()=>{}):undefined;}});
 const vc=new VirtualConsole();const errors=[];vc.on("jsdomError",e=>errors.push(e&&e.message?e.message:String(e)));
@@ -17,5 +18,5 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   console.log('        seqA   seqB   seqC   seqD');
   for(let x=0;x<4;x++)console.log('  '+NM[x]+'   '+cc.cell[x].map(v=>v.toFixed(3)).join('  '));
   // für die Abbildung sichern
-  fs.writeFileSync('/tmp/capcell.json',JSON.stringify(cc));
+  fs.mkdirSync('out',{recursive:true});fs.writeFileSync('out/capcell.json',JSON.stringify(cc));
 })();

@@ -1,0 +1,117 @@
+#+TITLE: Gegenprüfung mit Topic-Modellen (Kapitel 12)
+#+OPTIONS: toc:nil num:nil ^:nil
+#+LANGUAGE: de
+
+/English summary./ This folder holds the scripts, contract tables, results and figures of chapter 12
+of /Der digitale Zwilling der Theorie der Relation/ ("Klassifizieren ohne Berufsschema?"). The
+chapter re-checks the worked example of this =data-mode= folder (163 English working-class
+autobiographers, chapter 11) with a second classification: topic models (MTA 3.5) over the
+occupational descriptions instead of HISCO/HISCAM. It also re-dates the career stages from the
+notices, derives the rank order of positions from circulation itself, and tests how the twin's
+results depend on input decisions (category rule, years, treatment of empty structures). Every
+number of chapter 12 can be regenerated from here; the run order is below.
+
+* Inhalt
+
+| Ordner      | Inhalt |
+|-------------+--------|
+| =data/=      | Eingaben: =actors.csv= (163 Akteure) und =stages_long_final.csv= (996 Berufsetappen mit HISCO, HISCAM, Lexikon-Kodierung), beide aus [[file:../coding/][../coding/]] |
+| =scripts/=   | die Skripte (Python 3 und Node.js), Reihenfolge unten |
+| =contracts/= | die Vertragstabellen für den Zwilling (Spalten =aid, year, structure, category, sequence=) |
+| =results/=   | Ergebnisse (JSON, CSV), auf die sich Kapitel 12 stützt |
+| =figures/=   | die Abbildungen von Kapitel 12 (=rk_abb1= bis =rk_abb12=, =rk_kanaele_echte_jahre.svg= = Abb. 13); die Dateinummern folgen dem Prüfbericht, im Buch sind =rk_abb10= = Abb. 8, =rk_abb8= = Abb. 9 und =rk_abb9= = Abb. 10 |
+| =work/=      | Zwischenstände (Pickle-Dateien); wird beim Lauf erzeugt und nicht versioniert |
+
+** Die Vertragstabellen
+
+| Datei | Positionen | Kategorien | Jahre | Kapitel 12 |
+|-------+------------+------------+-------+------------|
+| =N0_lexikon_hiscam_alte_jahre.csv= | Lexikon | HISCAM-Regel | geschätzt (Geburtsjahr + 15 + 4 × Etappe) | = =../data/actors/cohorte_contrat.csv= (Kap. 11) |
+| =N1_lexikon_hiscam_echte_jahre.csv= | Lexikon | HISCAM-Regel | aus den Notizen | 12.8 |
+| =E1_lexikon_zirkulation_echte_jahre.csv= | Lexikon | Zirkulationsregel A | aus den Notizen | 12.7.3 |
+| =E1B_lexikon_regelB.csv= | Lexikon | Zirkulationsregel B | aus den Notizen | 12.7.3, 12.8 |
+| =E3_N1_ohne_kategorien.csv= | Lexikon | keine | aus den Notizen | 12.8 |
+| =N2_topics_zirkulation_echte_jahre.csv= | Topics (erste Zuordnung) | Regel A | aus den Notizen | Vorstufe |
+| =N3_topics_ueberarbeitet_echte_jahre.csv= | Topics (überarbeitet) | Regel A | aus den Notizen | 12.8 |
+| =N3B_topics_regelB.csv= | Topics (überarbeitet) | Regel B | aus den Notizen | 12.8 |
+| =E2_N3_ohne_kategorien.csv= | Topics (überarbeitet) | keine | aus den Notizen | 12.8 |
+| =N5B_topics_dichtung_regelB.csv= | Topics + Dichtung | Regel B | aus den Notizen | 12.8 (empfohlene Topic-Tabelle) |
+| =N4_…=, =N4B_topics_nebentaetigkeiten_regelB.csv= | Topics + alle Nebentätigkeiten | Regel A / B | aus den Notizen | 12.8 |
+
+Eine leere Kategorie liest der Zwilling als Bewahrende.
+
+** Die wichtigsten Ergebnisdateien
+
+- =results/etappen_jahre_positionen.csv= — alle 996 Etappen mit Jahr, Herkunft des Jahres (Text, Alter, geschätzt), bisherigem Jahr, Lexikon- und Topic-Position, HISCAM und beiden Kategorien.
+- =results/konsens_abweichungen.csv= — die Etappen der 32 Akteure, bei denen zweistufiger Konsens und HISCLASS über den Übergang von manueller zu nicht-manueller Tätigkeit entgegengesetzt urteilen (12.3), mit einer leeren Spalte für das eigene Urteil.
+- =results/rangordnung.json= — Netto-Attraktivität der Positionen, Spearmans ρ (0,81), statische vertikale Ungleichheit unter HISCAM-Regel, Regel A und Regel B, κ der Regeln gegen die HISCAM-Regel (12.7, Abb. 7 und 9).
+- =results/circ_mob_v2.json= — Zirkulation gegen Mobilität (12.7.2, Abb. 8).
+- =results/date_diffs.json= — echtes minus bisher geschätztes Jahr für 543 datierte Etappen (12.8.1, Abb. 10).
+- =results/zwilling_laeufe.json= — der laufende Zwilling für jede Vertragstabelle (Tabelle 6).
+- =results/kanaele.json=, =results/course_N*.json= — die transversalen Kanäle mit geschätzten und mit echten Jahren, Niveaus und Zehnjahresänderungen (12.10.2, Abb. 13).
+- =results/nebenbefund.json=, =results/leer_kontrolle.json= — die Zerlegung der umgekehrten Kaskade und die Kontrolle der Lückenfüllung (12.9).
+
+* Voraussetzungen
+
+- Python 3 mit =numpy=, =pandas=, =scipy=, =scikit-learn=, =matplotlib=.
+- *MTA 3.5* (Konsens über viele Läufe, =topic_stability=). Den Ordner =code/= von MTA übergibt man über die Umgebungsvariable =MTA_CODE=.
+- Node.js mit =jsdom= für die Läufe des Zwillings. Die Skripte laden =tr-twin.html= aus dem Wurzelordner dieses Repositoriums, ohne es zu verändern; liegt =jsdom= außerhalb, setzt man =NODE_PATH=.
+
+* Reihenfolge
+
+Aus dem Ordner =scripts/=:
+
+#+begin_src sh
+export MTA_CODE=~/mta-app/MTA-for-Master/code          # Ordner mit mta_core.py (MTA 3.5)
+export NODE_PATH=~/node_modules                         # nur falls jsdom nicht hier installiert ist
+
+# 1  Topic-Modelle und Vertragstabellen (Python)
+python3 j_two_stage.py      # zweistufiger Konsens: K = 4, dann Untermodell im Resttopic (je 50 Läufe)
+python3 k_eval2.py          # Übergang manuell → nicht-manuell, κ gegen HISCLASS, konsens_abweichungen.csv
+python3 o_split.py          # Zerlegung gemischter Topics
+python3 p_avoc.py           # Modell der Nebentätigkeiten
+python3 m_contracts.py      # N0, N1, N2 und etappen_jahre_positionen.csv
+python3 q_contracts.py      # N3, N4 (überarbeitete Topic-Zuordnung)
+python3 r_ruleB.py          # N3B, N4B, E1B (Zirkulationsregel B)
+python3 t_ergaenzungen.py   # E1, E2, E3, N5B, circ_mob_v2.json, date_diffs.json
+python3 n_circ_mob.py       # Zirkulation gegen Mobilität (erste Topic-Zuordnung und Lexikon)
+python3 u_rangordnung.py    # Rangordnung, ρ, statische vertikale Ungleichheit, κ
+
+# 2  Läufe des Zwillings (Node.js, headless)
+node v_zwilling.js          # alle Tabellen in contracts/ → zwilling_laeufe.json
+node w_luecken.js           # Lückenfüllung: bisher, (a), (b), (c) → leer_kontrolle.json
+node x_kanaele.js           # Kanäle mit N0 und N1 → kanaele.json, course_*.json
+
+# 3  Nebenbefund und Abbildungen (Python)
+python3 s_nebenbefund.py    # liest zwilling_laeufe.json
+python3 y_abbildungen.py    # figures/rk_abb1 … rk_abb12
+#+end_src
+
+Die Abbildung 13 (Kanäle mit den Jahren aus den Notizen) zeichnet das Buch mit seinem eigenen
+Generator (=build/figuren_kap11.py --abb08=) aus =results/course_N1_lexikon_hiscam_echte_jahre.json=;
+sie liegt fertig in =figures/rk_kanaele_echte_jahre.svg=.
+
+Weitere Module: =common.py= (Daten, Stoppwörter), =lexcode.py= (das Stichwortlexikon, gelesen aus
+=../coding/scripts/04_code_structure_seq.py=), =l_dates.py= (Jahre aus den Notizen), =pfade.py=
+(Pfade), =zwilling.js= (gemeinsame Hilfen der Node-Skripte). Die Vorstufen des Prüfberichts sind
+ebenfalls enthalten: =d2_units.py K=, =f_separate.py occ K=, =g_crossing.py=, =h_refine.py K= und
+=i_consensus.py= (Konsens für K = 4, 5, 6; Abb. 3 und 4).
+
+* Prüfung der Reproduktion
+
+Die ganze Kette wurde am 11. Oktober 2026 in einer frischen Kopie dieses Ordners mit
+=tr-twin.html= v63 gerechnet. Alle Vertragstabellen, =konsens_abweichungen.csv=,
+=etappen_jahre_positionen.csv=, =date_diffs.json=, =circ_mob*.json=, =nebenbefund.json=,
+=leer_kontrolle.json= und die Läufe des Zwillings stimmen mit den Werten überein, auf die sich
+Kapitel 12 stützt; =course_N0_….json= ist identisch mit =daten/course.json= des Buches (Kap. 11,
+Abb. 8), =course_N1_….json= mit =daten/course_echte_jahre.json= (Kap. 12, Abb. 13). Die
+Abbildungen =rk_abb1= bis =rk_abb12= sind pixelgleich mit denen des Buches.
+
+* Was Kapitel 12 an den Befunden von Kapitel 11 einschränkt
+
+Kurz, für Leserinnen und Leser dieses Ordners (ausführlich im Kapitel selbst):
+
+- Die Schichtung der Wirtschaft (C) ist robust: Sie bleibt unter allen geprüften Lesarten die am stärksten geschichtete Relationsstruktur, sobald der Zwilling leere Strukturen nicht gleichverteilt füllt.
+- Die Homogenität der Politik (B, 0,02) hängt an der Einstufung politischer Ämter auf der HISCAM-Skala.
+- Die Kopplung von Präsenz und Instanzen in A und D (Korrelationen der Niveaus 0,78 bis 0,98) enthält den gemeinsamen Zeittrend; in den Zehnjahresänderungen bleibt sie nur für die Vermittlung in A deutlich (0,56).
+- Im laufenden Zwilling hängt die vertikale Ungleichheit davon ab, wie Jahre ohne aktive Akteure gefüllt werden (Abb. 12). Ob der Zwilling leere Strukturen künftig als fehlende Information behandelt, ist noch offen; =tr-twin.html= bleibt hier unverändert.

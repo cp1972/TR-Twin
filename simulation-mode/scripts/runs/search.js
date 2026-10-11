@@ -1,7 +1,8 @@
 // Parametersuche: App einmal laden, viele Konfigurationen rechnen, beste Treffer melden.
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
-const APP = '/home/claude/TR-Twin-extract/tr-twin.html';
+const REPO = require('path').resolve(__dirname, '..', '..', '..');   // Wurzel des Repositoriums
+const APP = process.argv[2] || require('path').join(REPO, 'tr-twin.html');
 const html = fs.readFileSync(APP, 'utf8');
 const ctxStub = new Proxy({}, { get: () => (() => ctxStub), set: () => true });
 const dom = new JSDOM(html, { runScripts:'dangerously', pretendToBeVisual:true, beforeParse(w){

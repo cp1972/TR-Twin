@@ -3,7 +3,8 @@
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
-const APP = process.argv[2] || './tr-twin.html';
+const REPO = require('path').resolve(__dirname, '..', '..', '..');   // Wurzel des Repositoriums
+const APP = process.argv[2] || require('path').join(REPO, 'tr-twin.html');
 const PROFILE = process.argv[3];
 const CURSOR = process.argv[4];
 const V1 = +process.argv[5], N1 = +process.argv[6];

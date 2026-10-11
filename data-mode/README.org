@@ -17,8 +17,15 @@ workers had such a fate.
 not cross into a vacuum: they enter through the mediations, and above all through the *control
 instances* that sort, certify and consecrate (certification and criticism in A; gatekeeping and
 economic evaluation in D). Over time, the working-class presence in A and D builds up in lockstep
-with those instances — most tightly with the control apparatus (corr ≈ 0.97 in A, 0.88 in D). See
-=figures/course_transversal.svg= and =provenance/course_transversal_notes.md=.
+with those instances (corr. presence–control 0.78 in A, 0.98 in D; presence–mediation 0.81 in A,
+0.63 in D). See =figures/course_transversal.svg= and =provenance/course_transversal_notes.md=.
+
+*Caveat (book chapter 12).* These correlations use the estimated years of the contract table and
+link two series that both grow over the century. With the years taken from the notices and on
+ten-year changes (the common trend removed), the coupling holds clearly only for mediation in A
+(0.56); the stratification of the economy (C) is robust, the homogeneity of politics (B) depends on
+how political offices are placed on the HISCAM scale. The cross-check with topic models, the
+re-dated contract tables and all scripts are in [[file:topic-models/README.org][topic-models/]].
 
 * Run it in the twin (the "course" configuration)
 
@@ -53,6 +60,7 @@ with those instances — most tightly with the control apparatus (corr ≈ 0.97 
 | =scripts/figures/= | figure generation (Python 3) |
 | =figures/= | the figures of the empirical run (SVG) |
 | =provenance/= | where the data comes from |
+| =topic-models/= | the cross-check of book chapter 12: topic-model classification (MTA 3.5), years from the notices, rank order from circulation, input sensitivity of the twin — see [[file:topic-models/README.org][topic-models/README.org]] |
 
 * The data (=data/=)
 
@@ -92,21 +100,21 @@ writes a JSON to =/tmp=; a Python generator turns it into an SVG.
 
 #+begin_src sh
 # control-apparatus figures (no replay needed)
-python3 scripts/figures/gen_control_capacity.py light \
+python3 data-mode/scripts/figures/gen_control_capacity.py light \
   data-mode/figures/control_capacity_empirical.svg \
   data-mode/data/instances/control_parc_empirical.csv 1950
-python3 scripts/figures/gen_control_profile.py  light \
+python3 data-mode/scripts/figures/gen_control_profile.py  light \
   data-mode/figures/control_profile_empirical.svg \
   data-mode/data/instances/control_parc_empirical.csv 1950
 
 # the deepening figure (replay → JSON → SVG)
-node   scripts/runs/course_analysis.js            # writes /tmp/course.json
-python3 scripts/figures/gen_course.py light \
+node   data-mode/scripts/runs/course_analysis.js  # writes data-mode/data/derived/course.json
+python3 data-mode/scripts/figures/gen_course.py light \
   data-mode/figures/course_transversal.svg
 
 # four-signals comparison (replay → JSON → SVG)
-node   scripts/runs/replay_signals.js             # writes /tmp/signals.json
-python3 scripts/figures/gen_compare.py light \
+node   data-mode/scripts/runs/replay_signals.js   # writes data-mode/data/derived/signals.json
+python3 data-mode/scripts/figures/gen_compare.py light \
   data-mode/figures/signals_comparison.svg
 #+end_src
 

@@ -92,7 +92,7 @@ node batch.js  <app.html>  <profiles-folder>  <output-folder>  [steps]
 Concretely, from the repository root:
 
 #+begin_src sh
-node batch.js  ./tr-twin.html  ./simulation-mode  ./out/profiles  1819
+node batch.js  ./tr-twin.html  ./simulation-mode/profiles  ./out/profiles  1819
 #+end_src
 
 All arguments are optional; the defaults are exactly the values above. The command prints one line per profile and writes one JSON trajectory per profile into the output folder:
@@ -113,7 +113,7 @@ JSON trajectories: ./out/profiles
 To run everything to convergence instead of the 1819-step horizon, raise the step count:
 
 #+begin_src sh
-node batch.js  ./tr-twin.html  ./simulation-mode  ./out/converged  5000
+node batch.js  ./tr-twin.html  ./simulation-mode/profiles  ./out/converged  5000
 #+end_src
 
 * How it works (three lines)

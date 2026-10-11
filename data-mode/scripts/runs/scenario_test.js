@@ -1,3 +1,4 @@
+process.chdir(require('path').resolve(__dirname, '..', '..', '..'));   // Pfade relativ zur Wurzel des Repositoriums
 const fs=require("fs");const {JSDOM,VirtualConsole}=require("jsdom");
 const ctxProxy=new Proxy({},{get:(o,p)=>{if(p==='createRadialGradient'||p==='createLinearGradient')return ()=>({addColorStop(){}});if(p==='measureText')return ()=>({width:10});return typeof p==='string'?(()=>{}):undefined;}});
 const errors=[];const vc=new VirtualConsole();vc.on("jsdomError",e=>errors.push(e&&e.message?e.message:String(e)));

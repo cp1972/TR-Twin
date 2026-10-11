@@ -5,7 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const { JSDOM } = require('jsdom');
 
-const APP  = process.argv[2] || './tr-twin.html';
+const REPO = require('path').resolve(__dirname, '..', '..', '..');   // Wurzel des Repositoriums
+const APP  = process.argv[2] || path.join(REPO, 'tr-twin.html');
 const SPEC = process.argv[3];
 const OUT  = process.argv[4] || './out/metrics.json';
 if (!SPEC) { console.error('Usage: node metrics.js <app.html> <spec.json> [out.json]'); process.exit(2); }

@@ -1,0 +1,132 @@
+{
+ "positionen": {
+  "AA": {
+   "attraktivitaet": 0.2,
+   "zufluesse": 54,
+   "abfluesse": 36,
+   "hiscam_mittel": 80.9,
+   "im_vergleich": true
+  },
+  "AB": {
+   "attraktivitaet": 0.27,
+   "zufluesse": 7,
+   "abfluesse": 4,
+   "hiscam_mittel": 89.5,
+   "im_vergleich": true
+  },
+  "AC": {
+   "attraktivitaet": -0.09,
+   "zufluesse": 21,
+   "abfluesse": 25,
+   "hiscam_mittel": 66.1,
+   "im_vergleich": true
+  },
+  "AD": {
+   "attraktivitaet": 0.1,
+   "zufluesse": 11,
+   "abfluesse": 9,
+   "hiscam_mittel": 81.3,
+   "im_vergleich": true
+  },
+  "BB": {
+   "attraktivitaet": 0.39,
+   "zufluesse": 32,
+   "abfluesse": 14,
+   "hiscam_mittel": 86.6,
+   "im_vergleich": true
+  },
+  "BC": {
+   "attraktivitaet": 0.1,
+   "zufluesse": 11,
+   "abfluesse": 9,
+   "hiscam_mittel": 69.6,
+   "im_vergleich": false
+  },
+  "BD": {
+   "attraktivitaet": 0.2,
+   "zufluesse": 12,
+   "abfluesse": 8,
+   "hiscam_mittel": 84.9,
+   "im_vergleich": true
+  },
+  "CA": {
+   "attraktivitaet": 0.09,
+   "zufluesse": 18,
+   "abfluesse": 15,
+   "hiscam_mittel": 82.2,
+   "im_vergleich": true
+  },
+  "CC": {
+   "attraktivitaet": -0.34,
+   "zufluesse": 44,
+   "abfluesse": 90,
+   "hiscam_mittel": 61.1,
+   "im_vergleich": true
+  },
+  "CD": {
+   "attraktivitaet": -0.31,
+   "zufluesse": 21,
+   "abfluesse": 40,
+   "hiscam_mittel": 60.5,
+   "im_vergleich": true
+  },
+  "DA": {
+   "attraktivitaet": 0.16,
+   "zufluesse": 33,
+   "abfluesse": 24,
+   "hiscam_mittel": 86.8,
+   "im_vergleich": true
+  },
+  "DC": {
+   "attraktivitaet": -0.5,
+   "zufluesse": 1,
+   "abfluesse": 3,
+   "hiscam_mittel": 56.7,
+   "im_vergleich": true
+  },
+  "DD": {
+   "attraktivitaet": 0.23,
+   "zufluesse": 32,
+   "abfluesse": 20,
+   "hiscam_mittel": 82.1,
+   "im_vergleich": true
+  }
+ },
+ "spearman": {
+  "rho": 0.813,
+  "p": 0.0013,
+  "n": 12
+ },
+ "vertikal_statisch": {
+  "HISCAM-Regel (N1)": {
+   "A": 0.153,
+   "B": 0.02,
+   "C": 0.722,
+   "D": 0.157
+  },
+  "Regel A (E1)": {
+   "A": 0.412,
+   "B": 0.42,
+   "C": 0.247,
+   "D": 0.375
+  },
+  "Regel B (E1B)": {
+   "A": 0.249,
+   "B": 0.12,
+   "C": 0.471,
+   "D": 0.088
+  }
+ },
+ "kappa": {
+  "Regel A": {
+   "kappa": -0.044,
+   "uebereinstimmung": 0.214,
+   "n": 444
+  },
+  "Regel B": {
+   "kappa": 0.259,
+   "uebereinstimmung": 0.459,
+   "n": 444
+  }
+ }
+}

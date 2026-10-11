@@ -1,3 +1,4 @@
+process.chdir(require('path').resolve(__dirname, '..', '..', '..'));   // Pfade relativ zur Wurzel des Repositoriums
 const fs=require("fs");const {JSDOM,VirtualConsole}=require("jsdom");
 const ctxProxy=new Proxy({},{get:(o,p)=>{if(p==='createRadialGradient'||p==='createLinearGradient')return ()=>({addColorStop(){}});if(p==='measureText')return ()=>({width:10});return typeof p==='string'?(()=>{}):undefined;}});
 const vc=new VirtualConsole();const errors=[];vc.on("jsdomError",e=>errors.push(e&&e.message?e.message:String(e)));
@@ -24,11 +25,11 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   for(const x of [0,1,2,3])for(const k of ['presence','med','ctrl','recip','sat'])struct[x][k]=[];
   for(const r of rows){const Y=r.year;const pr=presAt(Y),md=medAt(Y),cc=w.controlCapacity(Y).floor;
     for(let x=0;x<4;x++){struct[x].presence.push(pr[x]);struct[x].med.push(md[x]);struct[x].ctrl.push(cc[x]);struct[x].recip.push(r.rRecip[x]);struct[x].sat.push(r.sat[x]);}}
-  fs.writeFileSync('/tmp/course.json',JSON.stringify({years,struct}));
+  fs.writeFileSync('data-mode/data/derived/course.json',JSON.stringify({years,struct}));
   // Kurzbericht: Präsenzhöhepunkt in A und D, Korrelation Präsenz~(Vermittlung+Kontrolle)
   const NM=['A','B','C','D'];
   for(const x of [0,3]){const P=struct[x].presence,M=struct[x].med,C=struct[x].ctrl;
     const pmax=Math.max(...P),pyr=years[P.indexOf(pmax)];
     console.log(NM[x]+': présence max '+pmax+' en '+pyr+' · force médiation max '+Math.max(...M).toFixed(2)+' · capacité contrôle max '+Math.max(...C).toFixed(3));}
-  console.log('✓ /tmp/course.json écrit ·',years.length,'années');
+  console.log('✓ data-mode/data/derived/course.json écrit ·',years.length,'années');
 })();

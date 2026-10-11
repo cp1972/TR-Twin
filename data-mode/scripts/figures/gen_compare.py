@@ -4,7 +4,7 @@ Vergleich der vier Signale — Zirkulation, Stärke der Instanzen, Ungleichheit,
 Reziprozität — je Struktur A/B/C/D und für das Ganze. Helles Thema, satzfertig.
 """
 import json, sys
-d=json.load(open('/tmp/signals.json'))
+d=json.load(open('data-mode/data/derived/signals.json'))
 THEME=sys.argv[1] if len(sys.argv)>1 else 'light'
 OUT=sys.argv[2] if len(sys.argv)>2 else 'data-mode/figures/signals_comparison.svg'
 PAL={'light':dict(bg='#ffffff',title='#1b1f2a',sub='#5b6472',tick='#8a92a0',frame='rgba(0,0,0,0.16)',grid='rgba(0,0,0,0.06)',foot='#9aa1ad'),

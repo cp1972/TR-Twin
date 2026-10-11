@@ -77,6 +77,8 @@ data-mode/                  the empirical run
   scripts/figures/          figure generation
   figures/                  the figures of the empirical run
   provenance/               where the data comes from
+  topic-models/             cross-check with topic models (book ch. 12): scripts, re-dated
+                            contract tables, results — see topic-models/README.org
 #+end_example
 
 * Documentation

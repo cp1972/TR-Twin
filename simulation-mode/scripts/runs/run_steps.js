@@ -1,10 +1,11 @@
 // Schritt-Trajektorie mit festen Reglern aus einem Profil (Endjahr-Werte, konstant).
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
-const APP = process.argv[2] || '/home/claude/TR-Twin-extract/tr-twin.html';
+const REPO = require('path').resolve(__dirname, '..', '..', '..');   // Wurzel des Repositoriums
+const APP = process.argv[2] || require('path').join(REPO, 'tr-twin.html');
 const PROFILE = process.argv[3] || '';
 const NSTEPS = +(process.argv[4] || 1819);
-const OUT = process.argv[5] || '/home/claude/tr-headless/out/trajektorie.json';
+const OUT = process.argv[5] || './out/trajektorie.json';
 const html = fs.readFileSync(APP,'utf8');
 const profileCsv = PROFILE ? fs.readFileSync(PROFILE,'utf8') : '';
 const ctxStub = new Proxy({},{get:()=>(()=>ctxStub),set:()=>true});
