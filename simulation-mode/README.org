@@ -53,17 +53,22 @@ node simulation-mode/scripts/runs/metrics.js tr-twin.html \
 - =sweep.js= / =search.js= — parameter sweep and targeted search
 - =hysteresis.js= — run a phase, then continue without reset
 - =metrics.js= — end-state metrics for a set of configurations
+- =archer_zyklus.js= — the three runs of the Archer cycle (book ch. 9, fig. 3), Gini at steps 0, 1250, 2500, 3750, 5000
 
-See [[file:../techdocs/09-headless-runs.org][techdocs/09]] for the details.
+See [[file:../techdocs/04-headless-runs.org][techdocs/04]] for the details.
 
 * Figures (=scripts/figures/=)
 
 - =render_trajektorie.py= — the trajectory and end-state figures
 - =render_schema.py= — the schematic diagrams
+- =render_archer.py= — redraws the Archer figure from the output of =archer_zyklus.js=
 - =rework_figures.py= — a *one-off* pass that brought the existing SVGs to the
   present typographic standard (larger type, legend at mid-right, no title in
   the image). It is *not* idempotent: running it twice enlarges the type twice.
-  It is kept for provenance, not for routine use.
+  It is kept for provenance, not for routine use. Applied once to a freshly
+  rendered trajectory it gives the present style (as for the Parsons figure,
+  regenerated with tr-twin.html v63: =run_steps.js= → =render_trajektorie.py= →
+  =rework_figures.py=, decimal comma in the labels).
 
 * Results (=results/=)
 

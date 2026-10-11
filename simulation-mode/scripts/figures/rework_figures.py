@@ -380,7 +380,7 @@ def sf_habermas_ideal(svg):
 
 def sf_parsons_trajektorie(svg):
     """Die beiden Schwellenmarken standen auf verschiedener Höhe."""
-    return _setz_y(svg, r'Politik 75 % \(Schritt 655\)', 66)
+    return _setz_y(svg, r'Politik 75 % \(Schritt \d+\)', 66)
 
 
 def sf_kaskade(svg):
