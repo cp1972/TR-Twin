@@ -20,8 +20,14 @@
   .stage .sub{position:absolute;top:64px;left:32px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate-dim)}
   .stage .hint{position:absolute;bottom:54px;left:32px;font-family:var(--mono);font-size:11px;color:var(--slate-dim)}
   .stage .stageinfo-left,.stage .stageinfo-right{position:absolute;z-index:3;display:flex;flex-direction:column;gap:10px;background:rgba(10,12,22,0.46);border:1px solid rgba(255,255,255,0.08);border-radius:11px;padding:12px 15px;backdrop-filter:blur(3px)}
-  .stage .stageinfo-left{top:84px;left:32px}
-  .stage .stageinfo-right{top:64px;right:14px;align-items:flex-start}
+  .stage .stageinfo-left{top:84px;left:32px;width:250px}
+  .stage .stageinfo-left .gini .lab{width:72px;letter-spacing:.06em;white-space:nowrap}
+  .stage .stageinfo-right{top:64px;right:14px;align-items:stretch;width:176px;max-height:calc(100% - 128px);overflow-y:auto}
+  .stage .stageinfo-right #instGrid,.stage .stageinfo-right #perGrid{min-width:0}
+  .stage .stageinfo-right .sblock{min-width:0}
+  .stage .stageinfo-right .sirow{flex-direction:column;gap:9px}
+  .stage .stageinfo-right .sirow .sblock:not(:first-child){border-left:none;padding-left:0;border-top:1px solid rgba(255,255,255,.07);padding-top:9px}
+  .stage .stageinfo-right .sirow+.sirow{border-top:1px solid rgba(255,255,255,.07);padding-top:9px}
   .stage .sirow{display:flex;flex-direction:row;gap:15px;align-items:flex-start}
   .stage .sblock{display:flex;flex-direction:column;gap:7px}
   .stage .sirow .sblock:not(:first-child){border-left:1px solid rgba(255,255,255,.07);padding-left:15px}
@@ -241,7 +247,9 @@
       <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="desc_imp_cursor">1st column = slider (id or label) · columns = years · linear interpolation · rows “chaine_A,C,B,D” for the structural coupling</div></div>
     <div><div class="heading" style="margin:8px 0 6px" data-i18n="head_imp_cohort">Import an actor cohort (contract table CSV)</div>
       <div class="erow" style="gap:8px"><label for="contractfile" class="filebtn" data-i18n="btn_choosefile">Choose file</label><input id="contractfile" type="file" accept=".csv,text/csv" style="display:none"><span id="contractstatus" style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)"></span></div>
-      <div class="erow" style="gap:10px;margin-top:5px;align-items:center"><label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="paliers" style="accent-color:#46CDB8"> <span data-i18n="lab_paliers">stepped interpolation</span></label><span class="heading" style="color:var(--slate-dim)" data-i18n="desc_paliers">cohort = steps · macro-demography = linear</span></div></div>
+      <div class="erow" style="gap:10px;margin-top:5px;align-items:center"><label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="paliers" style="accent-color:#46CDB8"> <span data-i18n="lab_paliers">stepped interpolation</span></label><span class="heading" style="color:var(--slate-dim)" data-i18n="desc_paliers">cohort = steps · macro-demography = linear</span></div>
+      <div class="erow" style="gap:8px;margin-top:6px;align-items:center" data-i18n-title="tip_gapmode" title="Years in which a relational structure has no active actor: which category composition the twin uses there. Uniform = 25 % per category (as up to v63)."><span style="font-family:var(--mono);font-size:9px;color:var(--slate)" data-i18n="lab_gapmode">empty relational structures</span><select id="gapmode" style="background:#0d1326;border:1px solid var(--hair);border-radius:6px;color:var(--paper);font-family:var(--mono);font-size:10px;padding:4px"><option value="uniform" data-i18n="opt_gap_uniform">uniform (25 % per category)</option><option value="pool" data-i18n="opt_gap_pool">overall composition of the structure</option><option value="carry" data-i18n="opt_gap_carry">carry last observation forward</option></select></div>
+      <div id="gapstatus" style="font-family:var(--mono);font-size:9px;color:var(--slate-dim);margin-top:3px"></div></div>
     <div><div class="heading" style="margin:8px 0 6px" data-i18n="head_imp_instcohort">Import an instance cohort (contract table CSV)</div>
       <div class="erow" style="gap:8px"><label for="instcohortfile" class="filebtn" data-i18n="btn_choosefile">Choose file</label><input id="instcohortfile" type="file" accept=".csv,text/csv" style="display:none"><span id="instcohortstatus" style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)"></span></div>
       <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="desc_imp_instcohort">the whole instance stock (census, uncapped) · columns: aid, year, structure, sequence, category, weight · drives g[structure·sequence] via the weight</div></div>
@@ -457,6 +465,13 @@ const I18N={
   cat_names:{fr:['Établis','Aspirants','Conservateurs','Déçus'],de:['Etablierte','Aspiranten','Konservative','Enttäuschte'],en:['Established','Aspirants','Conservatives','Disappointed']},
   autonomous:{fr:'autonome',de:'selbstständig',en:'autonomous'},
   btn_choosefile:{fr:'Choisir un fichier',de:'Datei wählen',en:'Choose file'},
+  lab_gapmode:{fr:'structures relationnelles vides',de:'leere Relationsstrukturen',en:'empty relational structures'},
+  opt_gap_uniform:{fr:'uniforme (25 % par catégorie)',de:'gleichverteilt (je Kategorie 25 %)',en:'uniform (25 % per category)'},
+  opt_gap_pool:{fr:'composition d\'ensemble de la structure',de:'Gesamtzusammensetzung der Struktur',en:'overall composition of the structure'},
+  opt_gap_carry:{fr:'reporter la dernière observation',de:'letzte Beobachtung fortschreiben',en:'carry last observation forward'},
+  tip_gapmode:{fr:'Années où une structure relationnelle n\'a aucun acteur actif : quelle composition des catégories le jumeau y utilise. Uniforme = 25 % par catégorie (comme jusqu\'à v63).',de:'Jahre, in denen eine Relationsstruktur keine aktiven Akteure hat: welche Zusammensetzung der Kategorien der Zwilling dort verwendet. Gleichverteilt = je Kategorie 25 % (wie bis v63).',en:'Years in which a relational structure has no active actor: which category composition the twin uses there. Uniform = 25 % per category (as up to v63).'},
+  st_empty:{fr:'années sans acteurs',de:'Jahre ohne Akteure',en:'years without actors'},
+  st_filled:{fr:'comblées par',de:'gefüllt mit',en:'filled with'},
   lab_paliers:{fr:'interpolation en paliers',de:'Stufen-Interpolation',en:'stepped interpolation'},
   desc_paliers:{fr:'cohorte = paliers · démographie macro = linéaire',de:'Kohorte = Stufen · Makro-Demografie = linear',en:'cohort = steps · macro-demography = linear'},
   head_prism:{fr:'Mode prisme · sondes',de:'Prismen-Modus · Sonden',en:'Prism mode · probes'},
@@ -592,7 +607,7 @@ function t(k){const e=I18N[k];return e?(e[LANG]!=null?e[LANG]:e.fr):k;}
 function SN(i){return I18N.struct_names[LANG][i];}
 function CN(k){return I18N.cat_names[LANG][k];}
 function syncPlayBtn(){const b=document.getElementById('play');if(b)b.textContent=running?t('btn_pause'):t('btn_resume');}
-function setLang(lang){if(!['fr','de','en'].includes(lang))lang='en';LANG=lang;
+function setLang(lang){if(!['fr','de','en'].includes(lang))lang='en';LANG=lang;setTimeout(()=>{if(typeof renderGapStatus==='function')renderGapStatus();},0);
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[k])el.textContent=I18N[k][lang];});
   document.querySelectorAll('[data-i18n-title]').forEach(el=>{const k=el.getAttribute('data-i18n-title');if(I18N[k])el.title=I18N[k][lang];});
   document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(I18N[k])el.innerHTML=I18N[k][lang];});
@@ -1137,10 +1152,32 @@ function parseContractCSV(text){const rows=text.replace(/^\uFEFF/,'').trim().spl
 function buildCohortKeys(rec){const byA={};for(const r of rec){(byA[r.aid]=byA[r.aid]||[]).push(r);}let ymin=Infinity,ymax=-Infinity;
   for(const a in byA){byA[a].sort((x,y)=>x.year-y.year);ymin=Math.min(ymin,byA[a][0].year);ymax=Math.max(ymax,byA[a][byA[a].length-1].year);}
   const grid=y=>{const cnt=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];for(const a in byA){const st=byA[a];if(y<st[0].year||y>st[st.length-1].year)continue;let pos=st[0];for(const s of st){if(s.year<=y)pos=s;else break;}cnt[pos.s][pos.c]++;}return cnt;};
-  const keys=[];let prev=null;for(let y=ymin;y<=ymax;y++){const cnt=grid(y);const flat=JSON.stringify(cnt);if(flat===prev)continue;prev=flat;
+  const keys=[],empty=[0,0,0,0];let prev=null;for(let y=ymin;y<=ymax;y++){const cnt=grid(y);
+    for(let s=0;s<4;s++)if(!cnt[s].some(v=>v>0))empty[s]++;
+    const flat=JSON.stringify(cnt);if(flat===prev)continue;prev=flat;
     const w=[0,0,0,0],comp=[[.25,.25,.25,.25],[.25,.25,.25,.25],[.25,.25,.25,.25],[.25,.25,.25,.25]];
     for(let s=0;s<4;s++){const tot=cnt[s].reduce((a,b)=>a+b,0);w[s]=tot;if(tot>0)comp[s]=cnt[s].map(v=>v/tot);}keys.push({year:y,w,comp});}
-  return keys.length?keys:null;}
+  if(!keys.length)return null;
+  fillGaps(keys,rec);gapInfo={empty,years:ymax-ymin+1,mode:gapMode};
+  return keys;}
+// v64: years in which a relational structure has no active actor ("gaps").
+// uniform (default, as up to v63): 25 % per category · pool: overall composition of the structure
+// over all rows of the contract table (missing category = conservative) · carry: last observed
+// composition carried forward (before the first observation: the first one).
+let gapMode='uniform', gapInfo=null;
+function fillGaps(keys,rec){if(gapMode==='uniform')return;
+  if(gapMode==='pool'){const n=[0,1,2,3].map(()=>[0,0,0,0]);for(const r of rec)if(!r.ctrl)n[r.s][r.c]++;
+    const P=n.map(v=>{const t=v.reduce((a,b)=>a+b,0);return t?v.map(x=>x/t):[.25,.25,.25,.25];});
+    for(const k of keys)for(let x=0;x<4;x++)if(!(k.w[x]>0))k.comp[x]=P[x].slice();return;}
+  if(gapMode==='carry'){for(let x=0;x<4;x++){let last=null;const first=keys.find(k=>k.w[x]>0);
+    for(const k of keys){if(k.w[x]>0){last=k.comp[x].slice();continue;}const src=last||(first?first.comp[x]:null);if(src)k.comp[x]=src.slice();}}}}
+function gapStatusText(){if(!gapInfo)return '';const L=['A','B','C','D'];
+  return L.map((l,x)=>l+' '+gapInfo.empty[x]).join(' · ')+' / '+gapInfo.years+' '+t('st_empty')+' · '+t('st_filled')+': '+t('opt_gap_'+gapInfo.mode);}
+function renderGapStatus(){const el=document.getElementById('gapstatus');if(el)el.textContent=gapStatusText();}
+function setGapMode(m){if(!['uniform','pool','carry'].includes(m))return;gapMode=m;const sel=document.getElementById('gapmode');if(sel)sel.value=m;
+  if(cohortRec){const keys=buildCohortKeys(cohortRec);if(keys){const s0=tl.start,e0=tl.end;tl.keys=keys;tl.sel=Math.min(tl.sel,keys.length-1);tl.start=s0;tl.end=e0;
+    loadKeyToSliders();renderTicks();renderKfList();}}
+  renderGapStatus();}
 let cohortTrans=null, lastFluxYear=null; const FLUXW=40;
 function buildTransitions(rec){const byA={};for(const r of rec){(byA[r.aid]=byA[r.aid]||[]).push(r);}const tr=[];
   for(const a in byA){const st=byA[a].sort((x,y)=>x.year-y.year);const perY=new Map();for(const s of st)perY.set(s.year,s.s);
@@ -1335,9 +1372,10 @@ document.getElementById("contractfile").onchange=e=>{const f=e.target.files[0];i
     document.getElementById("tlstart").value=tl.start;document.getElementById("tlend").value=tl.end;
     loadKeyToSliders();renderTicks();renderKfList();
     const nA=new Set(rec.map(r=>r.aid)).size;
-    document.getElementById("contractstatus").textContent=nA+' '+t('st_actors')+' · '+keys.length+' '+t('st_steps')+' · '+tl.start+'–'+tl.end;
+    document.getElementById("contractstatus").textContent=nA+' '+t('st_actors')+' · '+keys.length+' '+t('st_steps')+' · '+tl.start+'–'+tl.end;renderGapStatus();
   }catch(err){document.getElementById("contractstatus").textContent=t('st_read_error');}};
   rd.readAsText(f);};
+{const gs=document.getElementById("gapmode");if(gs)gs.onchange=e=>setGapMode(e.target.value);}
 document.getElementById("probefile").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();
   rd.onload=()=>{try{const rec=parseContractCSV(rd.result);
     if(!rec||!rec.length){document.getElementById("probestatus").textContent=t('st_contract_format');return;}

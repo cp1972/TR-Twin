@@ -4,6 +4,9 @@
 
 A stand-alone web application (HTML/JavaScript, Canvas graphics) that simulates the *Theory of the Relation*. It represents four mutually influencing relational structures — *Culture (A), Politics (B), Economy (C), Media (D)* — each articulated into sequences and four actor categories, and it lets you feed in real data to observe the mutual influence of social orders, the unequal circulation of actors, the mediation and control instances, and the inequalities that arise.
 
+#+CAPTION: The twin in data mode (v64): the cohort of 163 working-class autobiographers with its mediation and control instances, around 1810. The economy (C) dominates; culture (A), politics (B) and media (D) are its satellites.
+[[file:images/tr-twin.png]]
+
 *Theoretical basis:* Christian Papilloud & Eva-Maria Schultze, /Skizze einer Theorie der Relation/, Springer VS, Wiesbaden 2022 (ISBN 978-3-658-37922-3).
 
 * Run it

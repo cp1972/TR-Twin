@@ -39,6 +39,11 @@ re-dated contract tables and all scripts are in [[file:topic-models/README.org][
 4. Press play. Watch, together: the actors circulating across structures, the instances waxing and
    waning, the control capacity of A and D building up, and reciprocity declining as the
    destinations fill.
+5. Optional (since v64): below the cohort import, /empty relational structures/ sets what the twin
+   uses in years in which a structure has no active actor — uniform 25 % per category (default,
+   as up to v63), the overall composition of the structure, or the last observation carried
+   forward. The status line shows how many years are empty per structure (here A 47 · B 129 ·
+   C 23 · D 81 of 209). See [[file:topic-models/README.org][topic-models/]] for why this matters.
 
 ** Other things to try
 
