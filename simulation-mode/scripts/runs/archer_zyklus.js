@@ -28,6 +28,7 @@ function lauf(a1, a2) {
     const r = parseCursorCSV(csv);
     for (const c in r.keys){ const p=r.keys[c]; setC(c, p[p.length-1].val); }
     if (r.chains && Object.keys(r.chains).length){ loadedChains=r.chains; for(const sx in r.chains) setChain(+sx, r.chains[sx]); } else { loadedChains=null; resetChains(); }
+    if(typeof profilMech==='function') profilMech(r);   // v67: mechanisms of the theory, as declared by the profile
     setC('alpha', a1); satS=[0,0,0,0]; rulerHold=[0,0,0,0]; reset();
     const g = []; let t = 0;
     for (const p of punkte){ while (t < p){ if (t === wechsel) setC('alpha', a2); step(dt); t++; } g.push(+gini().toFixed(4)); }

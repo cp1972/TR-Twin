@@ -320,7 +320,7 @@ whether the targeted change prevents the return to the state the run would reach
 |------+--------------|
 | =reizSetzen(x, dir, dauer, k)= | starts a stimulus on structure =x= (0–3) now: =dir= +1 strengthen, −1 weaken; =dauer= in steps of 1/60·0.68; strength =k= (default 2.6) |
 | =reizStop()= | ends it |
-| =setMech({M1, …, M6})= | switches the satellisation mechanisms on or off (all off by default = v64); =SATDAUER= sets the saturation time of M5 (default 40) |
+| =setMech({M1, …, M6})= | switches the satellisation mechanisms on or off; =SATDAUER= sets the saturation time of M5 (default 40). Since v67 =applyDefaults()= switches all six on (the TR), and =profilMech(parseCursorCSV(csv))= sets those a profile declares (row =mechanismen,…=; none declared = none) |
 | =reizLauf(o)= | from =reset()=: =o.beginn= steps (1819), stimulus for =o.dauer= steps (300), =o.nachlauf= free steps (6000); =o.ohne= = the same length without stimulus |
 | =reizProbe(o)= | stimulus run and control run; =urteil= "zurueck", "fest" or "bewegung" |
 | =reizSchwelle(o, dauern)= | the shortest duration in =dauern= with the verdict "fest", and the whole series |

@@ -21,6 +21,7 @@ runInPage(`window.__t=(function(){try{
     if(r){ const yE=Math.max(...r.years.filter(y=>!isNaN(y)));
       for(const cid in r.keys){const p=r.keys[cid];const v=p[p.length-1].val;const el=document.getElementById(cid);if(el){el.value=v;el.dispatchEvent(new Event('input'));}}
       if(r.chains&&Object.keys(r.chains).length){loadedChains=r.chains;for(const sx in r.chains)setChain(+sx,r.chains[sx]);}
+      if(typeof profilMech==='function') profilMech(r);   // v67: mechanisms of the theory, as declared by the profile
     }
   }
   satS=[0,0,0,0]; rulerHold=[0,0,0,0];   // reset() clears neither

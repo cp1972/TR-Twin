@@ -38,6 +38,7 @@ runInPage(`window.__result = (function(){
     if(!r) return {ok:false, err:'Profil nicht geparst'};
     tl.cursorKeys = r.keys;
     if(r.chains && Object.keys(r.chains).length){ loadedChains=r.chains; for(const sx in r.chains) setChain(+sx, r.chains[sx]); }
+    if(typeof profilMech==='function') profilMech(r);   // v67: mechanisms of the theory, as declared by the profile
     const ys = r.years.filter(y=>!isNaN(y));
     tl.start = Math.min(...ys); tl.end = Math.max(...ys);
     const rows = runSeries();

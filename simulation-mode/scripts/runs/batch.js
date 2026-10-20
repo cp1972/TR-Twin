@@ -24,6 +24,7 @@ rip(`window.__fromCsv=function(csv,n){
   for(const cid in r.keys){const p=r.keys[cid];cursors[cid]=p[p.length-1].val;
     const el=document.getElementById(cid); if(el){el.value=cursors[cid]; el.dispatchEvent(new Event('input'));}}
   if(r.chains&&Object.keys(r.chains).length){loadedChains=r.chains;for(const sx in r.chains)setChain(+sx,r.chains[sx]);}
+  if(typeof profilMech==='function') profilMech(r);   // v67: mechanisms of the theory, as declared by the profile
   else {loadedChains=null;resetChains();}
   satS=[0,0,0,0]; rulerHold=[0,0,0,0];   // WICHTIG: reset() setzt satS NICHT zurueck
   reset();
