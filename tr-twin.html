@@ -301,6 +301,16 @@
     <div class="ctl"><label data-i18n-title="tip_anchor" title="Low = the structure's size changes independently of the number of actors; High = the structure's size changes according to the number of actors"><span data-i18n="lab_anchor">Weight of numbers (population)</span> <span id="vAnchor"></span> <span class="def"><span data-i18n="def_prefix">default</span> 0.5</span></label><input id="anchor" type="range" min="0" max="2" step="0.05" value="0.5"></div>
     <div class="btns"><button id="play" class="wide">Pause</button><button id="reset" class="wide" data-i18n="btn_reset">Reset</button></div>
     <div class="erow" style="margin-top:6px;gap:6px"><span style="font-family:var(--mono);font-size:9.5px;color:var(--slate-dim)" data-i18n="lab_seed">random seed</span><input id="seed" type="number" value="1" style="width:96px;background:transparent;border:1px solid var(--hair);border-radius:5px;color:var(--paper);font-family:var(--mono);font-size:10px;padding:3px;text-align:center"><span style="font-family:var(--mono);font-size:8.5px;color:var(--slate-dim)" data-i18n="lab_seedhint">same seed = same run</span></div>
+    <hr>
+    <div id="reizBox"><div class="heading" style="margin:4px 0 6px" data-i18n-title="tip_reiz" title="Stimulus protocol: a deliberate change of one relational structure at its core sequence, for a set time." data-i18n="head_reiz">Stimulus protocol</div>
+      <div class="erow" style="gap:6px;align-items:center;flex-wrap:wrap"><select id="reizX" style="background:#0d1326;border:1px solid var(--hair);border-radius:6px;color:var(--paper);font-family:var(--mono);font-size:10px;padding:4px"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select><select id="reizDir" style="background:#0d1326;border:1px solid var(--hair);border-radius:6px;color:var(--paper);font-family:var(--mono);font-size:10px;padding:4px"><option value="1" data-i18n="opt_reiz_plus">strengthen</option><option value="-1" data-i18n="opt_reiz_minus">weaken</option></select></div>
+      <div class="erow" style="gap:6px;align-items:center;margin-top:5px"><span style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)" data-i18n="lab_reiz_dauer">duration (steps)</span><input id="reizDauer" type="number" min="1" value="300" style="width:58px;background:transparent;border:1px solid var(--hair);border-radius:5px;color:var(--paper);font-family:var(--mono);font-size:10px;padding:3px;text-align:center"><span style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)" data-i18n="lab_reiz_k">strength</span><input id="reizK" type="number" min="0" step="0.1" value="2.6" style="width:58px;background:transparent;border:1px solid var(--hair);border-radius:5px;color:var(--paper);font-family:var(--mono);font-size:10px;padding:3px;text-align:center"></div>
+      <div class="erow" style="gap:10px;margin-top:6px;flex-wrap:wrap"><label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:5px;align-items:center;cursor:pointer" data-i18n-title="tip_m1" title="M1 · the chains of a satellised structure align with the sequential order of the satelliser"><input type="checkbox" id="mechM1" style="accent-color:#46CDB8"> <span data-i18n="lab_m1">M1 chains</span></label><label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:5px;align-items:center;cursor:pointer" data-i18n-title="tip_m2" title="M2 · a structure satellised strongly and long enough runs entirely under the satelliser's sequence"><input type="checkbox" id="mechM2" style="accent-color:#46CDB8"> <span data-i18n="lab_m2">M2 regime</span></label><label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:5px;align-items:center;cursor:pointer" data-i18n-title="tip_m3" title="M3 · the satelliser's instances strengthen the same kind of instance in its satellites, strongest first"><input type="checkbox" id="mechM3" style="accent-color:#46CDB8"> <span data-i18n="lab_m3">M3 instances</span></label></div>
+      <div class="erow" style="gap:10px;margin-top:4px;flex-wrap:wrap"><label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:5px;align-items:center;cursor:pointer" data-i18n-title="tip_m4" title="M4 · the control instances of a satellised structure strengthen its own core; they can be alienated, never completely"><input type="checkbox" id="mechM4" style="accent-color:#46CDB8"> <span data-i18n="lab_m4">M4 control</span></label><label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:5px;align-items:center;cursor:pointer" data-i18n-title="tip_m5" title="M5 · saturation of domination (Pareto): every further gain costs more; the dominant is eroded until another structure overtakes it"><input type="checkbox" id="mechM5" style="accent-color:#46CDB8"> <span data-i18n="lab_m5">M5 saturation</span></label><label style="font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;gap:5px;align-items:center;cursor:pointer" data-i18n-title="tip_m6" title="M6 · force of control (DiMaggio): networked, diversified instances control better; loose or one-sided control is satellised more easily"><input type="checkbox" id="mechM6" style="accent-color:#46CDB8"> <span data-i18n="lab_m6">M6 control force</span></label></div>
+      <div class="erow" style="gap:6px;align-items:center;margin-top:5px"><span style="font-family:var(--mono);font-size:9px;color:var(--slate-dim)" data-i18n="lab_satdauer">saturation time</span><input id="satDauer" type="number" min="1" step="1" value="40" style="width:58px;background:transparent;border:1px solid var(--hair);border-radius:5px;color:var(--paper);font-family:var(--mono);font-size:10px;padding:3px;text-align:center"></div>
+      <div class="erow" style="gap:6px;margin-top:6px;flex-wrap:wrap"><button class="xbtn" id="reizGo" data-i18n="btn_reiz_go">▶ apply stimulus now</button><button class="xbtn" id="reizProbeBtn" data-i18n-title="tip_reiz_probe" title="Computes, from the start with the current controls and seed, the run with the stimulus after 1819 steps and the same run without it, and compares the ends." data-i18n="btn_reiz_probe">Σ stimulus probe</button></div>
+      <div id="reizRead" style="margin-top:6px;font-family:var(--mono);font-size:9px;line-height:1.5;color:var(--slate)"></div>
+      <div class="heading" style="margin-top:5px;color:var(--slate-dim);line-height:1.5" data-i18n="desc_reiz">strengthen = the core sequence is reinforced · weaken = the leading sequence passes its share to the next one on the path of the leading structure, never back to the own core · without a stimulus and with M1–M6 off = as v64</div></div>
     <p class="note" data-i18n-html="note_sclerose"><b>Sclerosis</b> (above the optimum): the chain head detaches, the regime loses its force. <b>Emptying</b> (below): the sequence disperses toward its twins in the other structures.</p>
   </aside>
 </div>
@@ -309,6 +319,34 @@
 // ================= i18n (single app: dictionary + language selector) =================
 let LANG='en';
 const I18N={
+  // ---- v65 stimulus protocol ----
+  head_reiz:{de:"Reizprotokoll",fr:"Protocole de stimulation",en:"Stimulus protocol"},
+  tip_reiz:{de:"Reizprotokoll: gezielte Veränderung einer Relationsstruktur an ihrer Kernsequenz, für eine festgelegte Zeit.",fr:"Protocole de stimulation : modification délibérée d'une structure relationnelle à sa séquence noyau, pour une durée fixée.",en:"Stimulus protocol: a deliberate change of one relational structure at its core sequence, for a set time."},
+  opt_reiz_plus:{de:"verstärken",fr:"renforcer",en:"strengthen"},
+  opt_reiz_minus:{de:"schwächen",fr:"affaiblir",en:"weaken"},
+  lab_reiz_dauer:{de:"Dauer (Schritte)",fr:"durée (pas)",en:"duration (steps)"},
+  lab_reiz_k:{de:"Stärke",fr:"intensité",en:"strength"},
+  lab_m1:{de:"M1 Ketten",fr:"M1 chaînes",en:"M1 chains"},
+  lab_m2:{de:"M2 Regime",fr:"M2 régime",en:"M2 regime"},
+  lab_m3:{de:"M3 Instanzen",fr:"M3 instances",en:"M3 instances"},
+  tip_m1:{de:"M1 · Die Ketten einer satellisierten Struktur gleichen sich an die Sequenzordnung des Satellisierers an.",fr:"M1 · Les chaînes d'une structure satellisée s'alignent sur l'ordre séquentiel du satellisateur.",en:"M1 · the chains of a satellised structure align with the sequential order of the satelliser"},
+  tip_m2:{de:"M2 · Eine stark und lange genug satellisierte Struktur läuft ganz unter der Sequenz des Satellisierers.",fr:"M2 · Une structure satellisée assez fortement et assez longtemps fonctionne entièrement sous la séquence du satellisateur.",en:"M2 · a structure satellised strongly and long enough runs entirely under the satelliser's sequence"},
+  tip_m3:{de:"M3 · Die Instanzen des Satellisierers stärken in seinen Satelliten dieselbe Instanzart, die stärkste zuerst.",fr:"M3 · Les instances du satellisateur renforcent le même type d'instance dans ses satellites, la plus forte d'abord.",en:"M3 · the satelliser's instances strengthen the same kind of instance in its satellites, strongest first"},
+  btn_reiz_go:{de:"▶ Reiz jetzt setzen",fr:"▶ stimuler maintenant",en:"▶ apply stimulus now"},
+  btn_reiz_probe:{de:"Σ Reizprobe",fr:"Σ épreuve de stimulation",en:"Σ stimulus probe"},
+  tip_reiz_probe:{de:"Rechnet vom Start an mit den aktuellen Reglern und dem Startwert den Lauf mit Reiz nach 1819 Schritten und denselben Lauf ohne Reiz und vergleicht die Enden.",fr:"Calcule depuis le départ, avec les curseurs et la graine actuels, le déroulement avec stimulation après 1819 pas et le même sans stimulation, et compare les fins.",en:"Computes, from the start with the current controls and seed, the run with the stimulus after 1819 steps and the same run without it, and compares the ends."},
+  desc_reiz:{de:"verstärken = die Kernsequenz wird gestärkt · schwächen = die führende Sequenz gibt ihren Anteil an die nächste auf dem Pfad der führenden Struktur ab, nie zurück an die eigene Kernsequenz · ohne Reiz und mit M1–M6 aus = wie v64",fr:"renforcer = la séquence noyau est renforcée · affaiblir = la séquence dominante cède sa part à la suivante sur le chemin de la structure dominante, jamais à sa propre séquence noyau · sans stimulation et M1–M6 désactivés = comme v64",en:"strengthen = the core sequence is reinforced · weaken = the leading sequence passes its share to the next one on the path of the leading structure, never back to the own core · without a stimulus and with M1–M6 off = as v64"},
+  lab_m4:{de:"M4 Kontrolle",fr:"M4 contrôle",en:"M4 control"},
+  lab_m5:{de:"M5 Sättigung",fr:"M5 saturation",en:"M5 saturation"},
+  lab_m6:{de:"M6 Kontrollkraft",fr:"M6 force du contrôle",en:"M6 control force"},
+  lab_satdauer:{de:"Sättigungsdauer",fr:"durée de saturation",en:"saturation time"},
+  tip_m4:{de:"M4 · Die Kontrollinstanzen einer satellisierten Struktur stärken deren eigene Kernsequenz; sie können entfremdet werden, aber nie vollständig.",fr:"M4 · Les instances de contrôle d'une structure satellisée renforcent sa propre séquence noyau ; elles peuvent être aliénées, jamais complètement.",en:"M4 · the control instances of a satellised structure strengthen its own core; they can be alienated, never completely"},
+  tip_m5:{de:"M5 · Sättigung der Herrschaft (Pareto): Jeder weitere Gewinn kostet mehr; die herrschende Struktur wird geschwächt, bis eine andere sie überholt.",fr:"M5 · Saturation de la domination (Pareto) : chaque gain supplémentaire coûte davantage ; la structure dominante s'érode jusqu'à ce qu'une autre la dépasse.",en:"M5 · saturation of domination (Pareto): every further gain costs more; the dominant is eroded until another structure overtakes it"},
+  tip_m6:{de:"M6 · Kraft der Kontrolle (DiMaggio): Vernetzte, diversifizierte Instanzen kontrollieren besser; lose oder einseitige Kontrolle wird leichter satellisiert.",fr:"M6 · Force du contrôle (DiMaggio) : des instances en réseau et diversifiées contrôlent mieux ; un contrôle lâche ou unilatéral est plus facilement satellisé.",en:"M6 · force of control (DiMaggio): networked, diversified instances control better; loose or one-sided control is satellised more easily"},
+  reiz_wait:{de:"Reizprobe wird gerechnet …",fr:"calcul de l'épreuve …",en:"computing the probe …"},
+  reiz_running:{de:"Reiz läuft: {x} {d}, noch {n} Schritte",fr:"stimulation en cours : {x} {d}, encore {n} pas",en:"stimulus running: {x} {d}, {n} steps left"},
+  reiz_verdict:{de:{zurueck:"zurückgekehrt",fest:"festgesetzt",bewegung:"noch in Bewegung"},fr:{zurueck:"revenu",fest:"fixé",bewegung:"encore en mouvement"},en:{zurueck:"returned",fest:"set",bewegung:"still moving"}},
+  reiz_lines:{de:["mit Reiz","ohne Reiz","Abweichung","Regime","Ketten","Urteil"],fr:["avec","sans","écart","régimes","chaînes","verdict"],en:["with stimulus","without","deviation","regimes","chains","verdict"]},
   // ---- “What-if” scenarios module ----
   head_scenario:{de:"Szenarien „Was wäre wenn“",fr:"Scénarios « et si »",en:"What-if scenarios"},
   head_scn_read:{de:"Szenario · Ablesung",fr:"Scénario · lecture",en:"Scenario · readout"},
@@ -629,7 +667,7 @@ const N=4, reduceMotion=matchMedia("(prefers-reduced-motion:reduce)").matches;
 // attraction matrix WT[x][y] (row-normalised weights, zero diagonal), derived from the chains
 let WT=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
 function setChain(x,o){const w=[3,2,1];let s=0;WT[x]=[0,0,0,0];o.forEach((y,i)=>{WT[x][y]=w[i];s+=w[i];});for(let y=0;y<N;y++)WT[x][y]/=s;}
-function resetChains(){setChain(0,[3,1,2]);setChain(1,[0,2,3]);setChain(2,[1,3,0]);setChain(3,[2,0,1]);} // A:D-B-C B:A-C-D C:B-D-A D:C-A-B
+function resetChains(){setChain(0,[3,1,2]);setChain(1,[0,2,3]);setChain(2,[1,3,0]);setChain(3,[2,0,1]);} // A:D-B-C B:A-C-D C:B-D-A D:C-A-B (book p. 105)
 resetChains();
 function omega(x,y){return WT[x][y]||0;}
 function chainOf(z){const o=[0,1,2,3].filter(y=>y!==z).sort((a,b)=>WT[z][b]-WT[z][a]);return [o[0],o[1],o[2],z];}
@@ -652,7 +690,7 @@ function norm(a){const t=a.reduce((s,v)=>s+Math.max(0,v),0)||1;return a.map(v=>M
 function reset(){reseed();rulerHold=[0,0,0,0];satS=[0,0,0,0];S=[0.25,0.25,0.25,0.25];g=Array.from({length:N},()=>[0.25,0.25,0.25,0.25]);
   ruler=[0,1,2,3];ruptT=[0,0,0,0];F=[0,0,0,0];act=Array.from({length:N},()=>Array.from({length:N},()=>P0.slice()));hist.length=0;resetChains();if(loadedChains)for(const sx in loadedChains)setChain(+sx,loadedChains[sx]);
   Irel=[1,1,1,1];Iseq=[1,1,1,1];Iteil=[1,1,1,1];thrRel=[0,0,0,0];thrSeq=[0,0,0,0];thrTeil=[0,0,0,0];
-  Energy=[[1,1,1],[1,1,1],[1,1,1],[1,1,1]];Ictrl=[1,1,1,1];RESID=[0,0,0,0];RESOLVED=[0,0,0,0];meanResid=0;mobX=0;mobQ=0;perturb(0.06);}
+  Energy=[[1,1,1],[1,1,1],[1,1,1],[1,1,1]];Ictrl=[1,1,1,1];RESID=[0,0,0,0];RESOLVED=[0,0,0,0];meanResid=0;mobX=0;mobQ=0;taken=[-1,-1,-1,-1];takeHold=[0,0,0,0];reiz=null;ctrlSat=[0,0,0,0];Zsat=[0,0,0,0];gainS=[0,0,0,0];lastS=null;Phi=[1,1,1,1];perturb(0.06);}
 function perturb(a=0.18){S=norm(S.map(v=>v+(_r()-0.5)*a*0.5));for(let x=0;x<N;x++)g[x]=norm(g[x].map(v=>v+(_r()-0.5)*a));}
 function randomize(){S=norm(S.map(()=>_r()+0.05));for(let x=0;x<N;x++)g[x]=norm(g[x].map(()=>_r()+0.05));}
 
@@ -686,6 +724,62 @@ let satS=[0,0,0,0];           // degree of satellisation per structure (deficit 
 const REFREL=0.134, REFSEQ=0.203, REFTEIL=0.0755;  // reference flows (neutral state), per unit of time
 function instHealth(){let h=0,sw=0;for(let x=0;x<N;x++){const w=S[x];h+=w*structHealth(x);sw+=w;}return sw>0?h/sw:1;}
 let boost=-1;
+// ====== v65 — STIMULUS PROTOCOL (Reizprotokoll) and the satellisation mechanisms M1–M3 ======
+// A stimulus is a deliberate change of ONE relational structure x, applied to its core sequence for a given time.
+//  strengthen (dir +1): the core sequence g[x][x] is reinforced (the same operation as holding a circle pressed).
+//  weaken (dir −1): the LEADING sequence R = ruler[x] loses share to the next sequence (v66: along the path of the
+//    leading structure, see reizNext; REIZ_FOLGE only without a clear leader). The structure is reprogrammed around that
+//    sequence and runs along its butterfly path (chainOf(ruler) — "as if we were in B although we are in A").
+// Everything else (expansion, satellisation, formalisation by the instances) must follow from the model.
+// With reiz === null and M1–M6 off, v65/v66 compute exactly as v64.
+const REIZ_FOLGE=[1,2,3,0];       // fallback order without a clear leader: A→B, B→C, C→D, D→A (own sequence skipped)
+const REIZ_DT=1/60*0.68;          // reference step: a stimulus duration in steps = duration × REIZ_DT in model time
+let reiz=null;                    // {x, dir, rest (model time left), k (strength)}
+// M1 chain alignment: the chains of a satellised structure align with the sequential order of the satelliser
+// M2 regime takeover: a structure satellised strongly and long enough runs entirely under the satelliser's sequence
+// M3 mediate strengthening: the satelliser's instances (strongest first) are strengthened of the same kind in its satellites
+let MECH={M1:false,M2:false,M3:false,M4:false,M5:false,M6:false};
+const KCHAIN=1.0;                 // M1: speed of the alignment (× satellisation)
+const SAT_TAKE=0.5, SAT_FREE=0.2, TAKE_DWELL=2.0;   // M2: takeover above 0.5 held for 2.0 time units, release below 0.2
+const KM3=0.6;                    // M3: strengthening rate (× satellisation × relative strength of the instance type)
+let taken=[-1,-1,-1,-1], takeHold=[0,0,0,0];         // M2 state: satelliser that took over structure x (−1 = none)
+// ====== v66 — return to the own structure: control of the satellite (M4), saturation of domination (M5, Pareto),
+//         force of control (M6, DiMaggio); weakening along the path of the leading structure ======
+// Weakening: the leading sequence of the weakened structure x passes its share to the next sequence along the butterfly
+//   path of the structure that rules most or gains most power in the relational space (the LEADER: largest S + KGAIN ×
+//   smoothed growth, other than x). The structure is drawn along that path until it runs under the leader's core sequence;
+//   weakening further then takes from its own core and gives to the leader's. A structure never returns to its own core
+//   sequence through the weakening itself. Without a clear leader (lead below LEAD_MIN, e.g. in the symmetric state) the
+//   order A→B→C→D→A applies, skipping the structure's own sequence.
+// M4: the control instances of a satellised structure strengthen its own core sequence. They can be satellised in turn
+//   (ctrlSat: share of alienated control, growing with satellisation and with the satelliser's control), but never
+//   completely (CTRL_ALIEN_MAX): the structure keeps itself as a structure. A takeover (M2) is released only when the own
+//   control is not mostly alienated, or when the satelliser is no longer dominant.
+// M5: saturation of domination (Pareto): the dominant accumulates Zsat, growing with its satellites and over-
+//   proportionally with every further gain beyond the even share (a marginal gain costs more resources in networking the
+//   others than no gain). Zsat erodes the dominant in favour of the others, the stronger ones first, so that domination
+//   passes to another structure rather than collapsing; Zsat recovers once the structure no longer dominates.
+// M6: force of control (DiMaggio): Phi = ½ diversification of the instances (evenness of relation, sequence,
+//   sub-sequence, control) + ½ networking (cross-structural circulation). Weak force: the structure is absorbed more
+//   easily, its control resolves less, and its control is alienated faster.
+const KGAIN=2.0, LEAD_MIN=0.01;
+const KREC=0.8, KALIEN=0.6, KALIEN_BACK=0.3, CTRL_ALIEN_MAX=0.8;
+let SATDAUER=40;                  // M5: time scale of saturation (model time units; ≈ 88 steps per unit)
+const KERO=0.5, ZREC=0.05, ZMARGIN=0.03;
+let ctrlSat=[0,0,0,0], Zsat=[0,0,0,0], gainS=[0,0,0,0], lastS=null, Phi=[1,1,1,1];
+function reizLeader(x){let b=-1,bv=-1,sv=-1;for(let y=0;y<N;y++){if(y===x)continue;const v=S[y]+KGAIN*gainS[y];
+  if(v>bv){sv=bv;bv=v;b=y;}else if(v>sv)sv=v;}return(bv-sv>=LEAD_MIN)?b:-1;}
+function reizNext(x,R){const L=reizLeader(x);
+  if(L>=0){if(R===L)return{from:x,to:L};const p=chainOf(L);let i=p.indexOf(R),n=p[i+1];if(n===x)n=p[i+2];return{from:R,to:n};}
+  let n=REIZ_FOLGE[R];if(n===x)n=REIZ_FOLGE[n];return{from:R,to:n};}
+function controlForce(x){const I=[Irel[x],Iseq[x],Iteil[x],Ictrl[x]].map(v=>Math.max(1e-9,v)),t=I.reduce((a,b)=>a+b,0);
+  let H=0;for(const v of I){const q=v/t;H-=q*Math.log(q);}const div=H/Math.log(4);
+  const net=Math.min(1,(thrRel[x]/Math.max(1e-9,lastDt))/REFREL);return 0.5*div+0.5*net;}
+let lastDt=REIZ_DT;
+function reizSetzen(x,dir,dauer,k){reiz={x:+x,dir:dir<0?-1:1,rest:Math.max(0,+dauer)*REIZ_DT,k:(k==null?BOOST:+k)};}
+function reizStop(){reiz=null;}
+function setMech(o){for(const k of ['M1','M2','M3','M4','M5','M6'])if(o&&o[k]!=null)MECH[k]=!!o[k];if(typeof syncMechUI==='function')syncMechUI();}
+function satelliser(){let dom=0;for(let i=1;i<N;i++)if(S[i]>S[dom])dom=i;return dom;}
 let crossViz=Array.from({length:N},()=>[0,0,0,0]);
 let S0=[0.25,0.25,0.25,0.25];
 function seedForce(){S=norm(S0.slice());for(let x=0;x<N;x++)g[x]=norm(S0.map(v=>v+0.02));}
@@ -696,6 +790,7 @@ function step(dt){
   thrSeq=[0,0,0,0];thrTeil=[0,0,0,0];thrRel=[0,0,0,0];
   // 0. regimes (ruler = dominant sequence of each structure)
   for(let x=0;x<N;x++){
+    if(taken[x]>=0){ruler[x]=taken[x];rulerHold[x]=0;continue;}   // v65 M2: a structure taken over runs under the satelliser's sequence
     let best=ruler[x],bv=-1;
     for(let y=0;y<N;y++){const v=vit(g[x][y]);if(v>bv){bv=v;best=y;}}
     if(best!==ruler[x] && vit(g[x][best])>vit(g[x][ruler[x]])+MARGIN){
@@ -706,8 +801,17 @@ function step(dt){
   // 0b. plasticity: redirect attraction toward capturable targets (viable grip, not too large)
   if(plast>0){for(let x=0;x<N;x++){if(loadedChains&&loadedChains[x]!=null)continue;let ps=0;const pr=[0,0,0,0];
     for(let y=0;y<N;y++) if(y!==x){pr[y]=vit(g[x][y])*Math.max(0.05,0.55-S[y]);ps+=pr[y];}
-    if(ps>0){let s=0;for(let y=0;y<N;y++) if(y!==x){WT[x][y]+=plast*dt*(pr[y]/ps-WT[x][y]);if(WT[x][y]<0)WT[x][y]=0;s+=WT[x][y];}
+    const pk=MECH.M1?plast*(1-satS[x]):plast;   // v65 M1: a satellised structure loses the autonomy of its path reorganisation
+    if(ps>0){let s=0;for(let y=0;y<N;y++) if(y!==x){WT[x][y]+=pk*dt*(pr[y]/ps-WT[x][y]);if(WT[x][y]<0)WT[x][y]=0;s+=WT[x][y];}
       for(let y=0;y<N;y++) if(y!==x) WT[x][y]/=s;}}}
+  // 0b'. v65 M1: the chain of a satellised structure aligns with the sequential order of the satelliser
+  //      (its butterfly path chainOf(dom) without the satellite's own sequence, weights 3/2/1). Fixed profile chains stay fixed.
+  if(MECH.M1){const dom=satelliser(),pd=chainOf(dom);
+    for(let y=0;y<N;y++){if(y===dom||satS[y]<=0)continue;if(loadedChains&&loadedChains[y]!=null)continue;
+      const o=pd.filter(z=>z!==y),tg=[0,0,0,0];o.forEach((z,i)=>{tg[z]=[3,2,1][i]/6;});
+      const k=Math.min(1,KCHAIN*satS[y]*dt);let s=0;
+      for(let z=0;z<N;z++)if(z!==y){WT[y][z]+=k*(tg[z]-WT[y][z]);if(WT[y][z]<0)WT[y][z]=0;s+=WT[y][z];}
+      if(s>0)for(let z=0;z<N;z++)if(z!==y)WT[y][z]/=s;}}
   // 0c. actors: social mobility inside each sequence (success -> ascent; failure -> exclusion)
   for(let x=0;x<N;x++)for(let s=0;s<N;s++){const a=act[x][s];
     const fortune=Math.min(1,Math.max(0,0.5*vit(g[x][s])+0.5*Math.min(1,S[x]/0.5)));
@@ -725,6 +829,9 @@ function step(dt){
     const w0=DECAY,w1=DECAY*DECAY,w2=DECAY*DECAY*DECAY,ws=w0+w1+w2;
     g[x][ch[2]]+=pool*w0/ws; g[x][ch[1]]+=pool*w1/ws; g[x][ch[0]]+=pool*w2/ws;
     if(x===boost) g[x][x]+=BOOST*dt;
+    if(reiz&&reiz.rest>0&&x===reiz.x){                             // v65 stimulus protocol
+      if(reiz.dir>0) g[x][x]+=reiz.k*dt;                            // strengthen the core sequence (as the pressed circle)
+      else{const mv=reizNext(x,ruler[x]),d=Math.min(Math.max(0,g[x][mv.from]),reiz.k*dt);g[x][mv.from]-=d;g[x][mv.to]+=d;}}  // v66 weaken: along the leader's path, never back to the own core
     // SCLEROSIS: terminal above the rupture point -> the chain head detaches
     if(g[x][R]>rupt()){
       const head=ch[0], col=RUPT_RATE*(g[x][R]-rupt())*dt;
@@ -769,7 +876,10 @@ function step(dt){
     const ex = KEXP*Math.max(0,dd-1.15)*S[i];                          // threshold-gated: only genuine over-power expands the structure
     S[i]=Math.max(0,S[i]+dS[i]*dt+an*dt+ex*dt);} S=norm(S);
   {let dom=0;for(let i=1;i<N;i++)if(S[i]>S[dom])dom=i;                  // active satellisation: the satellite shrinks toward the dominant
-   let absorbed=0;for(let i=0;i<N;i++)if(i!==dom){const ab=KABS*satS[i]*Math.max(0,S[i]-SMIN)*dt;S[i]-=ab;absorbed+=ab;}  // floored at SMIN: it shrinks without disappearing
+   let absorbed=0;for(let i=0;i<N;i++)if(i!==dom){let ab=KABS*satS[i]*Math.max(0,S[i]-SMIN)*dt;
+     if(MECH.M6)ab*=(1.5-Phi[i]);                                       // v66 M6: weak control force -> absorbed more easily
+     if(MECH.M5)ab/=(1+Zsat[dom]);                                      // v66 M5: a saturated dominant absorbs less
+     S[i]-=ab;absorbed+=ab;}  // floored at SMIN: it shrinks without disappearing
    S[dom]+=absorbed;S=norm(S);}
   // FATIGUE OF DOMINATION -> PROGRESSIVE rupture (discharge + erosion spread over time)
   for(let x=0;x<N;x++){const ov=S[x]-0.25;
@@ -797,7 +907,9 @@ function step(dt){
       for(let i=0;i<3;i++){dem[i]=res; res-=dem[i]*CAPi[i]*Math.min(1.6,Math.max(0,Ia[i]));}
       const resPre=Math.max(0,res);
       Ictrl[x]+=(Math.min(CMAX,Math.max(capFloorCur[x],1+1.3*resPre))-Ictrl[x])*0.4*dt;            // floor = control capacity from data; endogenous = use on top of it
-      const kc=(x===3?0.45:0.18);                                                             // control (strong in D) resolves part of the residue
+      let kc=(x===3?0.45:0.18);                                                               // control (strong in D) resolves part of the residue
+      if(MECH.M6)kc*=(0.5+0.5*Phi[x]);                                                        // v66 M6: loose or undiversified control resolves less
+      if(MECH.M4)kc*=(1-ctrlSat[x]);                                                          // v66 M4: alienated control works for the satelliser
       const resCtrl=resPre*Math.max(0,1-kc*Math.min(1.5,Ictrl[x]));
       RESID[x]=resCtrl; RESOLVED[x]=Math.max(0,P-resCtrl);
       const ctrlR=0.45*Ictrl[x]*resPre*(x===3?1.6:1.0);                                        // re-regulation: restores energy (stronger in D)
@@ -812,6 +924,53 @@ function step(dt){
     }
     meanResid = sw>0?mres/sw:0;
   }
+  // v65 M2: regime takeover — satellised above SAT_TAKE for TAKE_DWELL, the structure runs under the satelliser's sequence
+  //         (ruler = satelliser: internal circulation along its butterfly path, the structure feeds it); released below SAT_FREE
+  if(MECH.M2&&dt>0){const dom=satelliser();
+    for(let x=0;x<N;x++){
+      if(taken[x]>=0){
+        const frei=MECH.M4?(satS[x]<SAT_FREE&&ctrlSat[x]<0.5):(satS[x]<SAT_FREE);          // v66 M4: own control must not be mostly alienated
+        const erschoepft=(MECH.M5&&taken[x]!==dom);                                          // v66 M5: the satelliser no longer dominates
+        if(frei||erschoepft||taken[x]===x){taken[x]=-1;takeHold[x]=0;}continue;}
+      if(x!==dom&&satS[x]>SAT_TAKE){takeHold[x]+=dt;if(takeHold[x]>=TAKE_DWELL){taken[x]=dom;ruler[x]=dom;takeHold[x]=0;}}
+      else takeHold[x]=0;}}
+  else if(!MECH.M2&&taken.some(v=>v>=0)){taken=[-1,-1,-1,-1];takeHold=[0,0,0,0];}
+  // v65 M3: mediate strengthening of the same kind of instance in the satellites. The satelliser's instance types are
+  //         weighted by their strength relative to its strongest one (squared: the strongest leads, the weaker are drawn in).
+  if(MECH.M3&&dt>0){const dom=satelliser(),Id=[Irel[dom],Iseq[dom],Iteil[dom],Ictrl[dom]],mx=Math.max(...Id)||1;
+    const w=Id.map(v=>(v/mx)*(v/mx));
+    for(let y=0;y<N;y++){if(y===dom||satS[y]<=0)continue;const k=KM3*satS[y]*dt;
+      Irel[y]=Math.min(2.5,Irel[y]+k*w[0]);Iseq[y]=Math.min(2.5,Iseq[y]+k*w[1]);Iteil[y]=Math.min(2.5,Iteil[y]+k*w[2]);
+      Ictrl[y]=Math.min(CMAX,Ictrl[y]+k*w[3]);}}
+  // v66 M6: force of control per structure (read by the absorption, the cascade and M4 in the next step)
+  if(MECH.M6&&dt>0){lastDt=dt;for(let x=0;x<N;x++)Phi[x]=controlForce(x);} else if(!MECH.M6)Phi=[1,1,1,1];
+  // v66 M4: control of the satellite — own (non-alienated) control strengthens the own core; alienation of control
+  if(MECH.M4&&dt>0){const dom=satelliser(),Id=[Irel[dom],Iseq[dom],Iteil[dom],Ictrl[dom]],mx=Math.max(...Id)||1,wc=Ictrl[dom]/mx;
+    for(let x=0;x<N;x++){
+      if(x===dom){ctrlSat[x]=Math.max(0,ctrlSat[x]-KALIEN_BACK*ctrlSat[x]*dt);continue;}
+      const res=MECH.M6?(1-Phi[x]):0.5;                                                       // DiMaggio: networked, diversified control resists
+      ctrlSat[x]+=dt*(KALIEN*satS[x]*wc*res*(CTRL_ALIEN_MAX-ctrlSat[x])/CTRL_ALIEN_MAX - KALIEN_BACK*(1-satS[x])*ctrlSat[x]);
+      ctrlSat[x]=Math.max(0,Math.min(CTRL_ALIEN_MAX,ctrlSat[x]));
+      const own=Ictrl[x]*(1-ctrlSat[x])*(MECH.M6?Phi[x]:1);
+      if(satS[x]>0&&own>0){g[x][x]+=KREC*satS[x]*own*dt;g[x]=norm(g[x]);}}}
+  else if(!MECH.M4)ctrlSat=[0,0,0,0];
+  // v66 M5: saturation of domination (Pareto) and erosion in favour of the others, the stronger ones first
+  if(MECH.M5&&dt>0){const dom=satelliser();
+    for(let x=0;x<N;x++){
+      if(x===dom){let hs=0;for(let y=0;y<N;y++)if(y!==x)hs+=satS[y];const ov=Math.max(0,S[x]-0.25);
+        Zsat[x]+=dt*hs*ov*(1+4*ov)/(2*SATDAUER);}
+      else Zsat[x]=Math.max(0,Zsat[x]-ZREC*Zsat[x]*dt);}
+    // erosion lasts until another structure is clearly stronger (ZMARGIN), so that domination passes on instead of
+    // stalling at a tie; it does not drive the exhausted structure further down
+    for(let x=0;x<N;x++){const z=Zsat[x];if(z<=0)continue;let mo=0;for(let y=0;y<N;y++)if(y!==x&&S[y]>mo)mo=S[y];
+      if(S[x]<mo-ZMARGIN)continue;
+      const ero=Math.min(0.5*S[x],KERO*z*z*S[x]*dt);let ws=0;const w=[0,0,0,0];
+      for(let y=0;y<N;y++)if(y!==x){w[y]=S[y]*S[y];ws+=w[y];}
+      if(ws>0){S[x]-=ero;for(let y=0;y<N;y++)if(y!==x)S[y]+=ero*w[y]/ws;}}}
+  else if(!MECH.M5)Zsat=[0,0,0,0];
+  // v66: smoothed growth of each structure (read only by the weakening: who gains most power)
+  if(dt>0){if(lastS)for(let x=0;x<N;x++)gainS[x]+=0.05*((S[x]-lastS[x])/dt-gainS[x]);lastS=S.slice();}
+  if(reiz&&reiz.rest>0){reiz.rest-=dt;if(reiz.rest<=1e-6*REIZ_DT)reiz.rest=0;}   // v65: stimulus clock
 }
 // ====== LITERAL MIGRATION OF ACTORS (conservative, in mass space) ======
 function nextInChain(x,a){const ch=chainOf(ruler[x]);const i=ch.indexOf(a);return ch[(i+1)%4];}
@@ -907,6 +1066,7 @@ function draw(){
     if(R!==i){ctx.beginPath();ctx.arc(c.x,c.y,r+4,0,7);ctx.strokeStyle=`rgba(${COL[R].rgb},0.7)`;ctx.lineWidth=1.5;ctx.stroke();}
     if(ruptT[i]>0){ctx.beginPath();ctx.arc(c.x,c.y,r+9,0,7);ctx.strokeStyle=`rgba(232,105,76,${0.6*ruptT[i]})`;ctx.lineWidth=2;ctx.setLineDash([4,5]);ctx.stroke();ctx.setLineDash([]);}
     if(i===boost){const pr=0.5+0.5*Math.sin(phase*12);ctx.beginPath();ctx.arc(c.x,c.y,r+7,0,7);ctx.strokeStyle=`rgba(255,255,255,${0.2+0.4*pr})`;ctx.lineWidth=1.5;ctx.stroke();}
+    if(reiz&&reiz.rest>0&&i===reiz.x){const pr=0.5+0.5*Math.sin(phase*12);ctx.beginPath();ctx.arc(c.x,c.y,r+7,0,7);ctx.strokeStyle=reiz.dir>0?`rgba(255,255,255,${0.25+0.45*pr})`:`rgba(232,105,76,${0.3+0.5*pr})`;ctx.lineWidth=1.8;ctx.setLineDash(reiz.dir>0?[]:[3,4]);ctx.stroke();ctx.setLineDash([]);}
     ctx.fillStyle=`rgba(${COL[i].rgb},0.9)`;ctx.font="300 18px var(--serif),serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(LAB[i],c.x,c.y-r-19);
     ctx.font="400 9px var(--mono),monospace";ctx.fillStyle=`rgba(${COL[i].rgb},0.55)`;ctx.fillText(SN(i).toUpperCase(),c.x,c.y-r-6);}
   for(let x=0;x<N;x++){const ch=chainOf(ruler[x]),r=radius(x),scler=ruptT[x]>0;
@@ -940,8 +1100,8 @@ function loop(now){const rawDt=Math.min(0.033,(now-last)/1000);last=now;const si
   applyCursorProfile(tl.year);
   renderFlux(tl.year);
   liveScnCtrl();
-  if(running){step(simDt);phase=(phase+simDt*0.6)%1;recordTraj();if(plast>0&&tframe%30===0)renderChains();}
-  easeCenters(rawDt);draw();drawProbes();updateReadouts();updateActeurs();updateInspector();updateDemoNow();drawMini();updatePlayhead();tickPrism();requestAnimationFrame(loop);}
+  if(running){step(simDt);phase=(phase+simDt*0.6)%1;recordTraj();if((plast>0||MECH.M1)&&tframe%30===0)renderChains();}
+  easeCenters(rawDt);draw();tickReiz();drawProbes();updateReadouts();updateActeurs();updateInspector();updateDemoNow();drawMini();updatePlayhead();tickPrism();requestAnimationFrame(loop);}
 
 // ---- legend + gini ----
 const legendEl=document.getElementById("legend");const bars=[];
@@ -1264,6 +1424,45 @@ function runSeries(){const dt=1/60*0.68,K=Math.max(4,Math.round(tl.dur*60*0.68/M
     for(let k=0;k<K;k++)step(dt);
     rows.push({year:Y,S:S.slice(),gini:gini(),recip:reciprocity(),sur:meanResid,rRecip:[0,1,2,3].map(structRecip),rGini:[0,1,2,3].map(structGini),vGini:[0,1,2,3].map(vertGiniX),mobX:mobX,mobQ:mobQ,blk:(migAtt>1e-9?migBlk/migAtt:0),cIneg:[0,1,2,3].map(structContribIneq),aRecip:[0,1,2,3].map(structContribRecip),ruler:ruler.slice(),sat:satS.slice(),comp:[0,1,2,3].map(structComp)});}
   reset();tl.year=_ty;lastCursorYear=null;RELAXcur=_rx;return rows;}
+// ====== v65 — stimulus probe (Reizprobe) and stimulus threshold (Reizschwelle), deterministic ======
+// reizLauf(o): reset (same seed, current controls and chains), `beginn` steps, stimulus on structure o.x for `dauer`
+//   steps (o.dir +1 strengthen / −1 weaken, strength o.k), then `nachlauf` free steps (default 6000: 1500 are not
+//   always enough for the run to come to rest). o.ohne = true runs the same
+//   length without stimulus (the control run). Returns the sizes, regimes, satellisation and chains at the three moments.
+// reizProbe(o): stimulus run and control run of the same length; "fest" (set) when at the end a size deviates by more
+//   than o.schwelle (default 0.03) from the control run, otherwise the stimulus did not prevent the return.
+// reizSchwelle(o, dauern): the shortest duration in `dauern` from which the stimulus sets; with the whole series.
+function _reizMoment(){return{S:S.slice(),gini:gini(),recip:reciprocity(),ruler:ruler.slice(),sat:satS.slice(),
+  ketten:[0,1,2,3].map(z=>chainOf(z).map(v=>LAB[v]).join('')),taken:taken.slice(),
+  inst:[0,1,2,3].map(z=>[Irel[z],Iseq[z],Iteil[z],Ictrl[z]]),ctrlSat:ctrlSat.slice(),Zsat:Zsat.slice(),Phi:Phi.slice(),
+  F:F.slice()};}
+function reizLauf(o){const dt=REIZ_DT,beg=o.beginn!=null?o.beginn:1819,dau=o.dauer!=null?o.dauer:300,nach=o.nachlauf!=null?o.nachlauf:6000;
+  // fixed actor composition as in headless runs (the live loop sets Pcur/Wcur from the timeline every frame;
+  // without this the probe in the browser would differ from the command line, cf. v63)
+  const _rx=RELAXcur,_b=boost,_P=Pcur,_W=Wcur;RELAXcur=0.15;boost=-1;
+  Pcur=[0,1,2,3].map(()=>[0.22,0.28,0.28,0.22]);Wcur=[0.25,0.25,0.25,0.25];reset();
+  for(let i=0;i<beg;i++)step(dt);const vor=_reizMoment();
+  if(!o.ohne&&dau>0)reizSetzen(o.x,o.dir,dau,o.k);
+  for(let i=0;i<dau;i++)step(dt);reiz=null;const nachReiz=_reizMoment();
+  const fen=Math.min(1000,Math.floor(nach/2));let Sf=null;   // drift window: change of the sizes over the last `fen` steps
+  const verlauf=[];let domPrev=-1;                                   // v66: changes of domination during the free run
+  let spitze=gini();for(let i=0;i<nach;i++){if(i===nach-fen)Sf=S.slice();step(dt);const gg=gini();if(gg>spitze)spitze=gg;
+    const d0=satelliser(),dm=gg>0.05?d0:-1;if(dm!==domPrev){verlauf.push({schritt:i+1,dominanz:dm>=0?LAB[dm]:'–',S:+S[d0].toFixed(3)});domPrev=dm;}}
+  const ende=_reizMoment();ende.drift=Sf?Math.max(...S.map((v,i)=>Math.abs(v-Sf[i]))):0;ende.fenster=fen;RELAXcur=_rx;boost=_b;Pcur=_P;Wcur=_W;
+  return{x:LAB[o.x],dir:o.dir<0?-1:1,dauer:dau,ohne:!!o.ohne,mech:Object.assign({},MECH),satDauer:SATDAUER,vor,nachReiz,ende,spitze,verlauf};}
+//   Verdict: "zurueck" (returned: deviation below the threshold), "fest" (set: deviation at or above it and the run has
+//   come to rest), "bewegung" (still moving: the sizes changed by more than o.ruhe, default 0.005, over the drift window
+//   — the free run was too short to judge). o.ohneLauf: a control run computed before (same seed, controls, mechanisms, beginn and length).
+function reizProbe(o){const mit=reizLauf(o),ohne=o.ohneLauf||reizLauf(Object.assign({},o,{ohne:true}));
+  const abw=Math.max(...mit.ende.S.map((v,i)=>Math.abs(v-ohne.ende.S[i])));
+  const ruhe=o.ruhe!=null?o.ruhe:0.005,bew=Math.max(mit.ende.drift,ohne.ende.drift)>=ruhe;
+  const fest=abw>=(o.schwelle!=null?o.schwelle:0.03);
+  return{mit,ohne,abw,fest,urteil:bew?'bewegung':(fest?'fest':'zurueck')};}
+function reizSchwelle(o,dauern){const reihe=[];let schwelle=null;
+  for(const d of dauern){const p=reizProbe(Object.assign({},o,{dauer:d}));
+    reihe.push({dauer:d,abw:p.abw,urteil:p.urteil,drift:p.mit.ende.drift,S_ende:p.mit.ende.S,ruler_ende:p.mit.ende.ruler,ketten_ende:p.mit.ende.ketten});
+    if(p.urteil==='fest'&&schwelle==null)schwelle=d;}
+  return{schwelle,reihe};}
 function exportData(){const rows=runSeries();const head=['year','size_A','size_B','size_C','size_D','gini','reciprocity','overload'];
   NMS.forEach(n=>head.push('recip_'+n,'gini_int_'+n,'contrib_ineq_'+n,'weakens_recip_'+n,'ruler_'+n,'satellisation_'+n));
   NMS.forEach(n=>CATS_EN.forEach(c=>head.push('comp_'+n+'_'+c)));
@@ -1429,13 +1628,14 @@ document.getElementById("cursorfile").onchange=e=>{const f=e.target.files[0];if(
     if(r.chains&&Object.keys(r.chains).length){loadedChains=r.chains;for(const sx in r.chains)setChain(+sx,r.chains[sx]);}
     else{loadedChains=null;resetChains();}
     if(typeof renderChains==='function')renderChains();
+    profilMech(r);   // v67: mechanisms of the theory, like the chains (none declared = none)
     syncPlastState();
     const ys=r.years.filter(y=>!isNaN(y)),minY=Math.min(...ys),maxY=Math.max(...ys);
     if(isFinite(minY)&&isFinite(maxY)){tl.start=Math.min(tl.start,minY);tl.end=Math.max(tl.end,maxY);
     document.getElementById("tlstart").value=tl.start;document.getElementById("tlend").value=tl.end;}
     markPiloted();renderTicks();updatePlayhead();
     const n=Object.keys(r.keys).length,nc=Object.keys(r.chains||{}).length;
-    let msg=n+' '+t('st_cursors')+(nc?' · '+nc+' '+t('st_chains'):'')+(r.unknown.length?' · '+t('st_ignored')+' '+r.unknown.join(", "):'');
+    let msg=n+' '+t('st_cursors')+(nc?' · '+nc+' '+t('st_chains'):'')+' · '+mechText()+(r.unknown.length?' · '+t('st_ignored')+' '+r.unknown.join(", "):'');
     document.getElementById("cursorstatus").textContent=msg;
   }catch(err){document.getElementById("cursorstatus").textContent=t('st_read_error');}};
   rd.readAsText(f);};
@@ -1467,11 +1667,17 @@ const cnorm=s=>(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g
 const L2I={a:0,b:1,c:2,d:3};
 function resolveCursor(key){const k=cnorm(key);for(const c of CURSOR_REG){if(k===c.id)return c.id;const nl=cnorm(c.label);if(k===nl||nl.startsWith(k)||k.startsWith(nl))return c.id;if(c.alt){for(const a of c.alt){if(k===cnorm(a))return c.id;}}}return null;}
 function parseCursorCSV(text){const rows=text.trim().split(/\r?\n/).map(r=>r.split(',').map(s=>s.trim()));if(rows.length<2)return null;const years=rows[0].slice(1).map(Number);const keys={},chains={},unknown=[];
+  let mech=null,satDauer=null;
   for(const r of rows.slice(1)){if(!r[0])continue;const nk=cnorm(r[0]);
+    // v67: theory mechanisms like the chains — row "mechanismen,M1,M2,…" (also mechanisms/mecanismes); row "saettigungsdauer,40"
+    {const lk=String(r[0]).toLowerCase();
+     if(/^(mechanism|mecanism|mécanism)/.test(lk)){mech={M1:false,M2:false,M3:false,M4:false,M5:false,M6:false};
+       for(const c of r.slice(1)){const m=String(c).toUpperCase().match(/M\s*([1-6])/);if(m)mech['M'+m[1]]=true;}continue;}
+     if(/^(saettigungsdauer|sättigungsdauer|saturation)/.test(lk)){const v=parseFloat(r[1]);if(isFinite(v)&&v>0)satDauer=v;continue;}}
     if(nk.startsWith('chaine')||nk.startsWith('chain')){const tail=nk.replace(/^(chaine|chain)/,'').replace(/[^abcd]/g,'');const sx=L2I[tail[0]];if(sx==null){unknown.push(r[0]);continue;}
       let ord=r.slice(1).map(c=>L2I[(cnorm(c).replace(/[^abcd]/g,'')||' ')[0]]).filter(v=>v!=null&&v!==sx);ord=[...new Set(ord)];for(const o of[0,1,2,3])if(o!==sx&&!ord.includes(o))ord.push(o);chains[sx]=ord.slice(0,3);continue;}
     const cid=resolveCursor(r[0]);if(!cid){unknown.push(r[0]);continue;}const pts=[];for(let i=0;i<years.length;i++){const v=r[i+1];if(v!==''&&v!=null&&!isNaN(+v))pts.push({year:years[i],val:+v});}if(pts.length)keys[cid]=pts.sort((a,b)=>a.year-b.year);}
-  if(!Object.keys(keys).length&&!Object.keys(chains).length)return null;return {keys,chains,unknown,years};}
+  if(!Object.keys(keys).length&&!Object.keys(chains).length&&!mech)return null;return {keys,chains,unknown,years,mech,satDauer};}
 function cursorAt(cid,yr){const p=tl.cursorKeys&&tl.cursorKeys[cid];if(!p)return null;if(yr<=p[0].year)return p[0].val;if(yr>=p[p.length-1].year)return p[p.length-1].val;for(let i=0;i<p.length-1;i++)if(yr>=p[i].year&&yr<=p[i+1].year){const t=(yr-p[i].year)/((p[i+1].year-p[i].year)||1);return p[i].val+t*(p[i+1].val-p[i].val);}return p[p.length-1].val;}
 function applyCursorProfile(yr){if(!tl.cursorKeys)return;if(yr===lastCursorYear)return;lastCursorYear=yr;for(const cid in tl.cursorKeys){const el=document.getElementById(cid);if(!el)continue;const v=cursorAt(cid,yr);if(v==null)continue;el.value=v;el.dispatchEvent(new Event('input'));}}
 function markPiloted(){document.querySelectorAll('.ctl.piloted').forEach(e=>e.classList.remove('piloted'));if(!tl.cursorKeys)return;for(const cid in tl.cursorKeys){const el=document.getElementById(cid);const c=el&&el.closest('.ctl');if(c)c.classList.add('piloted');}}
@@ -1503,6 +1709,7 @@ tlTrack.onclick=(e)=>{if(e.target!==tlTrack)return;const rect=tlTrack.getBoundin
 document.getElementById("tlrun").onclick=()=>{
   reseed();ruler=[0,1,2,3];ruptT=[0,0,0,0];F=[0,0,0,0];resetChains();if(loadedChains)for(const sx in loadedChains)setChain(+sx,loadedChains[sx]);seedForce();perturb(0.03);
   const D=compAt(tl.start);act=Array.from({length:N},(_,x)=>Array.from({length:N},()=>D.comp[x].slice()));
+  reiz=null;taken=[-1,-1,-1,-1];takeHold=[0,0,0,0];ctrlSat=[0,0,0,0];Zsat=[0,0,0,0];gainS=[0,0,0,0];lastS=null;Phi=[1,1,1,1];   // v66: no stimulus or saturation state carried into a new timeline run
   tl.year=tl.start;tl.playing=true;running=true;hist.length=0;syncPlayBtn();};
 document.getElementById("tlstart").onchange=e=>{tl.start=+e.target.value||tl.start;buildKeys();};
 document.getElementById("tlend").onchange=e=>{tl.end=+e.target.value||tl.end;buildKeys();};
@@ -1547,8 +1754,13 @@ function applyDefaults(){
   for(const id in SV){const el=$(id);if(el)el.value=SV[id];}
   rate=2.2;alpha=1.4;back=1.0;over=1.0;rho=1.0;peak=0.5;fatigue=0.7;plast=0.4;mig=0.7;decl=0.5;dynam=0.5;anchor=0.5;
   speed=Math.exp(Math.log(0.04)+0.68*(Math.log(1.5)-Math.log(0.04)));
+  MECH={M1:true,M2:true,M3:true,M4:true,M5:true,M6:true};SATDAUER=40;if(typeof syncMechUI==='function')syncMechUI();   // v67: the TR has M1–M6
   syncLabels();
 }
+// v67: a profile sets the mechanisms of its theory as it sets the chains — those it declares, otherwise none
+function profilMech(r){const off={M1:false,M2:false,M3:false,M4:false,M5:false,M6:false};
+  MECH=Object.assign(off,(r&&r.mech)||{});SATDAUER=(r&&r.satDauer)||40;if(typeof syncMechUI==='function')syncMechUI();}
+function mechText(){const on=Object.keys(MECH).filter(k=>MECH[k]);return on.length?on.join(','):'M –';}
 $("rate").oninput=e=>{rate=+e.target.value;syncLabels();};$("alpha").oninput=e=>{alpha=+e.target.value;syncLabels();};
 $("speed").oninput=e=>{const v=+e.target.value;speed=Math.exp(Math.log(0.04)+v*(Math.log(1.5)-Math.log(0.04)));syncLabels();};
 $("back").oninput=e=>{back=+e.target.value;syncLabels();};$("over").oninput=e=>{over=+e.target.value;syncLabels();};
@@ -1561,6 +1773,24 @@ $("anchor").oninput=e=>{anchor=+e.target.value;syncLabels();};
 $("dynam").oninput=e=>{dynam=+e.target.value;syncLabels();};
 $("play").onclick=()=>{running=!running;syncPlayBtn();};
 $("reset").onclick=()=>reset();
+// v65 stimulus protocol — interface
+function syncMechUI(){const sd=document.getElementById('satDauer');if(sd)sd.value=SATDAUER;for(const k of ['M1','M2','M3','M4','M5','M6']){const el=document.getElementById('mech'+k);if(el)el.checked=!!MECH[k];}}
+{const sd=document.getElementById('satDauer');if(sd)sd.onchange=()=>{const v=parseFloat(sd.value);if(isFinite(v)&&v>0)SATDAUER=v;};}
+['M1','M2','M3','M4','M5','M6'].forEach(k=>{const el=document.getElementById('mech'+k);if(el)el.onchange=()=>{MECH[k]=el.checked;};});
+syncMechUI();
+function reizParams(){return{x:+$("reizX").value,dir:+$("reizDir").value,dauer:Math.max(1,Math.round(+$("reizDauer").value||300)),nachlauf:MECH.M5?30000:6000,   /* v66: exhaustion (M5) takes longer than 6000 steps */
+  k:(()=>{const v=parseFloat($("reizK").value);return isFinite(v)?Math.max(0,v):BOOST;})()};}
+$("reizGo").onclick=()=>{const p=reizParams();reizSetzen(p.x,p.dir,p.dauer,p.k);};
+function reizDirName(d){return I18N[d>0?'opt_reiz_plus':'opt_reiz_minus'][LANG];}
+$("reizProbeBtn").onclick=()=>{const p=reizParams(),was=running;running=false;syncPlayBtn();
+  $("reizRead").dataset.live="";$("reizRead").textContent=t('reiz_wait');setTimeout(()=>{
+  const r=reizProbe(p),L=I18N.reiz_lines[LANG],V=I18N.reiz_verdict[LANG],pc=v=>v.map(x=>(x*100).toFixed(0)).join('/'),rl=v=>v.map(z=>LAB[z]).join('');
+  $("reizRead").innerHTML=`${LAB[p.x]} ${reizDirName(p.dir)} · ${p.dauer}<br>${L[0]}: ${pc(r.mit.ende.S)} · ${L[3]} ${rl(r.mit.ende.ruler)}<br>${L[1]}: ${pc(r.ohne.ende.S)} · ${L[3]} ${rl(r.ohne.ende.ruler)}<br>${L[4]}: ${r.mit.ende.ketten.join(' ')}<br>${L[2]} ${(r.abw*100).toFixed(1)} · <b>${L[5]}: ${V[r.urteil]}</b>`;
+  $("reizRead").dataset.live="";reset();running=was;syncPlayBtn();},30);};
+function tickReiz(){const el=document.getElementById('reizRead');if(!el)return;
+  if(reiz&&reiz.rest>0){el.dataset.live='1';el.textContent=t('reiz_running').replace('{x}',LAB[reiz.x]).replace('{d}',reizDirName(reiz.dir)).replace('{n}',Math.ceil(reiz.rest/REIZ_DT));}
+  else if(el.dataset.live==='1'){el.dataset.live='';el.textContent='';}}
+
 $("seed").onchange=e=>{seed=(parseInt(e.target.value,10)>>>0)||1;reset();};
 
 // ---- keyframe editor (list + add by year) ----
@@ -1667,7 +1897,7 @@ function playScnFrom(startY){
   seedForce();perturb(0.03);
   const D0=compAt(tl.start);act=Array.from({length:N},(_,x)=>Array.from({length:N},()=>D0.comp[x].slice()));
   const dt=1/60*0.68,span=Math.max(1,tl.end-tl.start),dur=(tl.dur&&tl.dur>0)?tl.dur:3.2,K=Math.max(8,Math.round(dur*60*0.68/span));
-  rulerHold=[0,0,0,0];satS=[0,0,0,0];
+  rulerHold=[0,0,0,0];satS=[0,0,0,0];reiz=null;taken=[-1,-1,-1,-1];takeHold=[0,0,0,0];ctrlSat=[0,0,0,0];Zsat=[0,0,0,0];gainS=[0,0,0,0];lastS=null;Phi=[1,1,1,1];   // v65/v66: no stimulus state carried into the replay
   for(let Y=tl.start;Y<startY;Y++){tl.year=Y;const D=compAt(Y);Pcur=D.comp;Wcur=norm(D.w.slice());
     ctrlScale=[1,1,1,1];if(SCN&&SCN.sig==='control'&&Y>SCN.lastYear){if(SCN.toX>=0)ctrlScale[SCN.toX]=scnRedirectFactor(SCN,Y);else ctrlScale[SCN.x]=scnFactor(SCN,Y);}
     if(tl.cursorKeys)for(const cid in tl.cursorKeys){const el=document.getElementById(cid),v=cursorAt(cid,Y);if(el&&v!=null){el.value=v;el.dispatchEvent(new Event('input'));}}

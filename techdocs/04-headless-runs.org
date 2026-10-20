@@ -309,3 +309,44 @@ The bistability (see below) is not a defect but a property of the model, and the
 #+end_src
 
 Running every apex configuration of the book over eight seeds (120 runs) gives: ten findings are seed-stable, five are not. Where a configuration is bistable there are always *exactly two attractors* and the seed only picks the basin; the politics attractor is the stronger one and wins even when every chain points at another structure. Bistability appears only at high concentration (alpha 1.6); at alpha 1.4 the same construction is stable. Criterion: GINI ≤ 0.05 means "no domination" — in a symmetric field the argmax is meaningless. Full table: =keim_audit.md=.
+
+* Stimulus protocol and stimulus threshold (v65, v66)
+
+Since v65 the twin computes a stimulus itself. A stimulus is a deliberate change of /one/ relational
+structure at its core sequence, for a set time. It is not a way of showing which structure rules, but a test of
+whether the targeted change prevents the return to the state the run would reach without it.
+
+| Call | What it does |
+|------+--------------|
+| =reizSetzen(x, dir, dauer, k)= | starts a stimulus on structure =x= (0–3) now: =dir= +1 strengthen, −1 weaken; =dauer= in steps of 1/60·0.68; strength =k= (default 2.6) |
+| =reizStop()= | ends it |
+| =setMech({M1, …, M6})= | switches the satellisation mechanisms on or off (all off by default = v64); =SATDAUER= sets the saturation time of M5 (default 40) |
+| =reizLauf(o)= | from =reset()=: =o.beginn= steps (1819), stimulus for =o.dauer= steps (300), =o.nachlauf= free steps (6000); =o.ohne= = the same length without stimulus |
+| =reizProbe(o)= | stimulus run and control run; =urteil= "zurueck", "fest" or "bewegung" |
+| =reizSchwelle(o, dauern)= | the shortest duration in =dauern= with the verdict "fest", and the whole series |
+
+- /Strengthen/ adds =k·dt= to the core sequence =g[x][x]= (the operation of holding a circle pressed).
+- /Weaken/ (v66) moves =k·dt= of the leading sequence =R = ruler[x]= to the next sequence along the butterfly path of
+  the leading structure (largest size + 2 × smoothed growth, other than x), skipping the structure's own sequence;
+  once =R= is the leader's core, it takes from the own core instead. Without a clear leader: the order A→B→C→D→A
+  (=REIZ_FOLGE=), skipping the own sequence. The weakening never brings a structure back to its own core.
+- /M1/ chain alignment: the chain of a satellised structure is pulled toward the order of the satelliser's path
+  (rate =KCHAIN·satS=); its own plasticity is scaled by =1 − satS=. Chains fixed by a profile stay fixed.
+- /M2/ regime takeover: satellised above 0.5 for 2.0 time units, the structure runs under the satelliser's
+  sequence (=ruler = satelliser=); released below 0.2.
+- /M3/ mediate strengthening: the satelliser's instance types (relation, sequence, sub-sequence, control),
+  weighted by the square of their strength relative to its strongest one, strengthen the same types in each
+  satellite at the rate =KM3·satS=.
+- /M4/ control of the satellite (=ctrlSat=: alienated share of control, at most 0.8); /M5/ saturation of domination
+  (=Zsat=), erosion until another structure is stronger by 0.03; /M6/ force of control (=Phi=: diversification and
+  networking of the instances). =reizLauf= returns these with each moment and the changes of domination of the free
+  run in =verlauf=.
+- Verdicts: /zurueck/ — no size deviates by 0.03 or more from the control run at the end; /fest/ — one does, and
+  the run is at rest; /bewegung/ — a size still changes by 0.005 or more over the last 1000 steps. With 1500 free
+  steps a slow transient can look "set"; the default of 6000 avoids that.
+
+#+begin_src js :eval no
+setMech({M1:true, M2:true, M3:true});
+const p = reizProbe({x: 2, dir: -1, beginn: 1819, dauer: 800, nachlauf: 6000});
+p.urteil, p.abw, p.mit.ende.S, p.mit.ende.ruler, p.mit.ende.ketten
+#+end_src
