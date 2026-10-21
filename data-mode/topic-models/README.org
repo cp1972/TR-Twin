@@ -107,6 +107,8 @@ Kapitel 12 stützt; =course_N0_….json= ist identisch mit =daten/course.json= d
 Abb. 8), =course_N1_….json= mit =daten/course_echte_jahre.json= (Kap. 12, Abb. 13). Die
 Abbildungen =rk_abb1= bis =rk_abb12= sind pixelgleich mit denen des Buches.
 
+*Stand v67 (21. Oktober 2026).* Seit der Version 67 rechnet der Zwilling für die TR mit den sechs Mechanismen der Satellisierung M1–M6. =zwilling_laeufe.json=, =leer_kontrolle.json=, =luecken_reihen.json= und =nebenbefund.json= sowie die Abbildungen =rk_abb11= und =rk_abb12= sind mit v67 (Startwert 1) neu gerechnet; Tabelle 6 und die Abschnitte 12.8.2 bis 12.10.1 des Kapitels stützen sich auf diese Werte. Mit ausgeschalteten Mechanismen (in =applyDefaults()= die Zeile =MECH= auf =false=) ergeben dieselben Skripte genau die früheren Werte. Alle übrigen Ergebnisse sind unverändert, auch =kanaele.json=. =course_N0_….json= und =course_N1_….json= (Kap. 11 und Abb. 13) sind bewusst auf dem früheren Stand belassen; ihre Präsenz- und Instanzreihen hängen nicht von den Mechanismen ab.
+
 * Was Kapitel 12 an den Befunden von Kapitel 11 einschränkt
 
 Kurz, für Leserinnen und Leser dieses Ordners (ausführlich im Kapitel selbst):
