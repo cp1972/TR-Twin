@@ -85,6 +85,7 @@ node x_kanaele.js           # Kanäle mit N0 und N1 → kanaele.json, course_*.j
 # 3  Nebenbefund und Abbildungen (Python)
 python3 s_nebenbefund.py    # liest zwilling_laeufe.json
 python3 y_abbildungen.py    # figures/rk_abb1 … rk_abb12
+python3 z_medienfeld.py     # Eintritte in Medien und Kultur, Instanzen → medienfeld.json (12.11)
 #+end_src
 
 Die Abbildung 13 (Kanäle mit den Jahren aus den Notizen) zeichnet das Buch mit seinem eigenen
