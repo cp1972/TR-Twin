@@ -35,7 +35,7 @@ A CSV with two columns, key and value (more values in further columns where a ke
 | steps       | schritte       | pas           | number of steps (simulation, instead of years)                           | sim    |
 | seeds       | startwerte     | graines       | =1-8= or =1,4,7=                                                         | both   |
 | stimulus    | reiz           | stimulus      | structure, direction, duration, strength, begin: =B,weaken,300,2.6,1819= | sim    |
-| trend window | trendfenster  | fenetre       | years per trend period (default 20)                                      | data   |
+| trend window | trendfenster  | fenetre       | years per trend period: 10 (default) to 100                              | data   |
 | output      | ausgabe        | sortie        | folder for tables and figures (command line)                             | both   |
 
 Example (simulation):
@@ -56,7 +56,7 @@ modus,Daten
 vertragstabelle,contracts/N1_lexikon_hiscam_echte_jahre.csv
 kategorien,uniform
 startwerte,1-8
-trendfenster,20
+trendfenster,10
 #+end_example
 
 In the interface: *Load run file* (plus the files it names). In a terminal, from the twin folder: =node run.js run.csv=.
@@ -65,13 +65,15 @@ In the interface: *Load run file* (plus the files it names). In a terminal, from
 
 ** Simulation mode: what do the assumptions of the theories change?
 
-*Table 1 — Assumptions.* Rows: the thirteen sliders, the four chains, the mechanisms M1–M6 (and the saturation time). Columns: the TR default (reference), then each theory of the run file. A cell shows the value the theory declares; an assumption the theory does not make is shown as /not assumed/.
+*Table 1 — Assumptions.* Rows: the thirteen sliders, the four chains, the mechanisms M1–M6 (and the saturation time). Columns: the TR default (reference), then each theory of the run file. A cell shows the value the theory declares. A slider the theory does not declare is shown as /not assumed · TR value/: the run uses the TR value for it, so results stay comparable on that point, and the mark says why. A mechanism the theory does not declare is /not assumed/: the run computes without it.
 
 *Table 2 — Results.* For each theory and the TR, over the seeds (median, range):
 - inequality: global Gini, and the three levels (transversal, horizontal, vertical);
 - reciprocity;
 - sizes of A, B, C, D at the end; dominant structure (share of seeds);
 - changes of domination (number, and the step at which the first domination ends);
+- satellisation: for each structure, the strength of its satellisation and by which structure;
+- regimes: for each structure, the sequence regime it runs under at the end, and every change of regime during the run (which structure, when, under whose sequence);
 - with a stimulus: whether the run returns, settles or keeps moving (as in the Reizschwelle step).
 Each value is also shown as the difference to the TR.
 
@@ -79,7 +81,7 @@ Each value is also shown as the difference to the TR.
 
 ** Data mode: what does the cohort show over time?
 
-*1. Trends.* For each trend period (default 20 years) and for the whole period: direction and size of the change of inequality (three levels), reciprocity and the sizes of the structures — for the whole relational space and per structure. A trend is marked when it is larger than the spread between seeds. Table and figure; the yearly series are exported so that students can compute trends themselves (another window, another measure).
+*1. Trends.* For each trend period (default 10 years, at most 100) and for the whole period: direction and size of the change of inequality (three levels), reciprocity and the sizes of the structures — for the whole relational space and per structure. A trend is marked when it is larger than the spread between seeds; a period with few transitions in the contract table is marked as thin. Table and figure; the yearly series are exported so that students can compute trends themselves (another window, another measure).
 
 *2. Detail per structure.* For A, B, C, D: size, reciprocity, internal Gini, vertical inequality, instances (relation, sequence, sub-sequence, control) and control capacity, as series and per trend period.
 
@@ -88,7 +90,9 @@ Each value is also shown as the difference to the TR.
 - /Mobility/ is the reading of a circulation as ascending, descending or neither, from the change of the actor category at that transition, whether the actor stays in the sequence, changes the sequence or changes the structure. Cross-table: kind of circulation × direction of mobility, per period (the chapter 11/12 finding that a change of structure is not necessarily an ascent becomes visible directly).
 - /Permeability/: next to circulation and mobility, the control capacity of the instances per structure and per sequence, and the migration actually realised (accepted, downgraded, blocked).
 
-The status of the actor categories in the run is the twin's existing order (used for vertical inequality): established 3 > aspirants 2 > conservatives 1 > disappointed 0. A transition to a higher rank is ascending, to a lower rank descending, an equal rank neither. *To be confirmed — see open decisions.*
+*Direction of mobility.* Mobility moves one category at a time: upward from disappointed to conservatives, from conservatives to aspirants, from aspirants to established; downward the other way. No actor jumps several categories at once — it can move fast, but through each category. This is the order the twin already uses for vertical inequality (established 3 > aspirants 2 > conservatives 1 > disappointed 0) and for the downgrading on migration (one category down). A transition is ascending, descending or neither by this order; its size is the number of categories passed.
+
+*Jumps in the contract tables.* Between two coded stages of an actor the category often changes by two or three categories (N1: 131 of 171 changes of category; topic table N3: 280 of 482). By the theory, such an actor has passed through the categories in between at stages that are not coded. *To be decided — see open decisions.*
 
 HISCAM plays no role in the twin's results: it is one way (used in chapters 11 and 12) to classify the material into the contract table; other material is classified by other means (e.g. topic models).
 
@@ -129,9 +133,13 @@ Mockups (right column only; values illustrative): [[file:v68-mockup-simulation.p
 - Document 3 (Usage) rewritten around run files; document 4 (Headless runs) gains =run.js run.csv= and the installation; document 6 records v68.
 - The book (chapters 1 and 3 mention the interface) is checked when the branch is merged after publication.
 
-* Open decisions
+* Decisions taken
 
-1. *Direction of mobility.* Is the rank order established > aspirants > conservatives > disappointed the right basis for ascending/descending, or does the theory read some changes otherwise (e.g. conservatives → aspirants)? If needed, a 4×4 table of directions can be fixed instead of the rank.
-2. *Undeclared sliders.* A profile that does not set a slider runs with the TR default for it. Table 1 shows /not assumed/; should the results of such a theory count as comparable on that point (it runs with the TR value), or be marked?
-3. *Simulation mode results:* are the results listed in Table 2 the ones students need, or is something missing (e.g. the satellisation of each structure, the sequence regimes)?
-4. *Trend window:* 20 years as default — and should the trend also be given per decade for the data of chapters 11/12?
+1. Mobility moves category by category (see above).
+2. A slider a theory does not declare runs with the TR value; the result counts as comparable and is marked so.
+3. Satellisation and regimes are part of the simulation results.
+4. Trend window 10 years by default, up to 100.
+
+* Open decision
+
+1. *Jumps of several categories between coded stages.* Proposal: count them as the corresponding number of steps in the same direction (a jump from disappointed to established = three ascending steps), mark these steps as /inferred/ (not observed), and report their share per period, so that students see how much of the mobility rests on unobserved stages. Alternative: count only changes of one category as mobility and show jumps separately.
