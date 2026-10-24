@@ -2,8 +2,8 @@
 #+OPTIONS: toc:nil num:nil ^:nil
 #+LANGUAGE: en
 
-Nine chapters, in reading order. Document 0 is the entry point and assumes
-nothing; 1–2 are conceptual, 3–5 are for users, 6–8 are reference.
+Eight chapters, in reading order. Document 0 is the entry point and assumes
+nothing; 1–2 are conceptual, 3–5 are for users, 6–7 are reference.
 
 | # | File | What it covers |
 |---+------+----------------|
@@ -15,7 +15,6 @@ nothing; 1–2 are conceptual, 3–5 are for users, 6–8 are reference.
 | 5 | [[file:05-prism-mode-actor-probes.org][Prism Mode]] | probes, instance weights, control instances |
 | 6 | [[file:06-main-changes.org][Main Changes]] | version history |
 | 7 | [[file:07-literature-to-technical-documentation.org][Literature]] | works cited |
-| 8 | [[file:08-roadmap-planned-extensions.org][Roadmap]] | implemented features and open follow-ups |
 
 * Where the material lives
 

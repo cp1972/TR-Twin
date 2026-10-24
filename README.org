@@ -97,11 +97,14 @@ In =techdocs/= (Org-mode, rendered by GitHub) — see [[file:techdocs/README.org
 5. [[file:techdocs/05-prism-mode-actor-probes.org][Prism Mode — Actor and Instance Probes]] — probes, instance weights, control instances.
 6. [[file:techdocs/06-main-changes.org][Main Changes]] — version history.
 7. [[file:techdocs/07-literature-to-technical-documentation.org][Literature]] — works cited.
-8. [[file:techdocs/08-roadmap-planned-extensions.org][Roadmap]] — implemented features and open follow-ups.
 
 * Reproducibility
 
 A fixed seed makes the twin deterministic: the same settings yield the same trajectory. Every mechanism was first calibrated and verified headless (Node.js) before entering the application. To rebuild the figures from the data, see the =scripts/= section of each mode's README.
+
+* Use of AI in the development of the twin
+
+For the digital twin of the theory of the relation, I use an AI assistant, Claude (Anthropic), to code the core mechanics of the theory, to correct and optimise this code where necessary, i.e. to find and fix errors, to implement extensions I specify, and to write tests and assist in the redaction of the documentation. I decide what is changed and why, check the changes and release them. Every release is documented in [[file:techdocs/06-main-changes.org][Main Changes]], and its results are checked with tests that can be rerun.
 
 * How to cite
 

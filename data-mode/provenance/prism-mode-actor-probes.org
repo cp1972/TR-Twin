@@ -5,7 +5,7 @@
 
 * What this prototypes
 
-The /prism mode/ reads the system through a few units (N = 1–5) instead of aggregating the whole cohort (master doc §9.1, roadmap point 10). This note prototypes the *actor* side: each biography is read as a test particle whose trajectory reveals the state of the field. The reading is abductive and heuristic — a single actor under-determines the field — but a well-chosen handful should reproduce, in miniature, the field reading obtained from the full cohort. If they do, the probe logic is validated; this is the falsification discipline of §9.3 applied to the empirical run.
+The /prism mode/ reads the system through a few units (N = 1–5) instead of aggregating the whole cohort (master doc §9.1). This note prototypes the *actor* side: each biography is read as a test particle whose trajectory reveals the state of the field. The reading is abductive and heuristic — a single actor under-determines the field — but a well-chosen handful should reproduce, in miniature, the field reading obtained from the full cohort. If they do, the probe logic is validated; this is the falsification discipline of §9.3 applied to the empirical run.
 
 * Method
 

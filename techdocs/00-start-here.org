@@ -14,10 +14,6 @@ Two further uses emerged in the course of the work and have proved at least as c
 
 The twin is a single file, =tr-twin.html=, which opens in any current browser. It requires no installation, no server and no account.
 
-* A note on the mode of construction under assistance of AI
-
-The model was developed in collaboration with Opus 4.8, an artificial intelligence known as one LLM from Anthropic. The theory, the sociological judgements and the decisions as to what constitutes a faithful translation from concept to mechanism are the author's. A substantial part of the implementation in JavaScript, and of the headless verification was written with AI assistance. Each mechanism was tested headless before entering the application, a practice whose cost falls considerably when the test harness itself can be generated. And it is a claim the reader may wish to examine, for which purpose both the code and the verification scripts are included in this repository.
-
 * How the twin operates
 
 ** Four relational structures
@@ -132,6 +128,5 @@ The digital twin returns curves, indices and end states. These are artefacts of 
 | to work with very few cases, or the methodological discipline | [[file:05-prism-mode-actor-probes.org][5 — Prism Mode]] |
 | what changed when | [[file:06-main-changes.org][6 — Main Changes]] |
 | the works cited | [[file:07-literature-to-technical-documentation.org][7 — Literature]] |
-| what is implemented and what remains open | [[file:08-roadmap-planned-extensions.org][8 — Roadmap]] |
 
 The theory is set out at length in Christian Papilloud and Eva-Maria Schultze, /Skizze einer Theorie der Relation/ (Springer VS, Wiesbaden 2022). This documentation is written so that the book need not be at hand: where a mechanism rests on a theoretical decision, that decision is stated here.

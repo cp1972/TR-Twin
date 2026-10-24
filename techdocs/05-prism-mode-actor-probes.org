@@ -1,5 +1,5 @@
 #+TITLE: Prism Mode — Actor and Instance Probes
-#+SUBTITLE: Reading the relational field through a few actors or instances (the actor-as-probe methodology; see the roadmap)
+#+SUBTITLE: Reading the relational field through a few actors or instances (the actor-as-probe methodology)
 #+OPTIONS: toc:nil num:t ^:nil
 #+LANGUAGE: en
 

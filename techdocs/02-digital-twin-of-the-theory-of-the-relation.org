@@ -297,10 +297,7 @@ Here is the consistently used, validated terminology:
 
 The model was built incrementally, and earlier drafts of this document recorded at which version each mechanism entered — a form of annotation useful during construction and a distraction afterwards. The descriptions above therefore state what the model does now.
 
-Where the history matters, it is kept in one place:
-
-- [[file:06-main-changes.org][Document 6]] carries the version history and records what changed when.
-- [[file:08-roadmap-planned-extensions.org][Document 8]] distinguishes what is implemented from what remains open, and is the place to look before relying on a feature.
+Where the history matters, it is kept in one place: [[file:06-main-changes.org][Document 6]] carries the version history and records what changed when.
 
 Two features described above are worth singling out, because their status is asymmetric in a way that affects use. The *inequality cascade* is computed continuously and shown in the interface, but it is not yet part of the deterministic result outputs: a run's CSV and SVG exports carry the global Gini and the internal Gini per structure, not the three levels separately. And the *sequence layer of the actor cohort* is descriptive: it appears in the contract table, in the transitions of the export and in an aggregated figure, but it does not govern the running model, since sixteen cells cannot be filled reliably from a thin cohort. Both restrictions are deliberate, and both are stated where the mechanism is described.
 
