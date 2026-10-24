@@ -1,0 +1,9 @@
+# Simulation: fünf Theorien im Vergleich mit der Theorie der Relation (die TR wird immer als Referenz mitgerechnet)
+modus,Simulation
+profil,../simulation-mode/profiles/profil_Parsons.csv
+profil,../simulation-mode/profiles/profil_Luhmann.csv
+profil,../simulation-mode/profiles/profil_Bourdieu_dialectise.csv
+profil,../simulation-mode/profiles/profil_White.csv
+profil,../simulation-mode/profiles/profil_Tilly.csv
+schritte,1819
+startwerte,1-8

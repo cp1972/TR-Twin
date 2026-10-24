@@ -1,0 +1,7 @@
+# The worked example of the data mode: the cohort of 163 English working-class autobiographers
+# with the mediation and control instances they passed through (data-mode/README.org)
+mode,data
+contracts,../data-mode/data/actors/cohorte_contrat.csv
+instances,../data-mode/data/instances/instances_full_empirical.csv
+seeds,1-8
+trend window,10

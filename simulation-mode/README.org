@@ -10,10 +10,14 @@ framework's signature.
 
 * Run a profile
 
+Since v68 a comparison is prepared in a run file that names the profiles (=runs/compare_parsons_luhmann.csv=,
+=runs/vergleich_theorien.csv=); the TR is always computed as the reference.
+
 1. Open =tr-twin.html= (repository root) in a browser.
-2. *Import a controller profile (CSV)* → any file from =profiles/=.
-3. Press play, and compare the end state against the reference run
-   (no profile loaded).
+2. /Choose run file and data…/ → select the run file together with the profiles it names.
+3. /▶ Compute/: the assumptions of the theories next to the TR, the results over the seeds with the
+   difference to the TR, the changes of regime and the figures. /▶ Start/ replays one run.
+4. The same from a terminal: =node run.js runs/compare_parsons_luhmann.csv=.
 
 * What is here
 

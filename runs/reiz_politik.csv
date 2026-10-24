@@ -1,0 +1,6 @@
+# Simulation mit Reiz: die Politik (B) wird nach 1819 Schritten 300 Schritte lang geschwächt (Stärke 2,6);
+# danach läuft der Zwilling frei (6000 Schritte, mit M5 30 000) und wird mit demselben Lauf ohne Reiz verglichen
+modus,Simulation
+profil,../simulation-mode/profiles/profil_Luhmann.csv
+reiz,B,schwächen,300,2.6,1819
+startwerte,1-4

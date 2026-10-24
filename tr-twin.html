@@ -1095,12 +1095,16 @@ function draw(){
 function endTimeline(){tl.playing=false;running=false;reset();tl.year=tl.start;syncPlayBtn();updatePlayhead();}
 let last=performance.now();
 function loop(now){const rawDt=Math.min(0.033,(now-last)/1000);last=now;const simDt=rawDt*speed;
+  if(R68busy){requestAnimationFrame(loop);return;}   // v68: a run file is being computed (shared model state)
+  if(R68&&R68.runner){r68Tick(rawDt);}               // v68: replay of a computed run (same step sequence, fixed steps)
+  else{
   if(running&&tl.playing){tl.year+=(tl.end-tl.start)*(simDt/tl.dur);if(tl.year>=tl.end){endTimeline();}}
   {const D=compAt(tl.year);Pcur=D.comp;Wcur=norm(D.w.slice());}RELAXcur=tl.playing?0.2:0.12;
   applyCursorProfile(tl.year);
   renderFlux(tl.year);
   liveScnCtrl();
   if(running){step(simDt);phase=(phase+simDt*0.6)%1;recordTraj();if((plast>0||MECH.M1)&&tframe%30===0)renderChains();}
+  }
   easeCenters(rawDt);draw();tickReiz();drawProbes();updateReadouts();updateActeurs();updateInspector();updateDemoNow();drawMini();updatePlayhead();tickPrism();requestAnimationFrame(loop);}
 
 // ---- legend + gini ----
@@ -1305,9 +1309,10 @@ function parseDemoCSV(text){
 }
 // ---- actor layer: real cohort -> demography (steps) ----
 function catIdx(s){const k=cnorm(s);if(k.startsWith('etabli')||k.startsWith('establi')||k.startsWith('possed'))return 0;if(k.startsWith('aspir')||k.startsWith('anwaerter')||k.startsWith('anwarter'))return 1;if(k.startsWith('conserv')||k.startsWith('bewahr'))return 2;if(k.startsWith('decu')||k.startsWith('exclu')||k.startsWith('enttaeusch')||k.startsWith('enttausch'))return 3;return -1;}
+// v68: each record also keeps ck = whether the table gives a category (needed for mobility)
 function parseContractCSV(text){const rows=text.replace(/^\uFEFF/,'').trim().split(/\r?\n/);const head=rows[0].split(',').map(s=>cnorm(s));
   const pick=(...n)=>{for(const k of n){const i=head.indexOf(k);if(i>=0)return i;}return -1;};const iA=pick('aid'),iY=pick('annee','year','jahr'),iS=pick('structure','struktur'),iC=pick('categorie','category','kategorie'),iQ=pick('sequence','sequenz'),iW=pick('poids','weight','gewicht');if(iA<0||iY<0||iS<0||iC<0)return null;
-  const rec=[];for(let r=1;r<rows.length;r++){const f=rows[r].split(',');const sk=cnorm(f[iS]).replace(/[^abcd]/g,'');const sx=L2I[sk[0]];if(sx==null)continue;const yr=parseInt(f[iY],10);if(isNaN(yr))continue;const cx=catIdx(f[iC]);let qx=sx;if(iQ>=0){const qk=cnorm(f[iQ]).replace(/[^abcd]/g,'');if(L2I[qk[0]]!=null)qx=L2I[qk[0]];}let wx=null;if(iW>=0){const wv=parseFloat(f[iW]);if(!isNaN(wv))wx=Math.max(0,Math.min(1,wv));}const isCtrl=/control|kontrolle/.test(cnorm(f[iC]||''));rec.push({aid:f[iA],year:yr,s:sx,q:qx,c:cx<0?2:cx,w:wx,ctrl:isCtrl});}
+  const rec=[];for(let r=1;r<rows.length;r++){const f=rows[r].split(',');const sk=cnorm(f[iS]).replace(/[^abcd]/g,'');const sx=L2I[sk[0]];if(sx==null)continue;const yr=parseInt(f[iY],10);if(isNaN(yr))continue;const cx=catIdx(f[iC]);let qx=sx;if(iQ>=0){const qk=cnorm(f[iQ]).replace(/[^abcd]/g,'');if(L2I[qk[0]]!=null)qx=L2I[qk[0]];}let wx=null;if(iW>=0){const wv=parseFloat(f[iW]);if(!isNaN(wv))wx=Math.max(0,Math.min(1,wv));}const isCtrl=/control|kontrolle/.test(cnorm(f[iC]||''));rec.push({aid:f[iA],year:yr,s:sx,q:qx,c:cx<0?2:cx,ck:cx>=0,w:wx,ctrl:isCtrl});}
   return rec.length?rec:null;}
 function buildCohortKeys(rec){const byA={};for(const r of rec){(byA[r.aid]=byA[r.aid]||[]).push(r);}let ymin=Infinity,ymax=-Infinity;
   for(const a in byA){byA[a].sort((x,y)=>x.year-y.year);ymin=Math.min(ymin,byA[a][0].year);ymax=Math.max(ymax,byA[a][byA[a].length-1].year);}
@@ -1743,7 +1748,7 @@ function renderChains(){chainsEl.innerHTML="";
 
 function pointerSphere(e){const rect=cv.getBoundingClientRect(),px=e.clientX-rect.left,py=e.clientY-rect.top;
   let best=-1,bd=1e9;for(let i=0;i<N;i++){const c=centers[i],d=Math.hypot(px-c.x,py-c.y);if(d<=radius(i)&&d<bd){bd=d;best=i;}}return best;}
-cv.addEventListener("pointerdown",e=>{const i=pointerSphere(e);if(i>=0){boost=i;cv.setPointerCapture(e.pointerId);}});
+cv.addEventListener("pointerdown",e=>{const i=pointerSphere(e);if(i>=0&&!R68busy&&!(R68&&R68.runner)){boost=i;cv.setPointerCapture(e.pointerId);}});   // v68: no pressing during a replay (it would change the run)
 ["pointerup","pointercancel","pointerleave"].forEach(ev=>cv.addEventListener(ev,()=>boost=-1));
 
 const $=id=>document.getElementById(id);
@@ -1979,6 +1984,757 @@ function refreshScnLang(){populateVerbs();if(detectedTrends.length)renderScnTren
     catch(err){scnMsg('<span style="color:var(--warn)">⚠ '+(err&&err.message?err.message:err)+'</span>');}};
   document.querySelectorAll('.langbtn').forEach(b=>b.addEventListener('click',()=>setTimeout(refreshScnLang,0)));
 })();
+// ====== v68 — RUNS FROM FILES ======
+// A run is defined by a run file (key,value rows; English, German or French) that names the mode, the theory
+// profiles or the contract table, the time axis, the seeds and, optionally, a stimulus. The interface and the
+// command line (node run.js run.csv) call the same functions below. A run is computed with fixed steps; the
+// animation re-executes the same step sequence a few steps per frame, so what is shown is what is computed.
+// The mechanics (step(), the mechanisms, the profiles, the contract table) are not changed.
+const R68_KEYS={
+  mode:['mode','modus'],
+  profile:['profile','profil','theory','theorie'],
+  contracts:['contracts','contract table','contract','vertragstabelle','vertrag','contrats','table des contrats','cohort','kohorte','cohorte'],
+  instances:['instances','instanzen','instance table','instanztabelle','table des instances'],
+  probes:['probes','sonden','sondes','prism','prisma','prisme','probe extract'],
+  categories:['categories','kategorien','empty categories','leere kategorien','categories vides','gaps','luecken'],
+  stepped:['stepped','stufen','paliers','stepped interpolation','stufenweise'],
+  start:['start','beginn','debut','from','von'],
+  end:['end','ende','fin','to','bis'],
+  steps:['steps','schritte','pas'],
+  seeds:['seeds','seed','startwerte','startwert','graines','graine','keime'],
+  stimulus:['stimulus','reiz'],
+  freesteps:['free steps','nachlauf','pas libres','freie schritte'],
+  trend:['trend window','trendfenster','fenetre','fenetre de tendance','window','fenster','trend'],
+  output:['output','ausgabe','sortie']};
+const R68_VAL={
+  sim:['simulation','sim','simulationsmodus','mode simulation'],
+  data:['data','daten','donnees','datenmodus','mode donnees','data mode'],
+  uniform:['uniform','gleichverteilt','gleichverteilung','uniforme','25'],
+  pool:['pool','composition','zusammensetzung','gesamtzusammensetzung','overall composition','composition globale'],
+  carry:['carry','fortschreiben','fortgeschrieben','reporter','report','carried forward','last'],
+  yes:['yes','ja','oui','true','1','y','j','o'],
+  no:['no','nein','non','false','0','n'],
+  plus:['strengthen','verstaerken','verstarken','renforcer','+','plus','1','+1'],
+  minus:['weaken','schwaechen','schwachen','affaiblir','-','minus','-1']};
+const R68_STRUCT={a:0,b:1,c:2,d:3,culture:0,kultur:0,politics:1,politik:1,politique:1,economy:2,wirtschaft:2,economie:2,media:3,medien:3,medias:3};
+// one line of a CSV: separators , ; or tab; double quotes protect separators ("1-3,7")
+function r68Cells(line){const out=[];let cur='',q=false;const semi=line.includes(';');   // with ; as separator, a comma is a decimal or list comma
+  for(let i=0;i<line.length;i++){const c=line[i];
+    if(q){if(c==='"'){if(line[i+1]==='"'){cur+='"';i++;}else q=false;}else cur+=c;}
+    else if(c==='"')q=true;else if((c===','&&!semi)||c===';'||c==='\t'){out.push(cur.trim());cur='';}else cur+=c;}
+  out.push(cur.trim());return out;}
+const r68Num=v=>parseFloat(String(v).replace(',','.'));
+function r68Dir(v){const raw=String(v).trim();if(['+','+1','1'].includes(raw))return 1;if(['-','-1','−','−1'].includes(raw))return -1;
+  return r68Is(raw,'plus')?1:(r68Is(raw,'minus')?-1:0);}
+function r68Key(k){const n=cnorm(k);for(const key in R68_KEYS)if(R68_KEYS[key].includes(n))return key;return null;}
+function r68Is(v,cls){return R68_VAL[cls].includes(cnorm(v));}
+function r68Seeds(v){const out=[];for(const part of String(v).split(/[ ,;]+/)){if(!part)continue;const m=part.match(/^(\d+)\s*-\s*(\d+)$/);
+  if(m){const a=+m[1],b=+m[2];for(let i=Math.min(a,b);i<=Math.max(a,b);i++)out.push(i);}else if(/^\d+$/.test(part))out.push(+part);else return null;}
+  return out.length?[...new Set(out)]:null;}
+// parse a run file → {spec, errors, warnings}; spec paths are as written (relative to the run file)
+function parseRunFile(text){
+  const spec={mode:null,profiles:[],contracts:null,instances:null,probes:null,categories:'uniform',stepped:true,start:null,end:null,steps:null,
+    seeds:[1,2,3,4,5,6,7,8],stimulus:null,freeSteps:null,trend:10,output:null},errors=[],warnings=[];
+  const lines=String(text).replace(/^﻿/,'').split(/\r?\n/);
+  lines.forEach((raw,i)=>{const line=raw.trim();if(!line||line.startsWith('#'))return;
+    const f=r68Cells(line);const key=r68Key(f[0]),v=f.slice(1).filter(x=>x!=='');
+    const at=' ('+(i+1)+')';
+    if(!key){warnings.push('unknown key'+at+': '+f[0]);return;}
+    if(!v.length&&key!=='stimulus'){errors.push('no value'+at+': '+f[0]);return;}
+    switch(key){
+      case 'mode':if(r68Is(v[0],'sim'))spec.mode='sim';else if(r68Is(v[0],'data'))spec.mode='data';else errors.push('mode'+at+': '+v[0]);break;
+      case 'profile':spec.profiles.push(v[0]);break;
+      case 'contracts':spec.contracts=v[0];break;
+      case 'instances':spec.instances=v[0];break;
+      case 'probes':spec.probes=v[0];break;
+      case 'categories':{const m=['uniform','pool','carry'].find(c=>r68Is(v[0],c));if(m)spec.categories=m;else errors.push('categories'+at+': '+v[0]);break;}
+      case 'stepped':if(r68Is(v[0],'yes'))spec.stepped=true;else if(r68Is(v[0],'no'))spec.stepped=false;else errors.push('stepped'+at+': '+v[0]);break;
+      case 'start':case 'end':{const y=parseInt(v[0],10);if(isNaN(y))errors.push(key+at+': '+v[0]);else spec[key]=y;break;}
+      case 'steps':{const n=parseInt(v[0],10);if(!(n>0))errors.push('steps'+at+': '+v[0]);else spec.steps=n;break;}
+      case 'seeds':{const s=r68Seeds(v.join(','));if(!s)errors.push('seeds'+at+': '+v.join(','));else spec.seeds=s;break;}
+      case 'freesteps':{const n=parseInt(v[0],10);if(!(n>0))errors.push('free steps'+at+': '+v[0]);else spec.freeSteps=n;break;}
+      case 'trend':{const n=parseInt(v[0],10);if(!(n>=1&&n<=100))errors.push('trend window (1–100)'+at+': '+v[0]);else spec.trend=n;break;}
+      case 'output':spec.output=v[0];break;
+      case 'stimulus':{const x=R68_STRUCT[cnorm(v[0]||'')];const dir=v[1]==null?1:r68Dir(v[1]);
+        const dau=v[2]==null?300:parseInt(v[2],10),k=v[3]==null?BOOST:r68Num(v[3]),beg=v[4]==null?1819:parseInt(v[4],10);
+        if(x==null||!dir||!(dau>0)||!isFinite(k)||!(beg>=0))errors.push('stimulus'+at+': '+v.join(','));
+        else spec.stimulus={x,dir,dauer:dau,k,beginn:beg};break;}}});
+  if(!spec.mode)spec.mode=(spec.contracts||spec.probes)?'data':'sim';
+  if(spec.mode==='sim'&&spec.stimulus&&(spec.start!=null||spec.end!=null))errors.push('a stimulus is given in steps: use it without start/end');
+  if(spec.mode==='sim'&&spec.stimulus&&spec.steps!=null){warnings.push('steps ignored: a stimulus run lasts begin + duration + free steps');spec.steps=null;}
+  if(spec.mode==='sim'&&(spec.start!=null)!==(spec.end!=null))errors.push('give both start and end (years), or steps');
+  if(spec.mode==='data'&&!spec.contracts&&!spec.probes)errors.push('data mode needs a contract table');
+  if(spec.instances&&spec.probes)errors.push('instances or probes, not both (both feed the prism mode)');
+  if(spec.mode==='sim'&&spec.contracts)warnings.push('contract table ignored in simulation mode');
+  if(spec.mode==='data'&&spec.stimulus){warnings.push('stimulus ignored in data mode');spec.stimulus=null;}
+  if(spec.mode==='sim'&&!spec.steps&&spec.start==null&&!spec.stimulus)spec.steps=1819;
+  if(spec.stimulus&&spec.mode==='sim'&&!spec.freeSteps)spec.freeSteps=null;   // default chosen per theory (6000; 30000 with M5)
+  return {spec,errors,warnings};}
+function runFileNames(spec){const n=[];if(spec.mode==='sim')n.push(...spec.profiles);else{if(spec.contracts)n.push(spec.contracts);if(spec.instances)n.push(spec.instances);if(spec.probes)n.push(spec.probes);}return n;}
+
+// ---- setting the twin to a theory / to a cohort (same operations as the import fields and the headless scripts) ----
+const R68_SLIDERS=['rate','alpha','back','over','rho','peak','cap','plast','mig','decl','dynam','anchor'];
+function r68SetSlider(id,v){const el=document.getElementById(id);if(el){el.value=v;el.dispatchEvent(new Event('input'));}}
+function r68Theory(profileText,yearMode){   // TR defaults, then the profile (sliders, chains, mechanisms)
+  const sp=document.getElementById('speed'),spv=sp?sp.value:null,spd=speed;applyDefaults();if(sp){sp.value=spv;speed=spd;syncLabels();}/* the tempo is not part of the run */loadedChains=null;resetChains();tl.cursorKeys=null;lastCursorYear=null;let r=null;
+  if(profileText){r=parseCursorCSV(profileText);if(!r)throw new Error('profile not readable');
+    if(yearMode)tl.cursorKeys=r.keys;
+    else for(const cid in r.keys){const p=r.keys[cid];r68SetSlider(cid,p[p.length-1].val);}
+    if(r.chains&&Object.keys(r.chains).length){loadedChains=r.chains;for(const sx in r.chains)setChain(+sx,r.chains[sx]);}
+    profilMech(r);}
+  return r;}
+function r68ClearData(){cohortRec=null;cohortTrans=null;cohortByActor=null;probeByActor=null;ctrlByActor=null;prismSel=[];
+  instCensus=false;weightDrive=false;probeMode='actor';tl.paliers=false;tl.keys=neutralKeys();}
+function r68LoadData(spec,files){   // as the fields "actor cohort", "instances" and "prism probes" do
+  r68ClearData();
+  if(!spec.contracts)return r68LoadProbes(spec,files,true);
+  const rec=parseContractCSV(files[spec.contracts]);if(!rec)throw new Error('contract table not readable: '+spec.contracts);
+  gapMode=spec.categories;const keys=buildCohortKeys(rec);if(!keys)throw new Error('contract table without stages: '+spec.contracts);
+  tl.keys=keys;tl.sel=0;tl.start=keys[0].year;tl.end=keys[keys.length-1].year;tl.year=tl.start;
+  cohortRec=rec;cohortTrans=buildTransitions(rec);cohortByActor=buildCohortByActor(rec);tl.paliers=!!spec.stepped;
+  if(spec.instances){const ri=parseContractCSV(files[spec.instances]);if(!ri)throw new Error('instance table not readable: '+spec.instances);
+    probeByActor=buildCohortByActor(ri);prismSel=Object.keys(probeByActor);probeMode='instance';instCensus=true;
+    partitionControl();weightDrive=Object.values(probeByActor).some(st=>st.some(r=>r.w!=null));}
+  if(spec.probes)r68LoadProbes(spec,files,false);
+  if(spec.start!=null)tl.start=spec.start;if(spec.end!=null)tl.end=spec.end;
+  return rec;}
+function r68LoadProbes(spec,files,asField){   // a small probe extract (prism mode); without a cohort it also builds the field
+  const rec=parseContractCSV(files[spec.probes]);if(!rec||!rec.length)throw new Error('probe extract not readable: '+spec.probes);
+  probeByActor=buildCohortByActor(rec);const ids=Object.keys(probeByActor);prismSel=ids.slice(0,PROBECAP);
+  probeMode=ids.filter(a=>!/^\d+$/.test(a)).length>ids.length/2?'instance':'actor';instCensus=false;partitionControl();
+  weightDrive=(probeMode==='instance')&&Object.values(probeByActor).some(st=>st.some(r=>r.w!=null));
+  if(asField){gapMode=spec.categories;const keys=buildCohortKeys(rec);if(!keys)throw new Error('probe extract without stages: '+spec.probes);
+    tl.keys=keys;tl.sel=0;tl.start=keys[0].year;tl.end=keys[keys.length-1].year;tl.year=tl.start;
+    cohortRec=rec;cohortByActor=buildCohortByActor(rec);cohortTrans=buildTransitions(rec);tl.paliers=!!spec.stepped;
+    if(spec.start!=null)tl.start=spec.start;if(spec.end!=null)tl.end=spec.end;}
+  return rec;}
+
+// ---- one run as a step sequence: the batch computation and the animation execute the same sequence ----
+// kind 'steps': fixed sliders (end values of the profile), fixed actor composition, n steps (as run_steps.js and the
+//   pipeline). kind 'years': the profile or the cohort over the years, K steps per year (as runSeries / Σ Summary).
+function r68Snapshot(){let h=0,v=0;const sg=[0,1,2,3].map(structGini),vg=[0,1,2,3].map(vertGiniX);for(let x=0;x<4;x++){h+=sg[x];v+=vg[x];}
+  return {S:S.slice(),gini:gini(),horiz:h/4,vert:v/4,recip:reciprocity(),rRecip:[0,1,2,3].map(structRecip),rGini:sg,vGini:vg,
+    sat:satS.slice(),ruler:ruler.slice(),taken:taken.slice(),dom:(gini()>0.05?satelliser():-1),
+    inst:[0,1,2,3].map(z=>[Irel[z],Iseq[z],Iteil[z],Ictrl[z]]),cap:capFloorCur.slice(),capCell:capCellCur.map(r=>r.slice()),
+    mobX:mobX,mobQ:mobQ,blk:(migAtt>1e-9?migBlk/migAtt:0),migAtt:migAtt,comp:[0,1,2,3].map(structComp),
+    cIneg:[0,1,2,3].map(structContribIneq),aRecip:[0,1,2,3].map(structContribRecip),sur:meanResid};}
+function r68Runner(job){   // job: {kind, seed, n | years, profileText, spec, files, stimulus}
+  const R={job,done:false,i:0,rows:[],events:[],year:null,total:0};
+  const dt=1/60*0.68;let K=1,y=0,k=0,prevRuler=null,prevDom=null,stim=null;
+  R.prepare=function(){
+    boost=-1;reiz=null;fricS=0;crossViz=Array.from({length:N},()=>[0,0,0,0]);   // smoothed states that reset() keeps: every run starts from 0, as in a fresh page
+    if(job.kind==='steps'){r68ClearData();r68Theory(job.profileText,false);seed=job.seed>>>0||1;satS=[0,0,0,0];rulerHold=[0,0,0,0];
+      RELAXcur=0.15;Pcur=[0,1,2,3].map(()=>[0.22,0.28,0.28,0.22]);Wcur=[0.25,0.25,0.25,0.25];reset();
+      stim=(job.stimulus&&!job.control)?Object.assign({},job.stimulus):null;
+      R.total=job.n+(job.stimulus?job.stimulus.dauer+job.free:0);R.every=Math.max(1,Math.round(R.total/600));
+      R.fen=job.stimulus?Math.min(1000,Math.floor(job.free/2)):0;R.Sfen=null;}   // drift window of the stimulus probe
+    else{if(job.spec.mode==='data'){r68LoadData(job.spec,job.files);r68Theory(null,true);}
+      else{r68ClearData();r68Theory(job.profileText,true);tl.start=job.span[0];tl.end=job.span[1];}   // the same years for every theory
+      seed=job.seed>>>0||1;RELAXcur=0.15;
+      K=Math.max(4,Math.round(tl.dur*60*0.68/Math.max(1,tl.end-tl.start)));reset();y=tl.start;k=0;
+      R.total=(tl.end-tl.start+1)*K;}
+    R.chains0=[0,1,2,3].map(z=>chainOf(z).slice(0,3));   // the chains the run starts with (the assumption; plasticity and M1 may change them)
+    prevRuler=ruler.slice();prevDom=null;R.year=job.kind==='steps'?null:tl.start;R.i=0;R.done=false;};
+  function track(when){for(let x=0;x<4;x++)if(ruler[x]!==prevRuler[x]){R.events.push({kind:'regime',at:when,x,from:prevRuler[x],to:ruler[x],taken:taken[x]>=0});prevRuler[x]=ruler[x];}
+    const d=gini()>0.05?satelliser():-1;if(d!==prevDom){R.events.push({kind:'dom',at:when,dom:d});prevDom=d;}}
+  R.advance=function(n){
+    for(let s=0;s<n&&!R.done;s++){
+      if(job.kind==='steps'){
+        if(stim&&R.i===job.n){reizSetzen(stim.x,stim.dir,stim.dauer,stim.k);}
+        if(stim&&R.i===job.n+stim.dauer){reiz=null;}
+        if(job.stimulus&&R.i===R.total-R.fen)R.Sfen=S.slice();   // as reizLauf: sizes at the start of the drift window
+        step(dt);R.i++;track(R.i);
+        if(R.i%R.every===0||R.i===R.total)R.rows.push(Object.assign({step:R.i},r68Snapshot()));
+        if(R.i>=R.total)R.done=true;}
+      else{
+        if(k===0){tl.year=y;const D=compAt(y);Pcur=D.comp;Wcur=norm(D.w.slice());
+          if(tl.cursorKeys)for(const cid in tl.cursorKeys){const v=cursorAt(cid,y);if(v!=null)r68SetSlider(cid,v);}}
+        step(dt);k++;R.i++;track(y);
+        if(k>=K){R.rows.push(Object.assign({year:y},r68Snapshot()));k=0;y++;R.year=y;if(y>tl.end){R.done=true;R.year=tl.end;}}}}
+    return R.done;};
+  return R;}
+
+// ---- the plan of a run file: TR first (reference), then the theories; or the cohort; × seeds ----
+function r68Plan(spec,files){const jobs=[];const yearMode=spec.mode==='data'||(spec.steps==null&&spec.start!=null);
+  const used={};const uniq=n=>{let m=n==='TR'?n+' (profile)':n,i=2;while(used[m])m=n+' ('+(i++)+')';used[m]=1;return m;};used.TR=1;
+  const theories=spec.mode==='data'?[{name:'data',profileText:null}]:
+    [{name:'TR',profileText:null,path:null}].concat(spec.profiles.map(p=>({name:uniq(r68Name(p)),profileText:files[p],path:p})));
+  // the same length for every theory: free steps after a stimulus = 30 000 if any theory has M5 (the TR always has), else 6000
+  const free=spec.freeSteps||(theories.some(th=>r68MechOf(th.profileText).M5)?30000:6000);
+  const span=[spec.start,spec.end];   // year mode in simulation: both are required (parseRunFile)
+  for(const th of theories)for(const sd of spec.seeds){
+    const job={theory:th.name,path:th.path||null,profileText:th.profileText,seed:sd,spec,files,span};
+    if(yearMode)job.kind='years';
+    else{job.kind='steps';job.n=spec.stimulus?spec.stimulus.beginn:spec.steps;
+      if(spec.stimulus){job.stimulus=spec.stimulus;job.free=free;}}
+    jobs.push(job);
+    if(job.stimulus)jobs.push(Object.assign({},job,{control:true}));}   // the same run without the stimulus (control run)
+  return jobs;}
+function r68Name(p){return String(p).replace(/^.*[\/\\]/,'').replace(/\.csv$/i,'').replace(/^profil_/i,'');}
+function r68MechOf(profileText){if(!profileText)return {M1:true,M2:true,M3:true,M4:true,M5:true,M6:true};
+  const r=parseCursorCSV(profileText);const off={M1:false,M2:false,M3:false,M4:false,M5:false,M6:false};return Object.assign(off,(r&&r.mech)||{});}
+// run every job (synchronously; the interface calls r68RunAsync). Returns {spec, runs:[{job, rows, events, ...}]}
+function r68Run(spec,files,onJob){const jobs=r68Plan(spec,files),runs=[];const keep=r68Keep();
+  try{for(const job of jobs){const R=r68Runner(job);R.prepare();R.advance(Infinity);runs.push(r68Finish(R));if(onJob)onJob(runs.length,jobs.length);}}
+  finally{r68Restore(keep);}
+  return {spec,files,runs};}
+function r68Finish(R){const j=R.job;const out={theory:j.theory,path:j.path,seed:j.seed,kind:j.kind,control:!!j.control,K:(j.kind==='years'?Math.max(4,Math.round(tl.dur*60*0.68/Math.max(1,tl.end-tl.start))):1),rows:R.rows,events:R.events,
+  mech:Object.assign({},MECH),satDauer:SATDAUER,sliders:R68_SLIDERS.reduce((o,id)=>{const el=document.getElementById(id);o[id]=el?+el.value:null;return o;},{}),
+  chains:R.chains0,chainsEnd:[0,1,2,3].map(z=>chainOf(z).slice(0,3)),start:tl.start,end:tl.end};
+  if(j.kind==='steps'&&j.stimulus){const n0=j.n+j.stimulus.dauer;const last=R.rows[R.rows.length-1];
+    // drift over the last min(1000, free/2) steps, as in the stimulus probe (reizLauf)
+    out.stimulus={end:last.S,ruler:last.ruler,drift:R.Sfen?Math.max(...last.S.map((v,i)=>Math.abs(v-R.Sfen[i]))):0,afterStep:n0};}
+  return out;}
+function r68Keep(){return {seed,RELAXcur,Pcur,Wcur,boost,tl:Object.assign({},tl),loadedChains,cohortRec,cohortTrans,cohortByActor,probeByActor,
+  ctrlByActor,prismSel,instCensus,weightDrive,probeMode,gapMode,MECH:Object.assign({},MECH),SATDAUER,
+  sliders:R68_SLIDERS.map(id=>{const el=document.getElementById(id);return el?el.value:null;})};}
+function r68Restore(k){seed=k.seed;RELAXcur=k.RELAXcur;Pcur=k.Pcur;Wcur=k.Wcur;boost=k.boost;Object.assign(tl,k.tl);loadedChains=k.loadedChains;
+  cohortRec=k.cohortRec;cohortTrans=k.cohortTrans;cohortByActor=k.cohortByActor;probeByActor=k.probeByActor;ctrlByActor=k.ctrlByActor;
+  prismSel=k.prismSel;instCensus=k.instCensus;weightDrive=k.weightDrive;probeMode=k.probeMode;gapMode=k.gapMode;
+  R68_SLIDERS.forEach((id,i)=>{if(k.sliders[i]!=null)r68SetSlider(id,k.sliders[i]);});MECH=k.MECH;SATDAUER=k.SATDAUER;syncMechUI();
+  resetChains();if(loadedChains)for(const sx in loadedChains)setChain(+sx,loadedChains[sx]);reset();}
+// ====== v68 — labels of the run-file results (fr / de / en) ======
+Object.assign(I18N,{
+  r68_na:{fr:'non supposé',de:'nicht angenommen',en:'not assumed'},
+  r68_na_tr:{fr:'non supposé · valeur TR',de:'nicht angenommen · TR-Wert',en:'not assumed · TR value'},
+  r68_ref:{fr:'référence',de:'Referenz',en:'reference'},
+  r68_yes:{fr:'oui',de:'ja',en:'yes'},
+  r68_steps:{fr:'pas',de:'Schritte',en:'steps'},
+  r68_years:{fr:'années',de:'Jahre',en:'years'},
+  r68_chain:{fr:'Chaîne',de:'Kette',en:'Chain'},
+  r68_mech_M1:{fr:'chaînes',de:'Ketten',en:'chains'},
+  r68_mech_M2:{fr:'régime',de:'Regime',en:'regime'},
+  r68_mech_M3:{fr:'instances',de:'Instanzen',en:'instances'},
+  r68_mech_M4:{fr:'contrôle',de:'Kontrolle',en:'control'},
+  r68_mech_M5:{fr:'saturation (durée)',de:'Sättigung (Dauer)',en:'saturation (time)'},
+  r68_mech_M6:{fr:'force de contrôle',de:'Kontrollkraft',en:'control force'},
+  r68_t_assump:{fr:'Hypothèses des théories',de:'Annahmen der Theorien',en:'Assumptions of the theories'},
+  r68_c_assump:{fr:'Hypothèse',de:'Annahme',en:'Assumption'},
+  r68_n_assump:{fr:'« non supposé · valeur TR » : la théorie ne fixe pas ce curseur ; le calcul utilise la valeur de la TR, le résultat reste comparable sur ce point. Un mécanisme non supposé n’agit pas.',
+    de:'„nicht angenommen · TR-Wert“: Die Theorie setzt diesen Regler nicht; gerechnet wird mit dem Wert der TR, das Ergebnis bleibt in diesem Punkt vergleichbar. Ein nicht angenommener Mechanismus wirkt nicht.',
+    en:'“not assumed · TR value”: the theory does not set this slider; the run uses the TR value, so the result stays comparable on this point. A mechanism not assumed does not act.'},
+  r68_t_results:{fr:'Résultats',de:'Ergebnisse',en:'Results'},
+  r68_c_measure:{fr:'Mesure',de:'Maß',en:'Measure'},
+  r68_n_results:{fr:'Médiane sur {n} graines (étendue entre parenthèses) et écart à la TR, à la fin ({u}). « non supposé » : la mesure dépend d’un mécanisme que la théorie ne suppose pas ; elle n’entre pas dans les figures.',
+    de:'Median über {n} Startwerte (Spannweite in Klammern) und Abstand zur TR, am Ende ({u}). „nicht angenommen“: Das Maß hängt von einem Mechanismus ab, den die Theorie nicht annimmt; es geht nicht in die Abbildungen ein.',
+    en:'Median over {n} seeds (range in brackets) and difference to the TR, at the end ({u}). “not assumed”: the measure depends on a mechanism the theory does not assume; it is left out of the figures.'},
+  r68_m_transv:{fr:'Inégalité transversale',de:'Transversale Ungleichheit',en:'Transversal inequality'},
+  r68_m_horiz:{fr:'Inégalité horizontale',de:'Horizontale Ungleichheit',en:'Horizontal inequality'},
+  r68_m_horiz_s:{fr:'Inégalité horizontale (interne)',de:'Horizontale Ungleichheit (intern)',en:'Horizontal inequality (internal)'},
+  r68_m_vert:{fr:'Inégalité verticale',de:'Vertikale Ungleichheit',en:'Vertical inequality'},
+  r68_m_recip:{fr:'Réciprocité',de:'Reziprozität',en:'Reciprocity'},
+  r68_m_size:{fr:'Taille',de:'Größe',en:'Size'},
+  r68_m_dom:{fr:'Structure dominante (graines)',de:'Dominante Struktur (Startwerte)',en:'Dominant structure (seeds)'},
+  r68_balanced:{fr:'aucune',de:'keine',en:'none'},
+  r68_m_domchg:{fr:'Changements de domination',de:'Herrschaftswechsel',en:'Changes of domination'},
+  r68_m_domend:{fr:'Fin de la première domination',de:'Ende der ersten Herrschaft',en:'End of the first domination'},
+  r68_m_sat:{fr:'Satellisation',de:'Satellisierung',en:'Satellisation'},
+  r68_m_regime:{fr:'Régime',de:'Regime',en:'Regime'},
+  r68_m_regchg:{fr:'Changements de régime',de:'Regimewechsel',en:'Changes of regime'},
+  r68_m_taken:{fr:'Régime repris par le satellisant (M2)',de:'Regime vom Satellisierenden übernommen (M2)',en:'Regime taken over by the satelliser (M2)'},
+  r68_none:{fr:'aucun',de:'keines',en:'none'},
+  r68_m_stim:{fr:'Stimulus',de:'Reiz',en:'Stimulus'},
+  r68_v_zurueck:{fr:'revenu',de:'zurück',en:'returned'},
+  r68_v_fest:{fr:'fixé',de:'festgesetzt',en:'set'},
+  r68_v_bewegung:{fr:'encore en mouvement',de:'noch in Bewegung',en:'still moving'},
+  r68_t_regimes:{fr:'Changements de régime (graine {s})',de:'Regimewechsel (Startwert {s})',en:'Changes of regime (seed {s})'},
+  r68_c_theory:{fr:'Théorie',de:'Theorie',en:'Theory'},
+  r68_c_struct:{fr:'Structure',de:'Struktur',en:'Structure'},
+  r68_c_from:{fr:'de',de:'von',en:'from'},
+  r68_c_to:{fr:'vers',de:'nach',en:'to'},
+  r68_c_how:{fr:'comment',de:'wie',en:'how'},
+  r68_taken:{fr:'reprise (M2)',de:'Übernahme (M2)',en:'takeover (M2)'},
+  r68_whole:{fr:'ensemble',de:'gesamt',en:'whole period'},
+  r68_t_trends:{fr:'Tendances par période de {w} ans',de:'Trends je Zeitraum von {w} Jahren',en:'Trends per period of {w} years'},
+  r68_n_trends:{fr:'Variation de la première à la dernière année de la période, médiane sur les graines. ↑ hausse · ↓ baisse · → stable ; « ~ » : la variation ne dépasse pas l’écart entre les graines. Les séries annuelles sont dans le CSV des séries.',
+    de:'Veränderung vom ersten zum letzten Jahr des Zeitraums, Median über die Startwerte. ↑ steigt · ↓ fällt · → stabil; „~“: die Veränderung übersteigt die Spannweite zwischen den Startwerten nicht. Die Jahresreihen stehen in der CSV der Reihen.',
+    en:'Change from the first to the last year of the period, median over the seeds. ↑ rises · ↓ falls · → stable; “~”: the change does not exceed the spread between the seeds. The yearly series are in the series CSV.'},
+  r68_c_trans:{fr:'Transitions dans la table',de:'Übergänge in der Tabelle',en:'Transitions in the table'},
+  r68_thin:{fr:'mince',de:'dünn',en:'thin'},
+  r68_t_struct:{fr:'Détail par structure',de:'Einzelheiten je Struktur',en:'Detail per structure'},
+  r68_n_struct:{fr:'Niveau à la fin de chaque période, médiane sur les graines.',de:'Niveau am Ende jedes Zeitraums, Median über die Startwerte.',en:'Level at the end of each period, median over the seeds.'},
+  r68_m_cap:{fr:'Capacité de contrôle',de:'Kontrollkapazität',en:'Control capacity'},
+  r68_m_irel:{fr:'Instance de relation',de:'Relationsinstanz',en:'Relation instance'},
+  r68_m_iseq:{fr:'Instance de séquence',de:'Sequenzinstanz',en:'Sequence instance'},
+  r68_m_iteil:{fr:'Instance de sous-séquence',de:'Teilsequenzinstanz',en:'Sub-sequence instance'},
+  r68_m_ictrl:{fr:'Contrôle',de:'Kontrolle',en:'Control'},
+  r68_t_circ:{fr:'Circulation et mobilité',de:'Zirkulation und Mobilität',en:'Circulation and mobility'},
+  r68_c_period:{fr:'Période',de:'Zeitraum',en:'Period'},
+  r68_c_kind:{fr:'Circulation',de:'Zirkulation',en:'Circulation'},
+  r68_c_n:{fr:'Transitions',de:'Übergänge',en:'Transitions'},
+  r68_c_up:{fr:'ascendante',de:'aufsteigend',en:'ascending'},
+  r68_c_down:{fr:'descendante',de:'absteigend',en:'descending'},
+  r68_c_none:{fr:'ni l’un ni l’autre',de:'weder noch',en:'neither'},
+  r68_c_unknown:{fr:'catégorie absente',de:'ohne Kategorie',en:'no category'},
+  r68_c_stepsup:{fr:'pas vers le haut',de:'Stufen aufwärts',en:'steps up'},
+  r68_c_stepsdown:{fr:'pas vers le bas',de:'Stufen abwärts',en:'steps down'},
+  r68_c_inferred:{fr:'dont déduits',de:'davon erschlossen',en:'of which inferred'},
+  r68_k_same:{fr:'même position',de:'gleiche Position',en:'same position'},
+  r68_k_seq:{fr:'changement de séquence',de:'Sequenzwechsel',en:'change of sequence'},
+  r68_k_struct:{fr:'changement de structure',de:'Strukturwechsel',en:'change of structure'},
+  r68_k_all:{fr:'toutes',de:'alle',en:'all'},
+  r68_n_circ:{fr:'Transitions entre étapes codées successives d’un acteur. La mobilité est le changement de catégorie : établis > aspirants > conservateurs > déçus, une catégorie à la fois ; un saut de plusieurs catégories compte autant de pas, ceux au-delà du premier sont déduits (étapes non codées).',
+    de:'Übergänge zwischen aufeinanderfolgenden kodierten Etappen eines Akteurs. Mobilität ist der Wechsel der Kategorie: Etablierte > Aspiranten > Konservative > Enttäuschte, eine Kategorie nach der anderen; ein Sprung über mehrere Kategorien zählt so viele Stufen, die über die erste hinaus sind erschlossen (nicht kodierte Etappen).',
+    en:'Transitions between successive coded stages of an actor. Mobility is the change of category: established > aspirants > conservatives > disappointed, one category at a time; a jump of several categories counts as that many steps, those beyond the first are inferred (stages not coded).'},
+  r68_t_flows:{fr:'Flux entre structures',de:'Ströme zwischen Strukturen',en:'Flows between structures'},
+  r68_n_flows:{fr:'Changements de structure dans la table des contrats, de la ligne vers la colonne.',de:'Strukturwechsel in der Vertragstabelle, von der Zeile zur Spalte.',en:'Changes of structure in the contract table, from row to column.'},
+  r68_t_perm:{fr:'Perméabilité',de:'Durchlässigkeit',en:'Permeability'},
+  r68_n_perm:{fr:'Moyenne de la période, médiane sur les graines. Capacité de contrôle des instances (1 = sans instances de contrôle) ; migration du jumeau : part bloquée, circulation entre structures et entre séquences.',
+    de:'Mittel des Zeitraums, Median über die Startwerte. Kontrollkapazität der Instanzen (1 = ohne Kontrollinstanzen); Migration im Zwilling: blockierter Anteil, Zirkulation zwischen Strukturen und zwischen Sequenzen.',
+    en:'Mean of the period, median over the seeds. Control capacity of the instances (1 = without control instances); migration in the twin: blocked share, circulation between structures and between sequences.'},
+  r68_m_blk:{fr:'Migration bloquée',de:'Blockierte Migration',en:'Blocked migration'},
+  r68_m_mobx:{fr:'Circulation entre structures (jumeau)',de:'Zirkulation zwischen Strukturen (Zwilling)',en:'Circulation between structures (twin)'},
+  r68_m_mobq:{fr:'Circulation entre séquences (jumeau)',de:'Zirkulation zwischen Sequenzen (Zwilling)',en:'Circulation between sequences (twin)'},
+  r68_f_sub:{fr:'médiane sur {n} graines · barres = étendue',de:'Median über {n} Startwerte · Striche = Spannweite',en:'median over {n} seeds · bars = range'},
+  r68_f_ineq:{fr:'Inégalités et réciprocité',de:'Ungleichheiten und Reziprozität',en:'Inequalities and reciprocity'},
+  r68_f_sizes:{fr:'Tailles des structures',de:'Größen der Strukturen',en:'Sizes of the structures'},
+  r68_f_sat:{fr:'Satellisation des structures',de:'Satellisierung der Strukturen',en:'Satellisation of the structures'},
+  r68_f_traj_g:{fr:'Trajectoire de l’inégalité transversale',de:'Verlauf der transversalen Ungleichheit',en:'Trajectory of transversal inequality'},
+  r68_f_traj_r:{fr:'Trajectoire de la réciprocité',de:'Verlauf der Reziprozität',en:'Trajectory of reciprocity'},
+  r68_f_circ_all:{fr:'Circulation et mobilité par période',de:'Zirkulation und Mobilität je Zeitraum',en:'Circulation and mobility per period'},
+  r68_f_circ_struct:{fr:'Changements de structure et mobilité',de:'Strukturwechsel und Mobilität',en:'Changes of structure and mobility'},
+  r68_f_circ_sub:{fr:'transitions de la table des contrats · % = part des pas déduits',de:'Übergänge der Vertragstabelle · % = Anteil erschlossener Stufen',en:'transitions of the contract table · % = share of inferred steps'},
+  r68ui_runhead:{fr:'Fichier de déroulement',de:'Laufdatei',en:'Run file'},
+  r68ui_choose:{fr:'Choisir le fichier et ses données…',de:'Laufdatei und Daten wählen…',en:'Choose run file and data…'},
+  r68ui_choose_desc:{fr:'sélectionner le fichier de déroulement avec les profils ou tables qu’il nomme (sélection multiple)',de:'die Laufdatei zusammen mit den Profilen oder Tabellen auswählen, die sie nennt (Mehrfachauswahl)',en:'select the run file together with the profiles or tables it names (multiple selection)'},
+  r68ui_compute:{fr:'▶ Calculer',de:'▶ Berechnen',en:'▶ Compute'},
+  r68ui_results:{fr:'Σ Résultats',de:'Σ Ergebnisse',en:'Σ Results'},
+  r68ui_replay:{fr:'rejouer',de:'abspielen',en:'replay'},
+  r68ui_seed:{fr:'graine',de:'Startwert',en:'seed'},
+  r68ui_missing:{fr:'fichiers manquants',de:'fehlende Dateien',en:'missing files'},
+  r68ui_add:{fr:'ajoutez-les à la sélection',de:'bitte mit auswählen',en:'add them to the selection'},
+  r68ui_norun:{fr:'aucun fichier de déroulement reconnu',de:'keine Laufdatei erkannt',en:'no run file recognised'},
+  r68ui_mode_sim:{fr:'simulation',de:'Simulation',en:'simulation'},
+  r68ui_mode_data:{fr:'données',de:'Daten',en:'data'},
+  r68ui_k_mode:{fr:'mode',de:'Modus',en:'mode'},
+  r68ui_k_theories:{fr:'théories',de:'Theorien',en:'theories'},
+  r68ui_k_contracts:{fr:'table des contrats',de:'Vertragstabelle',en:'contract table'},
+  r68ui_k_instances:{fr:'instances',de:'Instanzen',en:'instances'},
+  r68ui_k_probes:{fr:'sondes (prisme)',de:'Sonden (Prisma)',en:'probes (prism)'},
+  r68ui_k_time:{fr:'durée',de:'Dauer',en:'time'},
+  r68ui_k_seeds:{fr:'graines',de:'Startwerte',en:'seeds'},
+  r68ui_k_stim:{fr:'stimulus',de:'Reiz',en:'stimulus'},
+  r68ui_computing:{fr:'calcul…',de:'rechne…',en:'computing…'},
+  r68ui_done:{fr:'calculé',de:'berechnet',en:'computed'},
+  r68ui_script:{fr:'En script',de:'Als Skript',en:'As a script'},
+  r68ui_script_desc:{fr:'mêmes fichiers, mêmes résultats — dans un terminal, dans le dossier du jumeau :',de:'dieselben Dateien, dieselben Ergebnisse — im Terminal, im Ordner des Zwillings:',en:'same files, same results — in a terminal, in the twin folder:'},
+  r68ui_install:{fr:'Installer Node.js et jsdom (une fois)',de:'Node.js und jsdom installieren (einmal)',en:'Install Node.js and jsdom (once)'},
+  r68ui_install_html:{fr:'<b>Windows</b> : programme d’installation (LTS) de nodejs.org, ou <code>winget install OpenJS.NodeJS.LTS</code><br><b>macOS</b> : programme d’installation (LTS) de nodejs.org, ou <code>brew install node</code><br><b>Linux</b> : gestionnaire de paquets (nodejs, npm)<br>puis, dans le dossier du jumeau : <code>npm install</code><br>Sur les ordinateurs des salles, l’installation peut demander des droits d’administrateur.',
+    de:'<b>Windows</b>: Installer (LTS) von nodejs.org, oder <code>winget install OpenJS.NodeJS.LTS</code><br><b>macOS</b>: Installer (LTS) von nodejs.org, oder <code>brew install node</code><br><b>Linux</b>: Paketverwaltung (nodejs, npm)<br>dann im Ordner des Zwillings: <code>npm install</code><br>An Rechnern im PC-Pool kann die Installation Administratorrechte brauchen.',
+    en:'<b>Windows</b>: installer (LTS) from nodejs.org, or <code>winget install OpenJS.NodeJS.LTS</code><br><b>macOS</b>: installer (LTS) from nodejs.org, or <code>brew install node</code><br><b>Linux</b>: package manager (nodejs, npm)<br>then, in the twin folder: <code>npm install</code><br>On pool computers the installation may need administrator rights.'},
+  r68ui_dl_runfile:{fr:'⬇ fichier de déroulement',de:'⬇ Laufdatei',en:'⬇ run file'},
+  r68ui_downloads:{fr:'Téléchargements',de:'Downloads',en:'Downloads'},
+  r68ui_dl_report:{fr:'rapport (HTML)',de:'Bericht (HTML)',en:'report (HTML)'},
+  r68ui_dl_tables:{fr:'tableaux (CSV)',de:'Tabellen (CSV)',en:'tables (CSV)'},
+  r68ui_dl_series:{fr:'séries (CSV)',de:'Reihen (CSV)',en:'series (CSV)'},
+  r68ui_adv:{fr:'Pour avancés · curseurs (lecture seule)',de:'Für Fortgeschrittene · Regler (nur lesend)',en:'For advanced users · sliders (read-only)'},
+  r68ui_adv_desc:{fr:'Les curseurs montrent les valeurs du profil en cours ; ils se règlent dans le profil (CSV), pas ici.',de:'Die Regler zeigen die Werte des laufenden Profils; eingestellt werden sie im Profil (CSV), nicht hier.',en:'The sliders show the values of the current profile; they are set in the profile (CSV), not here.'},
+  r68ui_tab_figs:{fr:'Figures',de:'Abbildungen',en:'Figures'},
+  r68ui_close:{fr:'fermer',de:'schließen',en:'close'},
+  r68ui_svg:{fr:'⬇ SVG',de:'⬇ SVG',en:'⬇ SVG'},
+  r68ui_csv:{fr:'⬇ CSV',de:'⬇ CSV',en:'⬇ CSV'},
+  r68ui_report_title:{fr:'Jumeau numérique de la théorie de la relation · résultats',de:'Digitaler Zwilling der Theorie der Relation · Ergebnisse',en:'Digital twin of the theory of the relation · results'},
+  r68ui_report_runfile:{fr:'Fichier de déroulement',de:'Laufdatei',en:'Run file'},
+  r68ui_none_loaded:{fr:'Sans fichier, le jumeau tourne avec les valeurs de la TR. Chargez un fichier de déroulement pour un calcul reproductible.',de:'Ohne Datei läuft der Zwilling mit den Werten der TR. Laden Sie eine Laufdatei für eine reproduzierbare Rechnung.',en:'Without a file, the twin runs with the TR values. Load a run file for a reproducible computation.'}
+});
+// ====== v68 — RESULTS of a run file ======
+// Simulation mode: what do the assumptions of the theories change? Table of assumptions (TR = reference), table of
+//   results over the seeds (median, range, difference to the TR), satellisation, regimes, stimulus verdict.
+// Data mode: trends per period, detail per structure, circulation × mobility (with inferred steps), permeability.
+// Tables are {id, title, head:[...], rows:[[...]], note}; figures are SVG strings. Labels follow the interface language.
+const r68med=a=>{const b=a.filter(v=>v!=null&&!isNaN(v)).sort((x,y)=>x-y);if(!b.length)return null;const m=b.length>>1;return b.length%2?b[m]:(b[m-1]+b[m])/2;};
+const r68min=a=>Math.min(...a),r68max=a=>Math.max(...a);
+const R68_RANK=[3,2,1,0];        // category index → status rank (established 3 > aspirants 2 > conservatives 1 > disappointed 0)
+const R68_SLIDER_LABEL={rate:'lab_rate',alpha:'lab_alpha',back:'lab_back',over:'lab_over',rho:'lab_rho',peak:'lab_peak',cap:'lab_cap',
+  plast:'lab_plast',mig:'lab_mig',decl:'lab_decl',dynam:'lab_dynam',anchor:'lab_anchor'};
+const R68_TR_DEFAULT={rate:2.2,alpha:1.4,back:1.0,over:1.0,rho:1.0,peak:0.5,cap:0.7,plast:0.4,mig:0.7,decl:0.5,dynam:0.5,anchor:0.5};
+function r68f(v,d){if(v==null||isNaN(v))return '–';d=d==null?3:d;let x=+v;if(Math.abs(x)<0.5*Math.pow(10,-d))x=0;return x.toFixed(d);}
+function r68L(x){return x<0?'–':LAB[x];}
+
+// ---- simulation mode ----
+function r68Declared(profileText){if(!profileText)return null;const r=parseCursorCSV(profileText);return r;}
+function r68SimSummary(res){
+  const spec=res.spec,files=res.files||{};
+  const names=[...new Set(res.runs.map(r=>r.theory))];
+  const runsOf=n=>res.runs.filter(r=>r.theory===n&&!r.control),ctrlOf=n=>res.runs.filter(r=>r.theory===n&&r.control);
+  const decl={};for(const n of names){const r0=runsOf(n)[0];decl[n]=r0&&r0.path?r68Declared(files[r0.path]):null;}
+  const NA=t('r68_na'),NA_TR=t('r68_na_tr');
+  // Table 1 — assumptions
+  const A={id:'assumptions',title:t('r68_t_assump'),head:[t('r68_c_assump')].concat(names.map(n=>n==='TR'?'TR ('+t('r68_ref')+')':n)),rows:[],note:t('r68_n_assump')};
+  for(const id of R68_SLIDERS){const row=[t(R68_SLIDER_LABEL[id])];
+    for(const n of names){if(n==='TR'){row.push(r68f(R68_TR_DEFAULT[id],2));continue;}
+      const d=decl[n],p=d&&d.keys[id];
+      if(!p)row.push(NA_TR+' '+r68f(R68_TR_DEFAULT[id],2));
+      else{const a=p[0].val,b=p[p.length-1].val;row.push(a===b||res.runs[0].kind==='steps'?r68f(b,2):r68f(a,2)+'→'+r68f(b,2));}}
+    A.rows.push(row);}
+  for(let x=0;x<4;x++){const row=[t('r68_chain')+' '+LAB[x]];
+    for(const n of names){const r0=runsOf(n)[0];const ch=r0?r0.chains[x].map(v=>LAB[v]).join('–'):'';
+      const declared=n==='TR'||(decl[n]&&decl[n].chains&&decl[n].chains[x]!=null);row.push(declared?ch:NA_TR+' '+ch);}
+    A.rows.push(row);}
+  for(const m of ['M1','M2','M3','M4','M5','M6']){const row=[m+' · '+t('r68_mech_'+m)];
+    for(const n of names){const r0=runsOf(n)[0];row.push(r0&&r0.mech[m]?(m==='M5'?t('r68_yes')+' ('+r0.satDauer+')':t('r68_yes')):NA);}A.rows.push(row);}
+  // Table 2 — results (median over the seeds, range, difference to the TR)
+  const endOf=r=>r.rows[r.rows.length-1];
+  const unit=res.runs[0].kind==='steps'?t('r68_steps'):t('r68_years');
+  const minDur=r=>r.kind==='steps'?300:Math.max(1,Math.ceil(300/r.K));
+  const domSeg=r=>{const ev=r.events.filter(e=>e.kind==='dom');const endAt=r.kind==='steps'?r.rows[r.rows.length-1].step:r.rows[r.rows.length-1].year;
+    const segs=ev.map((e,i)=>({dom:e.dom,from:e.at,to:i+1<ev.length?ev[i+1].at:endAt}));
+    let kept=segs.filter(s=>s.to-s.from>=minDur(r));if(!kept.length&&segs.length)kept=[segs[segs.length-1]];const out=[];   // episodes shorter than 300 steps do not count
+    for(const s of kept){if(out.length&&out[out.length-1].dom===s.dom)out[out.length-1].to=s.to;else out.push(Object.assign({},s));}
+    if(out.length)out[out.length-1].to=endAt;return out;};
+  const M=[ // [key, label, value(run) → number|string, decimals, needs mechanism]
+    ['transv','r68_m_transv',r=>endOf(r).gini,3],['horiz','r68_m_horiz',r=>endOf(r).horiz,3],['vert','r68_m_vert',r=>endOf(r).vert,3],
+    ['recip','r68_m_recip',r=>endOf(r).recip,3],
+    ...[0,1,2,3].map(x=>['size'+x,'r68_m_size',r=>endOf(r).S[x],3,null,LAB[x]]),
+    ['domchg','r68_m_domchg',r=>Math.max(0,domSeg(r).length-1),0],   // every change of the dominant structure, including the dissolution of a domination
+    ['domend','r68_m_domend',r=>{const g=domSeg(r),i=g.findIndex(q=>q.dom>=0);return i>=0&&i+1<g.length?g[i].to:null;},0],
+    ...[0,1,2,3].map(x=>['sat'+x,'r68_m_sat',r=>endOf(r).sat[x],3,null,LAB[x]]),
+    ...[0,1,2,3].map(x=>['reg'+x,'r68_m_regchg',r=>r.events.filter(e=>e.kind==='regime'&&e.x===x).length,0,null,LAB[x]])];
+  const R={id:'results',title:t('r68_t_results'),head:[t('r68_c_measure')].concat(names.map(n=>n==='TR'?'TR ('+t('r68_ref')+')':n)),rows:[],
+    note:t('r68_n_results').replace('{n}',spec.seeds.length).replace('{u}',unit)};
+  const med={};
+  for(const [key,lab,fn,dec,needs,suf] of M){const row=[t(lab)+(suf?' '+suf:'')+(key==='domend'?' ('+unit+')':'')];med[key]={};
+    for(const n of names){const runs=runsOf(n);if(needs&&!(runs[0]&&runs[0].mech[needs])){row.push(NA);med[key][n]=null;continue;}
+      const v=runs.map(fn).filter(z=>z!=null);const m=r68med(v);med[key][n]=m;
+      if(m==null){row.push('–');continue;}
+      let cell=r68f(m,dec);if(v.length>1&&r68f(r68max(v),dec)!==r68f(r68min(v),dec))cell+=' ('+r68f(r68min(v),dec)+'–'+r68f(r68max(v),dec)+')';
+      if(n!=='TR'&&med[key].TR!=null&&dec>0){const d=m-med[key].TR;if(r68f(d,dec)!==r68f(0,dec))cell+=' · '+(d>=0?'+':'')+r68f(d,dec);}
+      row.push(cell);}
+    R.rows.push(row);}
+  // dominant structure at the end: share of seeds
+  {const row=[t('r68_m_dom')];for(const n of names){const c={};for(const r of runsOf(n)){const d=endOf(r).dom;c[d]=(c[d]||0)+1;}
+     const k=Object.keys(c).sort((a,b)=>c[b]-c[a])[0];row.push((+k<0?t('r68_balanced'):LAB[+k])+' '+c[k]+'/'+runsOf(n).length);}R.rows.splice(8,0,row);}
+  // regimes at the end (sequence each structure runs under) — most frequent over the seeds
+  for(let x=0;x<4;x++){const row=[t('r68_m_regime')+' '+LAB[x]];for(const n of names){const c={};for(const r of runsOf(n)){const z=endOf(r).ruler[x];c[z]=(c[z]||0)+1;}
+     const k=+Object.keys(c).sort((a,b)=>c[b]-c[a])[0];row.push((k===x?t('autonomous'):'▸'+LAB[k])+' '+c[k]+'/'+runsOf(n).length);}R.rows.push(row);}
+  // regime taken over by the satelliser (M2): which structures, in how many seeds
+  {const row=[t('r68_m_taken')];for(const n of names){const runs=runsOf(n);if(!(runs[0]&&runs[0].mech.M2)){row.push(NA);continue;}
+     const c=[0,1,2,3].map(x=>runs.filter(r=>endOf(r).taken[x]>=0).length);const parts=c.map((k,x)=>k?LAB[x]+' '+k+'/'+runs.length:null).filter(Boolean);
+     row.push(parts.length?parts.join(' · '):t('r68_none'));}R.rows.push(row);}
+  // stimulus verdict (as the stimulus probe): returned / set / still moving
+  if(spec.stimulus){const row=[t('r68_m_stim')+' '+LAB[spec.stimulus.x]+(spec.stimulus.dir>0?'+':'−')];
+    for(const n of names){const v=runsOf(n).map(r=>{const c=ctrlOf(n).find(q=>q.seed===r.seed);const abw=Math.max(...r.stimulus.end.map((s,i)=>Math.abs(s-c.stimulus.end[i])));
+      const bew=Math.max(r.stimulus.drift,c.stimulus.drift)>=0.005;return bew?'bewegung':(abw>=0.03?'fest':'zurueck');});
+      const c={};v.forEach(z=>c[z]=(c[z]||0)+1);row.push(Object.keys(c).map(k=>t('r68_v_'+k)+' '+c[k]).join(' · '));}R.rows.push(row);}
+  // regime changes of the first seed (when, which structure, from → to)
+  const E={id:'regimes',title:t('r68_t_regimes').replace('{s}',spec.seeds[0]),head:[t('r68_c_theory'),unit,t('r68_c_struct'),t('r68_c_from'),t('r68_c_to'),t('r68_c_how')],rows:[]};
+  for(const n of names){const r=runsOf(n)[0];for(const e of r.events.filter(e=>e.kind==='regime'))
+    E.rows.push([n,e.at,LAB[e.x],e.from===e.x?t('autonomous'):LAB[e.from],e.to===e.x?t('autonomous'):LAB[e.to],e.taken?t('r68_taken'):'']);}
+  return {mode:'sim',names,tables:[A,R,E],med,runsOf,unit};}
+
+// ---- data mode ----
+function r68Periods(y0,y1,w){const P=[];for(let a=y0;a<=y1;a+=w)P.push([a,Math.min(y1,a+w-1)]);return P;}
+function r68Transitions(rec){   // consecutive coded stages of each actor (last record per year), without control instances
+  const byA={};for(const r of rec){if(r.ctrl)continue;(byA[r.aid]=byA[r.aid]||[]).push(r);}const out=[];
+  for(const a in byA){const perY=new Map();for(const s of byA[a].sort((x,y)=>x.year-y.year))perY.set(s.year,s);const st=[...perY.values()];
+    for(let i=1;i<st.length;i++){const p=st[i-1],q=st[i];const kind=p.s!==q.s?'struct':(p.q!==q.q?'seq':'same');
+      let dir='unknown',steps=0;if(p.ck&&q.ck){const d=R68_RANK[q.c]-R68_RANK[p.c];dir=d>0?'up':(d<0?'down':'none');steps=Math.abs(d);}
+      out.push({aid:a,year:q.year,kind,from:p.s,to:q.s,dir,steps,inferred:Math.max(0,steps-1)});}}
+  return out;}
+function r68DataSummary(res){
+  const spec=res.spec,runs=res.runs,y0=runs[0].rows[0].year,y1=runs[0].rows[runs[0].rows.length-1].year;
+  const P=r68Periods(y0,y1,spec.trend).concat([[y0,y1]]),isAll=i=>i===P.length-1;
+  const plab=(p,i)=>isAll(i)?t('r68_whole')+' '+p[0]+'–'+p[1]:p[0]+'–'+p[1];
+  const at=(r,y)=>r.rows.find(q=>q.year===y)||r.rows[r.rows.length-1];
+  const rec=parseContractCSV(res.files[spec.contracts||spec.probes]),tr=r68Transitions(rec);
+  const nIn=p=>tr.filter(z=>z.year>=p[0]&&z.year<=p[1]).length;
+  // 1. trends: change from the first to the last year of each period, median over the seeds
+  const MEAS=[['transv','r68_m_transv',q=>q.gini],['horiz','r68_m_horiz',q=>q.horiz],['vert','r68_m_vert',q=>q.vert],['recip','r68_m_recip',q=>q.recip],
+    ...[0,1,2,3].map(x=>['size'+x,'r68_m_size',q=>q.S[x],LAB[x]])];
+  const trendCell=(fn,p)=>{const d=runs.map(r=>fn(at(r,p[1]))-fn(at(r,p[0])));const m=r68med(d);
+    const spread=d.length>1?r68max(d)-r68min(d):0;   // spread of the changes between the seeds
+    const clear=Math.abs(m)>=0.005&&Math.abs(m)>spread;const arrow=Math.abs(m)<0.005?'→':(m>0?'↑':'↓');
+    return {m,clear,txt:arrow+' '+(m>=0?'+':'')+r68f(m,3)+(clear?'':' ~')};};
+  // periods as rows, measures as columns (with 10-year periods the table would otherwise be very wide)
+  const T={id:'trends',title:t('r68_t_trends').replace('{w}',spec.trend),head:[t('r68_c_period')].concat(MEAS.map(([k,lab,fn,suf])=>t(lab)+(suf?' '+suf:''))).concat([t('r68_c_trans')]),rows:[],note:t('r68_n_trends')};
+  P.forEach((p,i)=>{const n=nIn(p);T.rows.push([plab(p,i)].concat(MEAS.map(([k,lab,fn])=>trendCell(fn,p).txt)).concat([n+(n<5?' · '+t('r68_thin'):'')]));});
+  // 2. per structure: level at the end of each period (median over the seeds)
+  const S={id:'structures',title:t('r68_t_struct'),head:[t('r68_c_struct'),t('r68_c_period')].concat(['r68_m_size','r68_m_recip','r68_m_horiz_s','r68_m_vert','r68_m_sat','r68_m_cap','r68_m_irel','r68_m_iseq','r68_m_iteil','r68_m_ictrl','r68_m_regime'].map(t)),rows:[],note:t('r68_n_struct')};
+  const SM=[['r68_m_size',(q,x)=>q.S[x]],['r68_m_recip',(q,x)=>q.rRecip[x]],['r68_m_horiz_s',(q,x)=>q.rGini[x]],['r68_m_vert',(q,x)=>q.vGini[x]],
+    ['r68_m_sat',(q,x)=>q.sat[x]],['r68_m_cap',(q,x)=>q.cap[x]],['r68_m_irel',(q,x)=>q.inst[x][0]],['r68_m_iseq',(q,x)=>q.inst[x][1]],
+    ['r68_m_iteil',(q,x)=>q.inst[x][2]],['r68_m_ictrl',(q,x)=>q.inst[x][3]]];
+  for(let x=0;x<4;x++)P.forEach((p,i)=>{const reg=(()=>{const c={};for(const r of runs){const z=at(r,p[1]).ruler[x];c[z]=(c[z]||0)+1;}
+      const k=+Object.keys(c).sort((a,b)=>c[b]-c[a])[0];return k===x?t('autonomous'):'▸'+LAB[k];})();
+    S.rows.push([LAB[x]+' · '+SN(x),plab(p,i)].concat(SM.map(([lab,fn])=>r68f(r68med(runs.map(r=>fn(at(r,p[1]),x))),3))).concat([reg]));});
+  // 3. circulation × mobility (from the contract table), per period
+  const C={id:'circulation',title:t('r68_t_circ'),head:[t('r68_c_period'),t('r68_c_kind'),t('r68_c_n'),t('r68_c_up'),t('r68_c_down'),t('r68_c_none'),t('r68_c_unknown'),
+    t('r68_c_stepsup'),t('r68_c_stepsdown'),t('r68_c_inferred')],rows:[],note:t('r68_n_circ')};
+  for(let i=0;i<P.length;i++){const p=P[i];for(const kind of ['same','seq','struct','all']){const z=tr.filter(q=>q.year>=p[0]&&q.year<=p[1]&&(kind==='all'||q.kind===kind));
+    const cnt=d=>z.filter(q=>q.dir===d).length,st=d=>z.filter(q=>q.dir===d).reduce((a,q)=>a+q.steps,0),inf=z.reduce((a,q)=>a+q.inferred,0),sts=st('up')+st('down');
+    C.rows.push([plab(p,i),t('r68_k_'+kind),z.length,cnt('up'),cnt('down'),cnt('none'),cnt('unknown'),st('up'),st('down'),inf+(sts?' ('+Math.round(100*inf/sts)+' %)':'')]);}}
+  const F={id:'flows',title:t('r68_t_flows'),head:[t('r68_c_period'),t('r68_c_from')].concat(LAB.map(l=>'→ '+l)),rows:[],note:t('r68_n_flows')};
+  for(let i=0;i<P.length;i++){const p=P[i];for(let a=0;a<4;a++)F.rows.push([plab(p,i),LAB[a]].concat([0,1,2,3].map(b=>tr.filter(q=>q.kind==='struct'&&q.year>=p[0]&&q.year<=p[1]&&q.from===a&&q.to===b).length)));}
+  // permeability: control capacity per structure, migration in the twin (attempted, blocked share), circulation in the twin
+  const mean=(fn,p)=>r68med(runs.map(r=>{const v=r.rows.filter(q=>q.year>=p[0]&&q.year<=p[1]).map(fn);return v.reduce((a,b)=>a+b,0)/Math.max(1,v.length);}));
+  const Pm={id:'permeability',title:t('r68_t_perm'),head:[t('r68_c_period')].concat([0,1,2,3].map(x=>t('r68_m_cap')+' '+LAB[x])).concat(['r68_m_blk','r68_m_mobx','r68_m_mobq'].map(t)),rows:[],note:t('r68_n_perm')};
+  P.forEach((p,i)=>Pm.rows.push([plab(p,i)].concat([0,1,2,3].map(x=>r68f(mean(q=>q.cap[x],p),3))).concat([r68f(mean(q=>q.blk,p)*100,1)+' %',r68f(mean(q=>q.mobX,p),4),r68f(mean(q=>q.mobQ,p),4)])));
+  return {mode:'data',periods:P,tables:[T,S,C,F,Pm],transitions:tr};}
+function r68Summary(res){return res.spec.mode==='data'?r68DataSummary(res):r68SimSummary(res);}
+
+// ---- tables as CSV and HTML ----
+function r68CSV(tab){const q=v=>{const s=String(v==null?'':v);return /[",;\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
+  return [tab.head.map(q).join(',')].concat(tab.rows.map(r=>r.map(q).join(','))).join('\n');}
+function r68HTML(tab){const e=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const l2=['structures','circulation','flows','regimes'].includes(tab.id);
+  return '<table class="pst r68'+(l2?' l2':'')+'"><tr>'+tab.head.map(h=>'<th>'+e(h)+'</th>').join('')+'</tr>'+
+    tab.rows.map(r=>'<tr>'+r.map((c,i)=>'<td'+(i===1&&(tab.id==='results'||tab.id==='assumptions')?' class="ref"':'')+'>'+e(c)+'</td>').join('')+'</tr>').join('')+'</table>'+
+    (tab.note?'<div class="src">'+e(tab.note)+'</div>':'');}
+// the yearly / stepwise series of every run, for students who compute their own trends
+function r68SeriesCSV(res){const head=['theory','seed',res.runs[0].kind==='steps'?'step':'year','transversal','horizontal','vertical','reciprocity'];
+  NMS.forEach(n=>head.push('size_'+n,'recip_'+n,'gini_int_'+n,'vert_'+n,'satellisation_'+n,'regime_'+n,'control_capacity_'+n));head.push('circ_between','circ_within','blocked');
+  const L=[head.join(',')];
+  for(const r of res.runs){if(r.control)continue;for(const q of r.rows){const o=[r.theory,r.seed,q.step!=null?q.step:q.year,q.gini.toFixed(5),q.horiz.toFixed(5),q.vert.toFixed(5),q.recip.toFixed(5)];
+    for(let x=0;x<4;x++)o.push(q.S[x].toFixed(5),q.rRecip[x].toFixed(5),q.rGini[x].toFixed(5),q.vGini[x].toFixed(5),q.sat[x].toFixed(5),NMS[q.ruler[x]],q.cap[x].toFixed(5));
+    o.push(q.mobX.toFixed(6),q.mobQ.toFixed(6),q.blk.toFixed(5));L.push(o.join(','));}}
+  return L.join('\n');}
+// ====== v68 — FIGURES of a run file (SVG, same style as the v67 exports) ======
+// Simulation: the theories next to the TR (median over the seeds, whiskers = range); only comparable measures.
+// Data: series over the years (median over the seeds) and circulation × mobility per period.
+const R68_THEORY_COL=['#B8860B','#2E6DA4','#6B4F9E','#1F7A5A','#C0392B','#8A6D3B','#16808A','#7A7A7A'];
+function r68Bars(title,groups,series,o){o=o||{};const W=Math.max(560,120+groups.length*(26+series.length*16)),L=58,R=18,B=52,plotH=190;
+  const leg=svgLegend(series.map(s=>({name:s.name,color:s.color})),L,o.sub?72:58,W-R);const T=leg.bottomY+18,H=Math.round(T+plotH+B);
+  let ymax=o.ymax;if(ymax==null){ymax=0;for(const g of groups)for(const b of g.bars)if(b!=null)ymax=Math.max(ymax,b.hi!=null?b.hi:b.v);if(!(ymax>0))ymax=1;}
+  const yS=v=>H-B-(v/ymax)*(H-T-B),gw=(W-L-R)/groups.length,bw=Math.min(16,(gw-14)/series.length);
+  let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" font-family="'+SVGFONT+'"><rect width="'+W+'" height="'+H+'" fill="'+SOL.bg+'"/>';
+  s+='<text x="'+L+'" y="34" fill="'+SOL.txt+'" font-size="18" font-weight="600">'+svgEsc(title)+'</text>';
+  if(o.sub)s+='<text x="'+L+'" y="54" fill="'+SOL.txt2+'" font-size="11.5">'+svgEsc(o.sub)+'</text>';
+  s+=leg.svg+'<rect x="'+L+'" y="'+T+'" width="'+(W-L-R)+'" height="'+(H-T-B)+'" fill="none" stroke="'+SOL.axis+'"/>';
+  for(const gv of [0,ymax/2,ymax]){const yy=yS(gv);s+='<line x1="'+L+'" y1="'+yy.toFixed(1)+'" x2="'+(W-R)+'" y2="'+yy.toFixed(1)+'" stroke="'+SOL.grid+'"/><text x="'+(L-8)+'" y="'+(yy+3).toFixed(1)+'" fill="'+SOL.tick+'" font-size="10" text-anchor="end">'+gv.toFixed(2)+'</text>';}
+  groups.forEach((g,gi)=>{const x0=L+gi*gw+(gw-bw*series.length)/2;
+    g.bars.forEach((b,bi)=>{if(b==null)return;const x=x0+bi*bw,y=yS(b.v);
+      s+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+(bw-2).toFixed(1)+'" height="'+(H-B-y).toFixed(1)+'" fill="'+series[bi].color+'" opacity="0.85"/>';
+      if(b.lo!=null&&b.hi!=null&&b.hi>b.lo){const cx=x+(bw-2)/2;s+='<line x1="'+cx.toFixed(1)+'" y1="'+yS(b.lo).toFixed(1)+'" x2="'+cx.toFixed(1)+'" y2="'+yS(b.hi).toFixed(1)+'" stroke="'+SOL.txt+'" stroke-width="1"/>';}});
+    const words=String(g.label).split(' '),lines=[];for(const w of words){if(lines.length&&(lines[lines.length-1]+' '+w).length<=Math.max(8,Math.floor(gw/6.2)))lines[lines.length-1]+=' '+w;else lines.push(w);}
+    lines.forEach((ln,li)=>{s+='<text x="'+(L+gi*gw+gw/2).toFixed(1)+'" y="'+(H-B+15+li*12)+'" fill="'+SOL.txt2+'" font-size="10.5" text-anchor="middle">'+svgEsc(ln)+'</text>';});});
+  if(o.foot)s+='<text x="'+L+'" y="'+(H-12)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';
+  return s+'</svg>';}
+function r68Stack(title,groups,parts,o){o=o||{};const W=Math.max(560,120+groups.length*44),L=58,R=18,B=52,plotH=190;
+  const leg=svgLegend(parts,L,o.sub?72:58,W-R);const T=leg.bottomY+18,H=Math.round(T+plotH+B);
+  let ymax=0;for(const g of groups)ymax=Math.max(ymax,g.vals.reduce((a,b)=>a+b,0));if(!(ymax>0))ymax=1;
+  const yS=v=>H-B-(v/ymax)*(H-T-B),gw=(W-L-R)/groups.length,bw=Math.min(28,gw-8);
+  let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" font-family="'+SVGFONT+'"><rect width="'+W+'" height="'+H+'" fill="'+SOL.bg+'"/>';
+  s+='<text x="'+L+'" y="34" fill="'+SOL.txt+'" font-size="18" font-weight="600">'+svgEsc(title)+'</text>';
+  if(o.sub)s+='<text x="'+L+'" y="54" fill="'+SOL.txt2+'" font-size="11.5">'+svgEsc(o.sub)+'</text>';
+  s+=leg.svg+'<rect x="'+L+'" y="'+T+'" width="'+(W-L-R)+'" height="'+(H-T-B)+'" fill="none" stroke="'+SOL.axis+'"/>';
+  for(const gv of [0,ymax/2,ymax]){const yy=yS(gv);s+='<line x1="'+L+'" y1="'+yy.toFixed(1)+'" x2="'+(W-R)+'" y2="'+yy.toFixed(1)+'" stroke="'+SOL.grid+'"/><text x="'+(L-8)+'" y="'+(yy+3).toFixed(1)+'" fill="'+SOL.tick+'" font-size="10" text-anchor="end">'+Math.round(gv)+'</text>';}
+  groups.forEach((g,gi)=>{const x=L+gi*gw+(gw-bw)/2;let acc=0;
+    g.vals.forEach((v,pi)=>{if(!v)return;const y1=yS(acc),y2=yS(acc+v);acc+=v;
+      s+='<rect x="'+x.toFixed(1)+'" y="'+y2.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(y1-y2).toFixed(1)+'" fill="'+parts[pi].color+'" opacity="0.85"/>';});
+    s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(H-B+14)+'" fill="'+SOL.txt2+'" font-size="9.5" text-anchor="middle">'+svgEsc(g.label)+'</text>';
+    if(g.note)s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(yS(acc)-4).toFixed(1)+'" fill="'+SOL.txt2+'" font-size="9" text-anchor="middle">'+svgEsc(g.note)+'</text>';});
+  if(o.foot)s+='<text x="'+L+'" y="'+(H-12)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';
+  return s+'</svg>';}
+function r68Figures(res,sm){const figs=[];const foot=t('svg_foot');
+  if(sm.mode==='sim'){const names=sm.names,runsOf=sm.runsOf,endOf=r=>r.rows[r.rows.length-1];
+    const series=names.map((n,i)=>({name:n==='TR'?'TR ('+t('r68_ref')+')':n,color:R68_THEORY_COL[i%R68_THEORY_COL.length]}));
+    const bar=(n,fn)=>{const v=runsOf(n).map(fn);return {v:r68med(v),lo:r68min(v),hi:r68max(v)};};
+    const sub=t('r68_f_sub').replace('{n}',res.spec.seeds.length);
+    figs.push({name:'inequality_reciprocity',svg:r68Bars(t('r68_f_ineq'),[['r68_m_transv',r=>endOf(r).gini],['r68_m_horiz',r=>endOf(r).horiz],['r68_m_vert',r=>endOf(r).vert],['r68_m_recip',r=>endOf(r).recip]]
+      .map(([lab,fn])=>({label:t(lab),bars:names.map(n=>bar(n,fn))})),series,{sub,foot,ymax:1})});
+    figs.push({name:'sizes',svg:r68Bars(t('r68_f_sizes'),[0,1,2,3].map(x=>({label:LAB[x]+' · '+SN(x),bars:names.map(n=>bar(n,r=>endOf(r).S[x]))})),series,{sub,foot})});
+    figs.push({name:'satellisation',svg:r68Bars(t('r68_f_sat'),[0,1,2,3].map(x=>({label:LAB[x]+' · '+SN(x),bars:names.map(n=>bar(n,r=>endOf(r).sat[x]))})),series,{sub,foot,ymax:1})});
+    // trajectories of inequality and reciprocity (median over the seeds)
+    const r0=runsOf(names[0])[0],xs=r0.rows.map(q=>q.step!=null?q.step:q.year);
+    const med=(n,fn)=>xs.map((_,i)=>r68med(runsOf(n).map(r=>fn(r.rows[Math.min(i,r.rows.length-1)]))));
+    figs.push({name:'trajectory_inequality',svg:svgLine(t('r68_f_traj_g'),xs,names.map((n,i)=>({name:series[i].name,color:series[i].color,data:med(n,q=>q.gini)})),{ymin:0,sub,foot})});
+    figs.push({name:'trajectory_reciprocity',svg:svgLine(t('r68_f_traj_r'),xs,names.map((n,i)=>({name:series[i].name,color:series[i].color,data:med(n,q=>q.recip)})),{ymin:0,ymax:1,sub,foot})});}
+  else{const runs=res.runs,xs=runs[0].rows.map(q=>q.year),med=fn=>xs.map((_,i)=>r68med(runs.map(r=>fn(r.rows[i]))));
+    const sub=t('r68_f_sub').replace('{n}',res.spec.seeds.length);
+    figs.push({name:'inequality_reciprocity',svg:svgLine(t('r68_f_ineq'),xs,[['r68_m_transv',q=>q.gini,SOL.gini],['r68_m_horiz',q=>q.horiz,'#E08A3C'],['r68_m_vert',q=>q.vert,'#5D9E46'],['r68_m_recip',q=>q.recip,SOL.recip]]
+      .map(([lab,fn,c])=>({name:t(lab),color:c,data:med(fn)})),{ymin:0,ymax:1,sub,foot})});
+    figs.push({name:'sizes',svg:svgLine(t('r68_f_sizes'),xs,[0,1,2,3].map(x=>({name:LAB[x]+' · '+SN(x),color:SOL.struct[x],data:med(q=>q.S[x])})),{ymin:0,sub,foot})});
+    figs.push({name:'satellisation',svg:svgLine(t('r68_f_sat'),xs,[0,1,2,3].map(x=>({name:LAB[x]+' · '+SN(x),color:SOL.struct[x],data:med(q=>q.sat[x])})),{ymin:0,ymax:1,sub,foot})});
+    if(runs[0].rows.some(q=>q.cap.some(v=>Math.abs(v-1)>1e-9)))
+      figs.push({name:'control_capacity',svg:svgLine(t('r68_m_cap'),xs,[0,1,2,3].map(x=>({name:LAB[x]+' · '+SN(x),color:SOL.struct[x],data:med(q=>q.cap[x])})),{sub,foot})});
+    const P=sm.periods.slice(0,-1),tr=sm.transitions;
+    const parts=[{name:t('r68_c_up'),color:SOL.up},{name:t('r68_c_down'),color:SOL.down},{name:t('r68_c_none'),color:'#9aa1ad'},{name:t('r68_c_unknown'),color:'#d9dce2'}];
+    for(const kind of ['all','struct']){
+      const groups=P.map(p=>{const z=tr.filter(q=>q.year>=p[0]&&q.year<=p[1]&&(kind==='all'||q.kind===kind));
+        const st=z.reduce((a,q)=>a+q.steps,0),inf=z.reduce((a,q)=>a+q.inferred,0);
+        return {label:String(p[0]),vals:['up','down','none','unknown'].map(d=>z.filter(q=>q.dir===d).length),note:st?Math.round(100*inf/st)+'%':''};});
+      figs.push({name:'circulation_mobility_'+kind,svg:r68Stack(t('r68_f_circ_'+kind),groups,parts,{sub:t('r68_f_circ_sub'),foot})});}}
+  return figs;}
+// ====== v68 — INTERFACE: run file, results, replay, script ======
+// The right column is rearranged at start-up: the run file, the results, the command for the terminal and the
+// downloads come first; the sliders (read-only) and the prism probes move into "For advanced users"; the fields of
+// v67 that the run file replaces (keyframes, population, imports, exports, scenarios, stimulus) are kept in a hidden
+// container, so that their code still works.
+let R68=null, R68busy=false;
+function r68Esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+// ---- computing in portions (the interface stays responsive) ----
+function r68RunAsync(spec,files,onProgress){return new Promise((resolve,reject)=>{
+  const jobs=r68Plan(spec,files),runs=[],keep=r68Keep();let j=0,R=null,done=0;const total=jobs.reduce((a,_)=>a+1,0);
+  R68busy=true;
+  const tick=()=>{try{const t0=performance.now();
+      while(performance.now()-t0<40){
+        if(!R){if(j>=jobs.length){r68Restore(keep);R68busy=false;resolve({spec,files,runs});return;}R=r68Runner(jobs[j]);R.prepare();}
+        if(R.advance(500)){runs.push(r68Finish(R));R=null;j++;done++;}}
+      if(onProgress)onProgress(done+(R?R.i/Math.max(1,R.total):0),total);setTimeout(tick,0);}
+    catch(e){try{r68Restore(keep);}catch(_){}R68busy=false;reject(e);}};
+  setTimeout(tick,0);});}
+// ---- report: one HTML file with the run file, all tables and all figures ----
+function r68Report(res,sm,figs,runName,runText){const css='body{font:13px/1.45 system-ui,sans-serif;color:#1b1f2a;max-width:1100px;margin:24px auto;padding:0 16px}'+
+  'h1{font-size:20px}h2{font-size:15px;margin-top:28px}table{border-collapse:collapse;font-size:11.5px;margin:6px 0}td,th{border-bottom:1px solid #e3e5ea;padding:3px 7px;text-align:right}'+
+  'td:first-child,th:first-child{text-align:left}th{color:#5b6472;font-weight:500}.src{color:#5b6472;font-size:11px;max-width:900px}pre{background:#f4f5f7;padding:8px;font-size:11.5px}svg{max-width:100%;height:auto;margin:10px 0}';
+  let h='<!doctype html><html lang="'+LANG+'"><head><meta charset="utf-8"><title>'+r68Esc(t('r68ui_report_title'))+'</title><style>'+css+'</style></head><body>';
+  h+='<h1>'+r68Esc(t('r68ui_report_title'))+'</h1><p class="src">'+r68Esc(t('doc_title'))+' · v68 · '+new Date().toISOString().slice(0,10)+'</p>';
+  h+='<h2>'+r68Esc(t('r68ui_report_runfile'))+': '+r68Esc(runName||'')+'</h2><pre>'+r68Esc(runText||'')+'</pre>';
+  for(const tb of sm.tables)h+='<h2>'+r68Esc(tb.title)+'</h2>'+r68HTML(tb).replace(' class="pst r68"','');
+  h+='<h2>'+r68Esc(t('r68ui_tab_figs'))+'</h2>'+figs.map(f=>f.svg).join('\n');
+  return h+'</body></html>';}
+function r68AllCSV(sm){return sm.tables.map(tb=>tb.title+'\n'+r68CSV(tb)).join('\n\n');}
+
+// ---- building the column ----
+function r68UiBuild(){
+  const panel=document.querySelector('aside.panel');if(!panel)return;
+  const st=document.createElement('style');st.textContent=
+    '#r68run .r68kv{display:grid;grid-template-columns:92px 1fr;gap:2px 8px;font-family:var(--mono);font-size:9.5px;color:var(--slate);margin-top:6px}'+
+    '#r68run .r68kv b{color:var(--paper);font-weight:400;word-break:break-word}.r68desc{font-family:var(--mono);font-size:9px;color:var(--slate-dim);line-height:1.5;margin-top:4px}'+
+    '.r68ro *{pointer-events:none}.r68ro input{opacity:.55}.r68ro{cursor:default}.r68advin{display:flex;flex-direction:column;gap:15px;margin-top:8px}details.r68adv>summary{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate-dim);cursor:pointer;margin:4px 0}'+
+    '#r68cmd{display:block;font-family:var(--mono);font-size:10px;color:var(--paper);background:rgba(255,255,255,.04);border:1px solid var(--hair);border-radius:6px;padding:6px 8px;margin-top:5px;user-select:all;word-break:break-all}'+
+    '#r68inst{font-family:var(--mono);font-size:9px;line-height:1.6;color:var(--slate)}#r68inst code{color:var(--paper)}'+
+    '#r68box{left:0;width:auto}#r68box .tabs{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 12px}#r68box .tabs button{font-family:var(--mono);font-size:9.5px;padding:4px 9px;border:1px solid var(--hair);border-radius:5px;background:transparent;color:var(--slate);cursor:pointer}'+
+    '#r68box .tabs button.on{color:var(--paper);border-color:var(--paper);background:rgba(233,234,242,.08)}#r68box .tw{overflow-x:auto}'+
+    '#r68box table.r68 td,#r68box table.r68 th{white-space:nowrap;text-align:right}#r68box table.r68 td:first-child,#r68box table.r68 th:first-child,#r68box table.r68.l2 td:nth-child(2),#r68box table.r68.l2 th:nth-child(2){text-align:left}#r68box table.r68 td.ref{color:#ffd58a}#r68box .fig{background:#fff;border-radius:6px;padding:6px;margin:10px 0;max-width:760px}#r68box .fig svg{width:100%;height:auto}'+
+    '#r68prog{font-family:var(--mono);font-size:9.5px;color:var(--slate)}';
+  document.head.appendChild(st);
+  const blockOf=id=>{let b=document.getElementById(id);if(!b)return null;while(b.parentElement&&b.parentElement!==panel)b=b.parentElement;return b.parentElement===panel?b:null;};
+  // 1. fields replaced by the run file: hidden, code kept
+  const hid=document.createElement('div');hid.id='v67fields';hid.hidden=true;
+  for(const id of ['kflist','sphpick','csvfile','cursorfile','contractfile','instcohortfile','exData','scnBox','reizBox']){const b=blockOf(id);if(b)hid.appendChild(b);}
+  // 2. advanced (collapsed): chains, sliders (read-only), seed, prism probes, the note on sclerosis
+  const adv=document.createElement('details');adv.className='r68adv';adv.id='r68adv';
+  adv.innerHTML='<summary data-i18n="r68ui_adv">'+t('r68ui_adv')+'</summary><div class="r68advin"><div class="r68desc" data-i18n="r68ui_adv_desc">'+t('r68ui_adv_desc')+'</div></div>';
+  const advIn=adv.querySelector('.r68advin');
+  const chainsHead=panel.querySelector('[data-i18n="head_internalpath"]');const chainsB=chainsHead?chainsHead.closest('aside.panel > div'):null;
+  if(chainsB){chainsB.classList.add('r68ro');advIn.appendChild(chainsB);}
+  const speedCtl=document.getElementById('speed').closest('.ctl'),btns=document.getElementById('play').closest('.btns');
+  for(const c of [...panel.querySelectorAll(':scope > .ctl')]){if(c===speedCtl)continue;c.classList.add('r68ro');advIn.appendChild(c);}
+  const seedRow=blockOf('seed');if(seedRow){seedRow.classList.add('r68ro');advIn.appendChild(seedRow);}
+  // prism mode: probes come from the run file (key probes, or instances as census); the readout shows during the replay
+  const prism=document.getElementById('prismBox');if(prism){prism.style.display='none';const fb=prism.querySelector('#probefile');
+    if(fb){const row=fb.closest('.erow');if(row)row.style.display='none';}prism.querySelectorAll('[data-i18n="desc_prism"],[data-i18n="desc_probe"]').forEach(e=>e.style.display='none');}
+  const note=panel.querySelector(':scope > p.note');if(note)advIn.appendChild(note);
+  // 3. the new sections, after the social composition
+  const run=document.createElement('div');run.id='r68run';
+  run.innerHTML='<div class="heading" style="margin:4px 0 6px" data-i18n="r68ui_runhead">'+t('r68ui_runhead')+'</div>'+
+    '<div class="erow" style="gap:8px"><label for="r68files" class="filebtn" data-i18n="r68ui_choose">'+t('r68ui_choose')+'</label><input id="r68files" type="file" multiple accept=".csv,text/csv,.txt" style="display:none"></div>'+
+    '<div class="r68desc" data-i18n="r68ui_choose_desc">'+t('r68ui_choose_desc')+'</div><div id="r68status" class="r68kv"></div>'+
+    '<div class="r68desc" id="r68none" data-i18n="r68ui_none_loaded">'+t('r68ui_none_loaded')+'</div>'+
+    '<div class="erow" style="gap:8px;margin-top:8px;align-items:center"><button class="xbtn" id="r68go" disabled data-i18n="r68ui_compute">'+t('r68ui_compute')+'</button>'+
+    '<button class="xbtn" id="r68open" disabled data-i18n="r68ui_results">'+t('r68ui_results')+'</button><span id="r68prog"></span></div>'+
+    '<div class="erow" id="r68replay" style="gap:6px;margin-top:8px;align-items:center;display:none"><span class="r68desc" style="margin:0" data-i18n="r68ui_replay">'+t('r68ui_replay')+'</span><select id="r68sel" style="background:#0d1326;border:1px solid var(--hair);border-radius:6px;color:var(--paper);font-family:var(--mono);font-size:9.5px;padding:2px 4px"></select></div>';
+  const scr=document.createElement('div');scr.id='r68script';
+  scr.innerHTML='<div class="heading" style="margin:4px 0 4px" data-i18n="r68ui_script">'+t('r68ui_script')+'</div><div class="r68desc" data-i18n="r68ui_script_desc">'+t('r68ui_script_desc')+'</div>'+
+    '<code id="r68cmd">node run.js run.csv</code><details style="margin-top:6px"><summary class="r68desc" style="cursor:pointer" data-i18n="r68ui_install">'+t('r68ui_install')+'</summary><div id="r68inst" data-i18n-html="r68ui_install_html">'+t('r68ui_install_html')+'</div></details>'+
+    '<div class="erow" style="gap:6px;margin-top:6px"><button class="xbtn" id="r68dlrun" disabled data-i18n="r68ui_dl_runfile">'+t('r68ui_dl_runfile')+'</button></div>';
+  const dls=document.createElement('div');dls.id='r68dls';
+  dls.innerHTML='<div class="heading" style="margin:4px 0 6px" data-i18n="r68ui_downloads">'+t('r68ui_downloads')+'</div><div class="erow" style="gap:6px;flex-wrap:wrap">'+
+    '<button class="xbtn" id="r68dlrep" disabled data-i18n="r68ui_dl_report">'+t('r68ui_dl_report')+'</button><button class="xbtn" id="r68dltab" disabled data-i18n="r68ui_dl_tables">'+t('r68ui_dl_tables')+'</button>'+
+    '<button class="xbtn" id="r68dlser" disabled data-i18n="r68ui_dl_series">'+t('r68ui_dl_series')+'</button></div>';
+  const comp=document.getElementById('acteurs').closest('aside.panel > div');
+  const hr=()=>document.createElement('hr');
+  const after=comp.nextSibling;
+  for(const el of [hr(),run,speedCtl,btns,prism,hr(),scr,hr(),dls,hr()])if(el)panel.insertBefore(el,after);
+  panel.appendChild(adv);panel.appendChild(hid);
+  // tidy separators: no two in a row, none at the end
+  let prev=null;for(const el of [...panel.children]){if(el.tagName==='HR'&&(!prev||prev.tagName==='HR'))el.remove();else prev=el;}
+  // bottom timeline: keep start (replay) and the year; the period fields and the v67 summary go with the run file
+  for(const id of ['tlstart','tlend','tlstep','btnSheet'])document.getElementById(id).style.display='none';
+  document.querySelectorAll('#timeline > span').forEach(s=>{if(s.textContent==='–'||s.textContent==='/')s.style.display='none';});
+  // results overlay (wide, over the stage)
+  const box=document.createElement('div');box.className='sheetbox';box.id='r68box';
+  box.innerHTML='<h2 id="r68title"></h2><div class="tabs" id="r68tabs"></div><div id="r68body"></div><div class="bar2"><button id="r68close" data-i18n="r68ui_close">'+t('r68ui_close')+'</button></div>';
+  document.getElementById('sheetBox').after(box);
+  r68Wire();}
+function r68Wire(){
+  const $$=id=>document.getElementById(id);
+  $$('r68files').onchange=async e=>{const fl=[...e.target.files];if(!fl.length||R68busy)return;
+    const texts=await Promise.all(fl.map(f=>f.text()));r68Select(fl.map((f,i)=>({name:f.name,text:texts[i]})));e.target.value='';};
+  $$('r68go').onclick=r68Compute;
+  $$('r68open').onclick=()=>{if(R68&&R68.sm)r68Open();};
+  $$('r68close').onclick=()=>$$('r68box').classList.remove('on');
+  $$('r68sel').onchange=e=>r68Replay(+e.target.value);
+  $$('r68dlrun').onclick=()=>{if(R68)dl(R68.runName,R68.runText,'text/csv');};
+  $$('r68dlrep').onclick=()=>{if(R68&&R68.sm)dl(r68Stem()+'_report.html',r68Report(R68.res,R68.sm,R68.figs,R68.runName,R68.runText),'text/html');};
+  $$('r68dltab').onclick=()=>{if(R68&&R68.sm)dl(r68Stem()+'_tables.csv','﻿'+r68AllCSV(R68.sm),'text/csv');};
+  $$('r68dlser').onclick=()=>{if(R68&&R68.res)dl(r68Stem()+'_series.csv','﻿'+r68SeriesCSV(R68.res),'text/csv');};
+  // "Start" restarts the replay when a run file is loaded
+  const tr=$$('tlrun'),orig=tr.onclick;tr.onclick=e=>{if(R68busy)return;if(R68&&R68.runner){r68Replay(R68.selIdx);running=true;syncPlayBtn();}else if(orig)orig(e);};
+  const rs=$$('reset'),origR=rs.onclick;rs.onclick=e=>{if(R68busy)return;if(R68&&R68.runner)r68Replay(R68.selIdx);else if(origR)origR(e);};}
+function r68Stem(){return (R68&&R68.runName?R68.runName.replace(/\.[^.]*$/,''):'run');}
+// ---- choosing the run file among the selected files; the others are matched to its names ----
+function r68Select(list){const $$=id=>document.getElementById(id);
+  let best=null;for(const f of list){const p=parseRunFile(f.text);const known=f.text.split(/\r?\n/).filter(l=>l.trim()&&!l.trim().startsWith('#')&&r68Key(l.split(/[,;\t]/)[0])).length;
+    if(known&&(!best||known>best.known))best={f,p,known};}
+  const status=$$('r68status');$$('r68none').style.display='none';
+  if(!best){status.innerHTML='<span style="color:var(--warn)">'+r68Esc(t('r68ui_norun'))+'</span>';return;}
+  const prevFiles=(R68&&R68.files)||{};
+  if(R68&&R68.runner){R68.runner=null;r68ClearData();r68Theory(null,false);tl.start=1900;tl.end=2000;tl.year=1900;seed=1;reset();renderChains();updatePlayhead();
+    const pb=document.getElementById('prismBox');if(pb)pb.style.display='none';}
+  const base=s=>String(s).replace(/^.*[\/\\]/,'').toLowerCase(),files={},missing=[];
+  const needs=runFileNames(best.p.spec),dup=[...new Set(needs.filter(n=>needs.some(m=>m!==n&&base(m)===base(n))).map(base))];
+  if(dup.length)best.p.errors.push('two files with the same name: '+dup.join(', '));
+  for(const need of needs){const hit=list.find(f=>base(f.name)===base(need));
+    if(hit)files[need]=hit.text;else if(prevFiles[need])files[need]=prevFiles[need];else missing.push(need);}
+  R68={runName:best.f.name,runText:best.f.text,spec:best.p.spec,files,errors:best.p.errors,warnings:best.p.warnings,missing,res:null,sm:null,figs:null,runner:null};
+  r68ShowSpec();
+  $$('r68cmd').textContent='node run.js '+(/\s/.test(best.f.name)?'"'+best.f.name+'"':best.f.name);
+  $$('r68dlrun').disabled=false;$$('r68go').disabled=!!(best.p.errors.length||missing.length);
+  for(const id of ['r68open','r68dlrep','r68dltab','r68dlser'])$$(id).disabled=true;$$('r68replay').style.display='none';$$('r68prog').textContent='';}
+function r68ShowSpec(){const s=R68.spec,el=document.getElementById('r68status');const kv=(k,v)=>'<span>'+r68Esc(t(k))+'</span><b>'+r68Esc(v)+'</b>';
+  let h=kv('r68ui_k_mode',R68.runName+' · '+t(s.mode==='data'?'r68ui_mode_data':'r68ui_mode_sim'));
+  if(s.mode==='sim')h+=kv('r68ui_k_theories',['TR ('+t('r68_ref')+')'].concat(s.profiles.map(r68Name)).join(' · '));
+  else{if(s.contracts)h+=kv('r68ui_k_contracts',s.contracts);if(s.instances)h+=kv('r68ui_k_instances',s.instances);if(s.probes)h+=kv('r68ui_k_probes',s.probes);}
+  h+=kv('r68ui_k_time',s.mode==='data'?((s.start!=null||s.end!=null?(s.start!=null?s.start:'')+'–'+(s.end!=null?s.end:'')+' · ':'')+t('r68_t_trends').replace('{w}',s.trend)):
+    (s.steps?s.steps+' '+t('r68_steps'):(s.start+'–'+s.end)));
+  h+=kv('r68ui_k_seeds',s.seeds.length>3?s.seeds[0]+'–'+s.seeds[s.seeds.length-1]+' ('+s.seeds.length+')':s.seeds.join(', '));
+  if(s.stimulus)h+=kv('r68ui_k_stim',LAB[s.stimulus.x]+(s.stimulus.dir>0?' +':' −')+' · '+s.stimulus.dauer+' / '+s.stimulus.k+' @'+s.stimulus.beginn);
+  const bad=R68.errors.concat(R68.missing.length?[t('r68ui_missing')+': '+R68.missing.join(', ')+' — '+t('r68ui_add')]:[]);
+  if(bad.length)h+='<span></span><b style="color:var(--warn)">'+bad.map(r68Esc).join('<br>')+'</b>';
+  if(R68.warnings.length)h+='<span></span><b style="color:var(--slate-dim)">'+R68.warnings.map(r68Esc).join('<br>')+'</b>';
+  el.innerHTML=h;}
+async function r68Compute(){const $$=id=>document.getElementById(id);if(!R68||R68busy)return;const ctx=R68;
+  running=false;syncPlayBtn();R68.runner=null;$$('r68go').disabled=true;$$('r68files').disabled=true;$$('r68prog').textContent=t('r68ui_computing');
+  try{const res=await r68RunAsync(ctx.spec,ctx.files,(d,n)=>{$$('r68prog').textContent=t('r68ui_computing')+' '+Math.round(100*d/n)+' %';});
+    if(R68!==ctx)return;
+    R68.res=res;R68.sm=r68Summary(res);R68.figs=r68Figures(res,R68.sm);
+    $$('r68prog').textContent=t('r68ui_done');
+    for(const id of ['r68open','r68dlrep','r68dltab','r68dlser'])$$(id).disabled=false;
+    const sel=$$('r68sel');sel.innerHTML='';res.runs.forEach((r,i)=>{if(r.control)return;const o=document.createElement('option');o.value=i;
+      o.textContent=(res.spec.mode==='data'?'':r.theory+' · ')+t('r68ui_seed')+' '+r.seed;sel.appendChild(o);});
+    $$('r68replay').style.display='flex';r68Replay(+sel.value);r68Open();}
+  catch(e){$$('r68prog').innerHTML='<span style="color:var(--warn)">⚠ '+r68Esc(e&&e.message||e)+'</span>';}
+  finally{$$('r68go').disabled=false;$$('r68files').disabled=false;}}
+// ---- the replay: the same step sequence as the computed run, a few steps per frame ----
+function r68Replay(i){const run=R68.res.runs[i];R68.selIdx=i;
+  const job=r68Plan(R68.spec,R68.files).find(j=>j.theory===run.theory&&j.seed===run.seed&&!j.control);
+  const R=r68Runner(job);R.prepare();R68.runner=R;running=false;syncPlayBtn();hist.length=0;tl.playing=false;
+  if(job.kind==='steps'){tl.start=0;tl.end=R.total;tl.year=0;}else{tl.year=tl.start;}
+  const sf=document.getElementById('seed');if(sf)sf.value=job.seed;syncMechUI();lastFluxYear=null;
+  renderChains();updatePlayhead();
+  const pb=document.getElementById('prismBox');if(pb)pb.style.display=(probeByActor&&prismSel.length)?'':'none';lastPrismYear=null;renderProbeList();renderPrismRead();}
+function r68Tick(rawDt){const R=R68.runner;if(!running||R.done)return;
+  const n=Math.max(1,Math.round(R.total/1500*speed/0.5));R.advance(n);
+  tl.year=R.job.kind==='steps'?R.i:Math.min(tl.end,R.year);phase=(phase+n*REIZ_DT*0.6)%1;recordTraj();if(tframe%30===0)renderChains();renderFlux(tl.year);
+  if(R.done){running=false;syncPlayBtn();}}
+// ---- the results overlay ----
+function r68Open(){const box=document.getElementById('r68box'),sm=R68.sm;
+  document.getElementById('r68title').textContent=t('r68ui_results').replace('Σ ','')+' · '+R68.runName;
+  const tabs=document.getElementById('r68tabs');tabs.innerHTML='';
+  const items=sm.tables.map(tb=>({lab:tb.title.replace(/ \(.*\)$/,''),show:()=>r68ShowTable(tb)})).concat([{lab:t('r68ui_tab_figs'),show:r68ShowFigs}]);
+  items.forEach((it,i)=>{const b=document.createElement('button');b.textContent=it.lab;b.onclick=()=>{[...tabs.children].forEach(c=>c.classList.remove('on'));b.classList.add('on');it.show();};tabs.appendChild(b);if(i===0)b.click();});
+  box.classList.add('on');}
+function r68ShowTable(tb){const body=document.getElementById('r68body');
+  body.innerHTML='<div class="sh">'+r68Esc(tb.title)+'</div><div class="tw">'+r68HTML(tb)+'</div><div class="bar2" style="margin-top:8px"><button id="r68tcsv">'+r68Esc(t('r68ui_csv'))+'</button></div>';
+  document.getElementById('r68tcsv').onclick=()=>dl(r68Stem()+'_'+tb.id+'.csv','﻿'+r68CSV(tb),'text/csv');}
+function r68ShowFigs(){const body=document.getElementById('r68body');body.innerHTML='';
+  for(const f of R68.figs){const d=document.createElement('div');d.className='fig';d.innerHTML=f.svg;const b=document.createElement('button');b.className='xbtn';b.textContent=t('r68ui_svg');
+    b.onclick=()=>dl(r68Stem()+'_'+f.name+'.svg',f.svg,'image/svg+xml');body.appendChild(d);body.appendChild(b);}}
+// language switch: rebuild what is open
+document.querySelectorAll('.langbtn').forEach(b=>b.addEventListener('click',()=>setTimeout(()=>{if(R68){r68ShowSpec();if(R68.res){R68.sm=r68Summary(R68.res);R68.figs=r68Figures(R68.res,R68.sm);
+  if(document.getElementById('r68box').classList.contains('on'))r68Open();}}},0)));
+r68UiBuild();
 renderChains();buildInspGrid();reset();tl.keys=neutralKeys();tl.start=tl.keys[0].year;tl.end=tl.keys[tl.keys.length-1].year;tl.sel=0;tl.year=tl.start;document.getElementById("tlstart").value=tl.start;document.getElementById("tlend").value=tl.end;updateSphPick();loadKeyToSliders();renderTicks();renderKfList();resize();sizeMini();applyDefaults();setLang('en');requestAnimationFrame(loop);
 window.addEventListener("resize",sizeMini);
 </script>

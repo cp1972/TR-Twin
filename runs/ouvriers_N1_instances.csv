@@ -1,0 +1,6 @@
+# Mode données : la cohorte (chapitre 11) avec les instances de médiation et de contrôle
+mode,données
+contrats,../data-mode/topic-models/contracts/N1_lexikon_hiscam_echte_jahre.csv
+instances,../data-mode/data/instances/instances_full_empirical.csv
+graines,1-8
+fenetre,20

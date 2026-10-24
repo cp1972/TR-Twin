@@ -29,28 +29,32 @@ re-dated contract tables and all scripts are in [[file:topic-models/README.org][
 
 * Run it in the twin (the "course" configuration)
 
+Since v68 the run is prepared in a run file: =runs/worked_example.csv= names the two tables.
+
 1. Open =tr-twin.html= (at the repository root) in a browser.
-2. *Import an actor cohort (contract table CSV)* → =data/actors/cohorte_contrat.csv=.
-   This drives the field: actor circulation, structure sizes, inequality (Gini), reciprocity.
-3. *Import an instance cohort (contract table CSV)* → =data/instances/instances_full_empirical.csv=.
-   This carries both the *mediation* instances (which drive the sequences) and the *control*
-   instances (rows with =categorie = controle=, auto-routed to control capacity). No need to split
-   them by hand.
-4. Press play. Watch, together: the actors circulating across structures, the instances waxing and
-   waning, the control capacity of A and D building up, and reciprocity declining as the
-   destinations fill.
-5. Optional (since v64): below the cohort import, /empty relational structures/ sets what the twin
-   uses in years in which a structure has no active actor — uniform 25 % per category (default,
-   as up to v63), the overall composition of the structure, or the last observation carried
-   forward. The status line shows how many years are empty per structure (here A 47 · B 129 ·
-   C 23 · D 81 of 209). See [[file:topic-models/README.org][topic-models/]] for why this matters.
+2. /Choose run file and data…/ → select =runs/worked_example.csv= together with
+   =data/actors/cohorte_contrat.csv= (the actor cohort: it drives the field — actor circulation,
+   structure sizes, inequality, reciprocity) and =data/instances/instances_full_empirical.csv=
+   (the *mediation* instances, which drive the sequences, and the *control* instances, rows with
+   =categorie = controle=, routed to control capacity).
+3. /▶ Compute/: the results open (trends per decade, detail per structure, circulation and
+   mobility, permeability, figures). Close them and press /▶ Start/ to watch, together: the actors
+   circulating across structures, the instances waxing and waning, the control capacity of A and D
+   building up, and reciprocity declining as the destinations fill.
+4. The same from a terminal: =node run.js runs/worked_example.csv= (see
+   [[file:../techdocs/04-headless-runs.org][document 4]]).
+5. Optional: the key =categories= sets what the twin uses in years in which a structure has no
+   active actor — =uniform= 25 % per category (default, as up to v63), =composition= (the overall
+   composition of the structure), or =carry= (the last observation carried forward). Here A is
+   empty in 47 of 209 years, B in 129, C in 23, D in 81. See [[file:topic-models/README.org][topic-models/]] for why this matters.
 
 ** Other things to try
 
-- *A close-up (prism).* Load =data/instances/instances_probe_demo.csv= via *Prism mode · probes*:
-  six emblematic mediation instances with weight curves anchored on documented milestones.
-- *Control only.* Load =data/instances/control_parc_empirical.csv= to see the control apparatus on
-  its own (its capacity gradation and per-sequence profile).
+- *A close-up (prism).* =runs/prism_probes.csv= follows the six emblematic mediation instances of
+  =data/instances/instances_probe_demo.csv= (weight curves anchored on documented milestones) through
+  the field of the cohort.
+- *Control only.* A run file with =instances,…/control_parc_empirical.csv= shows the control
+  apparatus on its own (its capacity gradation and per-sequence profile).
 - *Everything moving (teaching).* The full cohort above is the spectacular one — the whole
   relational order deforms under actor circulation and instance force at once.
 

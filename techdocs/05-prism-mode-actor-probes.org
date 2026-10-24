@@ -17,9 +17,9 @@ This is deliberately useful for *small samples*, which are common in sociology a
 
 * How to use it in the twin
 
-1. Open =tr-twin.html=. Optionally load a full cohort via /Import an actor cohort (contract table CSV)/ — when present, the whole cohort builds the relational field that the probes are read against.
-2. In the *Prism mode · probes* panel, load a small /probe extract/ through its own file button: a contract table of just the units you want to trace (columns =aid, year, structure, category, sequence=; one dated stage per row). Every actor in the extract is traced — keep it to 1–5. If no full cohort is loaded, the extract also serves as the field.
-3. Start the timeline. Each probe appears on the scene as a dot coloured by its current category, with a halo on its current structure and a dotted line tracing its whole path; the side panel reports, for the current year, each probe's structure/sequence/category and the field it sits in (the regime of its structure — autonomous or satellite of another — and the satellisation level).
+1. Write a run file in data mode (since v68; see =runs/prism_probes.csv=): optionally a full cohort (key =contracts=) — when present, the whole cohort builds the relational field that the probes are read against.
+2. Name a small /probe extract/ with the key =probes=: a contract table of just the units you want to trace (columns =aid, year, structure, category, sequence=; one dated stage per row). Every actor in the extract is traced — keep it to 1–5. If no full cohort is named, the extract also serves as the field.
+3. Load the run file with its tables, compute, and start the replay. Each probe appears on the scene as a dot coloured by its current category, with a halo on its current structure and a dotted line tracing its whole path; the side panel reports, for the current year, each probe's structure/sequence/category and the field it sits in (the regime of its structure — autonomous or satellite of another — and the satellisation level).
 
 The reading is language-aware (DE/EN/FR) and updates as the timeline advances. Selecting probes by /loading a file/ rather than ticking a long list keeps the mechanism simple and scales to any cohort size: a student drops in a two-row extract and reads the field through it immediately, while a researcher can drive the field with the full cohort and trace a chosen handful cases. The same loader will carry /instance/ probes once an instance layer is harvested from the sources.
 
@@ -97,10 +97,10 @@ The bundled figures =figures/fig_instance_lifelines.svg= (birth, strength and de
 
 ** Instance cohort (census) vs prism probe
 
-Two left-panel inputs load instances, and they are not the same:
+Two run-file keys load instances (since v68; before, two input fields), and they are not the same:
 
-- /Prism probe/ (=probefile=, in the prism panel) is a *lens*: a small extract (capped at 8), each instance drawn and read individually, for close inspection.
-- /Instance cohort/ (=instcohortfile=) is a *census*: it loads the whole instance stock uncapped, drives every cell by the weight (max aggregation), and draws all live instances at once with a compact per-structure readout (no per-dot labels; overlapping instances in a cell are slightly jittered).
+- /Prism probe/ (key =probes=) is a *lens*: a small extract (capped at 8), each instance drawn and read individually, for close inspection.
+- /Instance cohort/ (key =instances=) is a *census*: it loads the whole instance stock uncapped, drives every cell by the weight (max aggregation), and draws all live instances at once with a compact per-structure readout (no per-dot labels; overlapping instances in a cell are slightly jittered).
 
 The census is the teaching configuration: load a full actor cohort (which animates the field — circulation, sizes, Gini, reciprocity) and a full instance cohort (which animates the instances' force), and the whole relational order moves at once. =instances_cohort_demo.csv= provides 60 instances with generic rise–peak–decline weight curves (illustrative); the six in =instances_probe_demo.csv= carry milestone-anchored curves.
 

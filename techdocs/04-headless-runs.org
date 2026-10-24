@@ -7,7 +7,7 @@
 
 This document describes how to drive the digital twin of the Theory of the Relation from the command line, without a browser. It is addressed to readers who need results that can be regenerated exactly for a publication, for a replication, or for a batch of runs too large to perform by hand.
 
-The remainder assumes familiarity with Node.js at the level of running a script from a terminal. Readers who do not need reproducible batch output can omit this document entirely: everything it describes can also be done in the interface, though less economically and without the guarantee of an identical repetition.
+Since version 68 the simplest way is a run file: the interface and the command line compute it identically (section [[*Run files from the command line (since v68)][Run files]] below; the run file itself is described in [[file:03-usage-of-the-tr-digital-twin.org][document 3]]). The scripts further down remain for the analyses of the book (sweeps, batches, metrics) and assume familiarity with Node.js at the level of running a script from a terminal.
 
 * What this is for
 
@@ -17,13 +17,30 @@ Same seed + same profile ⇒ bit-identical results. Every figure can therefore b
 
 * Install once
 
-Node.js is required (tested from v22). In the folder where you keep the scripts:
+Node.js is required (tested with v22). Installation:
+
+- *Windows*: the installer (LTS) from https://nodejs.org, or in a terminal =winget install OpenJS.NodeJS.LTS=;
+- *macOS*: the installer (LTS) from https://nodejs.org, or =brew install node=;
+- *Linux*: the package manager (=nodejs=, =npm=).
+
+On pool computers the installation may need administrator rights. Then, once, in the folder of the twin (where =package.json= lies):
 
 #+begin_src sh
-npm install jsdom
+npm install
 #+end_src
 
-That is the only dependency.
+This installs jsdom, the only dependency. (For scripts kept elsewhere, =npm install jsdom= in that folder, or =NODE_PATH= pointing to a =node_modules= folder.)
+
+* Run files from the command line (since v68)
+
+#+begin_src sh
+node run.js runs/compare_parsons_luhmann.csv            # results in results/compare_parsons_luhmann/
+node run.js runs/arbeiter_N1.csv --lang de --out mein_ordner
+#+end_src
+
+=run.js= loads =tr-twin.html= with jsdom and calls the same functions as the interface: reading the run file, the runs (TR and theories × seeds, or the cohort × seeds), the tables and the figures. It writes =report.html=, =tables.csv=, one CSV per table in =tables/=, =series.csv= and the figures in =figures/=. =--lang= sets the language of the tables and figures (=en=, =de=, =fr=). Paths in the run file are relative to the run file.
+
+The simulation runs of a run file are the runs of the pipeline (=__setze= and N steps), the year runs those of =run.js= below (=runSeries=), the data runs those of the cohort import of the interface; with the same settings their results are bit-identical (=tests/test_v67_equal.js=). The interface and the command line give the same tables and series for the same run file (=tests/test_gui_cli.py=).
 
 * The scripts
 
@@ -38,13 +55,13 @@ That is the only dependency.
 ** Year mode (1900 → 2000)
 
 #+begin_src sh
-node run.js  <app.html>  <profile.csv>
+node simulation-mode/scripts/runs/run.js  <app.html>  <profile.csv>
 #+end_src
 
-Concretely, from the repository root:
+Concretely, from the repository root (the scripts are in =simulation-mode/scripts/runs/=):
 
 #+begin_src sh
-node run.js  ./tr-twin.html  ./simulation-mode/profiles/profil_Emirbayer.csv
+node simulation-mode/scripts/runs/run.js  ./tr-twin.html  ./simulation-mode/profiles/profil_Emirbayer.csv
 #+end_src
 
 Output:
@@ -65,13 +82,13 @@ The full year-by-year series is written as JSON (one row per year, with sizes, g
 ** Step mode (N steps, cursors held fixed)
 
 #+begin_src sh
-node run_steps.js  <app.html>  <profile.csv>  [steps]  [output.json]
+node simulation-mode/scripts/runs/run_steps.js  <app.html>  <profile.csv>  [steps]  [output.json]
 #+end_src
 
 Concretely:
 
 #+begin_src sh
-node run_steps.js  ./tr-twin.html  ./simulation-mode/profiles/profil_Parsons.csv  1819  ./out/parsons.json
+node simulation-mode/scripts/runs/run_steps.js  ./tr-twin.html  ./simulation-mode/profiles/profil_Parsons.csv  1819  ./out/parsons.json
 #+end_src
 
 Output:
@@ -86,13 +103,13 @@ The cursors are set to the profile's last-year values and held constant; this is
 * Run ALL profiles (batch)
 
 #+begin_src sh
-node batch.js  <app.html>  <profiles-folder>  <output-folder>  [steps]
+node simulation-mode/scripts/runs/batch.js  <app.html>  <profiles-folder>  <output-folder>  [steps]
 #+end_src
 
-Concretely, from the repository root:
+Concretely, from the repository root (the scripts are in =simulation-mode/scripts/runs/=):
 
 #+begin_src sh
-node batch.js  ./tr-twin.html  ./simulation-mode/profiles  ./out/profiles  1819
+node simulation-mode/scripts/runs/batch.js  ./tr-twin.html  ./simulation-mode/profiles  ./out/profiles  1819
 #+end_src
 
 All arguments are optional; the defaults are exactly the values above. The command prints one line per profile and writes one JSON trajectory per profile into the output folder:
@@ -113,7 +130,7 @@ JSON trajectories: ./out/profiles
 To run everything to convergence instead of the 1819-step horizon, raise the step count:
 
 #+begin_src sh
-node batch.js  ./tr-twin.html  ./simulation-mode/profiles  ./out/converged  5000
+node simulation-mode/scripts/runs/batch.js  ./tr-twin.html  ./simulation-mode/profiles  ./out/converged  5000
 #+end_src
 
 * How it works (three lines)
@@ -172,20 +189,20 @@ The figures of the book are produced in two steps: *(1)* a headless run writes t
 *** A) Trajectory (one profile, N steps)
 
 #+begin_src sh
-node run_steps.js ./tr-twin.html ./simulation-mode/profiles/profil_Parsons.csv 1819 ./out/parsons.json
+node simulation-mode/scripts/runs/run_steps.js ./tr-twin.html ./simulation-mode/profiles/profil_Parsons.csv 1819 ./out/parsons.json
 python3 render_trajektorie.py ./out/parsons.json ./figures/parsons_trajektorie.svg
 #+end_src
 
 *** B) Sweep (vary one cursor)
 
 #+begin_src sh
-node sweep_generic.js <app.html> <profile.csv> <cursorId> <v1,v2,...> [steps] [out.json]
+node simulation-mode/scripts/runs/sweep_generic.js <app.html> <profile.csv> <cursorId> <v1,v2,...> [steps] [out.json]
 #+end_src
 
 Example — Luhmann's closure, permeability from open (1) to closed (0):
 
 #+begin_src sh
-node sweep_generic.js ./tr-twin.html ./simulation-mode/profiles/profil_Luhmann.csv \
+node simulation-mode/scripts/runs/sweep_generic.js ./tr-twin.html ./simulation-mode/profiles/profil_Luhmann.csv \
      over "1.0,0.7,0.5,0.3,0.15,0.05,0.0" 1819 ./out/luhmann_schliessung.json
 #+end_src
 
@@ -217,7 +234,7 @@ Write a small spec file, =spec.json=:
 =profile: null= means the TR reference itself (all cursors at their default values).  =cursors= overrides single cursors. =steps= may be set per entry (default 1819). Then:
 
 #+begin_src sh
-node metrics.js ./tr-twin.html ./spec.json ./out/luhmann_bars.json
+node simulation-mode/scripts/runs/metrics.js ./tr-twin.html ./spec.json ./out/luhmann_bars.json
 #+end_src
 
 #+begin_example
@@ -264,7 +281,7 @@ Chapter 6 (White) asks whether the apex simply follows the network position, as 
 The four files are =profil_White_hub_A.csv= … =profil_White_hub_D.csv= (A culture, B politics, C economy, D media). Run them like any other profile:
 
 #+begin_src sh
-node metrics.js ./tr-twin.html ./spec_white_hub.json ./out/white.json
+node simulation-mode/scripts/runs/metrics.js ./tr-twin.html ./spec_white_hub.json ./out/white.json
 #+end_src
 
 with a spec listing the four profiles at 5000 steps (the apex is not settled at 1819). Result (seed 1):

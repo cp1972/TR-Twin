@@ -1,0 +1,5 @@
+# Prism mode: six mediation and control instances followed as probes through the field of the cohort
+mode,data
+contracts,../data-mode/data/actors/cohorte_contrat.csv
+probes,../data-mode/data/instances/instances_probe_demo.csv
+seeds,1

@@ -1,0 +1,13 @@
+{
+  "name": "tr-twin",
+  "version": "68.0.0",
+  "description": "Digital twin of the Theory of the Relation: run files from the command line (node run.js <run file>)",
+  "private": true,
+  "license": "CC-BY-4.0",
+  "scripts": {
+    "run-example": "node run.js runs/compare_parsons_luhmann.csv"
+  },
+  "dependencies": {
+    "jsdom": "^29.1.1"
+  }
+}

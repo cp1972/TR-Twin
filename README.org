@@ -18,6 +18,12 @@ The twin is a single, self-contained file: =tr-twin.html=.
 
 The interface switches between *English, German, and French* (the DE·EN·FR pill, top right).
 
+Since version 68 a run is prepared in a *run file* (examples in =runs/=): it names the theory profiles or the contract table, the time axis and the seeds. In the interface, /Choose run file and data…/ loads it with the files it names, /▶ Compute/ computes it and opens the results, /▶ Start/ replays it. The same run computes from a terminal, with the same results ([[file:techdocs/04-headless-runs.org][document 4]]; Node.js and, once, =npm install=):
+
+#+begin_src sh
+node run.js runs/compare_parsons_luhmann.csv
+#+end_src
+
 * Two modes
 
 The twin does two different things, and the repository is split accordingly.
@@ -44,17 +50,21 @@ Both modes are laid out the same way, so what you learn in one carries over to t
 
 If you just want to see it work on real data, go to *[[file:data-mode/README.org][data-mode/]]*. It walks you through loading the cohort and the art/media instances they passed through, and reproduces the project's main finding — and its deepening: the *control instances* are the channels of the atypical transversal circulation.
 
-In short, in the twin: import =data-mode/data/actors/cohorte_contrat.csv= (the actor cohort) and =data-mode/data/instances/instances_full_empirical.csv= (the mediation + control instances), then press play.
+In short, in the twin: load =runs/worked_example.csv= with =data-mode/data/actors/cohorte_contrat.csv= (the actor cohort) and =data-mode/data/instances/instances_full_empirical.csv= (the mediation + control instances), press /▶ Compute/, then /▶ Start/.
 
 * Repository structure
 
 #+begin_example
 README.org                  ← you are here (entry point)
 tr-twin.html                ← the application (open this)
+run.js                      ← a run file from the command line: node run.js <run file>
+package.json                ← npm install (jsdom, for run.js and the headless scripts)
 index.html                  ← redirect for GitHub Pages
 CITATION.cff                ← how to cite
 
-techdocs/                   theoretical + technical documentation (10 chapters)
+runs/                       example run files (simulation and data mode; en, de, fr)
+tests/                      v68 = v67 on the deterministic paths; interface = command line
+techdocs/                   theoretical + technical documentation (documents 0–7)
 
 simulation-mode/            contrasting theoretical frameworks
   profiles/                 the 24 cursor profiles (Parsons, Luhmann, Habermas,

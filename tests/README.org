@@ -1,0 +1,13 @@
+#+TITLE: Tests of version 68
+
+Run from the repository root, after =npm install=.
+
+| Test | What it checks | Command |
+|------+----------------+---------|
+| =test_runfile.js= | run files in English, German and French give the same run; keys, seeds, stimulus, errors; every example in =runs/= | =node tests/test_runfile.js= |
+| =test_v67_equal.js= | v68 computes bit-identically to v67's deterministic paths: every profile in steps (pipeline), three profiles in years (=run.js=), five data runs (contract tables, instances, probes) | =node tests/test_v67_equal.js v67.html= |
+| =test_stimulus.js= | the stimulus verdict of a run file equals v67's stimulus probe | =node tests/test_stimulus.js v67.html= |
+| =test_repeat.js= | a run does not depend on what was computed before it in the same page | =node tests/test_repeat.js= |
+| =test_gui_cli.py= | the interface (Chromium) and =node run.js= give the same series and tables; the replay ends in the computed state | =python3 tests/test_gui_cli.py [chromium]= (needs Playwright) |
+
+=v67.html= is version 67 of the twin: =git show main:tr-twin.html > v67.html= (before the merge of v68 into =main=; afterwards from the last v67 commit).

@@ -1,5 +1,5 @@
 #+TITLE: v68 — Runs from files, results that answer questions
-#+SUBTITLE: Specification for review (branch v68; not part of the documentation yet)
+#+SUBTITLE: Specification (branch v68) — implemented; the user documentation is in techdocs 3 and 4
 #+OPTIONS: toc:t num:t ^:nil
 #+LANGUAGE: en
 
@@ -29,7 +29,7 @@ A CSV with two columns, key and value (more values in further columns where a ke
 | mode        | modus          | mode          | =simulation= / =data= (=Simulation=, =Daten= / =simulation=, =données=)  | both   |
 | profile     | profil         | profil        | a profile CSV; the key may repeat (one row per theory)                   | sim    |
 | contracts   | vertragstabelle | contrats     | a contract table CSV                                                     | data   |
-| categories  | kategorien     | categories    | rule for empty categories: =uniform= / =composition= / =empty=           | data   |
+| categories  | kategorien     | categories    | rule for empty categories: =uniform= / =composition= / =carry=           | data   |
 | stepped     | stufen         | paliers       | =yes= / =no= (stepped interpolation of the cohort)                       | data   |
 | start, end  | beginn, ende   | debut, fin    | years of the time axis (data: default = first and last year of the table) | both   |
 | steps       | schritte       | pas           | number of steps (simulation, instead of years)                           | sim    |
@@ -65,7 +65,7 @@ In the interface: *Load run file* (plus the files it names). In a terminal, from
 
 ** Simulation mode: what do the assumptions of the theories change?
 
-*Table 1 — Assumptions.* Rows: the thirteen sliders, the four chains, the mechanisms M1–M6 (and the saturation time). Columns: the TR default (reference), then each theory of the run file. A cell shows the value the theory declares. A slider the theory does not declare is shown as /not assumed · TR value/: the run uses the TR value for it, so results stay comparable on that point, and the mark says why. A mechanism the theory does not declare is /not assumed/: the run computes without it.
+*Table 1 — Assumptions.* Rows: the twelve sliders, the four chains, the mechanisms M1–M6 (and the saturation time). Columns: the TR default (reference), then each theory of the run file. A cell shows the value the theory declares. A slider the theory does not declare is shown as /not assumed · TR value/: the run uses the TR value for it, so results stay comparable on that point, and the mark says why. A mechanism the theory does not declare is /not assumed/: the run computes without it.
 
 *Table 2 — Results.* For each theory and the TR, over the seeds (median, range):
 - inequality: global Gini, and the three levels (transversal, horizontal, vertical);
@@ -81,18 +81,18 @@ Each value is also shown as the difference to the TR.
 
 ** Data mode: what does the cohort show over time?
 
-*1. Trends.* For each trend period (default 10 years, at most 100) and for the whole period: direction and size of the change of inequality (three levels), reciprocity and the sizes of the structures — for the whole relational space and per structure. A trend is marked when it is larger than the spread between seeds; a period with few transitions in the contract table is marked as thin. Table and figure; the yearly series are exported so that students can compute trends themselves (another window, another measure).
+*1. Trends.* For each trend period (default 10 years, at most 100) and for the whole period: direction and size of the change of inequality (three levels), reciprocity and the sizes of the structures — for the whole relational space and per structure. A trend is marked as not clear (~) when the median change does not exceed the spread of the changes between the seeds; a period with few transitions in the contract table is marked as thin. Table and figure; the yearly series are exported so that students can compute trends themselves (another window, another measure).
 
 *2. Detail per structure.* For A, B, C, D: size, reciprocity, internal Gini, vertical inequality, instances (relation, sequence, sub-sequence, control) and control capacity, as series and per trend period.
 
 *3. Circulation and mobility.*
 - /Circulation/ is every movement of an actor between positions: between sequences of the same structure, or between structures, and also a change of stage without a change of position. Counted from the transitions of the contract table and the migrations of the run, per period: same position · change of sequence · change of structure (as in chapter 12, section 12.7), and as a 4×4 matrix of flows between structures.
 - /Mobility/ is the reading of a circulation as ascending, descending or neither, from the change of the actor category at that transition, whether the actor stays in the sequence, changes the sequence or changes the structure. Cross-table: kind of circulation × direction of mobility, per period (the chapter 11/12 finding that a change of structure is not necessarily an ascent becomes visible directly).
-- /Permeability/: next to circulation and mobility, the control capacity of the instances per structure and per sequence, and the migration actually realised (accepted, downgraded, blocked).
+- /Permeability/: next to circulation and mobility, the control capacity of the instances per structure, and the migration in the twin: the blocked share of attempted migration, and the circulation between structures and between sequences. (Per sequence and accepted/downgraded counts: not implemented in v68.)
 
 *Direction of mobility.* Mobility moves one category at a time: upward from disappointed to conservatives, from conservatives to aspirants, from aspirants to established; downward the other way. No actor jumps several categories at once — it can move fast, but through each category. This is the order the twin already uses for vertical inequality (established 3 > aspirants 2 > conservatives 1 > disappointed 0) and for the downgrading on migration (one category down). A transition is ascending, descending or neither by this order; its size is the number of categories passed.
 
-*Jumps in the contract tables.* Between two coded stages of an actor the category often changes by two or three categories (N1: 131 of 171 changes of category; topic table N3: 280 of 482), because not every stage of an actor is coded. Such a jump is counted as the corresponding number of steps in the same direction (from disappointed to established: three ascending steps). The steps beyond the first are marked /inferred/ (not observed), and their share is reported per period, so that one sees how much of the measured mobility rests on stages that are not coded.
+*Jumps in the contract tables.* Between two coded stages of an actor the category often changes by two or three categories (N1: 126 of 165 changes of category; topic table N3: 273 of 467; counted as the twin counts transitions, with the last coded stage of each year), because not every stage of an actor is coded. Such a jump is counted as the corresponding number of steps in the same direction (from disappointed to established: three ascending steps). The steps beyond the first are marked /inferred/ (not observed), and their share is reported per period, so that one sees how much of the measured mobility rests on stages that are not coded.
 
 HISCAM plays no role in the twin's results: it is one way (used in chapters 11 and 12) to classify the material into the contract table; other material is classified by other means (e.g. topic models).
 
@@ -107,7 +107,7 @@ Mockups (right column only; values illustrative): [[file:v68-mockup-simulation.p
   2. *Results* — tabs: simulation: Assumptions · Results · Figures; data: Trends · Structures · Circulation and mobility.
   3. *As a script* — the command for the terminal (Windows, macOS, Linux), the run file to download, and how to install Node.js and jsdom.
   4. *Downloads* — tables (CSV) and figures (SVG/PNG) of the results, data CSV, transitions CSV.
-  5. *For advanced users* (collapsed, read-only) — the thirteen sliders with the values of the loaded profile, the chains and the mechanisms. They show what else can be coded; they cannot be moved.
+  5. *For advanced users* (collapsed, read-only) — the twelve sliders with the values of the loaded profile, the chains and the mechanisms. They show what else can be coded; they cannot be moved.
 - *Removed from the interface* (code kept): population data import, keyframe population sliders, timeline keyframe editing, slider profile and cohort import as separate fields (now via the run file), the stimulus panel (now a run-file key), the what-if scenario panel (now the trends).
 - Language switch DE/EN/FR as now.
 

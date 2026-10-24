@@ -1,0 +1,6 @@
+# Simulation: Parsons and Luhmann next to the Theory of the Relation (always computed as the reference)
+mode,simulation
+profile,../simulation-mode/profiles/profil_Parsons.csv
+profile,../simulation-mode/profiles/profil_Luhmann.csv
+steps,1819
+seeds,1-8
