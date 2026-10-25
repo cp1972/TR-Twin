@@ -2341,6 +2341,8 @@ Object.assign(I18N,{
   r68_n_seeds:{fr:'Une ligne par théorie et graine. Issue = suite des structures dominantes (B→C→B : B domine, puis C, puis de nouveau B ; « aucune » : pas de domination) et, à la fin, les régimes qui ne sont pas autonomes (C▸D : C suit la séquence de D). Tailles A–D, satellisation par la dominante (moyenne des trois autres) et inégalités : à la fin. Début et fin de la première domination, changements : sur tout le déroulement ({u}) ; une domination de moins de 300 pas (en années : 10 ans) ne compte pas, sauf la dernière. Circulation : part des changements de structure, ascendante, descendante (% de la circulation) ; migration bloquée (% de la tentée). La plus stratifiée : la structure à la plus forte inégalité verticale à la fin (– : aucune ne dépasse les autres de 0,005).',
     de:'Eine Zeile je Theorie und Startwert. Ausgang = Folge der dominanten Strukturen (B→C→B: B dominiert, dann C, dann wieder B; „keine“: keine Domination) und am Ende die Regime, die nicht autonom sind (C▸D: C läuft unter der Sequenz von D). Größen A–D, Satellisierung durch die dominante (Mittel der drei anderen) und Ungleichheiten: am Ende. Beginn und Ende der ersten Domination, Wechsel: über den ganzen Lauf ({u}); eine Domination unter 300 Schritten (in Jahren: 10 Jahre) zählt nicht, außer der letzten. Zirkulation: Anteil Strukturwechsel, aufsteigend, absteigend (% der Zirkulation); blockierte Migration (% der versuchten). Am stärksten geschichtet: die Struktur mit der höchsten vertikalen Ungleichheit am Ende (–: keine übertrifft die anderen um 0,005).',
     en:'One row per theory and seed. Outcome = sequence of the dominant structures (B→C→B: B dominates, then C, then B again; “none”: no domination) and, at the end, the regimes that are not autonomous (C▸D: C runs under the sequence of D). Sizes A–D, satellisation by the dominant (mean of the other three) and inequalities: at the end. Begin and end of the first domination, changes: over the whole run ({u}); a domination shorter than 300 steps (in years: 10 years) does not count, except the last one. Circulation: share of changes of structure, ascending, descending (% of the circulation); blocked migration (% of attempted). Most stratified: the structure with the highest vertical inequality at the end (–: none exceeds the others by 0.005).'},
+  r68_n_seeds_stable:{fr:'Sans lignes (stables sur toutes les graines, voir Stabilité) : {l}.',de:'Ohne Zeilen (stabil über alle Startwerte, siehe Stabilität): {l}.',en:'Without rows (stable over all seeds, see Stability): {l}.'},
+  r68_n_bold:{fr:'En gras : les plus forts écarts à la TR (inégalités, réciprocité et tailles de 0,10 ou plus, satellisation de 0,25, nombres d’au moins un, fin de la première domination d’un dixième du déroulement ; structure dominante, régimes et verdicts quand ils diffèrent).',de:'Fett: die stärksten Abweichungen von der TR (Ungleichheiten, Reziprozität und Größen um 0,10 oder mehr, Satellisierung um 0,25, Anzahlen um mindestens eins, Ende der ersten Domination um ein Zehntel des Laufs; dominante Struktur, Regime und Urteile, wenn sie sich unterscheiden).',en:'In bold: the strongest departures from the TR (inequalities, reciprocity and sizes by 0.10 or more, satellisation by 0.25, counts by at least one, end of the first domination by a tenth of the run; dominant structure, regimes and verdicts when they differ).'},
   r68_t_force:{fr:'Force de satellisation par graine',de:'Satellisierungskraft je Startwert',en:'Satellisation force per seed'},
   r68_n_force:{fr:'Pour chaque structure : la satellisation moyenne des trois autres pendant qu’elle est la plus grande, en moyenne sur tout le déroulement (0 tant qu’une autre est la plus grande).',
     de:'Für jede Struktur: die mittlere Satellisierung der drei anderen, solange sie die größte ist, gemittelt über den ganzen Lauf (0, solange eine andere die größte ist).',
@@ -2401,8 +2403,12 @@ Object.assign(I18N,{
   r68_t_find:{fr:'Constats pour l’interprétation',de:'Befunde für die Deutung',en:'Findings for the interpretation'},
   r68_c_q:{fr:'Question',de:'Frage',en:'Question'},
   r68_c_find:{fr:'Constat',de:'Befund',en:'Finding'},
-  r68_n_find:{fr:'Produits automatiquement à partir des résultats ; avec plusieurs théories sans la TR, qui n’est que la référence.',de:'Automatisch aus den Ergebnissen erzeugt; bei mehreren Theorien ohne die TR, die nur die Voreinstellung ist.',en:'Produced automatically from the results; with several theories without the TR, which is only the default.'},
+  r68_n_find:{fr:'Produits automatiquement à partir des résultats ; avec plusieurs théories, sans la TR (la référence) ni les profils qui ne font que reprendre ses valeurs (comme la TR sans mécanismes).',de:'Automatisch aus den Ergebnissen erzeugt; bei mehreren Theorien ohne die TR (die Voreinstellung) und ohne Profile, die nur ihre Werte wiederholen (wie die TR ohne Mechanismen).',en:'Produced automatically from the results; with several theories, without the TR (the default) and without profiles that only repeat its values (such as the TR without mechanisms).'},
   r68_n_find_interp:{fr:'L’interprétation est dans l’onglet « Interprétation » et dans le rapport.',de:'Die Deutung steht im Reiter „Deutung“ und im Bericht.',en:'The interpretation is in the tab “Interpretation” and in the report.'},
+  r68_f_qprobe_grp11:{fr:'Après l’affaiblissement de {x}, {s} se fixe, tandis que {r} revient : qu’est-ce qui fixe le nouvel ordre dans les unes, qu’est-ce qui le défait dans les autres ?',de:'Nach der Schwächung von {x} setzt sich {s} fest, während {r} zurückkehrt: Was hält in den einen Ansätzen die neue Ordnung fest, was löst sie in den anderen auf?',en:'After {x} is weakened, {s} sets while {r} returns: what holds the new order in place in the ones, what dissolves it in the others?'},
+  r68_f_qprobe_grp12:{fr:'Après l’affaiblissement de {x}, {s} se fixe, tandis que {r} reviennent : qu’est-ce qui fixe le nouvel ordre dans les unes, qu’est-ce qui le défait dans les autres ?',de:'Nach der Schwächung von {x} setzt sich {s} fest, während {r} zurückkehren: Was hält in den einen Ansätzen die neue Ordnung fest, was löst sie in den anderen auf?',en:'After {x} is weakened, {s} sets while {r} return: what holds the new order in place in the ones, what dissolves it in the others?'},
+  r68_f_qprobe_grp21:{fr:'Après l’affaiblissement de {x}, {s} se fixent, tandis que {r} revient : qu’est-ce qui fixe le nouvel ordre dans les unes, qu’est-ce qui le défait dans les autres ?',de:'Nach der Schwächung von {x} setzen sich {s} fest, während {r} zurückkehrt: Was hält in den einen Ansätzen die neue Ordnung fest, was löst sie in den anderen auf?',en:'After {x} is weakened, {s} set while {r} returns: what holds the new order in place in the ones, what dissolves it in the others?'},
+  r68_f_qprobe_grp22:{fr:'Après l’affaiblissement de {x}, {s} se fixent, tandis que {r} reviennent : qu’est-ce qui fixe le nouvel ordre dans les unes, qu’est-ce qui le défait dans les autres ?',de:'Nach der Schwächung von {x} setzen sich {s} fest, während {r} zurückkehren: Was hält in den einen Ansätzen die neue Ordnung fest, was löst sie in den anderen auf?',en:'After {x} is weakened, {s} set while {r} return: what holds the new order in place in the ones, what dissolves it in the others?'},
   r68_f_qprobe_set1:{fr:'Après l’affaiblissement de {x}, {a} se fixe, là où {l} revient : qu’est-ce qui, dans cette approche, fixe le nouvel ordre ?',de:'Nach der Schwächung von {x} setzt sich {a} fest, wo {l} zurückkehrt: Was hält in diesem Ansatz die neue Ordnung fest?',en:'After {x} is weakened, {a} sets where {l} returns: what holds the new order in place in this approach?'},
   r68_f_qprobe_ret1:{fr:'Après l’affaiblissement de {x}, {a} revient, là où {l} se fixe : qu’est-ce qui, dans cette approche, défait une domination ?',de:'Nach der Schwächung von {x} kehrt {a} zurück, wo sich {l} festsetzt: Was löst in diesem Ansatz eine Domination wieder auf?',en:'After {x} is weakened, {a} returns where {l} sets: what dissolves a domination in this approach?'},
   r68_f_qprobe_set2:{fr:'Après l’affaiblissement de {x}, {a} se fixe, là où {l} reviennent : qu’est-ce qui, dans cette approche, fixe le nouvel ordre ?',de:'Nach der Schwächung von {x} setzt sich {a} fest, wo {l} zurückkehren: Was hält in diesem Ansatz die neue Ordnung fest?',en:'After {x} is weakened, {a} sets where {l} return: what holds the new order in place in this approach?'},
@@ -2570,7 +2576,7 @@ function r68SimSummary(res){
       let cell=r68f(m,dec);if(v.length>1&&r68f(r68max(v),dec)!==r68f(r68min(v),dec))cell+=' ('+r68f(r68min(v),dec)+'–'+r68f(r68max(v),dec)+')';
       if(n!=='TR'&&med[key].TR!=null&&dec>0){const d=m-med[key].TR;if(r68f(d,dec)!==r68f(0,dec))cell+=' · '+(d>=0?'+':'')+r68f(d,dec);}
       row.push(cell);}
-    R.rows.push(row);}
+    row.key=key;R.rows.push(row);}
   // dominant structure at the end: share of seeds
   {const row=[t('r68_m_dom')];for(const n of names){const c={};for(const r of runsOf(n)){const d=endOf(r).dom;c[d]=(c[d]||0)+1;}
      const k=Object.keys(c).sort((a,b)=>c[b]-c[a])[0];row.push((+k<0?t('r68_balanced'):LAB[+k])+' '+c[k]+'/'+runsOf(n).length);}R.rows.splice(8,0,row);}
@@ -2605,6 +2611,18 @@ function r68SimSummary(res){
       if(n!=='TR'&&cmed[key].TR!=null){const d=m-cmed[key].TR;if(r68f(d,dec)!==r68f(0,dec))cell+=' · '+(d>=0?'+':'')+r68f(d,dec);}
       row.push(cell);}
     C.rows.push(row);}
+  // the strongest departures from the TR in bold: inequalities, reciprocity and sizes by 0.10 or more, satellisation by 0.25,
+  // counts by one or more, the end of the first domination by a tenth of the run; labels (dominant structure, regimes, verdicts) when they differ
+  {const len=res.runs[0].kind==='steps'?(spec.steps||spec.stimulus&&spec.stimulus.beginn||1819):Math.max(1,(spec.end||0)-(spec.start||0));R.bold=[];
+   const num=c=>{const m=String(c).match(/^-?\d+(\.\d+)?/);return m?+m[0]:null;},labelOf=c=>String(c).replace(/\s*\d+\/\d+/g,'').trim();
+   R.rows.forEach((row,ri)=>{const k=row.key||'';for(let ci=2;ci<row.length;ci++){const a=row[1],b=row[ci];if(b===NA||a===NA)continue;let big=false;
+     if(/^(transv|horiz|vert|recip|size)/.test(k)){const x=num(a),y=num(b);big=x!=null&&y!=null&&Math.abs(y-x)>=0.1-1e-9;}
+     else if(/^sat/.test(k)){const x=num(a),y=num(b);big=x!=null&&y!=null&&Math.abs(y-x)>=0.25-1e-9;}
+     else if(/^(domchg|reg)/.test(k)){const x=num(a),y=num(b);big=x!=null&&y!=null&&Math.abs(y-x)>=1;}
+     else if(k==='domend'){const x=num(a),y=num(b);big=(x==null)!==(y==null)||(x!=null&&Math.abs(y-x)>=0.1*len);}
+     else big=labelOf(a)!==labelOf(b);
+     if(big)R.bold.push(ri+','+ci);}});
+   R.note+=' '+t('r68_n_bold');}
   return {mode:'sim',names,tables:[A,R,C,E],med,cmed,runsOf,unit};}
 
 // ---- data mode ----
@@ -2688,10 +2706,14 @@ function r68SeedSummary(res){const runs=res.runs.filter(r=>!r.control);if(!runs.
     head:[t('r68_c_theory'),t('r68_c_seed'),t('r68_s_outcome'),'A','B','C','D',t('r68_s_satend'),t('r68_s_domstart')+' ('+unit+')',t('r68_s_domend')+' ('+unit+')',
       t('r68_s_domchg'),t('r68_s_regchg'),t('r68_s_transv'),t('r68_s_horiz'),t('r68_s_vert'),t('r68_s_vmax'),t('r68_s_recip'),t('r68_s_peak')+' ('+unit+')',
       t('r68_s_xs'),t('r68_s_up'),t('r68_s_down'),t('r68_s_blk')],rows:[]};
-  for(const o of out)T.rows.push([thName(o.theory),o.seed,o.outcome,f(o.S[0],3),f(o.S[1],3),f(o.S[2],3),f(o.S[3],3),f(o.satEnd,2),o.domStart==null?'–':o.domStart,o.domEnd==null?'–':o.domEnd,
-    o.domChg,o.regChg,f(o.gini,3),f(o.horiz,3),f(o.vert,3),(o.vx<0?'–':LAB[o.vx])+' '+f(o.vxv,2),f(o.recip,3),f(o.pk,3)+' ('+o.pkAt+')',f(o.xs,1),f(o.up,1),f(o.down,1),f(o.blk,1)]);
+  const unstable=new Set();const pushSeedRows=()=>{for(const o of out){if(!unstable.has(o.theory))continue;T.rows.push([thName(o.theory),o.seed,o.outcome,f(o.S[0],3),f(o.S[1],3),f(o.S[2],3),f(o.S[3],3),f(o.satEnd,2),o.domStart==null?'–':o.domStart,o.domEnd==null?'–':o.domEnd,
+    o.domChg,o.regChg,f(o.gini,3),f(o.horiz,3),f(o.vert,3),(o.vx<0?'–':LAB[o.vx])+' '+f(o.vxv,2),f(o.recip,3),f(o.pk,3)+' ('+o.pkAt+')',f(o.xs,1),f(o.up,1),f(o.down,1),f(o.blk,1)]);}};
   const F={id:'satellisation_force',title:t('r68_t_force'),note:t('r68_n_force'),head:[t('r68_c_theory'),t('r68_c_seed')].concat([0,1,2,3].map(x=>LAB[x]+' · '+SN(x))),rows:[]};
-  for(const o of out)F.rows.push([thName(o.theory),o.seed].concat(o.force.map(v=>f(v,3))));
+  // seeds with the same values are one row (1–8 when nothing differs), so that the table stays short
+  const seedList=a=>{const r=[];let k=0;while(k<a.length){let m=k;while(m+1<a.length&&a[m+1]===a[m]+1)m++;r.push(m>k?a[k]+'–'+a[m]:String(a[k]));k=m+1;}return r.join(', ');};
+  for(const n of [...new Set(out.map(o=>o.theory))]){const g={};for(const o of out.filter(q=>q.theory===n)){const v=o.force.map(x=>f(x,3)),k=v.join('|');(g[k]=g[k]||{v,seeds:[]}).seeds.push(o.seed);}
+    for(const k of Object.keys(g).sort((a,b)=>g[a].seeds[0]-g[b].seeds[0]))F.rows.push([thName(n),seedList(g[k].seeds)].concat(g[k].v));}
+  F.bold=[];F.rows.forEach((r,ri)=>r.forEach((c,ci)=>{if(ci>=2&&+c>=0.05)F.bold.push(ri+','+ci);}));   // a structure that satellises noticeably
   // stability: the outcomes and the features that vary over the seeds
   const names=[...new Set(out.map(o=>o.theory))];
   const span=steps?(runs[0].rows[runs[0].rows.length-1].step):(runs[0].end-runs[0].start);
@@ -2705,7 +2727,10 @@ function r68SeedSummary(res){const runs=res.runs.filter(r=>!r.control);if(!runs.
       if(tol==='eq'){if(new Set(v.map(String)).size>1)vary.push(t(lab));continue;}
       const w=v.filter(z=>z!=null);if(w.length!==v.length&&w.length){vary.push(t(lab));continue;}
       if(w.length&&r68max(w)-r68min(w)>tol)vary.push(t(lab)+' '+r68f(r68min(w),lab==='r68_s_domstart'?0:2)+'–'+r68f(r68max(w),lab==='r68_s_domstart'?0:2));}
+    if(vary.length||Object.keys(c).length>1)unstable.add(n);
     St.rows.push([thName(n),oc.join(' · '),vary.length?vary.join(' · '):t('r68_s_stable')]);}
+  pushSeedRows();const stable=names.filter(n=>!unstable.has(n));
+  if(stable.length)T.note+=' '+t('r68_n_seeds_stable').replace('{l}',stable.map(thName).join(', '));
   return {tables:[St,T,F],rows:out,names,thName,unit};}
 // ---- thresholds, stimulus probe and findings (simulation mode) ----
 function r68Dec(id){return Math.max(1,(String(r68SliderEl(id).step).split('.')[1]||'').length);}
@@ -2745,8 +2770,10 @@ function r68XSummary(res,sm){const spec=res.spec,out={tables:[]};if(spec.mode!==
   return out;}
 function r68Findings(res,sm,X){const names=sm.names,others=names.filter(n=>n!=='TR'),lab=n=>n==='TR'?'TR':n,hasInterp=!!(res.spec.interpretation&&res.files&&res.files[res.spec.interpretation]);
   const F={id:'findings',title:t('r68_t_find'),head:[t('r68_c_q'),t('r68_c_find')],rows:[],note:t('r68_n_find')+(hasInterp?' '+t('r68_n_find_interp'):'')};
-  // with one theory the comparison with the TR is the point; with several, the TR (the default) is left out of the findings
-  const withTR=others.length<=1,pool=withTR?names:others;
+  // with one theory the comparison with the TR is the point; with several, the TR (the default) and profiles that only
+  // repeat the TR's values (such as the TR without mechanisms) are left out of the findings
+  const tr0=sm.runsOf('TR')[0];const trVar=n=>{const r=sm.runsOf(n)[0];return !!(r&&tr0&&R68_SLIDERS.every(id=>Math.abs(r.sliders[id]-tr0.sliders[id])<1e-9)&&JSON.stringify(r.chains)===JSON.stringify(tr0.chains));};
+  const real=others.filter(n=>!trVar(n)),withTR=real.length<=1,pool=withTR?names:real,cmp=withTR?others:real;
   const add=(q,txt)=>F.rows.push([t(q),txt]);const fill=(k,o)=>{let x=t(k);for(const a in o){const v=o[a]===t('r68_balanced')?t('r68_near_none'):o[a];x=x.split('{'+a+'}').join(v);}return x;};
   const sl=n=>{const r=sm.runsOf(n)[0];return r?r.sliders:{};},mech=n=>{const r=sm.runsOf(n)[0];return r?['M1','M2','M3','M4','M5','M6'].filter(m=>r.mech[m]):[];};
   const range=id=>{const el=r68SliderEl(id);return (+el.max)-(+el.min);};
@@ -2759,7 +2786,7 @@ function r68Findings(res,sm,X){const names=sm.names,others=names.filter(n=>n!=='
   const setCount=n=>X.probe&&X.probe[n]?[0,1,2,3].map(x=>(X.probe[n][x].c.fest||0)+(X.probe[n][x].c.bewegung||0)):null;
   // a) compatibility: each theory with its nearest neighbour, and with the TR
   const done=new Set();
-  for(const a of others){let b=null,d=Infinity;for(const c of others)if(c!==a){const e=dist(a,c);if(e<d){d=e;b=c;}}
+  for(const a of cmp){let b=null,d=Infinity;for(const c of cmp)if(c!==a){const e=dist(a,c);if(e<d){d=e;b=c;}}
     if(b&&!done.has(b+'|'+a)){done.add(a+'|'+b);
       const ma=mech(a),mb=mech(b),com=ma.filter(m=>mb.includes(m)),oa=ma.filter(m=>!mb.includes(m)),ob=mb.filter(m=>!ma.includes(m));
       let txt=fill('r68_f_pair',{a,b,d:r68f(d,2),diff:diffs(a,b)})+' ';
@@ -2774,9 +2801,10 @@ function r68Findings(res,sm,X){const names=sm.names,others=names.filter(n=>n!=='
   if(X.near)for(const a of pool){const b=X.near[a].best;if(!b||b.d>0.25)continue;
     add('r68_q_b',fill(b.state?'r68_f_qnear_dom':'r68_f_qnear',{a:lab(a),pct:Math.round(100*b.d),s:t(R68_SLIDER_LABEL[b.id]),v0:r68f(b.own,r68Dec(b.id)),v1:r68f(b.v,r68Dec(b.id)),verb:t(b.dir>0?'r68_f_rise':'r68_f_fall')}));}
   const sets=(n,x)=>{const p=X.probe[n][x];return 2*((p.c.fest||0)+(p.c.bewegung||0))>=p.n;};
-  if(X.probe&&!withTR)for(const a of others){const by={};for(let x=0;x<4;x++){const ret=others.filter(o=>o!==a&&sets(o,x)!==sets(a,x));if(!ret.length)continue;
-      const key=(sets(a,x)?'s':'r')+(ret.length>1?'2':'1')+'|'+ret.join(', ');(by[key]=by[key]||[]).push(LAB[x]+' · '+SN(x));}
-    for(const key in by){const [k,l]=key.split('|');add('r68_q_b',fill('r68_f_qprobe_'+(k[0]==='s'?'set':'ret')+k[1],{a,x:by[key].join(', '),l}));}}
+  // one question per partition: which theories set and which return after the same weakening
+  if(X.probe&&!withTR){const by={},order=[];for(let x=0;x<4;x++){const S=real.filter(n=>sets(n,x)),Rt=real.filter(n=>!sets(n,x));if(!S.length||!Rt.length)continue;
+      const key=S.join(', ')+'|'+Rt.join(', ');if(!by[key]){by[key]={S,Rt,xs:[]};order.push(key);}by[key].xs.push(LAB[x]+' · '+SN(x));}
+    for(const key of order){const g=by[key];add('r68_q_b',fill('r68_f_qprobe_grp'+(g.S.length>1?'2':'1')+(g.Rt.length>1?'2':'1'),{x:g.xs.join(', '),s:g.S.join(', '),r:g.Rt.join(', ')}));}}
   if(X.probe&&X.probe.TR&&withTR)for(const a of others)for(let x=0;x<4;x++){const p=X.probe[a][x],q=X.probe.TR[x];const fa=(p.c.fest||0)+(p.c.bewegung||0),fq=(q.c.fest||0)+(q.c.bewegung||0);
     if(2*fa>=p.n&&2*fq<q.n)add('r68_q_b',fill('r68_f_qprobe_set',{a,x:LAB[x]+' · '+SN(x),k:fa,n:p.n}));
     else if(2*fa<p.n&&2*fq>=q.n)add('r68_q_b',fill('r68_f_qprobe_ret',{a,x:LAB[x]+' · '+SN(x),k:p.n-fa,n:p.n}));}
@@ -2786,6 +2814,7 @@ function r68Findings(res,sm,X){const names=sm.names,others=names.filter(n=>n!=='
     if(near.size)add('r68_q_c',fill('r68_f_cmeasure',{l:[...near].map(id=>t(R68_SLIDER_LABEL[id])).join(', ')}));
     const none=R68_SLIDERS.filter(id=>!any.has(id));if(none.length)add('r68_q_c',fill('r68_f_cnone',{l:none.map(id=>t(R68_SLIDER_LABEL[id])).join(', ')}));}
   add('r68_q_c',t('r68_f_ccases'));add('r68_q_c',t('r68_f_clevel'));
+  for(let k=F.rows.length-1;k>0;k--)if(F.rows[k][0]===F.rows[k-1][0])F.rows[k][0]='';   // each question once, its findings below it
   return F;}
 function r68Summary(res){const sm=res.spec.mode==='data'?r68DataSummary(res):r68SimSummary(res);const sd=r68SeedSummary(res);
   sm.tables.splice(sm.mode==='sim'?2:sm.tables.length,0,...sd.tables);sm.seeds=sd;
@@ -2798,7 +2827,7 @@ function r68CSV(tab){const q=v=>{const s=String(v==null?'':v);return /[",;\n]/.t
 function r68HTML(tab){const e=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
   const l2=['structures','circulation','flows','regimes'].includes(tab.id),wrap=tab.id==='findings';
   return '<table class="pst r68'+(l2?' l2':'')+(wrap?' wrap':'')+'"><tr>'+tab.head.map(h=>'<th>'+e(h)+'</th>').join('')+'</tr>'+
-    tab.rows.map(r=>'<tr>'+r.map((c,i)=>'<td'+(i===1&&(tab.id==='results'||tab.id==='assumptions')?' class="ref"':'')+'>'+e(c)+'</td>').join('')+'</tr>').join('')+'</table>'+
+    tab.rows.map((r,ri)=>'<tr>'+r.map((c,i)=>{const b=tab.bold&&tab.bold.includes(ri+','+i);return '<td'+(i===1&&(tab.id==='results'||tab.id==='assumptions')?' class="ref"':'')+'>'+(b?'<b>':'')+e(c)+(b?'</b>':'')+'</td>';}).join('')+'</tr>').join('')+'</table>'+
     (tab.note?'<div class="src">'+e(tab.note)+'</div>':'');}
 // the yearly / stepwise series of every run, for students who compute their own trends
 function r68SeriesCSV(res){const head=['theory','seed',res.runs[0].kind==='steps'?'step':'year','transversal','horizontal','vertical','reciprocity'];
