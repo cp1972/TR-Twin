@@ -1,0 +1,8 @@
+# Simulationsmodus: Kühl und Meyer/Rowan (Pipeline, Profile aus der Kodierung) neben der TR (immer als Referenz gerechnet)
+# und Luhmann zum Vergleich, wie im Schritt Reizschwelle der Pipeline
+modus,Simulation
+profil,../simulation-mode/profiles/profil_Kuehl.csv
+profil,../simulation-mode/profiles/profil_Meyer_Rowan.csv
+profil,../simulation-mode/profiles/profil_Luhmann.csv
+schritte,1819
+startwerte,1-8

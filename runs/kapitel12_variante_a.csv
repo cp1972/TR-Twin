@@ -1,0 +1,7 @@
+# Datenmodus: Kapitel 12, Variante (a) der Lückenfüllung — in Jahren ohne aktive Akteure gilt die zuletzt beobachtete
+# Zusammensetzung der Relationsstruktur weiter. Mit den Mechanismen der TR hängt hier das Ergebnis vom Startwert ab.
+modus,Daten
+vertragstabelle,../data-mode/topic-models/contracts/N0_lexikon_hiscam_alte_jahre.csv
+kategorien,fortschreiben
+startwerte,1-8
+trendfenster,10

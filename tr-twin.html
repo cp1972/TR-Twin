@@ -2294,6 +2294,45 @@ Object.assign(I18N,{
   r68_f_sat:{fr:'Satellisation des structures',de:'Satellisierung der Strukturen',en:'Satellisation of the structures'},
   r68_f_traj_g:{fr:'Trajectoire de l’inégalité transversale',de:'Verlauf der transversalen Ungleichheit',en:'Trajectory of transversal inequality'},
   r68_f_traj_r:{fr:'Trajectoire de la réciprocité',de:'Verlauf der Reziprozität',en:'Trajectory of reciprocity'},
+  r68_t_seeds:{fr:'Par graine',de:'Je Startwert',en:'Per seed'},
+  r68_n_seeds:{fr:'Une ligne par théorie et graine. Issue = suite des structures dominantes (B→C→B : B domine, puis C, puis de nouveau B ; « aucune » : pas de domination) et, à la fin, les régimes qui ne sont pas autonomes (C▸D : C suit la séquence de D). Tailles A–D, satellisation par la dominante (moyenne des trois autres) et inégalités : à la fin. Début et fin de la première domination, changements : sur tout le déroulement ({u}) ; une domination de moins de 300 pas (en années : 10 ans) ne compte pas, sauf la dernière. Circulation : part des changements de structure, ascendante, descendante (% de la circulation) ; migration bloquée (% de la tentée). La plus stratifiée : la structure à la plus forte inégalité verticale à la fin (– : aucune ne dépasse les autres de 0,005).',
+    de:'Eine Zeile je Theorie und Startwert. Ausgang = Folge der dominanten Strukturen (B→C→B: B dominiert, dann C, dann wieder B; „keine“: keine Domination) und am Ende die Regime, die nicht autonom sind (C▸D: C läuft unter der Sequenz von D). Größen A–D, Satellisierung durch die dominante (Mittel der drei anderen) und Ungleichheiten: am Ende. Beginn und Ende der ersten Domination, Wechsel: über den ganzen Lauf ({u}); eine Domination unter 300 Schritten (in Jahren: 10 Jahre) zählt nicht, außer der letzten. Zirkulation: Anteil Strukturwechsel, aufsteigend, absteigend (% der Zirkulation); blockierte Migration (% der versuchten). Am stärksten geschichtet: die Struktur mit der höchsten vertikalen Ungleichheit am Ende (–: keine übertrifft die anderen um 0,005).',
+    en:'One row per theory and seed. Outcome = sequence of the dominant structures (B→C→B: B dominates, then C, then B again; “none”: no domination) and, at the end, the regimes that are not autonomous (C▸D: C runs under the sequence of D). Sizes A–D, satellisation by the dominant (mean of the other three) and inequalities: at the end. Begin and end of the first domination, changes: over the whole run ({u}); a domination shorter than 300 steps (in years: 10 years) does not count, except the last one. Circulation: share of changes of structure, ascending, descending (% of the circulation); blocked migration (% of attempted). Most stratified: the structure with the highest vertical inequality at the end (–: none exceeds the others by 0.005).'},
+  r68_t_force:{fr:'Force de satellisation par graine',de:'Satellisierungskraft je Startwert',en:'Satellisation force per seed'},
+  r68_n_force:{fr:'Pour chaque structure : la satellisation moyenne des trois autres pendant qu’elle est la plus grande, en moyenne sur tout le déroulement (0 tant qu’une autre est la plus grande).',
+    de:'Für jede Struktur: die mittlere Satellisierung der drei anderen, solange sie die größte ist, gemittelt über den ganzen Lauf (0, solange eine andere die größte ist).',
+    en:'For each structure: the mean satellisation of the other three while it is the largest, averaged over the whole run (0 while another one is the largest).'},
+  r68_t_stab:{fr:'Stabilité sur les graines',de:'Stabilität über die Startwerte',en:'Stability over the seeds'},
+  r68_n_stab:{fr:'Issues : combien de graines ont la même suite de structures dominantes et finissent avec les mêmes régimes. Varie : les caractéristiques dont l’étendue sur les graines dépasse 0,02 (tailles, inégalités, réciprocité), 0,05 (satellisation), 2 points (circulation) ou 5 % de la durée (début de la domination).',
+    de:'Ausgänge: wie viele Startwerte dieselbe Folge dominanter Strukturen haben und mit denselben Regimen enden. Schwankt: die Merkmale, deren Spannweite über die Startwerte 0,02 (Größen, Ungleichheiten, Reziprozität), 0,05 (Satellisierung), 2 Prozentpunkte (Zirkulation) oder 5 % der Dauer (Beginn der Domination) übersteigt.',
+    en:'Outcomes: how many seeds have the same sequence of dominant structures and end with the same regimes. Varies: the features whose range over the seeds exceeds 0.02 (sizes, inequalities, reciprocity), 0.05 (satellisation), 2 points (circulation) or 5 % of the duration (begin of the domination).'},
+  r68_c_seed:{fr:'Graine',de:'Startwert',en:'Seed'},
+  r68_s_outcome:{fr:'Issue',de:'Ausgang',en:'Outcome'},
+  r68_s_outcomes:{fr:'Issues',de:'Ausgänge',en:'Outcomes'},
+  r68_s_varies:{fr:'Varie',de:'Schwankt',en:'Varies'},
+  r68_s_stable:{fr:'stable sur toutes les graines',de:'stabil über alle Startwerte',en:'stable over all seeds'},
+  r68_s_dom:{fr:'structure dominante',de:'dominante Struktur',en:'dominant structure'},
+  r68_s_size:{fr:'taille de la dominante',de:'Größe der dominanten',en:'size of the dominant'},
+  r68_s_satend:{fr:'satellisation par la dominante',de:'Satellisierung durch die dominante',en:'satellisation by the dominant'},
+  r68_s_domstart:{fr:'début de la domination',de:'Beginn der Domination',en:'begin of domination'},
+  r68_s_domend:{fr:'fin de la 1re domination',de:'Ende der 1. Domination',en:'end of 1st domination'},
+  r68_s_domchg:{fr:'changements de domination',de:'Dominationswechsel',en:'changes of domination'},
+  r68_s_regchg:{fr:'changements de régime',de:'Regimewechsel',en:'changes of regime'},
+  r68_s_transv:{fr:'inégalité transversale',de:'transversale Ungleichheit',en:'transversal inequality'},
+  r68_s_horiz:{fr:'inégalité horizontale',de:'horizontale Ungleichheit',en:'horizontal inequality'},
+  r68_s_vert:{fr:'inégalité verticale',de:'vertikale Ungleichheit',en:'vertical inequality'},
+  r68_s_vmax:{fr:'la plus stratifiée',de:'am stärksten geschichtet',en:'most stratified'},
+  r68_s_recip:{fr:'réciprocité',de:'Reziprozität',en:'reciprocity'},
+  r68_s_peak:{fr:'pic de l’inégalité transversale',de:'Höchstwert transversale Ungleichheit',en:'peak of transversal inequality'},
+  r68_s_xs:{fr:'changement de structure %',de:'Strukturwechsel %',en:'change of structure %'},
+  r68_s_up:{fr:'ascendante %',de:'aufsteigend %',en:'ascending %'},
+  r68_s_down:{fr:'descendante %',de:'absteigend %',en:'descending %'},
+  r68_s_blk:{fr:'migration bloquée %',de:'blockierte Migration %',en:'blocked migration %'},
+  r68_f_seeds:{fr:'Les caractéristiques sur les graines',de:'Die Merkmale über die Startwerte',en:'The features over the seeds'},
+  r68_f_seeds_sub:{fr:'un point par graine ; numéro = graine qui s’écarte de la médiane',de:'ein Punkt je Startwert; Nummer = Startwert, der vom Median abweicht',en:'one dot per seed; number = seed that departs from the median'},
+  r68_f_force:{fr:'Force de satellisation par graine',de:'Satellisierungskraft je Startwert',en:'Satellisation force per seed'},
+  r68_f_force_sub:{fr:'satellisation moyenne produite par chaque structure sur tout le déroulement',de:'mittlere Satellisierung, die jede Struktur über den ganzen Lauf erzeugt',en:'mean satellisation each structure produces over the whole run'},
+  r68_f_force_axes:{fr:'ligne = graine · colonne = structure qui satellise',de:'Zeile = Startwert · Spalte = satellisierende Struktur',en:'row = seed · column = satellising structure'},
   r68_f_sub_line:{fr:'médiane sur {n} graines · bande = étendue',de:'Median über {n} Startwerte · Band = Spannweite',en:'median over {n} seeds · band = range'},
   r68_f_traj_h:{fr:'Trajectoire de l’inégalité horizontale',de:'Verlauf der horizontalen Ungleichheit',en:'Trajectory of horizontal inequality'},
   r68_f_traj_v:{fr:'Trajectoire de l’inégalité verticale',de:'Verlauf der vertikalen Ungleichheit',en:'Trajectory of vertical inequality'},
@@ -2400,10 +2439,11 @@ function r68SimSummary(res){
   // Table 2 — results (median over the seeds, range, difference to the TR)
   const endOf=r=>r.rows[r.rows.length-1];
   const unit=res.runs[0].kind==='steps'?t('r68_steps'):t('r68_years');
-  const minDur=r=>r.kind==='steps'?300:Math.max(1,Math.ceil(300/r.K));
+  const minDur=r=>r.kind==='steps'?300:10;   // in years: 10 years
   const domSeg=r=>{const ev=r.events.filter(e=>e.kind==='dom');const endAt=r.kind==='steps'?r.rows[r.rows.length-1].step:r.rows[r.rows.length-1].year;
     const segs=ev.map((e,i)=>({dom:e.dom,from:e.at,to:i+1<ev.length?ev[i+1].at:endAt}));
     let kept=segs.filter(s=>s.to-s.from>=minDur(r));if(!kept.length&&segs.length)kept=[segs[segs.length-1]];const out=[];   // episodes shorter than 300 steps do not count
+    kept=kept.map((g,i)=>Object.assign({},g,{to:i+1<kept.length?kept[i+1].from:endAt}));   // and belong to the domination around them
     for(const s of kept){if(out.length&&out[out.length-1].dom===s.dom)out[out.length-1].to=s.to;else out.push(Object.assign({},s));}
     if(out.length)out[out.length-1].to=endAt;return out;};
   const M=[ // [key, label, value(run) → number|string, decimals, needs mechanism]
@@ -2508,7 +2548,61 @@ function r68DataSummary(res){
   const Pm={id:'permeability',title:t('r68_t_perm'),head:[t('r68_c_period')].concat([0,1,2,3].map(x=>t('r68_m_cap')+' '+LAB[x])).concat(['r68_m_blk','r68_m_mobx','r68_m_mobq'].map(t)),rows:[],note:t('r68_n_perm')};
   P.forEach((p,i)=>Pm.rows.push([plab(p,i)].concat([0,1,2,3].map(x=>r68f(mean(q=>q.cap[x],p),3))).concat([r68f(mean(q=>q.blk,p)*100,1)+' %',r68f(mean(q=>q.mobX,p),4),r68f(mean(q=>q.mobQ,p),4)])));
   return {mode:'data',periods:P,tables:[T,S,C,F,Pm],transitions:tr};}
-function r68Summary(res){return res.spec.mode==='data'?r68DataSummary(res):r68SimSummary(res);}
+// ---- per seed: does a theory (or the cohort) show the same features over the seeds? ----
+// One row per theory and seed: end state, course, inequalities, circulation; the outcome of a run is its dominant structure and the
+// regimes at the end. The satellisation force of a structure is the mean satellisation of the other three while it is the largest,
+// averaged over the whole run (0 while another structure is the largest).
+function r68SeedSummary(res){const runs=res.runs.filter(r=>!r.control);if(!runs.length)return {tables:[],rows:[]};
+  const steps=runs[0].kind==='steps',unit=steps?t('r68_steps'):t('r68_years');
+  const thName=n=>n==='TR'?'TR ('+t('r68_ref')+')':(n==='data'?String(res.spec.contracts||t('r68ui_mode_data')).replace(/^.*[\/\\]/,''):n);
+  const atOf=q=>q.step!=null?q.step:q.year;
+  const out=runs.map(r=>{const rows=r.rows,e=rows[rows.length-1],endAt=atOf(e),startAt=atOf(rows[0]);
+    const minDur=steps?300:10;
+    const ev=r.events.filter(z=>z.kind==='dom');const segs=ev.map((z,i)=>({dom:z.dom,from:z.at,to:i+1<ev.length?ev[i+1].at:endAt}));
+    // as in the results, a domination shorter than 300 steps does not count — except the last one: it is the state at the end
+    const kept=segs.filter((g,i)=>g.to-g.from>=minDur||i===segs.length-1).map(g=>Object.assign({},g));const sg=[];
+    kept.forEach((g,i)=>{g.to=i+1<kept.length?kept[i+1].from:endAt;});   // a short episode in between belongs to the domination around it
+    for(const g of kept){if(sg.length&&sg[sg.length-1].dom===g.dom)sg[sg.length-1].to=g.to;else sg.push(Object.assign({},g));}
+    const fi=sg.findIndex(g=>g.dom>=0);
+    const domStart=fi>=0?Math.max(startAt,sg[fi].from):null,domEnd=fi>=0&&fi+1<sg.length?sg[fi].to:null;
+    const d=e.dom,satEnd=d>=0?[0,1,2,3].filter(x=>x!==d).reduce((a,x)=>a+e.sat[x],0)/3:0;
+    const force=[0,0,0,0];for(const q of rows){let m=0;for(let i=1;i<4;i++)if(q.S[i]>q.S[m])m=i;force[m]+=[0,1,2,3].filter(x=>x!==m).reduce((a,x)=>a+q.sat[x],0)/3;}
+    for(let x=0;x<4;x++)force[x]/=rows.length;
+    let pk=0,pkAt=startAt;for(const q of rows)if(q.gini>pk){pk=q.gini;pkAt=atOf(q);}
+    let vx=0;for(let x=1;x<4;x++)if(e.vGini[x]>e.vGini[vx])vx=x;
+    if([0,1,2,3].some(x=>x!==vx&&e.vGini[vx]-e.vGini[x]<0.005))vx=-1;   // no structure clearly the most stratified
+    const reg=[0,1,2,3].filter(x=>e.ruler[x]!==x).map(x=>LAB[x]+'▸'+LAB[e.ruler[x]]).join(' ');
+    const c=e.cm||{q:0,xn:0,xu:0,xd:0,blk:0,att:0},tot=c.q+c.xn+c.xu+c.xd;
+    return {theory:r.theory,seed:r.seed,dom:d,S:e.S,satEnd,force,domStart,domEnd,domChg:Math.max(0,sg.length-1),
+      regChg:r.events.filter(z=>z.kind==='regime').length,reg,outcome:(sg.length?sg.map(g=>g.dom<0?t('r68_balanced'):LAB[g.dom]).join('→'):(d<0?t('r68_balanced'):LAB[d]))+(reg?' · '+reg:''),
+      gini:e.gini,horiz:e.horiz,vert:e.vert,recip:e.recip,pk,pkAt,vx,vxv:e.vGini[vx],
+      xs:tot?100*(c.xn+c.xu+c.xd)/tot:null,up:tot?100*c.xu/tot:null,down:tot?100*c.xd/tot:null,blk:c.att?100*c.blk/c.att:null};});
+  const f=(v,d)=>v==null?'–':r68f(v,d);
+  const T={id:'seeds',title:t('r68_t_seeds'),note:t('r68_n_seeds').replace(/\{u\}/g,unit),
+    head:[t('r68_c_theory'),t('r68_c_seed'),t('r68_s_outcome'),'A','B','C','D',t('r68_s_satend'),t('r68_s_domstart')+' ('+unit+')',t('r68_s_domend')+' ('+unit+')',
+      t('r68_s_domchg'),t('r68_s_regchg'),t('r68_s_transv'),t('r68_s_horiz'),t('r68_s_vert'),t('r68_s_vmax'),t('r68_s_recip'),t('r68_s_peak')+' ('+unit+')',
+      t('r68_s_xs'),t('r68_s_up'),t('r68_s_down'),t('r68_s_blk')],rows:[]};
+  for(const o of out)T.rows.push([thName(o.theory),o.seed,o.outcome,f(o.S[0],3),f(o.S[1],3),f(o.S[2],3),f(o.S[3],3),f(o.satEnd,2),o.domStart==null?'–':o.domStart,o.domEnd==null?'–':o.domEnd,
+    o.domChg,o.regChg,f(o.gini,3),f(o.horiz,3),f(o.vert,3),(o.vx<0?'–':LAB[o.vx])+' '+f(o.vxv,2),f(o.recip,3),f(o.pk,3)+' ('+o.pkAt+')',f(o.xs,1),f(o.up,1),f(o.down,1),f(o.blk,1)]);
+  const F={id:'satellisation_force',title:t('r68_t_force'),note:t('r68_n_force'),head:[t('r68_c_theory'),t('r68_c_seed')].concat([0,1,2,3].map(x=>LAB[x]+' · '+SN(x))),rows:[]};
+  for(const o of out)F.rows.push([thName(o.theory),o.seed].concat(o.force.map(v=>f(v,3))));
+  // stability: the outcomes and the features that vary over the seeds
+  const names=[...new Set(out.map(o=>o.theory))];
+  const span=steps?(runs[0].rows[runs[0].rows.length-1].step):(runs[0].end-runs[0].start);
+  const checks=[['r68_s_dom',o=>o.dom,'eq'],['r68_s_size',o=>o.dom>=0?o.S[o.dom]:Math.max(...o.S),0.02],['r68_s_satend',o=>o.satEnd,0.05],
+    ['r68_s_domstart',o=>o.domStart,Math.max(1,0.05*span)],['r68_s_transv',o=>o.gini,0.02],['r68_s_horiz',o=>o.horiz,0.02],['r68_s_vert',o=>o.vert,0.02],
+    ['r68_s_vmax',o=>o.vx,'eq'],['r68_s_recip',o=>o.recip,0.02],['r68_s_xs',o=>o.xs,2],['r68_s_blk',o=>o.blk,2]];
+  const St={id:'stability',title:t('r68_t_stab'),note:t('r68_n_stab'),head:[t('r68_c_theory'),t('r68_s_outcomes'),t('r68_s_varies')],rows:[]};
+  for(const n of names){const os=out.filter(o=>o.theory===n),c={};for(const o of os)(c[o.outcome]=c[o.outcome]||[]).push(o.seed);
+    const oc=Object.keys(c).sort((a,b)=>c[b].length-c[a].length).map(k=>k+' '+c[k].length+'/'+os.length+(Object.keys(c).length>1?' ('+t('r68ui_seed')+' '+c[k].join(',')+')':''));
+    const vary=[];for(const [lab,fn,tol] of checks){const v=os.map(fn);
+      if(tol==='eq'){if(new Set(v.map(String)).size>1)vary.push(t(lab));continue;}
+      const w=v.filter(z=>z!=null);if(w.length!==v.length&&w.length){vary.push(t(lab));continue;}
+      if(w.length&&r68max(w)-r68min(w)>tol)vary.push(t(lab)+' '+r68f(r68min(w),lab==='r68_s_domstart'?0:2)+'–'+r68f(r68max(w),lab==='r68_s_domstart'?0:2));}
+    St.rows.push([thName(n),oc.join(' · '),vary.length?vary.join(' · '):t('r68_s_stable')]);}
+  return {tables:[St,T,F],rows:out,names,thName,unit};}
+function r68Summary(res){const sm=res.spec.mode==='data'?r68DataSummary(res):r68SimSummary(res);const sd=r68SeedSummary(res);
+  sm.tables.splice(sm.mode==='sim'?2:sm.tables.length,0,...sd.tables);sm.seeds=sd;return sm;}
 
 // ---- tables as CSV and HTML ----
 function r68CSV(tab){const q=v=>{const s=String(v==null?'':v);return /[",;\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
@@ -2623,6 +2717,49 @@ function r68StackClusters(title,clusters,parts,o){o=o||{};const nb=clusters[0].b
       s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(T+plotH+13)+'" fill="'+SOL.txt2+'" font-size="8.5" text-anchor="middle">'+svgEsc(String(b.label).slice(0,9))+'</text>';});
     s+='<text x="'+(L+ci*cw2+cw2/2).toFixed(1)+'" y="'+(T+plotH+30)+'" fill="'+SOL.txt+'" font-size="10.5" text-anchor="middle">'+svgEsc(c.label)+'</text>';});
   if(o.foot)s+='<text x="'+L+'" y="'+(H-10)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
+// dots per seed, one panel per feature; a seed far from the median of its theory carries its number
+function r68Strip(title,panels,groups,o){o=o||{};const per=4,pw=140,ph=118,gx=40,gy=66,L=58,R=18,leg=svgLegend(groups,L,o.sub?72:58,L+per*(pw+gx));
+  const T=leg.bottomY+44,rows=Math.ceil(panels.length/per),W=L+per*(pw+gx)-gx+R,H=T+rows*(ph+gy)+16;let s=r68Head(W,H,title,o)+leg.svg;
+  panels.forEach((p,k)=>{const x0=L+(k%per)*(pw+gx),y0=T+Math.floor(k/per)*(ph+gy);const all=[];p.sets.forEach(st=>st.forEach(q=>{if(q.v!=null)all.push(q.v);}));
+    let a=all.length?Math.min(...all):0,b=all.length?Math.max(...all):1;if(p.min!=null)a=Math.min(a,p.min);if(p.max!=null)b=Math.max(b,p.max);
+    if(p.span&&b-a<p.span){const m=(a+b)/2;a=m-p.span/2;b=m+p.span/2;if(p.min!=null&&a<p.min){b+=p.min-a;a=p.min;}}   // a small spread is not drawn as a large one
+    if(!(b-a>1e-9)){const pad=Math.max(Math.abs(a)*0.1,p.tol||0.05);a-=pad;b+=pad;}else{const pad=(b-a)*0.08;a-=pad;b+=pad;}
+    const yS=v=>y0+ph-(v-a)/(b-a)*ph,gw=pw/groups.length;
+    const words=String(p.label).split(' '),ln=[''];for(const w of words){if(ln[ln.length-1]&&(ln[ln.length-1]+' '+w).length>26)ln.push(w);else ln[ln.length-1]=(ln[ln.length-1]?ln[ln.length-1]+' ':'')+w;}
+    ln.slice(-2).forEach((l,i,arr)=>{s+='<text x="'+x0+'" y="'+(y0-8-(arr.length-1-i)*12)+'" fill="'+SOL.txt+'" font-size="10.5" font-weight="600">'+svgEsc(l)+'</text>';});
+    s+='<rect x="'+x0+'" y="'+y0+'" width="'+pw+'" height="'+ph+'" fill="none" stroke="'+SOL.axis+'"/>';
+    for(const gv of r68Ticks(a,b,3)){const yy=yS(gv);s+='<line x1="'+x0+'" y1="'+yy.toFixed(1)+'" x2="'+(x0+pw)+'" y2="'+yy.toFixed(1)+'" stroke="'+SOL.grid+'"/><text x="'+(x0-4)+'" y="'+(yy+3).toFixed(1)+'" fill="'+SOL.tick+'" font-size="8.5" text-anchor="end" font-family="ui-monospace,monospace">'+(p.dec===0||(Math.abs(gv-Math.round(gv))<1e-9&&Math.abs(gv)>=1)?Math.round(gv):r68f(gv,2))+'</text>';}
+    p.sets.forEach((st,gi)=>{const cx=x0+gw*gi+gw/2,vals=st.filter(q=>q.v!=null),md=r68med(vals.map(q=>q.v));
+      if(md!=null)s+='<line x1="'+(cx-gw*0.32).toFixed(1)+'" y1="'+yS(md).toFixed(1)+'" x2="'+(cx+gw*0.32).toFixed(1)+'" y2="'+yS(md).toFixed(1)+'" stroke="'+groups[gi].color+'" stroke-width="1.4" opacity="0.6"/>';
+      vals.forEach((q,i)=>{const jx=cx+(vals.length>1?(i/(vals.length-1)-0.5)*gw*0.5:0),yy=yS(q.v);
+        s+='<circle cx="'+jx.toFixed(1)+'" cy="'+yy.toFixed(1)+'" r="3.1" fill="'+groups[gi].color+'" fill-opacity="0.55" stroke="'+groups[gi].color+'"/>';
+        if(md!=null&&Math.abs(q.v-md)>(p.tol||0))s+='<text x="'+(jx+4.5).toFixed(1)+'" y="'+(yy+3).toFixed(1)+'" fill="'+SOL.txt2+'" font-size="8">'+q.seed+'</text>';});
+      s+='<text x="'+cx.toFixed(1)+'" y="'+(y0+ph+12)+'" fill="'+SOL.txt2+'" font-size="8.5" text-anchor="middle">'+svgEsc(String(groups[gi].short).slice(0,9))+'</text>';});});
+  if(o.foot)s+='<text x="'+L+'" y="'+(H-6)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
+// heatmap with one row per seed and one column per structure, one block per theory
+function r68HeatRows(title,blocks,o){o=o||{};const c=34,ch=18,lab=34,blockW=lab+4*c+30,per=Math.min(blocks.length,3),nr=Math.max(...blocks.map(b=>b.rows.length));
+  const rows=Math.ceil(blocks.length/per),bh=26+nr*ch+20,T=o.sub?84:68,W=Math.max(560,58+per*blockW+18),H=T+rows*bh+36;let s=r68Head(W,H,title,o);
+  let vmax=0;for(const b of blocks)for(const r of b.rows)for(const v of r.vals)if(v>vmax)vmax=v;if(!(vmax>0))vmax=1;
+  blocks.forEach((b,k)=>{const x0=58+(k%per)*blockW+lab,y0=T+Math.floor(k/per)*bh+26;
+    s+='<text x="'+(x0+2*c)+'" y="'+(y0-16)+'" fill="'+SOL.txt+'" font-size="11.5" font-weight="600" text-anchor="middle">'+svgEsc(b.label)+'</text>';
+    for(let j=0;j<4;j++)s+='<text x="'+(x0+j*c+c/2)+'" y="'+(y0-4)+'" fill="'+SOL.txt2+'" font-size="10" text-anchor="middle">'+LAB[j]+'</text>';
+    b.rows.forEach((r,i)=>{const y=y0+i*ch;s+='<text x="'+(x0-6)+'" y="'+(y+ch/2+3)+'" fill="'+SOL.txt2+'" font-size="9" text-anchor="end">'+svgEsc(r.lab)+'</text>';
+      r.vals.forEach((v,j)=>{const a=Math.max(0,Math.min(1,v/vmax)),x=x0+j*c;
+        s+='<rect x="'+x+'" y="'+y+'" width="'+(c-2)+'" height="'+(ch-2)+'" fill="rgba('+SOL.heat+','+(0.06+0.94*a).toFixed(3)+')"/>';
+        s+='<text x="'+(x+(c-2)/2)+'" y="'+(y+ch/2+2)+'" fill="'+(a>0.55?'#fff':(v>=0.005?SOL.txt:SOL.foot))+'" font-size="8.5" text-anchor="middle">'+(v>=0.005?v.toFixed(2):'0')+'</text>';});});});
+  if(o.axes)s+='<text x="58" y="'+(H-24)+'" fill="'+SOL.txt2+'" font-size="10">'+svgEsc(o.axes)+'</text>';
+  if(o.foot)s+='<text x="58" y="'+(H-10)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
+function r68SeedFigs(res,sm){const sd=sm.seeds;if(!sd||!sd.rows.length)return [];const foot=t('svg_foot'),names=sd.names;
+  const groups=names.map((n,i)=>({name:sd.thName(n),short:n==='data'?t('r68ui_mode_data'):n,color:R68_THEORY_COL[i%R68_THEORY_COL.length]}));
+  const set=fn=>names.map(n=>sd.rows.filter(o=>o.theory===n).map(o=>({seed:o.seed,v:fn(o)})));
+  const r0=res.runs[0],dur=r0.kind==='steps'?r0.rows[r0.rows.length-1].step:(r0.end-r0.start);
+  const panels=[['r68_s_size',o=>o.dom>=0?o.S[o.dom]:Math.max(...o.S),2,0.02,0.1],['r68_s_satend',o=>o.satEnd,2,0.05,0.2],['r68_s_domstart',o=>o.domStart,0,Math.max(1,0.05*dur),Math.max(10,0.2*dur)],
+    ['r68_s_transv',o=>o.gini,2,0.02,0.1],['r68_s_horiz',o=>o.horiz,2,0.02,0.1],['r68_s_vert',o=>o.vert,2,0.02,0.1],['r68_s_recip',o=>o.recip,2,0.02,0.1],['r68_s_xs',o=>o.xs,0,2,10]]
+    .map(([lab,fn,dec,tol,span])=>({label:t(lab)+(lab==='r68_s_domstart'?' ('+sd.unit+')':''),sets:set(fn),dec,tol,span,min:lab==='r68_s_domstart'?null:0}));
+  const figs=[{name:'seeds',svg:r68Strip(t('r68_f_seeds'),panels,groups,{sub:t('r68_f_seeds_sub'),foot})}];
+  figs.push({name:'satellisation_force',svg:r68HeatRows(t('r68_f_force'),names.map(n=>({label:sd.thName(n),rows:sd.rows.filter(o=>o.theory===n).map(o=>({lab:String(o.seed),vals:o.force}))})),
+    {sub:t('r68_f_force_sub'),axes:t('r68_f_force_axes'),foot})});
+  return figs;}
 function r68Figures(res,sm){const figs=[];const foot=t('svg_foot');
   const subL=t('r68_f_sub_line').replace('{n}',res.spec.seeds.length);
   if(sm.mode==='sim'){const names=sm.names,runsOf=sm.runsOf,endOf=r=>r.rows[r.rows.length-1];
@@ -2672,7 +2809,7 @@ function r68Figures(res,sm){const figs=[];const foot=t('svg_foot');
         const st=z.reduce((a,q)=>a+q.steps,0),inf=z.reduce((a,q)=>a+q.inferred,0);
         return {label:String(p[0]),vals:['up','down','none','unknown'].map(d=>z.filter(q=>q.dir===d).length),note:st?Math.round(100*inf/st)+'%':''};});
       figs.push({name:'circulation_mobility_'+kind,svg:r68Stack(t('r68_f_circ_'+kind),groups,parts,{sub:t('r68_f_circ_sub'),foot})});}}
-  return figs;}
+  return figs.concat(r68SeedFigs(res,sm));}
 // ====== v68 — INTERFACE: run file, results, replay, script ======
 // The right column is rearranged at start-up: the run file, the results, the command for the terminal and the
 // downloads come first; the sliders (read-only) and the prism probes move into "For advanced users"; the fields of
