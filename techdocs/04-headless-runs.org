@@ -45,6 +45,7 @@ The examples in =runs/= (the contract tables of the book serve only as examples 
 | =compare_parsons_luhmann.csv= | Parsons and Luhmann next to the TR, 1819 steps, seeds 1–8 |
 | =vergleich_theorien.csv= | several theory profiles next to the TR (German keys) |
 | =vergleich_kuehl_meyer_rowan.csv= | the profiles of Kühl and Meyer/Rowan (coded by a student) next to the TR without mechanisms (=profil_TR_ohne_Mechanismen.csv=) and the TR with them |
+| =vergleich_bewertung_plattformen.csv= | valuation on online platforms: the profiles of Ametowobla (2020) and Meier/Peetz/Waibel (2016), coded for a student, next to the TR without mechanisms, Meyer/Rowan, Kühl and Bourdieu (dialectised) |
 | =reiz_kuehl_meyer_rowan.csv= | the same with a stimulus (economy weakened after 1819 steps) and the control runs; about 2 minutes |
 | =reiz_politik.csv= | a stimulus on politics, with the control run |
 | =arbeiter_N1.csv= | data mode: a contract table of the book (chapter 11), as an example of the data mode |
