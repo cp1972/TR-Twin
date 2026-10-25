@@ -29,6 +29,12 @@ check(parse('Modus;Simulation\nReiz;B;schwächen;300;2,6;1819').spec.stimulus.k=
 check(parse('mode,simulation\nstimulus,B,weaken\nstart,1900\nend,2000').errors.length===1,'stimulus with years is an error');
 check(parse('mode,simulation\nstart,1900').errors.length===1,'start without end is an error');
 check(JSON.stringify(parse('mode,simulation').spec.seeds)==='[1,2,3,4,5,6,7,8]','default seeds 1–8');
+// thresholds, stimulus probe and interpretation file
+check(parse('mode,simulation').spec.thresholds===true&&parse('mode,simulation').spec.probe===true,'thresholds and stimulus probe on by default (simulation)');
+check(parse('modus,Simulation\nschwellen,nein\nreizprobe,nein').spec.thresholds===false&&parse('mode,simulation\nseuils,non\nsonde,non').spec.probe===false,'thresholds and probe off (de, fr)');
+check(parse('mode,data\ncontracts,c.csv').spec.thresholds===false&&parse('mode,data\ncontracts,c.csv').spec.probe===false,'no thresholds or probe in data mode');
+{w.__s=parse('modus,Simulation\nprofil,p.csv\ndeutung,d.org').spec;const s=w.document.createElement('script');s.textContent='window.__n=runFileNames(window.__s);';w.document.body.appendChild(s);s.remove();
+ check(JSON.stringify(w.__n)==='["p.csv","d.org"]','the interpretation file is one of the files a run file names');}
 // every example in runs/ parses without errors
 for(const f of fs.readdirSync(path.join(REPO,'runs')).filter(f=>f.endsWith('.csv'))){const p=parse(fs.readFileSync(path.join(REPO,'runs',f),'utf8'));check(!p.errors.length&&!p.warnings.length,'runs/'+f+' parses');}
 console.log(bad?`${bad} failed`:'all passed');process.exit(bad?1:0);

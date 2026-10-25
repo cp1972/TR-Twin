@@ -33,7 +33,7 @@ for (const p of (process.env.QUICK ? [] : PROFILES.concat([null]))) for (const s
     return {S:S.slice(),gini:gini(),recip:reciprocity(),ruler:ruler.slice(),sat:satS.slice()};`);
   const w8 = open(V68);
   const got = w8.__run(`const files={};const csv=${JSON.stringify(csv)};if(csv)files['p.csv']=csv;
-    const spec=parseRunFile('mode,simulation\\n'+(csv?'profile,p.csv\\n':'')+'steps,1819\\nseeds,${sd}').spec;
+    const spec=parseRunFile('mode,simulation\\n'+(csv?'profile,p.csv\\n':'')+'steps,1819\\nseeds,${sd}\\nthresholds,no\\nprobe,no').spec;
     const res=r68Run(spec,files);const run=res.runs[res.runs.length-1];const r=run.rows[run.rows.length-1];
     return {S:r.S,gini:r.gini,recip:r.recip,ruler:r.ruler,sat:r.sat};`);
   same(ref, got, 'steps ' + (p ? path.basename(p) : 'TR') + ' seed ' + sd);
@@ -45,7 +45,7 @@ for (const p of PROFILES.slice(0, 3)) {
     if(r.chains&&Object.keys(r.chains).length){loadedChains=r.chains;for(const sx in r.chains)setChain(+sx,r.chains[sx]);}profilMech(r);
     const ys=r.years.filter(y=>!isNaN(y));tl.start=Math.min(...ys);tl.end=Math.max(...ys);return runSeries();`);
   const ys = csv.split(/\r?\n/)[0].split(',').slice(1).map(Number).filter(v => !isNaN(v));
-  const got = open(V68).__run(`const spec=parseRunFile('mode,simulation\\nprofile,p.csv\\nseeds,1\\nstart,${Math.min(...ys)}\\nend,${Math.max(...ys)}').spec;
+  const got = open(V68).__run(`const spec=parseRunFile('mode,simulation\\nprofile,p.csv\\nseeds,1\\nstart,${Math.min(...ys)}\\nend,${Math.max(...ys)}\\nthresholds,no\\nprobe,no').spec;
     const res=r68Run(spec,{'p.csv':${JSON.stringify(csv)}});return res.runs[1].rows;`);
   same(ref.map(pick), got.map(pick), 'years ' + path.basename(p));
 }

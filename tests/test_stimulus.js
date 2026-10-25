@@ -8,7 +8,7 @@ const open=f=>{const d=new JSDOM(fs.readFileSync(f,'utf8'),{runScripts:'dangerou
   const w=d.window;w.__run=c=>{const s=w.document.createElement('script');s.textContent='window.__o=(function(){'+c+'})();';w.document.body.appendChild(s);s.remove();return w.__o;};return w;};
 const prof=fs.readFileSync(path.join(REPO,'simulation-mode/profiles/profil_Luhmann.csv'),'utf8');
 const w8=open(path.join(REPO,'tr-twin.html'));
-const got=w8.__run(`const sp=parseRunFile('mode,simulation\\nprofile,p.csv\\nstimulus,B,weaken,300,2.6,1819\\nseeds,1-2').spec;const res=r68Run(sp,{'p.csv':${JSON.stringify(prof)}});
+const got=w8.__run(`const sp=parseRunFile('mode,simulation\\nprofile,p.csv\\nstimulus,B,weaken,300,2.6,1819\\nseeds,1-2\\nthresholds,no\\nprobe,no').spec;const res=r68Run(sp,{'p.csv':${JSON.stringify(prof)}});
   const out={};for(const r of res.runs){if(r.control)continue;const c=res.runs.find(q=>q.control&&q.theory===r.theory&&q.seed===r.seed);
     const abw=Math.max(...r.stimulus.end.map((s,i)=>Math.abs(s-c.stimulus.end[i])));const bew=Math.max(r.stimulus.drift,c.stimulus.drift)>=0.005;
     out[r.theory+' '+r.seed]={urteil:bew?'bewegung':(abw>=0.03?'fest':'zurueck'),abw,S:r.stimulus.end};}return out;`);

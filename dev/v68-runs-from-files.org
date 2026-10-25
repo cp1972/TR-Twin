@@ -140,4 +140,7 @@ Mockups (right column only; values illustrative): [[file:v68-mockup-simulation.p
 3. Satellisation and regimes are part of the simulation results.
 4. Trend window 10 years by default, up to 100.
 5. A jump of several categories between coded stages counts as that many steps in the same direction; the steps beyond the first are marked as inferred.
+6. Stability over the seeds: a table per seed (outcome as the sequence of dominant structures), the satellisation force per seed, a stability table and figures.
+7. Thresholds of domination for all twelve sliders and a stimulus probe with each structure weakened are part of every simulation run (four seeds), unless switched off in the run file.
+8. The report gives findings under three questions (compatibility of the approaches, possible research questions, empirical inquiry); the interpretation itself is a text file named by the run file.
 

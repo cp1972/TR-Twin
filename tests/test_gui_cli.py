@@ -29,12 +29,12 @@ with sync_playwright() as p, tempfile.TemporaryDirectory() as tmp:
         pg.locator("#r68files").set_input_files([os.path.join(REPO, run)] + [os.path.join(REPO, f) for f in files])
         pg.wait_for_timeout(500)
         pg.click("#r68go")
-        pg.wait_for_function("R68&&R68.sm&&!R68busy", timeout=300000)
+        pg.wait_for_function("R68&&R68.sm&&!R68busy", timeout=3600000)
         gui_series = pg.evaluate("r68SeriesCSV(R68.res)")
         gui_tables = pg.evaluate("r68AllCSV(R68.sm)")
         # replay of the selected run (seed 1) to its end: the state equals the last computed row
         pg.evaluate("running=true")
-        pg.wait_for_function("R68.runner.done", timeout=300000)
+        pg.wait_for_function("R68.runner.done", timeout=3600000)
         same_end = pg.evaluate("(()=>{const r=R68.res.runs[R68.selIdx],q=r.rows[r.rows.length-1];return JSON.stringify(q.S)===JSON.stringify(S)&&q.gini===gini()&&q.recip===reciprocity();})()")
         ok = gui_series == cli_series and gui_tables == cli_tables and same_end and not errs
         bad += not ok

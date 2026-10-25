@@ -7,6 +7,7 @@ Run from the repository root, after =npm install=.
 | =test_runfile.js= | run files in English, German and French give the same run; keys, seeds, stimulus, errors; every example in =runs/= | =node tests/test_runfile.js= |
 | =test_v67_equal.js= | v68 computes bit-identically to v67's deterministic paths: every profile in steps (pipeline), three profiles in years (=run.js=), five data runs (contract tables, instances, probes) | =node tests/test_v67_equal.js v67.html= |
 | =test_stimulus.js= | the stimulus verdict of a run file equals v67's stimulus probe | =node tests/test_stimulus.js v67.html= |
+| =test_thresholds.js= | thresholds and the stimulus probe leave the runs of the run file unchanged; a sweep at the theory's own value is its run; every threshold to one slider step; a probe run equals the same stimulus in a run file | =node tests/test_thresholds.js= |
 | =test_repeat.js= | a run does not depend on what was computed before it in the same page | =node tests/test_repeat.js= |
 | =test_gui_cli.py= | the interface (Chromium) and =node run.js= give the same series and tables; the replay ends in the computed state | =python3 tests/test_gui_cli.py [chromium]= (needs Playwright) |
 

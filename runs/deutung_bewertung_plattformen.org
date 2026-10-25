@@ -1,0 +1,71 @@
+#+TITLE: Deutung · Bewertung auf Online-Plattformen
+#+LANGUAGE: de
+
+Zur Laufdatei =vergleich_bewertung_plattformen.csv=: Ametowobla, „Die Plattformarchitektur als Strukturmuster“
+(2020), und Meier/Peetz/Waibel, „Bewertungskonstellationen“ (2016), neben der TR mit und ohne Mechanismen,
+Meyer/Rowan, Kühl und Bourdieu (dialektisiert). Die Zahlen stehen in den Tabellen und Befunden des Berichts; hier
+steht, was sie für die Arbeit mit den beiden Texten bedeuten können. Der Zwilling zeigt, was aus den Profilen
+folgt, also aus einer Lesart der Texte, nicht, was auf Plattformen geschieht.
+
+* a) Kompatibilität der Ansätze und Verbindung zum Thema
+
+- *Nah beieinander.* Die beiden Profile liegen im Reglerraum nahe beieinander (Abstand 0,06, der kleinste unter
+  den Texten) und gleich weit von der TR (0,08). Beide erhöhen Zirkulation, Durchlässigkeit und Migration und
+  senken den Rückfluss zur Basis. Ohne Reiz sind beide symmetrisch wie die TR: Keine Struktur dominiert.
+- *Sie ergänzen sich.* Ametowobla beschreibt die Architektur (Kern, Peripherie, Schnittstellen), Meier/Peetz/Waibel
+  die Bewertungsbeziehungen, die durch sie laufen (Bewertete, Bewertende, Publikum, transsituative Regeln). Die
+  Plattform im Sinne Ametowoblas ist die dritte Komponente ihres Modells, die technologische Infrastruktur. Für das
+  Thema heißt das: Die Bewertung auf Plattformen lässt sich als eine Bewertungskonstellation lesen, deren
+  Infrastruktur eine Plattformarchitektur ist.
+- *Ein Widerspruch.* Bei der Angleichung der inneren Ordnung (M1) widersprechen sich die Texte: Für Ametowobla
+  ist die innere Struktur der Komplemente gleichgültig (S. 9), für Meier/Peetz/Waibel ordnen sich die Bewerteten
+  innen nach der Bewertung um (S. 315). Im Zwilling macht M1 hier keinen Unterschied, für das Thema ist es aber eine
+  offene Frage: Passen sich Bewertete nur an der Schnittstelle an oder auch innen?
+- *Gleiche Schwelle, verschiedener Abstand.* Beide kippen über die Konzentration, Meier früher (1,65) als
+  Ametowobla (1,75); die TR liegt mit 1,50 noch näher an ihrer Schwelle. Die Bewertungskonstellation verstärkt also
+  die Konzentration eher, die Architektur dämpft sie eher (billiger Eintritt, Mobilität, Vorteil der Beweglichkeit).
+- *Dieselbe Festlegung nach einer Störung.* In der Reizprobe sind beide die einzigen Profile, die sich nach der
+  Schwächung jeder der vier Strukturen festsetzen (je 4/4). Die TR kehrt nach der Schwächung der Wirtschaft und der
+  Medien zurück, Kühl, Meyer/Rowan und Bourdieu kehren meist zurück. Eine Gegenprobe zeigt, woran das liegt: nicht
+  an den Mechanismen (ohne sie und mit M5 setzt sich Ametowobla ebenso fest), sondern an der *Durchlässigkeit*.
+  Setzt man sie bei Ametowobla auf den Standard der TR (1,0 statt 1,5), kehrt der Lauf nach der Schwächung der
+  Wirtschaft und der Medien zurück wie die TR. Die anderen Regler auf den Standard zu setzen, ändert daran nichts.
+- *Doppelte Rolle der Durchlässigkeit.* Ohne Störung kippen die beiden Texte über diesen Regler nie, auch
+  nicht bei den höchsten Werten. Nach einer Störung hält sie die neue Ordnung
+  fest. Für das Thema ist das der Kern der Verbindung: Was beide Texte teilen, die Übertragung derselben Ordnung über
+  die Bereiche hinweg (das Plattformmuster bei Ametowobla, die Verwobenheit der Bewertungen bei Meier/Peetz/Waibel),
+  macht eine plurale Ordnung stabil, solange nichts geschieht, und eine einmal entstandene Vorherrschaft dauerhaft.
+
+* b) Mögliche Fragestellungen
+
+1. *Schwelle der Konzentration.* Ab welcher Konzentration der Bewertungsautorität (Anteil der Bewertungen über
+   eine Plattform, Gewicht eines aggregierten Werts) kippt eine plurale Bewertungsordnung in die Vorherrschaft
+   einer Ordnung? Die Frage der Entpluralisierung, die Meier/Peetz/Waibel nach Lamont aufwerfen (S. 313), wird damit
+   zu einer Frage nach einer Schwelle.
+2. *Durchlässigkeit und Festlegung.* Wenn Plattformbewertungen in andere Bereiche wandern (Kredit, Rekrutierung,
+   Förderung): Macht diese Übertragung eine Bewertungsordnung nach einer Störung (Skandal, Regulierung, Ausfall einer
+   Plattform) eher fest, statt dass sie zurückkehrt? Der Zwilling legt das nahe; zu prüfen wäre es an Fällen.
+3. *Umbau oder Schnittstelle.* Ordnen sich Bewertete innen nach den Kriterien der Plattform um, oder passen sie nur
+   ihre Darstellung an? Hier treffen sich Ametowobla, Meier/Peetz/Waibel und die Entkopplung bei Meyer/Rowan.
+4. *Migration der Bewerteten.* Meier/Peetz/Waibel liegen auch bei der Migration nahe an einer Schwelle (0,9 → 0,75):
+   Was geschieht, wenn Bewertete nicht mehr zwischen Bereichen wechseln können, etwa weil eine Bewertung sie bindet?
+5. *Gegenmacht.* Unter welchen Bedingungen bauen Bewertete Gegenmacht auf: in netzwerkförmigen statt marktförmigen
+   Plattformen (Ametowobla, S. 20) oder über Zustimmungsregeln wie bei „Peeple“ (Meier/Peetz/Waibel, S. 323)?
+
+* c) Empirische Untersuchung
+
+- *Zuerst messen:* die Konzentration (Marktanteil der Plattform, Gewicht des Gesamtwerts im Ranking) und die
+  Durchlässigkeit (Verwendung der Bewertungen außerhalb der Plattform). An der ersten hängt, ob eine Ordnung kippt,
+  an der zweiten, ob sie nach einer Störung bleibt. Danach die Migration der Bewerteten zwischen Plattformen und
+  Bereichen und die Eintrittskosten neuer Anbieter (Start ohne Bewertungen).
+- *Nicht entscheidend für die Domination:* Zirkulation, Spiegeleffekt, Plastizität und Vorteil dynamischer
+  Strukturen; ihre Messung kann warten.
+- *Fälle:* Plattformen eines Feldes mit verschiedener Konzentration und verschiedener Übertragung der Bewertungen in
+  andere Bereiche, zum Beispiel eine dominante Hotelplattform gegen ein Feld mit mehreren Bewertungsinstanzen
+  (darunter professionelle Führer). Dazu Fälle nach einer Störung (Fälschungsskandal, Regulierung): Kehrt die
+  Ordnung zurück oder setzt sie sich fest? Schritt 3 der Pipeline (ideale Stichprobe) kann diese Fälle aufnehmen.
+- *Datenmodus:* Akteure wären Bewertete und Bewertende mit ihren Wegen über die Zeit, die Kategorie zum Beispiel
+  nach Rang oder Bewertung; Zirkulation und Mobilität zeigen dann, ob gute Bewertungen den Aufstieg tragen und ob
+  schlechte zum Wechsel der Plattform oder des Bereichs führen.
+- *Ebene:* Plattformen sind im Zwilling Vermittlungsinstanzen, keine Relationsstrukturen. Der Zwilling sagt etwas
+  über die Ordnung, in der Plattformbewertung wirkt, nicht über eine einzelne Plattform.
