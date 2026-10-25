@@ -705,6 +705,7 @@ let migAtt=0,migBlk=0,fricS=0,Rcur=1;
 // mobility accounting: mass crossing a structure boundary vs. moving between
 // sequences inside one structure, both exponentially smoothed like fricS
 let mobX=0,mobQ=0;
+let r68CM=null;   // v68: counts the circulation of a computed run by kind and direction (only read, never fed back)
 // TIER 1 — instances (strength per structure and per type; relation / sequence / sequence fragment)
 let Irel=[1,1,1,1],Iseq=[1,1,1,1],Iteil=[1,1,1,1];
 // TIER 2 — power matrix: relative strength of each instance type depending on the structure
@@ -991,20 +992,20 @@ function migrate(dt){const Q=0.25;
     const room=0.5*M[x][a]; if(out+outD>room && out+outD>0){const sc=room/(out+outD);out*=sc;outD*=sc;}
     const n=nextInChain(x,a),comp=act[x][a];
     if(out>0){
-      if(a===x){ flows.push([out,x,a,x,n,comp]); }
+      if(a===x){ flows.push([out,x,a,x,n,comp]); if(r68CM)r68CM.q+=out; }
       else{
         const minority=Q*out,majority=out-minority;
-        flows.push([majority,x,a,x,n,comp]);
+        flows.push([majority,x,a,x,n,comp]); if(r68CM)r68CM.q+=majority;
         migAtt+=minority;
-        if(!sclerosed(a)){ const cm=declass(norm([act[x][a][0],0.3*act[x][a][1],0,0]),decl); flows.push([minority,x,a,a,a,cm]); cf[x][a]+=minority; }
-        else { flows.push([minority,x,a,x,n,comp]); migBlk+=minority; }
+        if(!sclerosed(a)){ const cm=declass(norm([act[x][a][0],0.3*act[x][a][1],0,0]),decl); flows.push([minority,x,a,a,a,cm]); cf[x][a]+=minority; if(r68CM){r68CM.xd+=minority*decl;r68CM.xn+=minority*(1-decl);r68CM.att+=minority;} }
+        else { flows.push([minority,x,a,x,n,comp]); migBlk+=minority; if(r68CM){r68CM.q+=minority;r68CM.blk+=minority;r68CM.att+=minority;} }
       }
     }
     if(outD>0){                                // the sequence a of the disappointed is the core of structure a -> that is where they go
       const t=(a!==x)?a:nextInChain(x,x), arr=[0,0,0.35,0.65];
       migAtt+=outD;
-      if(!sclerosed(t)){ flows.push([outD,x,a,t,t,arr]); cf[x][t]+=outD; }
-      else { flows.push([outD,x,a,x,a,comp]); migBlk+=outD; }   // blocked flight -> friction
+      if(!sclerosed(t)){ flows.push([outD,x,a,t,t,arr]); cf[x][t]+=outD; if(r68CM){r68CM.xu+=0.35*outD;r68CM.xn+=0.65*outD;r68CM.att+=outD;} }
+      else { flows.push([outD,x,a,x,a,comp]); migBlk+=outD; if(r68CM){r68CM.blk+=outD;r68CM.att+=outD;} }   // blocked flight -> friction
     }
   }
   for(const fl of flows){const d=fl[0],sx=fl[1],sa=fl[2],dx=fl[3],da=fl[4],comp=fl[5];
@@ -2117,7 +2118,8 @@ function r68Snapshot(){let h=0,v=0;const sg=[0,1,2,3].map(structGini),vg=[0,1,2,
     sat:satS.slice(),ruler:ruler.slice(),taken:taken.slice(),dom:(gini()>0.05?satelliser():-1),
     inst:[0,1,2,3].map(z=>[Irel[z],Iseq[z],Iteil[z],Ictrl[z]]),cap:capFloorCur.slice(),capCell:capCellCur.map(r=>r.slice()),
     mobX:mobX,mobQ:mobQ,blk:(migAtt>1e-9?migBlk/migAtt:0),migAtt:migAtt,comp:[0,1,2,3].map(structComp),
-    cIneg:[0,1,2,3].map(structContribIneq),aRecip:[0,1,2,3].map(structContribRecip),sur:meanResid};}
+    cIneg:[0,1,2,3].map(structContribIneq),aRecip:[0,1,2,3].map(structContribRecip),sur:meanResid,
+    seq:g.map(r=>r.slice()),cm:r68CM?Object.assign({},r68CM):null};}
 function r68Runner(job){   // job: {kind, seed, n | years, profileText, spec, files, stimulus}
   const R={job,done:false,i:0,rows:[],events:[],year:null,total:0};
   const dt=1/60*0.68;let K=1,y=0,k=0,prevRuler=null,prevDom=null,stim=null;
@@ -2133,6 +2135,7 @@ function r68Runner(job){   // job: {kind, seed, n | years, profileText, spec, fi
       seed=job.seed>>>0||1;RELAXcur=0.15;
       K=Math.max(4,Math.round(tl.dur*60*0.68/Math.max(1,tl.end-tl.start)));reset();y=tl.start;k=0;
       R.total=(tl.end-tl.start+1)*K;}
+    r68CM={q:0,xn:0,xu:0,xd:0,blk:0,att:0};   // circulation counted from the first step of the run
     R.chains0=[0,1,2,3].map(z=>chainOf(z).slice(0,3));   // the chains the run starts with (the assumption; plasticity and M1 may change them)
     prevRuler=ruler.slice();prevDom=null;R.year=job.kind==='steps'?null:tl.start;R.i=0;R.done=false;};
   function track(when){for(let x=0;x<4;x++)if(ruler[x]!==prevRuler[x]){R.events.push({kind:'regime',at:when,x,from:prevRuler[x],to:ruler[x],taken:taken[x]>=0});prevRuler[x]=ruler[x];}
@@ -2188,7 +2191,7 @@ function r68Finish(R){const j=R.job;const out={theory:j.theory,path:j.path,seed:
 function r68Keep(){return {seed,RELAXcur,Pcur,Wcur,boost,tl:Object.assign({},tl),loadedChains,cohortRec,cohortTrans,cohortByActor,probeByActor,
   ctrlByActor,prismSel,instCensus,weightDrive,probeMode,gapMode,MECH:Object.assign({},MECH),SATDAUER,
   sliders:R68_SLIDERS.map(id=>{const el=document.getElementById(id);return el?el.value:null;})};}
-function r68Restore(k){seed=k.seed;RELAXcur=k.RELAXcur;Pcur=k.Pcur;Wcur=k.Wcur;boost=k.boost;Object.assign(tl,k.tl);loadedChains=k.loadedChains;
+function r68Restore(k){r68CM=null;seed=k.seed;RELAXcur=k.RELAXcur;Pcur=k.Pcur;Wcur=k.Wcur;boost=k.boost;Object.assign(tl,k.tl);loadedChains=k.loadedChains;
   cohortRec=k.cohortRec;cohortTrans=k.cohortTrans;cohortByActor=k.cohortByActor;probeByActor=k.probeByActor;ctrlByActor=k.ctrlByActor;
   prismSel=k.prismSel;instCensus=k.instCensus;weightDrive=k.weightDrive;probeMode=k.probeMode;gapMode=k.gapMode;
   R68_SLIDERS.forEach((id,i)=>{if(k.sliders[i]!=null)r68SetSlider(id,k.sliders[i]);});MECH=k.MECH;SATDAUER=k.SATDAUER;syncMechUI();
@@ -2291,6 +2294,26 @@ Object.assign(I18N,{
   r68_f_sat:{fr:'Satellisation des structures',de:'Satellisierung der Strukturen',en:'Satellisation of the structures'},
   r68_f_traj_g:{fr:'Trajectoire de l’inégalité transversale',de:'Verlauf der transversalen Ungleichheit',en:'Trajectory of transversal inequality'},
   r68_f_traj_r:{fr:'Trajectoire de la réciprocité',de:'Verlauf der Reziprozität',en:'Trajectory of reciprocity'},
+  r68_f_sub_line:{fr:'médiane sur {n} graines · bande = étendue',de:'Median über {n} Startwerte · Band = Spannweite',en:'median over {n} seeds · band = range'},
+  r68_f_traj_h:{fr:'Trajectoire de l’inégalité horizontale',de:'Verlauf der horizontalen Ungleichheit',en:'Trajectory of horizontal inequality'},
+  r68_f_traj_v:{fr:'Trajectoire de l’inégalité verticale',de:'Verlauf der vertikalen Ungleichheit',en:'Trajectory of vertical inequality'},
+  r68_f_traj_rs:{fr:'Trajectoire de la réciprocité par structure',de:'Verlauf der Reziprozität je Struktur',en:'Trajectory of reciprocity per structure'},
+  r68_f_seq:{fr:'Tailles des séquences par structure',de:'Größen der Sequenzen je Struktur',en:'Sizes of the sequences per structure'},
+  r68_f_seqname:{fr:'séquence',de:'Sequenz',en:'sequence'},
+  r68_f_seq_sub:{fr:'à la fin, médiane sur {n} graines · barre = taille de la structure, parts = ses séquences',de:'am Ende, Median über {n} Startwerte · Balken = Größe der Struktur, Teile = ihre Sequenzen',en:'at the end, median over {n} seeds · bar = size of the structure, parts = its sequences'},
+  r68_f_sat_sub:{fr:'force moyenne sur tout le déroulement, médiane sur {n} graines',de:'mittlere Stärke über den ganzen Lauf, Median über {n} Startwerte',en:'mean strength over the whole run, median over {n} seeds'},
+  r68_f_sat_axes:{fr:'ligne = structure satellisée · colonne = structure qui satellise (la plus grande à chaque pas)',de:'Zeile = satellisierte Struktur · Spalte = satellisierende Struktur (die jeweils größte)',en:'row = satellised structure · column = satellising structure (the largest at each step)'},
+  r68_f_circ_sim_sub:{fr:'part de la circulation sur tout le déroulement (%), médiane sur {n} graines',de:'Anteil an der Zirkulation über den ganzen Lauf (%), Median über {n} Startwerte',en:'share of the circulation over the whole run (%), median over {n} seeds'},
+  r68_f_blk_short:{fr:'bloquée',de:'blockiert',en:'blocked'},
+  r68_n_circ_sim:{fr:'Sur tout le déroulement, médiane sur {n} graines (étendue), écart à la TR. Dans le jumeau, un changement de séquence (le long du parcours interne) garde la catégorie ; un changement de structure est une migration (les migrants sont déclassés d’une catégorie, selon le réglage « déclassement des nouveaux arrivants ») ou la fuite des déçus (35 % arrivent comme conservateurs). « Bloquée » : part de la migration tentée qui n’a pas lieu (structure de destination sclérosée). Volume : part de la population déplacée, cumulée.',
+    de:'Über den ganzen Lauf, Median über {n} Startwerte (Spannweite), Abstand zur TR. Im Zwilling behält ein Sequenzwechsel (entlang des internen Verlaufs) die Kategorie; ein Strukturwechsel ist eine Migration (die Migranten steigen um eine Kategorie ab, nach dem Regler „Deklassierung der Neuankömmlinge“) oder die Flucht der Enttäuschten (35 % kommen als Konservative an). „Blockiert“: Anteil der versuchten Migration, der nicht stattfindet (Zielstruktur sklerotisiert). Volumen: bewegter Anteil der Population, aufsummiert.',
+    en:'Over the whole run, median over {n} seeds (range), difference to the TR. In the twin a change of sequence (along the internal path) keeps the category; a change of structure is a migration (migrants are downgraded by one category, by the setting “downgrading of newcomers”) or the flight of the disappointed (35 % arrive as conservatives). “Blocked”: share of the attempted migration that does not take place (target structure sclerosed). Volume: share of the population moved, summed up.'},
+  r68_ci_seq:{fr:'changement de séquence · ni l’un ni l’autre (%)',de:'Sequenzwechsel · weder noch (%)',en:'change of sequence · neither (%)'},
+  r68_ci_xup:{fr:'changement de structure · ascendante (%)',de:'Strukturwechsel · aufsteigend (%)',en:'change of structure · ascending (%)'},
+  r68_ci_xdown:{fr:'changement de structure · descendante (%)',de:'Strukturwechsel · absteigend (%)',en:'change of structure · descending (%)'},
+  r68_ci_xnone:{fr:'changement de structure · ni l’un ni l’autre (%)',de:'Strukturwechsel · weder noch (%)',en:'change of structure · neither (%)'},
+  r68_ci_blk:{fr:'migration bloquée (% de la migration tentée)',de:'blockierte Migration (% der versuchten)',en:'blocked migration (% of attempted)'},
+  r68_ci_vol:{fr:'volume de la circulation',de:'Volumen der Zirkulation',en:'volume of circulation'},
   r68_f_circ_all:{fr:'Circulation et mobilité par période',de:'Zirkulation und Mobilität je Zeitraum',en:'Circulation and mobility per period'},
   r68_f_circ_struct:{fr:'Changements de structure et mobilité',de:'Strukturwechsel und Mobilität',en:'Changes of structure and mobility'},
   r68_f_circ_sub:{fr:'transitions de la table des contrats · % = part des pas déduits',de:'Übergänge der Vertragstabelle · % = Anteil erschlossener Stufen',en:'transitions of the contract table · % = share of inferred steps'},
@@ -2316,6 +2339,7 @@ Object.assign(I18N,{
   r68ui_k_stim:{fr:'stimulus',de:'Reiz',en:'stimulus'},
   r68ui_computing:{fr:'calcul…',de:'rechne…',en:'computing…'},
   r68ui_done:{fr:'calculé',de:'berechnet',en:'computed'},
+  r68ui_playing:{fr:'l’animation rejoue le déroulement choisi ci-dessous ; Σ Résultats ouvre les tableaux et figures',de:'die Animation spielt den unten gewählten Lauf ab; Σ Ergebnisse öffnet Tabellen und Grafiken',en:'the animation replays the run chosen below; Σ Results opens the tables and figures'},
   r68ui_script:{fr:'En script',de:'Als Skript',en:'As a script'},
   r68ui_script_desc:{fr:'mêmes fichiers, mêmes résultats — dans un terminal, dans le dossier du jumeau :',de:'dieselben Dateien, dieselben Ergebnisse — im Terminal, im Ordner des Zwillings:',en:'same files, same results — in a terminal, in the twin folder:'},
   r68ui_install:{fr:'Installer Node.js et jsdom (une fois)',de:'Node.js und jsdom installieren (einmal)',en:'Install Node.js and jsdom (once)'},
@@ -2420,7 +2444,22 @@ function r68SimSummary(res){
   const E={id:'regimes',title:t('r68_t_regimes').replace('{s}',spec.seeds[0]),head:[t('r68_c_theory'),unit,t('r68_c_struct'),t('r68_c_from'),t('r68_c_to'),t('r68_c_how')],rows:[]};
   for(const n of names){const r=runsOf(n)[0];for(const e of r.events.filter(e=>e.kind==='regime'))
     E.rows.push([n,e.at,LAB[e.x],e.from===e.x?t('autonomous'):LAB[e.from],e.to===e.x?t('autonomous'):LAB[e.to],e.taken?t('r68_taken'):'']);}
-  return {mode:'sim',names,tables:[A,R,E],med,runsOf,unit};}
+  // circulation and mobility over the whole run (the migration of the twin: change of sequence along the chain, change of structure by
+  // migration or flight; mobility = change of category at that move: migrants are downgraded, part of the fleeing disappointed arrive as conservatives)
+  const cmOf=r=>{const c=endOf(r).cm||{q:0,xn:0,xu:0,xd:0,blk:0,att:0};const tot=c.q+c.xn+c.xu+c.xd;
+    return {tot,seq:tot?100*c.q/tot:null,xu:tot?100*c.xu/tot:null,xd:tot?100*c.xd/tot:null,xn:tot?100*c.xn/tot:null,blk:c.att?100*c.blk/c.att:null};};
+  const C={id:'circulation',title:t('r68_t_circ'),head:[t('r68_c_kind')].concat(names.map(n=>n==='TR'?'TR ('+t('r68_ref')+')':n)),rows:[],
+    note:t('r68_n_circ_sim').replace('{n}',spec.seeds.length)};
+  const cmed={};
+  for(const [key,lab,dec] of [['seq','r68_ci_seq',1],['xu','r68_ci_xup',1],['xd','r68_ci_xdown',1],['xn','r68_ci_xnone',1],['blk','r68_ci_blk',1],['tot','r68_ci_vol',2]]){
+    const row=[t(lab)];cmed[key]={};
+    for(const n of names){const v=runsOf(n).map(r=>cmOf(r)[key]).filter(z=>z!=null);const m=r68med(v);cmed[key][n]=m;
+      if(m==null){row.push('–');continue;}
+      let cell=r68f(m,dec);if(v.length>1&&r68f(r68max(v),dec)!==r68f(r68min(v),dec))cell+=' ('+r68f(r68min(v),dec)+'–'+r68f(r68max(v),dec)+')';
+      if(n!=='TR'&&cmed[key].TR!=null){const d=m-cmed[key].TR;if(r68f(d,dec)!==r68f(0,dec))cell+=' · '+(d>=0?'+':'')+r68f(d,dec);}
+      row.push(cell);}
+    C.rows.push(row);}
+  return {mode:'sim',names,tables:[A,R,C,E],med,cmed,runsOf,unit};}
 
 // ---- data mode ----
 function r68Periods(y0,y1,w){const P=[];for(let a=y0;a<=y1;a+=w)P.push([a,Math.min(y1,a+w-1)]);return P;}
@@ -2509,7 +2548,7 @@ function r68Bars(title,groups,series,o){o=o||{};const W=Math.max(560,120+groups.
   if(o.foot)s+='<text x="'+L+'" y="'+(H-12)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';
   return s+'</svg>';}
 function r68Stack(title,groups,parts,o){o=o||{};const W=Math.max(560,120+groups.length*44),L=58,R=18,B=52,plotH=190;
-  const leg=svgLegend(parts,L,o.sub?72:58,W-R);const T=leg.bottomY+18,H=Math.round(T+plotH+B);
+  const leg=svgLegend(parts,L,o.sub?72:58,W-R);const T=leg.bottomY+(groups.some(g=>g.note)?32:18),H=Math.round(T+plotH+B);
   let ymax=0;for(const g of groups)ymax=Math.max(ymax,g.vals.reduce((a,b)=>a+b,0));if(!(ymax>0))ymax=1;
   const yS=v=>H-B-(v/ymax)*(H-T-B),gw=(W-L-R)/groups.length,bw=Math.min(28,gw-8);
   let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" font-family="'+SVGFONT+'"><rect width="'+W+'" height="'+H+'" fill="'+SOL.bg+'"/>';
@@ -2524,28 +2563,108 @@ function r68Stack(title,groups,parts,o){o=o||{};const W=Math.max(560,120+groups.
     if(g.note)s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(yS(acc)-4).toFixed(1)+'" fill="'+SOL.txt2+'" font-size="9" text-anchor="middle">'+svgEsc(g.note)+'</text>';});
   if(o.foot)s+='<text x="'+L+'" y="'+(H-12)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';
   return s+'</svg>';}
+// nice axis ticks for steps or years (at most about 7 labels, never overlapping)
+function r68Ticks(a,b,n){n=n||6;const span=(b-a)||1,raw=span/n,mag=Math.pow(10,Math.floor(Math.log10(raw)));let st=mag;
+  for(const m of [1,2,2.5,5,10])if(m*mag>=raw){st=m*mag;break;}const out=[];for(let v=Math.ceil(a/st-1e-9)*st;v<=b+1e-9;v+=st)out.push(+v.toFixed(6));return out;}
+function r68Head(W,H,title,o){let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" font-family="'+SVGFONT+'"><rect width="'+W+'" height="'+H+'" fill="'+SOL.bg+'"/>';
+  s+='<text x="58" y="34" fill="'+SOL.txt+'" font-size="18" font-weight="600">'+svgEsc(title)+'</text>';
+  if(o.sub)s+='<text x="58" y="54" fill="'+SOL.txt2+'" font-size="11.5">'+svgEsc(o.sub)+'</text>';return s;}
+// one plot area of a line chart: lines = median, band = range over the seeds
+function r68Plot(x0,y0,w,h,xs,series,o){const xmin=xs[0],xmax=xs[xs.length-1];let ymin=o.ymin,ymax=o.ymax;
+  if(ymin==null||ymax==null){let a=Infinity,b=-Infinity;for(const q of series)for(const arr of [q.data,q.lo,q.hi])if(arr)for(const v of arr)if(v!=null){if(v<a)a=v;if(v>b)b=v;}
+    if(ymin==null)ymin=a;if(ymax==null)ymax=b;}
+  if(!(ymax>ymin))ymax=ymin+1;
+  const xS=v=>x0+(v-xmin)/((xmax-xmin)||1)*w,yS=v=>y0+h-(v-ymin)/((ymax-ymin)||1)*h;
+  let s='<rect x="'+x0+'" y="'+y0+'" width="'+w+'" height="'+h+'" fill="none" stroke="'+SOL.axis+'"/>';
+  if(o.label)s+='<text x="'+x0+'" y="'+(y0-6)+'" fill="'+SOL.txt+'" font-size="11.5" font-weight="600">'+svgEsc(o.label)+'</text>';
+  for(const gv of [ymin,(ymin+ymax)/2,ymax]){const yy=yS(gv);s+='<line x1="'+x0+'" y1="'+yy.toFixed(1)+'" x2="'+(x0+w)+'" y2="'+yy.toFixed(1)+'" stroke="'+SOL.grid+'"/><text x="'+(x0-6)+'" y="'+(yy+3).toFixed(1)+'" fill="'+SOL.tick+'" font-size="9" text-anchor="end" font-family="ui-monospace,monospace">'+gv.toFixed(2)+'</text>';}
+  for(const v of r68Ticks(xmin,xmax,o.nt||Math.max(3,Math.floor(w/80)))){const xx=xS(v);
+    s+='<line x1="'+xx.toFixed(1)+'" y1="'+(y0+h)+'" x2="'+xx.toFixed(1)+'" y2="'+(y0+h+4)+'" stroke="'+SOL.tick+'"/><text x="'+xx.toFixed(1)+'" y="'+(y0+h+15)+'" fill="'+SOL.tick+'" font-size="9" text-anchor="middle" font-family="ui-monospace,monospace">'+Math.round(v)+'</text>';}
+  for(const q of series)if(q.lo&&q.hi){let up='',dn='';xs.forEach((x,i)=>{if(q.hi[i]==null)return;up+=xS(x).toFixed(1)+','+yS(q.hi[i]).toFixed(1)+' ';});
+    for(let i=xs.length-1;i>=0;i--){if(q.lo[i]==null)continue;dn+=xS(xs[i]).toFixed(1)+','+yS(q.lo[i]).toFixed(1)+' ';}
+    s+='<polygon points="'+(up+dn).trim()+'" fill="'+q.color+'" opacity="0.13" stroke="none"/>';}
+  for(const q of series){let pts='';q.data.forEach((v,i)=>{if(v!=null)pts+=xS(xs[i]).toFixed(1)+','+yS(v).toFixed(1)+' ';});
+    s+='<polyline points="'+pts.trim()+'" fill="none" stroke="'+q.color+'" stroke-width="1.7" stroke-linejoin="round" opacity="0.92"'+(q.dash?' stroke-dasharray="5 3"':'')+'/>';}
+  return s;}
+function r68Line(title,xs,series,o){o=o||{};const W=640,L=58,R=18,plotH=190;const leg=svgLegend(series,L,o.sub?72:58,W-R);const T=leg.bottomY+18;
+  const H=Math.round(T+plotH+(o.xlab?58:46));let s=r68Head(W,H,title,o)+leg.svg+r68Plot(L,T,W-L-R,plotH,xs,series,o);
+  if(o.xlab)s+='<text x="'+(L+(W-L-R)/2)+'" y="'+(T+plotH+30)+'" fill="'+SOL.txt2+'" font-size="10" text-anchor="middle">'+svgEsc(o.xlab)+'</text>';
+  if(o.foot)s+='<text x="'+L+'" y="'+(H-10)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
+// small multiples: one panel per structure (2 × 2), the same series in each
+function r68LinePanels(title,xs,panels,legend,o){o=o||{};const W=720,L=58,R=18,gap=46,pw=(W-L-R-gap)/2,ph=130,leg=svgLegend(legend,L,o.sub?72:58,W-R);
+  const T=leg.bottomY+30,H=Math.round(T+2*ph+gap+(o.xlab?52:40));let s=r68Head(W,H,title,o)+leg.svg;
+  panels.forEach((p,i)=>{s+=r68Plot(L+(i%2)*(pw+gap),T+Math.floor(i/2)*(ph+gap),pw,ph,xs,p.series,Object.assign({},o,{label:p.label,nt:4}));});
+  if(o.xlab)s+='<text x="'+(W/2)+'" y="'+(T+2*ph+gap+28)+'" fill="'+SOL.txt2+'" font-size="10" text-anchor="middle">'+svgEsc(o.xlab)+'</text>';
+  if(o.foot)s+='<text x="'+L+'" y="'+(H-10)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
+// heatmap per theory: row = satellised structure, column = satelliser
+function r68Heat(title,mats,o){o=o||{};const c=34,lab=26,blockW=lab+4*c+34,per=Math.min(mats.length,3),rows=Math.ceil(mats.length/per);
+  const W=Math.max(560,58+per*blockW+18),T=o.sub?84:68,bh=lab+4*c+24,H=T+rows*bh+36;let s=r68Head(W,H,title,o);
+  let vmax=0;for(const m of mats)for(const r of m.M)for(const v of r)if(v!=null&&v>vmax)vmax=v;if(!(vmax>0))vmax=1;
+  mats.forEach((m,k)=>{const x0=58+(k%per)*blockW+lab,y0=T+Math.floor(k/per)*bh+lab;
+    s+='<text x="'+(x0+2*c)+'" y="'+(y0-lab+2)+'" fill="'+SOL.txt+'" font-size="11.5" font-weight="600" text-anchor="middle">'+svgEsc(m.label)+'</text>';
+    for(let j=0;j<4;j++)s+='<text x="'+(x0+j*c+c/2)+'" y="'+(y0-5)+'" fill="'+SOL.txt2+'" font-size="10" text-anchor="middle">'+LAB[j]+'</text>';
+    for(let i=0;i<4;i++){s+='<text x="'+(x0-6)+'" y="'+(y0+i*c+c/2+4)+'" fill="'+SOL.txt2+'" font-size="10" text-anchor="end">'+LAB[i]+'</text>';
+      for(let j=0;j<4;j++){const v=m.M[i][j],x=x0+j*c,y=y0+i*c;
+        if(i===j){s+='<rect x="'+x+'" y="'+y+'" width="'+(c-2)+'" height="'+(c-2)+'" fill="#eef0f3"/>';continue;}
+        const a=Math.max(0,Math.min(1,(v||0)/vmax));s+='<rect x="'+x+'" y="'+y+'" width="'+(c-2)+'" height="'+(c-2)+'" fill="rgba('+SOL.heat+','+(0.06+0.94*a).toFixed(3)+')"/>';
+        s+='<text x="'+(x+(c-2)/2)+'" y="'+(y+c/2+3)+'" fill="'+(a>0.55?'#fff':(v!=null&&v>=0.005?SOL.txt:SOL.foot))+'" font-size="9" text-anchor="middle">'+(v!=null&&v>=0.005?v.toFixed(2):'0')+'</text>';}}});
+  if(o.axes)s+='<text x="58" y="'+(H-24)+'" fill="'+SOL.txt2+'" font-size="10">'+svgEsc(o.axes)+'</text>';
+  if(o.foot)s+='<text x="58" y="'+(H-10)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
+// clustered stacked bars: one cluster per structure, one bar per theory, the bar split into the sequences of the structure
+function r68StackClusters(title,clusters,parts,o){o=o||{};const nb=clusters[0].bars.length,bw=30,cw=nb*(bw+8)+26,L=58,R=18,W=Math.max(560,L+R+clusters.length*cw);
+  const leg=svgLegend(parts,L,o.sub?72:58,W-R),T=leg.bottomY+18,plotH=190,H=Math.round(T+plotH+62);let s=r68Head(W,H,title,o)+leg.svg;
+  let ymax=0;for(const c of clusters)for(const b of c.bars)ymax=Math.max(ymax,b.vals.reduce((a,v)=>a+v,0));if(!(ymax>0))ymax=1;
+  const yS=v=>T+plotH-(v/ymax)*plotH;s+='<rect x="'+L+'" y="'+T+'" width="'+(W-L-R)+'" height="'+plotH+'" fill="none" stroke="'+SOL.axis+'"/>';
+  for(const gv of [0,ymax/2,ymax]){const yy=yS(gv);s+='<line x1="'+L+'" y1="'+yy.toFixed(1)+'" x2="'+(W-R)+'" y2="'+yy.toFixed(1)+'" stroke="'+SOL.grid+'"/><text x="'+(L-8)+'" y="'+(yy+3).toFixed(1)+'" fill="'+SOL.tick+'" font-size="10" text-anchor="end">'+gv.toFixed(2)+'</text>';}
+  const cw2=(W-L-R)/clusters.length;
+  clusters.forEach((c,ci)=>{const x0=L+ci*cw2+(cw2-nb*(bw+8)+8)/2;
+    c.bars.forEach((b,bi)=>{const x=x0+bi*(bw+8);let acc=0;b.vals.forEach((v,pi)=>{if(!(v>0))return;const y1=yS(acc),y2=yS(acc+v);acc+=v;
+        s+='<rect x="'+x.toFixed(1)+'" y="'+y2.toFixed(1)+'" width="'+bw+'" height="'+(y1-y2).toFixed(1)+'" fill="'+parts[pi].color+'" opacity="0.88" stroke="#fff" stroke-width="0.6"/>';});
+      s+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(T+plotH+13)+'" fill="'+SOL.txt2+'" font-size="8.5" text-anchor="middle">'+svgEsc(String(b.label).slice(0,9))+'</text>';});
+    s+='<text x="'+(L+ci*cw2+cw2/2).toFixed(1)+'" y="'+(T+plotH+30)+'" fill="'+SOL.txt+'" font-size="10.5" text-anchor="middle">'+svgEsc(c.label)+'</text>';});
+  if(o.foot)s+='<text x="'+L+'" y="'+(H-10)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
 function r68Figures(res,sm){const figs=[];const foot=t('svg_foot');
+  const subL=t('r68_f_sub_line').replace('{n}',res.spec.seeds.length);
   if(sm.mode==='sim'){const names=sm.names,runsOf=sm.runsOf,endOf=r=>r.rows[r.rows.length-1];
+    const short=n=>n==='TR'?'TR':n;
     const series=names.map((n,i)=>({name:n==='TR'?'TR ('+t('r68_ref')+')':n,color:R68_THEORY_COL[i%R68_THEORY_COL.length]}));
     const bar=(n,fn)=>{const v=runsOf(n).map(fn);return {v:r68med(v),lo:r68min(v),hi:r68max(v)};};
     const sub=t('r68_f_sub').replace('{n}',res.spec.seeds.length);
     figs.push({name:'inequality_reciprocity',svg:r68Bars(t('r68_f_ineq'),[['r68_m_transv',r=>endOf(r).gini],['r68_m_horiz',r=>endOf(r).horiz],['r68_m_vert',r=>endOf(r).vert],['r68_m_recip',r=>endOf(r).recip]]
       .map(([lab,fn])=>({label:t(lab),bars:names.map(n=>bar(n,fn))})),series,{sub,foot,ymax:1})});
     figs.push({name:'sizes',svg:r68Bars(t('r68_f_sizes'),[0,1,2,3].map(x=>({label:LAB[x]+' · '+SN(x),bars:names.map(n=>bar(n,r=>endOf(r).S[x]))})),series,{sub,foot})});
-    figs.push({name:'satellisation',svg:r68Bars(t('r68_f_sat'),[0,1,2,3].map(x=>({label:LAB[x]+' · '+SN(x),bars:names.map(n=>bar(n,r=>endOf(r).sat[x]))})),series,{sub,foot,ymax:1})});
-    // trajectories of inequality and reciprocity (median over the seeds)
-    const r0=runsOf(names[0])[0],xs=r0.rows.map(q=>q.step!=null?q.step:q.year);
-    const med=(n,fn)=>xs.map((_,i)=>r68med(runsOf(n).map(r=>fn(r.rows[Math.min(i,r.rows.length-1)]))));
-    figs.push({name:'trajectory_inequality',svg:svgLine(t('r68_f_traj_g'),xs,names.map((n,i)=>({name:series[i].name,color:series[i].color,data:med(n,q=>q.gini)})),{ymin:0,sub,foot})});
-    figs.push({name:'trajectory_reciprocity',svg:svgLine(t('r68_f_traj_r'),xs,names.map((n,i)=>({name:series[i].name,color:series[i].color,data:med(n,q=>q.recip)})),{ymin:0,ymax:1,sub,foot})});}
-  else{const runs=res.runs,xs=runs[0].rows.map(q=>q.year),med=fn=>xs.map((_,i)=>r68med(runs.map(r=>fn(r.rows[i]))));
-    const sub=t('r68_f_sub').replace('{n}',res.spec.seeds.length);
-    figs.push({name:'inequality_reciprocity',svg:svgLine(t('r68_f_ineq'),xs,[['r68_m_transv',q=>q.gini,SOL.gini],['r68_m_horiz',q=>q.horiz,'#E08A3C'],['r68_m_vert',q=>q.vert,'#5D9E46'],['r68_m_recip',q=>q.recip,SOL.recip]]
-      .map(([lab,fn,c])=>({name:t(lab),color:c,data:med(fn)})),{ymin:0,ymax:1,sub,foot})});
-    figs.push({name:'sizes',svg:svgLine(t('r68_f_sizes'),xs,[0,1,2,3].map(x=>({name:LAB[x]+' · '+SN(x),color:SOL.struct[x],data:med(q=>q.S[x])})),{ymin:0,sub,foot})});
-    figs.push({name:'satellisation',svg:svgLine(t('r68_f_sat'),xs,[0,1,2,3].map(x=>({name:LAB[x]+' · '+SN(x),color:SOL.struct[x],data:med(q=>q.sat[x])})),{ymin:0,ymax:1,sub,foot})});
+    // sizes of the sequences in each structure at the end (share of the whole population: size of the structure × share of the sequence)
+    figs.push({name:'sequences',svg:r68StackClusters(t('r68_f_seq'),[0,1,2,3].map(x=>({label:LAB[x]+' · '+SN(x),
+        bars:names.map(n=>({label:short(n),vals:[0,1,2,3].map(q=>r68med(runsOf(n).map(r=>{const e=endOf(r);return e.S[x]*e.seq[x][q];})))}))})),
+      [0,1,2,3].map(q=>({name:t('r68_f_seqname')+' '+LAB[q],color:SOL.struct[q]})),{sub:t('r68_f_seq_sub').replace('{n}',res.spec.seeds.length),foot})});
+    // who satellises whom: mean strength over the run, the satelliser being the largest structure at each recorded step (as in the twin)
+    const satM=r=>{const M=[0,1,2,3].map(()=>[0,0,0,0]);for(const q of r.rows){let d=0;for(let i=1;i<4;i++)if(q.S[i]>q.S[d])d=i;for(let x=0;x<4;x++)if(x!==d)M[x][d]+=q.sat[x];}
+      return M.map(row=>row.map(v=>v/r.rows.length));};
+    figs.push({name:'satellisation',svg:r68Heat(t('r68_f_sat'),names.map((n,i)=>{const Ms=runsOf(n).map(satM);
+        return {label:series[i].name,M:[0,1,2,3].map(x=>[0,1,2,3].map(y=>r68med(Ms.map(M=>M[x][y]))))};}),
+      {sub:t('r68_f_sat_sub').replace('{n}',res.spec.seeds.length),axes:t('r68_f_sat_axes'),foot})});
+    // trajectories (median over the seeds, band = range)
+    const r0=runsOf(names[0])[0],xs=r0.rows.map(q=>q.step!=null?q.step:q.year),xlab=r0.kind==='steps'?t('r68_steps'):t('r68_years');
+    const traj=(n,i,fn)=>{const at=k=>runsOf(n).map(r=>fn(r.rows[Math.min(k,r.rows.length-1)]));
+      return {name:series[i].name,color:series[i].color,data:xs.map((_,k)=>r68med(at(k))),lo:xs.map((_,k)=>r68min(at(k))),hi:xs.map((_,k)=>r68max(at(k)))};};
+    for(const [nm,lab,fn] of [['trajectory_transversal','r68_f_traj_g',q=>q.gini],['trajectory_horizontal','r68_f_traj_h',q=>q.horiz],['trajectory_vertical','r68_f_traj_v',q=>q.vert],['trajectory_reciprocity','r68_f_traj_r',q=>q.recip]])
+      figs.push({name:nm,svg:r68Line(t(lab),xs,names.map((n,i)=>traj(n,i,fn)),{ymin:0,ymax:nm==='trajectory_reciprocity'?1:null,sub:subL,foot,xlab})});
+    figs.push({name:'trajectory_reciprocity_structures',svg:r68LinePanels(t('r68_f_traj_rs'),xs,[0,1,2,3].map(x=>({label:LAB[x]+' · '+SN(x),series:names.map((n,i)=>traj(n,i,q=>q.rRecip[x]))})),
+      series,{ymin:0,ymax:1,sub:subL,foot,xlab})});
+    // circulation and mobility over the run
+    const cm=sm.cmed,cparts=[{name:t('r68_k_seq'),color:'#9aa1ad'},{name:t('r68_k_struct')+' · '+t('r68_c_up'),color:SOL.up},{name:t('r68_k_struct')+' · '+t('r68_c_down'),color:SOL.down},{name:t('r68_k_struct')+' · '+t('r68_c_none'),color:'#C9A227'}];
+    figs.push({name:'circulation_mobility',svg:r68Stack(t('r68_t_circ'),names.map(n=>({label:short(n),vals:['seq','xu','xd','xn'].map(k=>cm[k][n]||0),
+        note:cm.blk[n]!=null?t('r68_f_blk_short')+' '+Math.round(cm.blk[n])+'%':''})),cparts,{sub:t('r68_f_circ_sim_sub').replace('{n}',res.spec.seeds.length),foot})});}
+  else{const runs=res.runs,xs=runs[0].rows.map(q=>q.year),at=(fn,i)=>runs.map(r=>fn(r.rows[i]));
+    const ser=(name,color,fn)=>({name,color,data:xs.map((_,i)=>r68med(at(fn,i))),lo:xs.map((_,i)=>r68min(at(fn,i))),hi:xs.map((_,i)=>r68max(at(fn,i)))});
+    const xlab=t('r68_years');
+    figs.push({name:'inequality_reciprocity',svg:r68Line(t('r68_f_ineq'),xs,[['r68_m_transv',q=>q.gini,SOL.gini],['r68_m_horiz',q=>q.horiz,'#E08A3C'],['r68_m_vert',q=>q.vert,'#5D9E46'],['r68_m_recip',q=>q.recip,SOL.recip]]
+      .map(([lab,fn,c])=>ser(t(lab),c,fn)),{ymin:0,ymax:1,sub:subL,foot,xlab})});
+    figs.push({name:'sizes',svg:r68Line(t('r68_f_sizes'),xs,[0,1,2,3].map(x=>ser(LAB[x]+' · '+SN(x),SOL.struct[x],q=>q.S[x])),{ymin:0,sub:subL,foot,xlab})});
+    figs.push({name:'reciprocity_structures',svg:r68Line(t('r68_f_traj_rs'),xs,[0,1,2,3].map(x=>ser(LAB[x]+' · '+SN(x),SOL.struct[x],q=>q.rRecip[x])),{ymin:0,ymax:1,sub:subL,foot,xlab})});
+    figs.push({name:'satellisation',svg:r68Line(t('r68_f_sat'),xs,[0,1,2,3].map(x=>ser(LAB[x]+' · '+SN(x),SOL.struct[x],q=>q.sat[x])),{ymin:0,ymax:1,sub:subL,foot,xlab})});
     if(runs[0].rows.some(q=>q.cap.some(v=>Math.abs(v-1)>1e-9)))
-      figs.push({name:'control_capacity',svg:svgLine(t('r68_m_cap'),xs,[0,1,2,3].map(x=>({name:LAB[x]+' · '+SN(x),color:SOL.struct[x],data:med(q=>q.cap[x])})),{sub,foot})});
+      figs.push({name:'control_capacity',svg:r68Line(t('r68_m_cap'),xs,[0,1,2,3].map(x=>ser(LAB[x]+' · '+SN(x),SOL.struct[x],q=>q.cap[x])),{sub:subL,foot,xlab})});
     const P=sm.periods.slice(0,-1),tr=sm.transitions;
     const parts=[{name:t('r68_c_up'),color:SOL.up},{name:t('r68_c_down'),color:SOL.down},{name:t('r68_c_none'),color:'#9aa1ad'},{name:t('r68_c_unknown'),color:'#d9dce2'}];
     for(const kind of ['all','struct']){
@@ -2636,6 +2755,12 @@ function r68UiBuild(){
   const hr=()=>document.createElement('hr');
   const after=comp.nextSibling;
   for(const el of [hr(),run,speedCtl,btns,prism,hr(),scr,hr(),dls,hr()])if(el)panel.insertBefore(el,after);
+  // the structure legend, the social composition and the sequence detail give way to the results (code kept, hidden);
+  // the legend of the categories and of the golden dots stays, under the replay, since it explains the animation
+  const anim=document.createElement('div');anim.id='r68animleg';anim.style.marginTop='6px';
+  for(const k of ['legend_categories','note_golden']){const e=panel.querySelector('[data-i18n="'+k+'"]');if(e)anim.appendChild(e);}
+  run.appendChild(anim);
+  for(const e of [panel.querySelector(':scope > [data-i18n="struct_head"]'),document.getElementById('legend'),comp,blockOf('inspgrid')])if(e&&e.parentElement===panel)hid.appendChild(e);
   panel.appendChild(adv);panel.appendChild(hid);
   // tidy separators: no two in a row, none at the end
   let prev=null;for(const el of [...panel.children]){if(el.tagName==='HR'&&(!prev||prev.tagName==='HR'))el.remove();else prev=el;}
@@ -2708,7 +2833,10 @@ async function r68Compute(){const $$=id=>document.getElementById(id);if(!R68||R6
     for(const id of ['r68open','r68dlrep','r68dltab','r68dlser'])$$(id).disabled=false;
     const sel=$$('r68sel');sel.innerHTML='';res.runs.forEach((r,i)=>{if(r.control)return;const o=document.createElement('option');o.value=i;
       o.textContent=(res.spec.mode==='data'?'':r.theory+' · ')+t('r68ui_seed')+' '+r.seed;sel.appendChild(o);});
-    $$('r68replay').style.display='flex';r68Replay(+sel.value);r68Open();}
+    // the animation starts at once: the first theory of the run file (the TR is in the list too), seed as listed; Σ Results opens the tables
+    const first=res.runs.findIndex(r=>!r.control&&r.theory!=='TR');if(first>=0)sel.value=String(first);
+    $$('r68replay').style.display='flex';r68Replay(+sel.value);running=true;syncPlayBtn();
+    $$('r68prog').textContent=t('r68ui_done')+' · '+t('r68ui_playing');}
   catch(e){$$('r68prog').innerHTML='<span style="color:var(--warn)">⚠ '+r68Esc(e&&e.message||e)+'</span>';}
   finally{$$('r68go').disabled=false;$$('r68files').disabled=false;}}
 // ---- the replay: the same step sequence as the computed run, a few steps per frame ----
