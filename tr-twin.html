@@ -2401,9 +2401,12 @@ Object.assign(I18N,{
   r68_t_find:{fr:'Constats pour l’interprétation',de:'Befunde für die Deutung',en:'Findings for the interpretation'},
   r68_c_q:{fr:'Question',de:'Frage',en:'Question'},
   r68_c_find:{fr:'Constat',de:'Befund',en:'Finding'},
-  r68_n_find:{fr:'Produits automatiquement à partir des résultats. Le lien avec le thème des textes et l’interprétation proprement dite sont dans le fichier que le fichier de déroulement nomme sous « interpretation ».',
-    de:'Automatisch aus den Ergebnissen erzeugt. Die Verbindung zum Thema der Texte und die eigentliche Deutung stehen in der Datei, die die Laufdatei unter „deutung“ nennt.',
-    en:'Produced automatically from the results. The link to the subject of the texts and the interpretation itself are in the file the run file names under “interpretation”.'},
+  r68_n_find:{fr:'Produits automatiquement à partir des résultats ; avec plusieurs théories sans la TR, qui n’est que la référence.',de:'Automatisch aus den Ergebnissen erzeugt; bei mehreren Theorien ohne die TR, die nur die Voreinstellung ist.',en:'Produced automatically from the results; with several theories without the TR, which is only the default.'},
+  r68_n_find_interp:{fr:'L’interprétation est dans l’onglet « Interprétation » et dans le rapport.',de:'Die Deutung steht im Reiter „Deutung“ und im Bericht.',en:'The interpretation is in the tab “Interpretation” and in the report.'},
+  r68_f_qprobe_set1:{fr:'Après l’affaiblissement de {x}, {a} se fixe, là où {l} revient : qu’est-ce qui, dans cette approche, fixe le nouvel ordre ?',de:'Nach der Schwächung von {x} setzt sich {a} fest, wo {l} zurückkehrt: Was hält in diesem Ansatz die neue Ordnung fest?',en:'After {x} is weakened, {a} sets where {l} returns: what holds the new order in place in this approach?'},
+  r68_f_qprobe_ret1:{fr:'Après l’affaiblissement de {x}, {a} revient, là où {l} se fixe : qu’est-ce qui, dans cette approche, défait une domination ?',de:'Nach der Schwächung von {x} kehrt {a} zurück, wo sich {l} festsetzt: Was löst in diesem Ansatz eine Domination wieder auf?',en:'After {x} is weakened, {a} returns where {l} sets: what dissolves a domination in this approach?'},
+  r68_f_qprobe_set2:{fr:'Après l’affaiblissement de {x}, {a} se fixe, là où {l} reviennent : qu’est-ce qui, dans cette approche, fixe le nouvel ordre ?',de:'Nach der Schwächung von {x} setzt sich {a} fest, wo {l} zurückkehren: Was hält in diesem Ansatz die neue Ordnung fest?',en:'After {x} is weakened, {a} sets where {l} return: what holds the new order in place in this approach?'},
+  r68_f_qprobe_ret2:{fr:'Après l’affaiblissement de {x}, {a} revient, là où {l} se fixent : qu’est-ce qui, dans cette approche, défait une domination ?',de:'Nach der Schwächung von {x} kehrt {a} zurück, wo sich {l} festsetzen: Was löst in diesem Ansatz eine Domination wieder auf?',en:'After {x} is weakened, {a} returns where {l} set: what dissolves a domination in this approach?'},
   r68_q_a:{fr:'a) Compatibilité des approches',de:'a) Kompatibilität der Ansätze',en:'a) Compatibility of the approaches'},
   r68_q_b:{fr:'b) Questions possibles',de:'b) Mögliche Fragestellungen',en:'b) Possible research questions'},
   r68_q_c:{fr:'c) Enquête empirique',de:'c) Empirische Untersuchung',en:'c) Empirical inquiry'},
@@ -2423,14 +2426,19 @@ Object.assign(I18N,{
   r68_f_qprobe_ret:{fr:'Après l’affaiblissement de {x}, {a} revient ({k}/{n}) là où la TR se fixe : qu’est-ce qui, dans cette approche, défait une domination ?',de:'Nach der Schwächung von {x} kehrt {a} zurück ({k}/{n}), wo sich die TR festsetzt: Was löst in diesem Ansatz eine Domination wieder auf?',en:'After {x} is weakened, {a} returns ({k}/{n}) where the TR sets: what dissolves a domination in this approach?'},
   r68_f_qseeds:{fr:'Chez {a}, l’issue dépend de la graine ({oc}) : quelles petites différences décident ?',de:'Bei {a} hängt der Ausgang vom Startwert ab ({oc}): Welche kleinen Unterschiede entscheiden?',en:'For {a} the outcome depends on the seed ({oc}): which small differences decide?'},
   r68_f_cmeasure:{fr:'À déterminer d’abord empiriquement : les curseurs dont un seuil est proche — {l}.',de:'Zuerst empirisch zu bestimmen: die Regler mit naher Schwelle — {l}.',en:'To be determined empirically first: the sliders with a near threshold — {l}.'},
-  r68_f_cnone:{fr:'Sans seuil dans aucun profil : {l} ; leur mesure ne décide pas de la domination d’une structure.',de:'In keinem Profil mit Schwelle: {l}; ihre Messung entscheidet nicht über die Domination einer Struktur.',en:'Without a threshold in any profile: {l}; measuring them does not decide whether a structure dominates.'},
+  r68_f_cnone:{fr:'Sans seuil dans aucun profil : {l} ; sans perturbation, aucun ordre ne bascule par eux (pour la sonde, ils peuvent compter quand même).',de:'In keinem Profil mit Schwelle: {l}; über sie kippt ohne Störung keine Ordnung (für die Reizprobe können sie trotzdem zählen).',en:'Without a threshold in any profile: {l}; without a disturbance no order tips through them (they may still count for the stimulus probe).'},
   r68_f_ccases:{fr:'Cas : là où une théorie est proche d’un seuil ou dépend de la graine, la comparaison de cas de part et d’autre du seuil est la plus instructive.',de:'Fälle: Wo eine Theorie nahe an einer Schwelle liegt oder vom Startwert abhängt, ist der Vergleich von Fällen diesseits und jenseits der Schwelle am aufschlussreichsten.',en:'Cases: where a theory lies near a threshold or depends on the seed, comparing cases on either side of the threshold is most telling.'},
   r68_f_clevel:{fr:'Niveau : le jumeau dit quelque chose de l’ordre des structures relationnelles, non d’organisations ou de plateformes singulières ; toute mesure doit transposer le codage à ce niveau.',de:'Ebene: Der Zwilling sagt etwas über die Ordnung der Relationsstrukturen, nicht über einzelne Organisationen oder Plattformen; jede Messung muss die Kodierung auf diese Ebene übertragen.',en:'Level: the twin says something about the order of the relational structures, not about single organisations or platforms; any measurement has to carry the coding over to this level.'},
   r68_f_thr:{fr:'Seuils de la domination',de:'Schwellen der Domination',en:'Thresholds of domination'},
-  r68_f_thr_sub:{fr:'part des graines où une structure domine, selon la valeur du curseur ; cercle = valeur de la théorie',de:'Anteil der Startwerte, in denen eine Struktur dominiert, je Reglerwert; Kreis = Wert der Theorie',en:'share of seeds in which a structure dominates, by slider value; circle = the theory’s value'},
+  r68_f_thr_sub:{fr:'chaque curseur sur toute son étendue, les autres valeurs comme dans le profil ; {n} graines',de:'jeder Regler über seinen ganzen Bereich, die übrigen Werte wie im Profil; {n} Startwerte',en:'each slider over its whole range, the other values as in the profile; {n} seeds'},
   r68_f_probe:{fr:'Sonde : chaque structure affaiblie',de:'Reizprobe: jede Struktur geschwächt',en:'Stimulus probe: each structure weakened'},
-  r68_f_probe_sub:{fr:'nombre de graines par verdict',de:'Zahl der Startwerte je Urteil',en:'number of seeds per verdict'},
+  r68_f_probe_sub:{fr:'une case par graine : verdict après le stimulus',de:'ein Feld je Startwert: Urteil nach dem Reiz',en:'one square per seed: verdict after the stimulus'},
   r68ui_tab_interp:{fr:'Interprétation',de:'Deutung',en:'Interpretation'},
+  r68_f_thr_none:{fr:'aucune domination',de:'keine Domination',en:'no domination'},
+  r68_f_thr_dom:{fr:'une structure domine (au moins la moitié des graines)',de:'eine Struktur dominiert (mindestens die Hälfte der Startwerte)',en:'a structure dominates (at least half of the seeds)'},
+  r68_f_thr_own:{fr:'valeur de la théorie',de:'Wert der Theorie',en:'the theory’s value'},
+  r68_f_thr_tick:{fr:'seuil (avec sa valeur)',de:'Schwelle (mit ihrem Wert)',en:'threshold (with its value)'},
+  r68_f_probe_key:{fr:'lettre : structure dominante à la fin ; nombre sous la case : graine',de:'Buchstabe: dominante Struktur am Ende; Zahl unter dem Feld: Startwert',en:'letter: dominant structure at the end; number under the square: seed'},
   r68_f_sub_line:{fr:'médiane sur {n} graines · bande = étendue',de:'Median über {n} Startwerte · Band = Spannweite',en:'median over {n} seeds · band = range'},
   r68_f_traj_h:{fr:'Trajectoire de l’inégalité horizontale',de:'Verlauf der horizontalen Ungleichheit',en:'Trajectory of horizontal inequality'},
   r68_f_traj_v:{fr:'Trajectoire de l’inégalité verticale',de:'Verlauf der vertikalen Ungleichheit',en:'Trajectory of vertical inequality'},
@@ -2723,18 +2731,22 @@ function r68XSummary(res,sm){const spec=res.spec,out={tables:[]};if(spec.mode!==
   if(res.probes&&res.probes.length){const P={id:'probe',title:t('r68_t_probe'),head:[t('r68_c_theory')].concat([0,1,2,3].map(x=>LAB[x]+'− · '+SN(x))),rows:[],note:t('r68_n_probe').replace('{n}',Math.min(R68_XSEEDS,spec.seeds.length))};
     out.probe={};
     for(const n of names){const row=[lab(n)];out.probe[n]=[];
-      for(let x=0;x<4;x++){const rs=res.probes.filter(r=>r.theory===n&&r.probeX===x),c={},dom={};
+      for(let x=0;x<4;x++){const rs=res.probes.filter(r=>r.theory===n&&r.probeX===x).sort((a,b)=>a.seed-b.seed),c={},dom={},bySeed=[];
         for(const r of rs){const k=res.probes.find(q=>q.theory===n&&q.control&&q.seed===r.seed);const abw=Math.max(...r.stimulus.end.map((v,i)=>Math.abs(v-k.stimulus.end[i])));
           const v=Math.max(r.stimulus.drift,k.stimulus.drift)>=0.005?'bewegung':(abw>=0.03?'fest':'zurueck');c[v]=(c[v]||0)+1;
-          if(v!=='zurueck'){const e=r.rows[r.rows.length-1];const d=e.dom<0?t('r68_balanced'):LAB[e.dom];dom[d]=(dom[d]||0)+1;}}
-        out.probe[n][x]={c,n:rs.length,dom};
+          const e=r.rows[r.rows.length-1];bySeed.push({seed:r.seed,v,dom:e.dom});
+          if(v!=='zurueck'){const d=e.dom<0?t('r68_balanced'):LAB[e.dom];dom[d]=(dom[d]||0)+1;}}
+        out.probe[n][x]={c,n:rs.length,dom,bySeed};
         const dk=Object.keys(dom).sort((a,b)=>dom[b]-dom[a]);
         row.push(['zurueck','fest','bewegung'].filter(k=>c[k]).map(k=>t('r68_v_'+k)+' '+c[k]).join(' · ')+(dk.length?' ('+t('r68_probe_dom')+' '+dk[0]+')':''));}
       P.rows.push(row);}
     out.tables.push(P);}
   out.tables.push(r68Findings(res,sm,out));
   return out;}
-function r68Findings(res,sm,X){const names=sm.names,others=names.filter(n=>n!=='TR'),lab=n=>n==='TR'?'TR':n,F={id:'findings',title:t('r68_t_find'),head:[t('r68_c_q'),t('r68_c_find')],rows:[],note:t('r68_n_find')};
+function r68Findings(res,sm,X){const names=sm.names,others=names.filter(n=>n!=='TR'),lab=n=>n==='TR'?'TR':n,hasInterp=!!(res.spec.interpretation&&res.files&&res.files[res.spec.interpretation]);
+  const F={id:'findings',title:t('r68_t_find'),head:[t('r68_c_q'),t('r68_c_find')],rows:[],note:t('r68_n_find')+(hasInterp?' '+t('r68_n_find_interp'):'')};
+  // with one theory the comparison with the TR is the point; with several, the TR (the default) is left out of the findings
+  const withTR=others.length<=1,pool=withTR?names:others;
   const add=(q,txt)=>F.rows.push([t(q),txt]);const fill=(k,o)=>{let x=t(k);for(const a in o){const v=o[a]===t('r68_balanced')?t('r68_near_none'):o[a];x=x.split('{'+a+'}').join(v);}return x;};
   const sl=n=>{const r=sm.runsOf(n)[0];return r?r.sliders:{};},mech=n=>{const r=sm.runsOf(n)[0];return r?['M1','M2','M3','M4','M5','M6'].filter(m=>r.mech[m]):[];};
   const range=id=>{const el=r68SliderEl(id);return (+el.max)-(+el.min);};
@@ -2756,17 +2768,21 @@ function r68Findings(res,sm,X){const names=sm.names,others=names.filter(n=>n!=='
       if(X.near){const na=X.near[a].best,nb=X.near[b].best;if(na&&nb)txt+=' '+fill('r68_f_near2',{a,b,sa:t(R68_SLIDER_LABEL[na.id]),sb:t(R68_SLIDER_LABEL[nb.id])});}
       const pa=setCount(a),pb=setCount(b);if(pa&&pb)txt+=' '+(pa.join()===pb.join()?fill('r68_f_probesame',{p:prTxt(a)}):fill('r68_f_probediff',{a,b,pa:prTxt(a),pb:prTxt(b)}));
       add('r68_q_a',txt);}}
-  for(const a of others){let txt=fill('r68_f_tr',{a,d:r68f(dist(a,'TR'),2),diff:diffs(a,'TR')});const A=outc(a),T0=outc('TR');
+  if(withTR)for(const a of others){let txt=fill('r68_f_tr',{a,d:r68f(dist(a,'TR'),2),diff:diffs(a,'TR')});const A=outc(a),T0=outc('TR');
     txt+=' '+(A.k[0]===T0.k[0]?fill('r68_f_same',{o:A.k[0]}):fill('r68_f_diffout',{a,b:'TR',oa:outTxt(a),ob:outTxt('TR')}));add('r68_q_a',txt);}
   // b) questions suggested by thresholds, stimulus probe and seeds
-  if(X.near)for(const a of names){const b=X.near[a].best;if(!b||b.d>0.25)continue;
+  if(X.near)for(const a of pool){const b=X.near[a].best;if(!b||b.d>0.25)continue;
     add('r68_q_b',fill(b.state?'r68_f_qnear_dom':'r68_f_qnear',{a:lab(a),pct:Math.round(100*b.d),s:t(R68_SLIDER_LABEL[b.id]),v0:r68f(b.own,r68Dec(b.id)),v1:r68f(b.v,r68Dec(b.id)),verb:t(b.dir>0?'r68_f_rise':'r68_f_fall')}));}
-  if(X.probe&&X.probe.TR)for(const a of others)for(let x=0;x<4;x++){const p=X.probe[a][x],q=X.probe.TR[x];const fa=(p.c.fest||0)+(p.c.bewegung||0),fq=(q.c.fest||0)+(q.c.bewegung||0);
+  const sets=(n,x)=>{const p=X.probe[n][x];return 2*((p.c.fest||0)+(p.c.bewegung||0))>=p.n;};
+  if(X.probe&&!withTR)for(const a of others){const by={};for(let x=0;x<4;x++){const ret=others.filter(o=>o!==a&&sets(o,x)!==sets(a,x));if(!ret.length)continue;
+      const key=(sets(a,x)?'s':'r')+(ret.length>1?'2':'1')+'|'+ret.join(', ');(by[key]=by[key]||[]).push(LAB[x]+' · '+SN(x));}
+    for(const key in by){const [k,l]=key.split('|');add('r68_q_b',fill('r68_f_qprobe_'+(k[0]==='s'?'set':'ret')+k[1],{a,x:by[key].join(', '),l}));}}
+  if(X.probe&&X.probe.TR&&withTR)for(const a of others)for(let x=0;x<4;x++){const p=X.probe[a][x],q=X.probe.TR[x];const fa=(p.c.fest||0)+(p.c.bewegung||0),fq=(q.c.fest||0)+(q.c.bewegung||0);
     if(2*fa>=p.n&&2*fq<q.n)add('r68_q_b',fill('r68_f_qprobe_set',{a,x:LAB[x]+' · '+SN(x),k:fa,n:p.n}));
     else if(2*fa<p.n&&2*fq>=q.n)add('r68_q_b',fill('r68_f_qprobe_ret',{a,x:LAB[x]+' · '+SN(x),k:p.n-fa,n:p.n}));}
-  for(const a of names){const o=outc(a);if(o.k.length>1)add('r68_q_b',fill('r68_f_qseeds',{a:lab(a),oc:outTxt(a)}));}
+  for(const a of pool){const o=outc(a);if(o.k.length>1)add('r68_q_b',fill('r68_f_qseeds',{a:lab(a),oc:outTxt(a)}));}
   // c) what to measure first, what does not decide, which cases
-  if(X.near){const near=new Set(),any=new Set();for(const a of names){for(const q of X.near[a].all){any.add(q.id);if(q.d<=0.25)near.add(q.id);}}
+  if(X.near){const near=new Set(),any=new Set();for(const a of pool){for(const q of X.near[a].all){any.add(q.id);if(q.d<=0.25)near.add(q.id);}}
     if(near.size)add('r68_q_c',fill('r68_f_cmeasure',{l:[...near].map(id=>t(R68_SLIDER_LABEL[id])).join(', ')}));
     const none=R68_SLIDERS.filter(id=>!any.has(id));if(none.length)add('r68_q_c',fill('r68_f_cnone',{l:none.map(id=>t(R68_SLIDER_LABEL[id])).join(', ')}));}
   add('r68_q_c',t('r68_f_ccases'));add('r68_q_c',t('r68_f_clevel'));
@@ -2921,24 +2937,52 @@ function r68HeatRows(title,blocks,o){o=o||{};const c=34,ch=18,lab=34,blockW=lab+
         s+='<text x="'+(x+(c-2)/2)+'" y="'+(y+ch/2+2)+'" fill="'+(a>0.55?'#fff':(v>=0.005?SOL.txt:SOL.foot))+'" font-size="8.5" text-anchor="middle">'+(v>=0.005?v.toFixed(2):'0')+'</text>';});});});
   if(o.axes)s+='<text x="58" y="'+(H-24)+'" fill="'+SOL.txt2+'" font-size="10">'+svgEsc(o.axes)+'</text>';
   if(o.foot)s+='<text x="58" y="'+(H-10)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
-// curves of the share of seeds with a domination over a slider's range, one panel per slider, one line per theory
-function r68Curves(title,panels,legend,o){o=o||{};const per=3,pw=190,ph=104,gx=46,gy=62,L=58,R=18,W=L+per*(pw+gx)-gx+R,leg=svgLegend(legend,L,o.sub?72:58,W-R);
-  const T=leg.bottomY+40,rows=Math.ceil(panels.length/per),H=T+rows*(ph+gy)+12;let s=r68Head(W,H,title,o)+leg.svg;
-  panels.forEach((p,k)=>{const x0=L+(k%per)*(pw+gx),y0=T+Math.floor(k/per)*(ph+gy),xS=v=>x0+(v-p.min)/((p.max-p.min)||1)*pw,yS=v=>y0+ph-v*ph;
-    s+='<text x="'+x0+'" y="'+(y0-8)+'" fill="'+SOL.txt+'" font-size="10.5" font-weight="600">'+svgEsc(p.label)+'</text><rect x="'+x0+'" y="'+y0+'" width="'+pw+'" height="'+ph+'" fill="none" stroke="'+SOL.axis+'"/>';
-    for(const gv of [0,0.5,1]){const yy=yS(gv);s+='<line x1="'+x0+'" y1="'+yy+'" x2="'+(x0+pw)+'" y2="'+yy+'" stroke="'+SOL.grid+'"/><text x="'+(x0-4)+'" y="'+(yy+3)+'" fill="'+SOL.tick+'" font-size="8.5" text-anchor="end" font-family="ui-monospace,monospace">'+gv+'</text>';}
-    for(const v of r68Ticks(p.min,p.max,3)){const xx=xS(v);s+='<text x="'+xx.toFixed(1)+'" y="'+(y0+ph+13)+'" fill="'+SOL.tick+'" font-size="8.5" text-anchor="middle" font-family="ui-monospace,monospace">'+(+v.toFixed(2))+'</text>';}
-    p.series.forEach(q=>{s+='<polyline points="'+q.pts.map(z=>xS(z[0]).toFixed(1)+','+yS(z[1]).toFixed(1)).join(' ')+'" fill="none" stroke="'+q.color+'" stroke-width="1.6" opacity="0.9"/>';
-      if(q.own!=null)s+='<circle cx="'+xS(q.own[0]).toFixed(1)+'" cy="'+yS(q.own[1]).toFixed(1)+'" r="3.4" fill="#fff" stroke="'+q.color+'" stroke-width="1.6"/>';});});
+// thresholds as ranges: for each slider one bar per theory over the slider's whole range, red where a structure
+// dominates (in at least half of the seeds), grey where none does; diamond = the theory's value, tick and number = threshold
+function r68ThrBars(title,panels,o){o=o||{};const L=58,LW=150,BW=440,R=24,rh=20,W=L+LW+BW+R,fd=v=>+(+v).toFixed(2);
+  const legY=o.sub?74:60;let y=legY+34;const blocks=panels.map(p=>{const h=24+p.rows.length*rh+34;const b={p,y};y+=h;return b;});const H=y+18;
+  let s=r68Head(W,H,title,o);const DOM='#C0392B',NON='#dde1e8';
+  s+='<rect x="'+L+'" y="'+(legY-9)+'" width="16" height="10" fill="'+NON+'"/><text x="'+(L+22)+'" y="'+legY+'" fill="'+SOL.txt2+'" font-size="11">'+svgEsc(t('r68_f_thr_none'))+'</text>';
+  s+='<rect x="'+(L+170)+'" y="'+(legY-9)+'" width="16" height="10" fill="'+DOM+'" opacity="0.85"/><text x="'+(L+192)+'" y="'+legY+'" fill="'+SOL.txt2+'" font-size="11">'+svgEsc(t('r68_f_thr_dom'))+'</text>';
+  s+='<path d="M'+(L+5)+' '+(legY+11)+' l5 5 l-5 5 l-5 -5 z" fill="#1b1f2a" transform="translate(0,0)"/><text x="'+(L+16)+'" y="'+(legY+20)+'" fill="'+SOL.txt2+'" font-size="11">'+svgEsc(t('r68_f_thr_own'))+'</text>';
+  s+='<line x1="'+(L+175)+'" y1="'+(legY+11)+'" x2="'+(L+175)+'" y2="'+(legY+23)+'" stroke="#1b1f2a" stroke-width="1.6"/><text x="'+(L+184)+'" y="'+(legY+20)+'" fill="'+SOL.txt2+'" font-size="11">'+svgEsc(t('r68_f_thr_tick'))+'</text>';
+  for(const {p,y:y0} of blocks){const x0=L+LW,xS=v=>x0+(v-p.min)/((p.max-p.min)||1)*BW;
+    s+='<text x="'+L+'" y="'+(y0+12)+'" fill="'+SOL.txt+'" font-size="12" font-weight="600">'+svgEsc(p.label)+'</text>';
+    p.rows.forEach((r,i)=>{const yy=y0+20+i*rh;
+      s+='<text x="'+(x0-8)+'" y="'+(yy+12)+'" fill="'+r.color+'" font-size="10.5" text-anchor="end">'+svgEsc(String(r.name).slice(0,22))+'</text>';
+      for(const g of r.segs)s+='<rect x="'+xS(g.a).toFixed(1)+'" y="'+(yy+3)+'" width="'+Math.max(0.8,xS(g.b)-xS(g.a)).toFixed(1)+'" height="12" fill="'+(g.dom?DOM:NON)+'"'+(g.dom?' opacity="0.85"':'')+'/>';
+      for(const th of r.thr){const xx=xS(th.v);s+='<line x1="'+xx.toFixed(1)+'" y1="'+(yy+1)+'" x2="'+xx.toFixed(1)+'" y2="'+(yy+17)+'" stroke="#1b1f2a" stroke-width="1.6"/>'+
+        '<text x="'+(xx+(th.dir>0?3:-3)).toFixed(1)+'" y="'+(yy+1)+'" fill="#1b1f2a" font-size="8.5" text-anchor="'+(th.dir>0?'start':'end')+'">'+fd(th.v)+'</text>';}
+      if(r.own!=null){const xx=xS(r.own);s+='<path d="M'+xx.toFixed(1)+' '+(yy+3)+' l6 6 l-6 6 l-6 -6 z" fill="#1b1f2a" stroke="#fff" stroke-width="0.8"/>';}});
+    const ya=y0+20+p.rows.length*rh+4;s+='<line x1="'+x0+'" y1="'+ya+'" x2="'+(x0+BW)+'" y2="'+ya+'" stroke="'+SOL.axis+'"/>';
+    for(const v of [...new Set([p.min,...r68Ticks(p.min,p.max,5),p.max])]){const xx=xS(v);if(xx<x0-0.5||xx>x0+BW+0.5)continue;
+      s+='<line x1="'+xx.toFixed(1)+'" y1="'+ya+'" x2="'+xx.toFixed(1)+'" y2="'+(ya+4)+'" stroke="'+SOL.tick+'"/><text x="'+xx.toFixed(1)+'" y="'+(ya+15)+'" fill="'+SOL.tick+'" font-size="9" text-anchor="middle" font-family="ui-monospace,monospace">'+fd(v)+'</text>';}}
   if(o.foot)s+='<text x="'+L+'" y="'+(H-6)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
+// stimulus probe as a grid: one row per theory, one column per weakened structure, one square per seed
+function r68ProbeGrid(title,names,labels,probe,o){o=o||{};const L=58,LW=150,cs=22,gap=4,n=Math.max(...names.map(m=>Math.max(...probe[m].map(q=>q.bySeed.length)))),cw=n*(cs+gap)+30;
+  const W=L+LW+4*cw+18,legY=o.sub?74:60,T=legY+42,rh=cs+20,H=T+names.length*rh+40;let s=r68Head(W,H,title,o);
+  const COL={zurueck:SOL.up,fest:SOL.down,bewegung:'#C9A227'};let lx=L;
+  for(const k of ['zurueck','fest','bewegung']){s+='<rect x="'+lx+'" y="'+(legY-9)+'" width="12" height="12" fill="'+COL[k]+'"/><text x="'+(lx+17)+'" y="'+(legY+1)+'" fill="'+SOL.txt2+'" font-size="11">'+svgEsc(t('r68_v_'+k))+'</text>';lx+=150;}
+  s+='<text x="'+L+'" y="'+(legY+18)+'" fill="'+SOL.txt2+'" font-size="10.5">'+svgEsc(t('r68_f_probe_key'))+'</text>';
+  for(let x=0;x<4;x++)s+='<text x="'+(L+LW+x*cw+(n*(cs+gap)-gap)/2)+'" y="'+(T-6)+'" fill="'+SOL.txt+'" font-size="11" font-weight="600" text-anchor="middle">'+svgEsc(LAB[x]+'− · '+SN(x))+'</text>';
+  names.forEach((m,i)=>{const yy=T+i*rh+8;s+='<text x="'+(L+LW-10)+'" y="'+(yy+cs/2+4)+'" fill="'+SOL.txt+'" font-size="10.5" text-anchor="end">'+svgEsc(String(labels[i]).slice(0,22))+'</text>';
+    for(let x=0;x<4;x++)probe[m][x].bySeed.forEach((q,k)=>{const xx=L+LW+x*cw+k*(cs+gap);
+      s+='<rect x="'+xx+'" y="'+yy+'" width="'+cs+'" height="'+cs+'" rx="3" fill="'+COL[q.v]+'" opacity="0.88"/>';
+      if(q.v!=='zurueck'&&q.dom>=0)s+='<text x="'+(xx+cs/2)+'" y="'+(yy+cs/2+4)+'" fill="#fff" font-size="11" font-weight="600" text-anchor="middle">'+LAB[q.dom]+'</text>';
+      s+='<text x="'+(xx+cs/2)+'" y="'+(yy+cs+10)+'" fill="'+SOL.tick+'" font-size="8" text-anchor="middle">'+q.seed+'</text>';});});
+  if(o.foot)s+='<text x="'+L+'" y="'+(H-8)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
 function r68XFigs(res,sm){const X=sm.x,figs=[];if(!X)return figs;const foot=t('svg_foot'),names=sm.names;
-  const series=names.map((n,i)=>({name:n==='TR'?'TR ('+t('r68_ref')+')':n,short:n,color:R68_THEORY_COL[i%R68_THEORY_COL.length]}));
-  if(X.T){const panels=[];for(const id of R68_SLIDERS){if(!names.some(n=>X.T[n]&&X.T[n][id]&&(X.T[n][id].up||X.T[n][id].down)))continue;const el=r68SliderEl(id);
-      panels.push({label:t(R68_SLIDER_LABEL[id]),min:+el.min,max:+el.max,series:names.map((n,i)=>{const x=X.T[n]&&X.T[n][id];if(!x)return null;
-        return {color:series[i].color,pts:x.pts.map(q=>[q.v,q.dom/q.n]),own:x.ownPt?[x.own,x.ownPt.dom/x.ownPt.n]:null};}).filter(Boolean)});}
-    if(panels.length)figs.push({name:'thresholds',svg:r68Curves(t('r68_f_thr'),panels,series,{sub:t('r68_f_thr_sub'),foot})});}
-  if(X.probe){const parts=[{name:t('r68_v_zurueck'),color:SOL.up},{name:t('r68_v_fest'),color:SOL.down},{name:t('r68_v_bewegung'),color:'#C9A227'}];
-    figs.push({name:'probe',svg:r68StackClusters(t('r68_f_probe'),[0,1,2,3].map(x=>({label:LAB[x]+'− · '+SN(x),bars:names.map(n=>{const p=X.probe[n][x];return {label:n,vals:['zurueck','fest','bewegung'].map(k=>p.c[k]||0)};})})),parts,{sub:t('r68_f_probe_sub'),foot,int:true})});}
+  const lab=names.map(n=>n==='TR'?'TR ('+t('r68_ref')+')':n),col=names.map((n,i)=>R68_THEORY_COL[i%R68_THEORY_COL.length]);
+  if(X.T){const panels=[];for(const id of R68_SLIDERS){if(!names.some(n=>X.T[n]&&X.T[n][id]&&(X.T[n][id].up||X.T[n][id].down)))continue;const el=r68SliderEl(id),mn=+el.min,mx=+el.max;
+      const rows=[];names.forEach((n,i)=>{const x=X.T[n]&&X.T[n][id];if(!x)return;const pts=x.pts,st=q=>2*q.dom>=q.n,segs=[];let a=mn;
+        for(let k=0;k<pts.length;k++){const q=pts[k],nx=pts[k+1];let b=mx;
+          if(nx){if(st(nx)===st(q))continue;b=nx.v>x.own?nx.v:q.v;}   // above the theory's value a state begins at its point, below it ends at its point
+          segs.push({a,b,dom:st(q)});a=b;}
+        // the first segment takes the state of the first point up to the first change
+        rows.push({name:lab[i],color:col[i],segs,own:x.own,thr:[x.up?{v:x.up.v,dir:1}:null,x.down?{v:x.down.v,dir:-1}:null].filter(Boolean)});});
+      panels.push({label:t(R68_SLIDER_LABEL[id]),min:mn,max:mx,rows});}
+    if(panels.length)figs.push({name:'thresholds',svg:r68ThrBars(t('r68_f_thr'),panels,{sub:t('r68_f_thr_sub').replace('{n}',Math.min(R68_XSEEDS,res.spec.seeds.length)),foot})});}
+  if(X.probe)figs.push({name:'probe',svg:r68ProbeGrid(t('r68_f_probe'),names,lab,X.probe,{sub:t('r68_f_probe_sub'),foot})});
   return figs;}
 function r68SeedFigs(res,sm){const sd=sm.seeds;if(!sd||!sd.rows.length)return [];const foot=t('svg_foot'),names=sd.names;
   const groups=names.map((n,i)=>({name:sd.thName(n),short:n==='data'?t('r68ui_mode_data'):n,color:R68_THEORY_COL[i%R68_THEORY_COL.length]}));
