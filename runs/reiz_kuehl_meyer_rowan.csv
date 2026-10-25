@@ -1,0 +1,9 @@
+# Simulationsmodus mit Reiz: dieselben Profile wie vergleich_kuehl_meyer_rowan.csv; nach 1819 Schritten wird die Wirtschaft (C)
+# 300 Schritte lang mit der Stärke 2,6 geschwächt, dann laufen die Theorien frei weiter. Je Startwert wird derselbe Lauf ohne
+# Reiz mitgerechnet; das Ergebnis sagt, ob der Lauf zurückkehrt, sich festsetzt oder in Bewegung bleibt. Rechenzeit etwa 2 Minuten.
+modus,Simulation
+profil,../simulation-mode/profiles/profil_TR_ohne_Mechanismen.csv
+profil,../simulation-mode/profiles/profil_Kuehl.csv
+profil,../simulation-mode/profiles/profil_Meyer_Rowan.csv
+startwerte,1-8
+reiz,C,schwaechen,300,2.6,1819

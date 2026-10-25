@@ -38,17 +38,18 @@ node run.js runs/compare_parsons_luhmann.csv            # results in results/com
 node run.js runs/arbeiter_N1.csv --lang de --out mein_ordner
 #+end_src
 
-The examples in =runs/=:
+The examples in =runs/= (the contract tables of the book serve only as examples of how the data mode works):
 
 | run file | what it computes |
 |---+---|
 | =compare_parsons_luhmann.csv= | Parsons and Luhmann next to the TR, 1819 steps, seeds 1–8 |
 | =vergleich_theorien.csv= | several theory profiles next to the TR (German keys) |
-| =vergleich_kuehl_meyer_rowan.csv= | the profiles of Kühl and Meyer/Rowan coded in the pipeline, with Luhmann, next to the TR; Meyer/Rowan depends on the seed |
+| =vergleich_kuehl_meyer_rowan.csv= | the profiles of Kühl and Meyer/Rowan (coded by a student) next to the TR without mechanisms (=profil_TR_ohne_Mechanismen.csv=) and the TR with them |
+| =reiz_kuehl_meyer_rowan.csv= | the same with a stimulus (economy weakened after 1819 steps) and the control runs; about 2 minutes |
 | =reiz_politik.csv= | a stimulus on politics, with the control run |
-| =arbeiter_N1.csv= | data mode: the autobiographies of chapter 11 (lexicon and HISCAM) |
+| =arbeiter_N1.csv= | data mode: a contract table of the book (chapter 11), as an example of the data mode |
 | =ouvriers_N1_instances.csv= | data mode with instances (French keys) |
-| =kapitel12_variante_a.csv= | data mode, chapter 12, variant (a) of the gap filling: the outcome depends on the seed (3 of 8) |
+| =kapitel12_variante_a.csv= | data mode, a contract table of the book with empty years carried forward: an example whose outcome depends on the seed |
 | =prism_probes.csv=, =worked_example.csv= | prism probes; the worked example of document 3 |
 
 =run.js= loads =tr-twin.html= with jsdom and calls the same functions as the interface: reading the run file, the runs (TR and theories × seeds, or the cohort × seeds), the tables and the figures. It writes =report.html=, =tables.csv=, one CSV per table in =tables/=, =series.csv= and the figures in =figures/=. =--lang= sets the language of the tables and figures (=en=, =de=, =fr=). Paths in the run file are relative to the run file.
