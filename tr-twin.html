@@ -2445,6 +2445,70 @@ Object.assign(I18N,{
   r68_f_thr_own:{fr:'valeur de la théorie',de:'Wert der Theorie',en:'the theory’s value'},
   r68_f_thr_tick:{fr:'seuil (avec sa valeur)',de:'Schwelle (mit ihrem Wert)',en:'threshold (with its value)'},
   r68_f_probe_key:{fr:'lettre : structure dominante à la fin ; nombre sous la case : graine',de:'Buchstabe: dominante Struktur am Ende; Zahl unter dem Feld: Startwert',en:'letter: dominant structure at the end; number under the square: seed'},
+  r68_w_and:{fr:'et',de:'und',en:'and'},
+  r68_mean_rate:{fr:'à quel point la structure dominante attire les acteurs et les assimile',de:'wie stark die herrschende Struktur Akteure anzieht und sich angleicht',en:'how strongly the ruling structure attracts actors and assimilates them'},
+  r68_noun_rate:{fr:'l’attraction et l’assimilation des acteurs par la structure dominante',de:'die Anziehung und Angleichung der Akteure durch die herrschende Struktur',en:'the attraction and assimilation of actors by the ruling structure'},
+  r68_mean_alpha:{fr:'à quel point le pouvoir et l’afflux se concentrent sur l’ordre le plus fort',de:'wie stark sich Macht und Zustrom auf die stärkste Ordnung konzentrieren',en:'how strongly power and inflow concentrate on the strongest order'},
+  r68_noun_alpha:{fr:'la concentration du pouvoir et de l’afflux sur l’ordre le plus fort',de:'die Konzentration von Macht und Zustrom auf die stärkste Ordnung',en:'the concentration of power and inflow on the strongest order'},
+  r68_mean_back:{fr:'combien revient à la base',de:'wie viel an die Basis zurückfließt',en:'how much flows back to the base'},
+  r68_noun_back:{fr:'le reflux vers la base',de:'der Rückfluss an die Basis',en:'the flow back to the base'},
+  r68_mean_over:{fr:'à quel point le même ordre interne passe d’une structure aux autres',de:'wie sehr sich dieselbe innere Ordnung von einer Struktur auf die anderen überträgt',en:'how much the same inner order carries over from one structure to the others'},
+  r68_noun_over:{fr:'le passage du même ordre interne d’une structure aux autres',de:'die Übertragung derselben inneren Ordnung zwischen den Strukturen',en:'the carrying over of the same inner order between the structures'},
+  r68_mean_rho:{fr:'à quel point les structures se règlent les unes sur les autres pour leur taille',de:'wie sehr sich die Strukturen in ihrer Größe aneinander orientieren',en:'how much the structures take their size from one another'},
+  r68_noun_rho:{fr:'l’ajustement des structures les unes sur les autres pour leur taille',de:'die Orientierung der Strukturen aneinander in ihrer Größe',en:'the way the structures take their size from one another'},
+  r68_mean_peak:{fr:'à partir de quelle taille une structure se sclérose',de:'ab welcher Größe eine Struktur verkalkt',en:'from what size a structure calcifies'},
+  r68_noun_peak:{fr:'la taille à partir de laquelle une structure se sclérose',de:'die Größe, ab der eine Struktur verkalkt',en:'the size from which a structure calcifies'},
+  r68_mean_cap:{fr:'à quelle vitesse une structure trop puissante s’épuise',de:'wie schnell sich eine übermächtige Struktur erschöpft',en:'how fast an overpowering structure exhausts itself'},
+  r68_noun_cap:{fr:'l’épuisement d’une structure trop puissante',de:'die Erschöpfung einer übermächtigen Struktur',en:'the exhaustion of an overpowering structure'},
+  r68_mean_plast:{fr:'à quelle vitesse une structure peut refaire son ordre interne',de:'wie schnell eine Struktur ihre innere Ordnung umbauen kann',en:'how fast a structure can rebuild its inner order'},
+  r68_noun_plast:{fr:'la vitesse à laquelle une structure refait son ordre interne',de:'die Geschwindigkeit, mit der eine Struktur ihre innere Ordnung umbaut',en:'the speed at which a structure rebuilds its inner order'},
+  r68_mean_mig:{fr:'avec quelle facilité les acteurs passent d’une structure ou d’une séquence à l’autre',de:'wie leicht Akteure zwischen Strukturen und Sequenzen wechseln',en:'how easily actors move between structures and sequences'},
+  r68_noun_mig:{fr:'le passage des acteurs d’une structure ou d’une séquence à l’autre',de:'der Wechsel der Akteure zwischen Strukturen und Sequenzen',en:'the movement of actors between structures and sequences'},
+  r68_mean_decl:{fr:'combien de statut les nouveaux venus perdent en changeant',de:'wie viel Neuankömmlinge beim Wechsel an Status verlieren',en:'how much status newcomers lose when they move'},
+  r68_noun_decl:{fr:'la perte de statut des nouveaux venus',de:'der Statusverlust der Neuankömmlinge',en:'the loss of status of newcomers'},
+  r68_mean_dynam:{fr:'à quel point les structures mobiles gagnent en influence',de:'wie sehr bewegliche Strukturen an Einfluss gewinnen',en:'how much mobile structures gain in influence'},
+  r68_noun_dynam:{fr:'le gain d’influence des structures mobiles',de:'der Einflussgewinn beweglicher Strukturen',en:'the gain in influence of mobile structures'},
+  r68_mean_anchor:{fr:'à quel point la taille d’une structure dépend du nombre de ses acteurs',de:'wie sehr die Größe einer Struktur von der Zahl ihrer Akteure abhängt',en:'how much the size of a structure depends on the number of its actors'},
+  r68_noun_anchor:{fr:'la dépendance de la taille d’une structure envers le nombre de ses acteurs',de:'die Abhängigkeit der Größe einer Struktur von der Zahl ihrer Akteure',en:'the dependence of a structure’s size on the number of its actors'},
+  r68_mm_M1:{fr:'la structure dominée aligne son ordre interne sur celui de la dominante',de:'die beherrschte Struktur ihre innere Ordnung der herrschenden angleicht',en:'the ruled structure aligns its inner order with that of the ruling one'},
+  r68_mm_M2:{fr:'une structure fortement dominée fonctionne entièrement selon l’ordre de la dominante',de:'eine stark beherrschte Struktur ganz nach der Ordnung der herrschenden läuft',en:'a strongly ruled structure runs entirely by the order of the ruling one'},
+  r68_mm_M3:{fr:'les instances de médiation de la structure dominante renforcent des instances du même type dans les dominées',de:'die Vermittlungsinstanzen der herrschenden Struktur gleichartige Instanzen in den beherrschten stärken',en:'the mediating instances of the ruling structure strengthen instances of the same kind in the ruled ones'},
+  r68_mm_M4:{fr:'le contrôle d’une structure dominée renforce son propre noyau',de:'die Kontrolle einer beherrschten Struktur ihren eigenen Kern stärkt',en:'the control of a ruled structure strengthens its own core'},
+  r68_mm_M5:{fr:'chaque extension de la domination coûte davantage, jusqu’à ce qu’elle s’érode',de:'jede weitere Ausdehnung der Herrschaft mehr kostet, bis sie erodiert',en:'every further extension of rule costs more, until it erodes'},
+  r68_mm_M6:{fr:'des instances en réseau et diversifiées contrôlent mieux',de:'vernetzte, vielfältige Instanzen besser kontrollieren',en:'networked, diverse instances control better'},
+  r68_o_none:{fr:'aucune structure ne domine',de:'keine Struktur herrscht',en:'no structure rules'},
+  r68_o_rule:{fr:'{s} domine',de:'{s} herrscht',en:'{s} rules'},
+  r68_o_rule_reg:{fr:'{s} domine, et {k} autres structures suivent son ordre',de:'{s} herrscht, und {k} andere Strukturen laufen nach ihrer Ordnung',en:'{s} rules, and {k} other structures run by its order'},
+  r68_p_allset:{fr:'le nouvel ordre demeure, quelle que soit la structure affaiblie',de:'die neue Ordnung bleibt, gleich welche Struktur geschwächt wird',en:'the new order stays, whichever structure is weakened'},
+  r68_p_allret:{fr:'l’ordre revient, quelle que soit la structure affaiblie',de:'die Ordnung kehrt zurück, gleich welche Struktur geschwächt wird',en:'the order comes back, whichever structure is weakened'},
+  r68_p_mixed:{fr:'après l’affaiblissement de {s} le nouvel ordre demeure, après celui de {r} il revient',de:'nach einer Schwächung von {s} bleibt die neue Ordnung, nach einer Schwächung von {r} kehrt sie zurück',en:'after {s} is weakened the new order stays, after {r} is weakened it comes back'},
+  r68_a_close:{fr:'{a} et {b} sont proches dans leurs hypothèses (distance {d}). Ils diffèrent surtout sur {diff}.',de:'{a} und {b} liegen in ihren Annahmen nahe beieinander (Abstand {d}). Am deutlichsten unterscheiden sie sich darin, {diff}.',en:'{a} and {b} are close in their assumptions (distance {d}). They differ most in {diff}.'},
+  r68_a_far:{fr:'{a} est le plus proche de {b}, mais à une distance nette ({d}). Ils diffèrent surtout sur {diff}.',de:'{a} steht {b} von allen am nächsten, aber mit deutlichem Abstand ({d}). Am deutlichsten unterscheiden sie sich darin, {diff}.',en:'{a} is closest to {b}, but at a clear distance ({d}). They differ most in {diff}.'},
+  r68_a_same:{fr:'Sans perturbation, les deux aboutissent au même résultat : {o}.',de:'Ohne Störung kommen beide zum selben Ergebnis: {o}.',en:'Without a disturbance both come to the same result: {o}.'},
+  r68_a_diff:{fr:'Sans perturbation, ils aboutissent à des résultats différents : chez {a} : {oa} ; chez {b} : {ob}.',de:'Ohne Störung kommen sie zu verschiedenen Ergebnissen – bei {a}: {oa}; bei {b}: {ob}.',en:'Without a disturbance they come to different results – with {a}: {oa}; with {b}: {ob}.'},
+  r68_a_mcom:{fr:'Les deux supposent que {l}.',de:'Beide nehmen an, dass {l}.',en:'Both assume that {l}.'},
+  r68_a_monly:{fr:'Seul {a} suppose que {l}.',de:'Nur {a} nimmt an, dass {l}.',en:'Only {a} assumes that {l}.'},
+  r68_a_psame:{fr:'Après une perturbation, les deux se comportent de même : {p}.',de:'Nach einer Störung verhalten sich beide gleich: {p}.',en:'After a disturbance both behave alike: {p}.'},
+  r68_a_pdiff:{fr:'Après une perturbation, ils se comportent différemment – chez {a} : {pa} ; chez {b} : {pb}.',de:'Nach einer Störung verhalten sie sich verschieden – bei {a}: {pa}; bei {b}: {pb}.',en:'After a disturbance they behave differently – with {a}: {pa}; with {b}: {pb}.'},
+  r68_a_tr:{fr:'{a} par rapport à la TR (distance {d}) : ils diffèrent surtout sur {diff}.',de:'{a} gegenüber der TR (Abstand {d}): Am deutlichsten unterscheiden sie sich darin, {diff}.',en:'{a} compared with the TR (distance {d}): they differ most in {diff}.'},
+  r68_b_up:{fr:'{a} est proche d’un point de bascule : si {n} augmente ({s} de {v0} à {v1}), une structure domine les autres. Dans quelles conditions {n} augmente-t-elle autant ?',de:'{a} liegt nahe an einer Kippstelle: Nimmt {n} zu ({s} von {v0} auf {v1}), beherrscht eine Struktur die anderen. Unter welchen Bedingungen nimmt {n} so weit zu?',en:'{a} lies near a tipping point: if {n} increases ({s} from {v0} to {v1}), one structure rules the others. Under which conditions does {n} increase that far?'},
+  r68_b_down:{fr:'{a} est proche d’un point de bascule : si {n} diminue ({s} de {v0} à {v1}), une structure domine les autres. Dans quelles conditions {n} diminue-t-elle autant ?',de:'{a} liegt nahe an einer Kippstelle: Nimmt {n} ab ({s} von {v0} auf {v1}), beherrscht eine Struktur die anderen. Unter welchen Bedingungen nimmt {n} so weit ab?',en:'{a} lies near a tipping point: if {n} decreases ({s} from {v0} to {v1}), one structure rules the others. Under which conditions does {n} decrease that far?'},
+  r68_b_up_dom:{fr:'Chez {a} une structure domine, mais près d’un point de bascule : si {n} augmente ({s} de {v0} à {v1}), la domination se défait. Dans quelles conditions ?',de:'Bei {a} herrscht eine Struktur, aber nahe an einer Kippstelle: Nimmt {n} zu ({s} von {v0} auf {v1}), löst sich die Herrschaft auf. Unter welchen Bedingungen geschieht das?',en:'With {a} one structure rules, but near a tipping point: if {n} increases ({s} from {v0} to {v1}), the rule dissolves. Under which conditions does that happen?'},
+  r68_b_down_dom:{fr:'Chez {a} une structure domine, mais près d’un point de bascule : si {n} diminue ({s} de {v0} à {v1}), la domination se défait. Dans quelles conditions ?',de:'Bei {a} herrscht eine Struktur, aber nahe an einer Kippstelle: Nimmt {n} ab ({s} von {v0} auf {v1}), löst sich die Herrschaft auf. Unter welchen Bedingungen geschieht das?',en:'With {a} one structure rules, but near a tipping point: if {n} decreases ({s} from {v0} to {v1}), the rule dissolves. Under which conditions does that happen?'},
+  r68_b_probe:{fr:'Après l’affaiblissement de {x}, le nouvel ordre demeure chez {s} et l’ancien revient chez {r}. Qu’est-ce qui maintient un ordre perturbé dans les uns, et qu’est-ce qui le rétablit dans les autres ?',de:'Nach einer Schwächung von {x} bleibt bei {s} die neue Ordnung bestehen, bei {r} kehrt die alte zurück. Was hält in den einen Ansätzen eine einmal gestörte Ordnung fest, und was stellt sie in den anderen wieder her?',en:'After {x} is weakened, the new order stays with {s} and the old one comes back with {r}. What holds a disturbed order in place in the ones, and what restores it in the others?'},
+  r68_b_probe_tr_set:{fr:'Après l’affaiblissement de {x}, le nouvel ordre demeure chez {a} alors que la TR revient. Qu’est-ce qui maintient le nouvel ordre dans cette approche ?',de:'Nach einer Schwächung von {x} bleibt bei {a} die neue Ordnung bestehen, während die TR zurückkehrt. Was hält in diesem Ansatz die neue Ordnung fest?',en:'After {x} is weakened, the new order stays with {a} while the TR comes back. What holds the new order in place in this approach?'},
+  r68_b_probe_tr_ret:{fr:'Après l’affaiblissement de {x}, {a} revient alors que le nouvel ordre demeure chez la TR. Qu’est-ce qui rétablit l’ancien ordre dans cette approche ?',de:'Nach einer Schwächung von {x} kehrt {a} zurück, während bei der TR die neue Ordnung bleibt. Was stellt in diesem Ansatz die alte Ordnung wieder her?',en:'After {x} is weakened, {a} comes back while the new order stays with the TR. What restores the old order in this approach?'},
+  r68_b_seeds:{fr:'Chez {a}, le résultat dépend du hasard du départ ({o}). Quelles petites différences décident si une structure domine ?',de:'Bei {a} hängt das Ergebnis vom Zufall des Anfangs ab ({o}). Welche kleinen Unterschiede entscheiden, ob eine Struktur herrscht?',en:'With {a} the result depends on the chance of the start ({o}). Which small differences decide whether a structure rules?'},
+  r68_c_measure:{fr:'Mesurer d’abord ce qui décide de la domination d’une structure : {l}.',de:'Zuerst messen, was über die Herrschaft einer Struktur entscheidet: {l}.',en:'First measure what decides whether a structure rules: {l}.'},
+  r68_c_none:{fr:'En revanche, qu’une structure domine sans perturbation ne dépend, dans aucun profil, de {l}. Les mesurer ne tranche pas cette question ; la réaction d’un ordre à une perturbation peut toutefois en dépendre.',de:'Für die Frage, ob ohne Störung eine Struktur herrscht, spielt dagegen in keinem Profil eine Rolle: {l}. Diese Punkte zu messen, entscheidet diese Frage nicht; wie eine Ordnung auf eine Störung reagiert, kann aber von ihnen abhängen.',en:'By contrast, whether a structure rules without a disturbance does not depend, in any profile, on {l}. Measuring these does not decide that question; how an order reacts to a disturbance may still depend on them.'},
+  r68_c_cases:{fr:'Choisir des cas de part et d’autre d’un point de bascule, et des cas avant et après une perturbation (scandale, régulation, panne) : ils montrent si un ordre bascule et s’il demeure ensuite.',de:'Fälle wählen, die diesseits und jenseits einer Kippstelle liegen, und Fälle vor und nach einer Störung (Skandal, Regulierung, Ausfall): An ihnen zeigt sich, ob eine Ordnung kippt und ob sie danach bleibt.',en:'Choose cases on either side of a tipping point, and cases before and after a disturbance (scandal, regulation, breakdown): they show whether an order tips and whether it stays afterwards.'},
+  r68_c_level:{fr:'Le jumeau parle de l’ordre entre les structures relationnelles (culture, politique, économie, médias), non d’organisations ou de plateformes singulières. Toute mesure doit dire comment elle passe de son objet à ce niveau.',de:'Der Zwilling spricht über die Ordnung zwischen den Relationsstrukturen (Kultur, Politik, Wirtschaft, Medien), nicht über einzelne Organisationen oder Plattformen. Jede Messung muss angeben, wie sie von ihrem Gegenstand auf diese Ebene kommt.',en:'The twin speaks about the order between the relational structures (culture, politics, economy, media), not about single organisations or platforms. Every measurement has to say how it gets from its object to this level.'},
+  r68_q_d:{fr:'d) Approfondissement théorique',de:'d) Theoretische Vertiefung',en:'d) Theoretical deepening'},
+  r68_d_silent:{fr:'{a} ne dit rien de {m} – le jumeau y met la valeur de la TR ({s} {v0}). C’est pourtant là que se trouve un point de bascule ({v1}). Une lacune de la théorie qui contribue à décider de son résultat et qu’elle devrait combler.',de:'{a} sagt nichts dazu, {m} – der Zwilling setzt dort den Wert der TR ({s} {v0}). Gerade dort liegt aber eine Kippstelle ({v1}). Eine Lücke der Theorie, die über ihr Ergebnis mitentscheidet und die sie füllen müsste.',en:'{a} says nothing about {m} – the twin uses the TR’s value there ({s} {v0}). Yet that is where a tipping point lies ({v1}). A gap in the theory that helps decide its result, and that it would have to fill.'},
+  r68_d_own:{fr:'{a} est le plus sensible sur une hypothèse que le texte pose lui-même : {n} ({s} {v0}, bascule à {v1}). La justification de cette hypothèse porte le résultat ; l’affiner théoriquement est le plus utile.',de:'Am empfindlichsten ist {a} bei einer Annahme, die der Text selbst trifft: {n} ({s} {v0}, Kippstelle bei {v1}). Die Begründung dieser Annahme trägt das Ergebnis; sie theoretisch zu schärfen, lohnt am meisten.',en:'{a} is most sensitive in an assumption the text itself makes: {n} ({s} {v0}, tipping point at {v1}). The grounds for this assumption carry the result; sharpening them theoretically is most worthwhile.'},
+  r68_d_probe:{fr:'Ce qui sépare {s} de {r} lorsqu’un ordre perturbé demeure ou revient : ils diffèrent surtout sur {l}. C’est un indice, non une preuve : une contre-épreuve, en changeant cette valeur dans un profil, le montrerait. La théorie devrait expliquer pourquoi un ordre, une fois apparu, tient.',de:'Was {s} von {r} trennt, wenn eine gestörte Ordnung bleibt oder zurückkehrt: Sie unterscheiden sich am stärksten darin, {l}. Das ist ein Hinweis, kein Nachweis: Eine Gegenprobe, die diesen Wert in einem Profil ändert, würde es zeigen. Die Theorie müsste erklären, warum eine einmal entstandene Ordnung hält.',en:'What separates {s} from {r} when a disturbed order stays or comes back: they differ most in {l}. This is a hint, not a proof: a counter-test that changes this value in a profile would show it. The theory would have to explain why an order, once it has arisen, holds.'},
+  r68_d_mech:{fr:'{a} et {b} tranchent différemment la question de savoir si {l}. Qui veut relier les deux approches doit trancher cette question théoriquement.',de:'{a} und {b} entscheiden sich verschieden in der Frage, ob {l}. Wer beide Ansätze verbinden will, muss diese Frage theoretisch entscheiden.',en:'{a} and {b} decide differently whether {l}. Whoever wants to combine both approaches has to decide this question theoretically.'},
+  r68_d_seeds:{fr:'{a} ne détermine pas clairement si une structure domine : le résultat dépend du départ. Quelle hypothèse supplémentaire le déterminerait ?',de:'{a} legt nicht eindeutig fest, ob eine Struktur herrscht: Das Ergebnis hängt vom Anfang ab. Welche zusätzliche Annahme würde es bestimmen?',en:'{a} does not settle whether a structure rules: the result depends on the start. Which further assumption would settle it?'},
   r68_f_sub_line:{fr:'médiane sur {n} graines · bande = étendue',de:'Median über {n} Startwerte · Band = Spannweite',en:'median over {n} seeds · band = range'},
   r68_f_traj_h:{fr:'Trajectoire de l’inégalité horizontale',de:'Verlauf der horizontalen Ungleichheit',en:'Trajectory of horizontal inequality'},
   r68_f_traj_v:{fr:'Trajectoire de l’inégalité verticale',de:'Verlauf der vertikalen Ungleichheit',en:'Trajectory of vertical inequality'},
@@ -2774,46 +2838,63 @@ function r68Findings(res,sm,X){const names=sm.names,others=names.filter(n=>n!=='
   // repeat the TR's values (such as the TR without mechanisms) are left out of the findings
   const tr0=sm.runsOf('TR')[0];const trVar=n=>{const r=sm.runsOf(n)[0];return !!(r&&tr0&&R68_SLIDERS.every(id=>Math.abs(r.sliders[id]-tr0.sliders[id])<1e-9)&&JSON.stringify(r.chains)===JSON.stringify(tr0.chains));};
   const real=others.filter(n=>!trVar(n)),withTR=real.length<=1,pool=withTR?names:real,cmp=withTR?others:real;
-  const add=(q,txt)=>F.rows.push([t(q),txt]);const fill=(k,o)=>{let x=t(k);for(const a in o){const v=o[a]===t('r68_balanced')?t('r68_near_none'):o[a];x=x.split('{'+a+'}').join(v);}return x;};
+  const add=(q,txt)=>F.rows.push([t(q),txt]);const nm=n=>n==='TR'?'TR':String(n).replace(/_/g,' ');
+  const fill=(k,o)=>{let x=t(k);for(const a in o){const v=['a','b'].includes(a)?nm(o[a]):o[a];x=x.split('{'+a+'}').join(v);}return x;};
+  const join=a=>a.length<2?a.join(''):a.slice(0,-1).join(', ')+' '+t('r68_w_and')+' '+a[a.length-1];
   const sl=n=>{const r=sm.runsOf(n)[0];return r?r.sliders:{};},mech=n=>{const r=sm.runsOf(n)[0];return r?['M1','M2','M3','M4','M5','M6'].filter(m=>r.mech[m]):[];};
-  const range=id=>{const el=r68SliderEl(id);return (+el.max)-(+el.min);};
+  const range=id=>{const el=r68SliderEl(id);return (+el.max)-(+el.min);},fv=(id,v)=>r68f(v,r68Dec(id));
+  const sname=id=>'„'+t(R68_SLIDER_LABEL[id])+'“',mean=id=>t('r68_mean_'+id),noun=id=>t('r68_noun_'+id);
   const dist=(a,b)=>{const A=sl(a),B=sl(b);return R68_SLIDERS.reduce((s,id)=>s+Math.abs(A[id]-B[id])/range(id),0)/R68_SLIDERS.length;};
-  const diffs=(a,b)=>{const A=sl(a),B=sl(b);return R68_SLIDERS.map(id=>({id,d:Math.abs(A[id]-B[id])/range(id)})).filter(q=>q.d>0.01).sort((p,q)=>q.d-p.d).slice(0,3)
-    .map(q=>t(R68_SLIDER_LABEL[q.id])+' '+r68f(A[q.id],r68Dec(q.id))+'/'+r68f(B[q.id],r68Dec(q.id))).join(', ')||'–';};
-  const outc=n=>{const os=sm.seeds?sm.seeds.rows.filter(o=>o.theory===n):[];const c={};os.forEach(o=>c[o.outcome]=(c[o.outcome]||0)+1);const k=Object.keys(c).sort((a,b)=>c[b]-c[a]);return {k,c,n:os.length};};
-  const outTxt=n=>{const o=outc(n);return o.k.map(k=>k+' '+o.c[k]+'/'+o.n).join(' · ');};
-  const prTxt=n=>{if(!X.probe||!X.probe[n])return null;return [0,1,2,3].map(x=>{const p=X.probe[n][x];return LAB[x]+'−: '+(p.c.fest||0)+'/'+p.n+' '+t('r68_v_fest');}).join(', ');};
-  const setCount=n=>X.probe&&X.probe[n]?[0,1,2,3].map(x=>(X.probe[n][x].c.fest||0)+(X.probe[n][x].c.bewegung||0)):null;
-  // a) compatibility: each theory with its nearest neighbour, and with the TR
-  const done=new Set();
-  for(const a of cmp){let b=null,d=Infinity;for(const c of cmp)if(c!==a){const e=dist(a,c);if(e<d){d=e;b=c;}}
-    if(b&&!done.has(b+'|'+a)){done.add(a+'|'+b);
-      const ma=mech(a),mb=mech(b),com=ma.filter(m=>mb.includes(m)),oa=ma.filter(m=>!mb.includes(m)),ob=mb.filter(m=>!ma.includes(m));
-      let txt=fill('r68_f_pair',{a,b,d:r68f(d,2),diff:diffs(a,b)})+' ';
-      const A=outc(a),B=outc(b);txt+=(A.k[0]===B.k[0]?fill('r68_f_same',{o:A.k[0]}):fill('r68_f_diffout',{a,b,oa:outTxt(a),ob:outTxt(b)}))+' ';
-      txt+=fill('r68_f_mech',{c:com.join(', ')||'–',a,b,xa:oa.join(', ')||'–',xb:ob.join(', ')||'–'});
-      if(X.near){const na=X.near[a].best,nb=X.near[b].best;if(na&&nb)txt+=' '+fill('r68_f_near2',{a,b,sa:t(R68_SLIDER_LABEL[na.id]),sb:t(R68_SLIDER_LABEL[nb.id])});}
-      const pa=setCount(a),pb=setCount(b);if(pa&&pb)txt+=' '+(pa.join()===pb.join()?fill('r68_f_probesame',{p:prTxt(a)}):fill('r68_f_probediff',{a,b,pa:prTxt(a),pb:prTxt(b)}));
-      add('r68_q_a',txt);}}
-  if(withTR)for(const a of others){let txt=fill('r68_f_tr',{a,d:r68f(dist(a,'TR'),2),diff:diffs(a,'TR')});const A=outc(a),T0=outc('TR');
-    txt+=' '+(A.k[0]===T0.k[0]?fill('r68_f_same',{o:A.k[0]}):fill('r68_f_diffout',{a,b:'TR',oa:outTxt(a),ob:outTxt('TR')}));add('r68_q_a',txt);}
-  // b) questions suggested by thresholds, stimulus probe and seeds
-  if(X.near)for(const a of pool){const b=X.near[a].best;if(!b||b.d>0.25)continue;
-    add('r68_q_b',fill(b.state?'r68_f_qnear_dom':'r68_f_qnear',{a:lab(a),pct:Math.round(100*b.d),s:t(R68_SLIDER_LABEL[b.id]),v0:r68f(b.own,r68Dec(b.id)),v1:r68f(b.v,r68Dec(b.id)),verb:t(b.dir>0?'r68_f_rise':'r68_f_fall')}));}
+  const diffs=(A,B,k)=>R68_SLIDERS.map(id=>({id,d:Math.abs(A[id]-B[id])/range(id),a:A[id],b:B[id]})).filter(q=>q.d>0.01).sort((p,q)=>q.d-p.d).slice(0,k||3);
+  const diffTxt=(A,B)=>join(diffs(A,B).map(q=>mean(q.id)+' ('+sname(q.id)+' '+fv(q.id,q.a)+' / '+fv(q.id,q.b)+')'))||'–';
+  // the outcome in words: which structure rules at the end, and whether the others run under its order
+  const outc=n=>{const os=sm.seeds?sm.seeds.rows.filter(o=>o.theory===n):[];const c={};for(const o of os){const k=o.dom<0?'-':LAB[o.dom]+'|'+(o.reg?o.reg.split(' ').length:0);c[k]=(c[k]||0)+1;}
+    const k=Object.keys(c).sort((a,b)=>c[b]-c[a]);return {k,c,n:os.length};};
+  const outWord=k=>{if(k==='-')return t('r68_o_none');const [x,r]=k.split('|');const s=LAB.indexOf(x);return fill(+r?'r68_o_rule_reg':'r68_o_rule',{s:x+' · '+SN(s),k:r});};
+  const outTxt=n=>{const o=outc(n);return o.k.map(k=>outWord(k)+(o.k.length>1?' ('+o.c[k]+'/'+o.n+')':'')).join('; ');};
   const sets=(n,x)=>{const p=X.probe[n][x];return 2*((p.c.fest||0)+(p.c.bewegung||0))>=p.n;};
-  // one question per partition: which theories set and which return after the same weakening
-  if(X.probe&&!withTR){const by={},order=[];for(let x=0;x<4;x++){const S=real.filter(n=>sets(n,x)),Rt=real.filter(n=>!sets(n,x));if(!S.length||!Rt.length)continue;
-      const key=S.join(', ')+'|'+Rt.join(', ');if(!by[key]){by[key]={S,Rt,xs:[]};order.push(key);}by[key].xs.push(LAB[x]+' · '+SN(x));}
-    for(const key of order){const g=by[key];add('r68_q_b',fill('r68_f_qprobe_grp'+(g.S.length>1?'2':'1')+(g.Rt.length>1?'2':'1'),{x:g.xs.join(', '),s:g.S.join(', '),r:g.Rt.join(', ')}));}}
-  if(X.probe&&X.probe.TR&&withTR)for(const a of others)for(let x=0;x<4;x++){const p=X.probe[a][x],q=X.probe.TR[x];const fa=(p.c.fest||0)+(p.c.bewegung||0),fq=(q.c.fest||0)+(q.c.bewegung||0);
-    if(2*fa>=p.n&&2*fq<q.n)add('r68_q_b',fill('r68_f_qprobe_set',{a,x:LAB[x]+' · '+SN(x),k:fa,n:p.n}));
-    else if(2*fa<p.n&&2*fq>=q.n)add('r68_q_b',fill('r68_f_qprobe_ret',{a,x:LAB[x]+' · '+SN(x),k:p.n-fa,n:p.n}));}
-  for(const a of pool){const o=outc(a);if(o.k.length>1)add('r68_q_b',fill('r68_f_qseeds',{a:lab(a),oc:outTxt(a)}));}
-  // c) what to measure first, what does not decide, which cases
+  const probeTxt=n=>{const st=[0,1,2,3].filter(x=>sets(n,x)).map(x=>SN(x)),rt=[0,1,2,3].filter(x=>!sets(n,x)).map(x=>SN(x));
+    return st.length===4?t('r68_p_allset'):rt.length===4?t('r68_p_allret'):fill('r68_p_mixed',{s:join(st),r:join(rt)});};
+  const decl=n=>{const r=sm.runsOf(n)[0];const d=r&&r.path&&res.files?r68Declared(res.files[r.path]):null;return d?d.keys:{};};
+  // a) compatibility: each theory with its nearest neighbour (and, with one theory, with the TR)
+  const done=new Set(),pairs=[];
+  for(const a of cmp){let b=null,d=Infinity;for(const c of cmp)if(c!==a){const e=dist(a,c);if(e<d){d=e;b=c;}}
+    if(!b||done.has(b+'|'+a))continue;done.add(a+'|'+b);pairs.push([a,b]);
+    const ma=mech(a),mb=mech(b),com=ma.filter(m=>mb.includes(m)),oa=ma.filter(m=>!mb.includes(m)),ob=mb.filter(m=>!ma.includes(m));
+    let txt=fill(d<0.1?'r68_a_close':'r68_a_far',{a,b,d:r68f(d,2),diff:diffTxt(sl(a),sl(b))})+' ';
+    const A=outc(a),B=outc(b);txt+=(A.k[0]===B.k[0]?fill('r68_a_same',{o:outWord(A.k[0])}):fill('r68_a_diff',{a,b,oa:outTxt(a),ob:outTxt(b)}))+' ';
+    if(com.length)txt+=fill('r68_a_mcom',{l:join(com.map(m=>t('r68_mm_'+m)))})+' ';
+    if(oa.length)txt+=fill('r68_a_monly',{a,l:join(oa.map(m=>t('r68_mm_'+m)))})+' ';
+    if(ob.length)txt+=fill('r68_a_monly',{a:b,l:join(ob.map(m=>t('r68_mm_'+m)))})+' ';
+    if(X.probe){const pa=probeTxt(a),pb=probeTxt(b);txt+=pa===pb?fill('r68_a_psame',{p:pa}):fill('r68_a_pdiff',{a,b,pa,pb});}
+    add('r68_q_a',txt.trim());}
+  if(withTR)for(const a of others){const A=outc(a),T0=outc('TR');
+    add('r68_q_a',fill('r68_a_tr',{a,d:r68f(dist(a,'TR'),2),diff:diffTxt(sl(a),sl('TR'))})+' '+(A.k[0]===T0.k[0]?fill('r68_a_same',{o:outWord(A.k[0])}):fill('r68_a_diff',{a,b:'TR',oa:outTxt(a),ob:outTxt('TR')})));}
+  // b) research questions: near tipping points, the stimulus probe, outcomes that depend on the seed
+  if(X.near)for(const a of pool){const b=X.near[a].best;if(!b||b.d>0.25)continue;
+    add('r68_q_b',fill(b.state?(b.dir>0?'r68_b_up_dom':'r68_b_down_dom'):(b.dir>0?'r68_b_up':'r68_b_down'),{a:lab(a),n:noun(b.id),s:sname(b.id),v0:fv(b.id,b.own),v1:fv(b.id,b.v)}));}
+  const groups=[];
+  if(X.probe&&!withTR){const by={};for(let x=0;x<4;x++){const S=real.filter(n=>sets(n,x)),Rt=real.filter(n=>!sets(n,x));if(!S.length||!Rt.length)continue;
+      const key=S.join(', ')+'|'+Rt.join(', ');if(!by[key]){by[key]={S,Rt,xs:[]};groups.push(by[key]);}by[key].xs.push(SN(x));}
+    for(const g of groups)add('r68_q_b',fill('r68_b_probe',{x:join(g.xs),s:join(g.S.map(nm)),r:join(g.Rt.map(nm))}));}
+  if(X.probe&&X.probe.TR&&withTR)for(const a of others){const xs=[0,1,2,3].filter(x=>sets(a,x)&&!sets('TR',x)).map(x=>SN(x)),ys=[0,1,2,3].filter(x=>!sets(a,x)&&sets('TR',x)).map(x=>SN(x));
+    if(xs.length)add('r68_q_b',fill('r68_b_probe_tr_set',{a,x:join(xs)}));if(ys.length)add('r68_q_b',fill('r68_b_probe_tr_ret',{a,x:join(ys)}));}
+  for(const a of pool){const o=outc(a);if(o.k.length>1)add('r68_q_b',fill('r68_b_seeds',{a:lab(a),o:outTxt(a)}));}
+  // c) empirical inquiry: what to measure first, what does not decide whether a structure rules, which cases
   if(X.near){const near=new Set(),any=new Set();for(const a of pool){for(const q of X.near[a].all){any.add(q.id);if(q.d<=0.25)near.add(q.id);}}
-    if(near.size)add('r68_q_c',fill('r68_f_cmeasure',{l:[...near].map(id=>t(R68_SLIDER_LABEL[id])).join(', ')}));
-    const none=R68_SLIDERS.filter(id=>!any.has(id));if(none.length)add('r68_q_c',fill('r68_f_cnone',{l:none.map(id=>t(R68_SLIDER_LABEL[id])).join(', ')}));}
-  add('r68_q_c',t('r68_f_ccases'));add('r68_q_c',t('r68_f_clevel'));
+    if(near.size)add('r68_q_c',fill('r68_c_measure',{l:[...near].map(id=>noun(id)+' ('+sname(id)+')').join('; ')}));
+    const none=R68_SLIDERS.filter(id=>!any.has(id));if(none.length)add('r68_q_c',fill('r68_c_none',{l:none.map(id=>noun(id)+' ('+sname(id)+')').join('; ')}));}
+  add('r68_q_c',t('r68_c_cases'));add('r68_q_c',t('r68_c_level'));
+  // d) theory: silences that decide, the assumption that carries the result, open decisions between neighbours
+  if(X.T)for(const a of (withTR?others:real)){const dk=decl(a),xs=X.near[a].all.filter(q=>q.d<=0.25);
+    const silent=xs.filter(q=>!dk[q.id]),own=xs.filter(q=>dk[q.id]);
+    for(const q of silent)add('r68_q_d',fill('r68_d_silent',{a,m:mean(q.id),s:sname(q.id),v0:fv(q.id,q.own),v1:fv(q.id,q.v)}));
+    if(own.length){const q=own[0];add('r68_q_d',fill('r68_d_own',{a,n:noun(q.id),s:sname(q.id),v0:fv(q.id,q.own),v1:fv(q.id,q.v)}));}}
+  for(const g of groups){const avg=L=>{const o={};for(const id of R68_SLIDERS)o[id]=L.reduce((s,n)=>s+sl(n)[id],0)/L.length;return o;};
+    const dd=diffs(avg(g.S),avg(g.Rt),2);if(dd.length)add('r68_q_d',fill('r68_d_probe',{s:join(g.S.map(nm)),r:join(g.Rt.map(nm)),l:join(dd.map(q=>mean(q.id)+' ('+sname(q.id)+')'))}));}
+  for(const [a,b] of pairs){const ma=mech(a),mb=mech(b),dif=[...ma.filter(m=>!mb.includes(m)),...mb.filter(m=>!ma.includes(m))];
+    if(dif.length)add('r68_q_d',fill('r68_d_mech',{a,b,l:join(dif.map(m=>t('r68_mm_'+m)))}));}
+  for(const a of pool){const o=outc(a);if(o.k.length>1)add('r68_q_d',fill('r68_d_seeds',{a:lab(a)}));}
   for(let k=F.rows.length-1;k>0;k--)if(F.rows[k][0]===F.rows[k-1][0])F.rows[k][0]='';   // each question once, its findings below it
   return F;}
 function r68Summary(res){const sm=res.spec.mode==='data'?r68DataSummary(res):r68SimSummary(res);const sd=r68SeedSummary(res);
