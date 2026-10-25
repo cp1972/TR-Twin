@@ -2302,8 +2302,8 @@ Object.assign(I18N,{
   r68ui_replay:{fr:'rejouer',de:'abspielen',en:'replay'},
   r68ui_seed:{fr:'graine',de:'Startwert',en:'seed'},
   r68ui_missing:{fr:'fichiers manquants',de:'fehlende Dateien',en:'missing files'},
-  r68ui_add:{fr:'ajoutez-les à la sélection',de:'bitte mit auswählen',en:'add them to the selection'},
-  r68ui_norun:{fr:'aucun fichier de déroulement reconnu',de:'keine Laufdatei erkannt',en:'no run file recognised'},
+  r68ui_add:{fr:'choisissez-les maintenant (en une ou plusieurs fois)',de:'jetzt noch auswählen (auf einmal oder nacheinander)',en:'choose them now (at once or one after the other)'},
+  r68ui_norun:{fr:'aucun fichier de déroulement reconnu — les fichiers choisis sont gardés ; choisissez maintenant le fichier de déroulement',de:'keine Laufdatei erkannt — die gewählten Dateien bleiben geladen; jetzt die Laufdatei wählen',en:'no run file recognised — the chosen files are kept; now choose the run file'},
   r68ui_mode_sim:{fr:'simulation',de:'Simulation',en:'simulation'},
   r68ui_mode_data:{fr:'données',de:'Daten',en:'data'},
   r68ui_k_mode:{fr:'mode',de:'Modus',en:'mode'},
@@ -2664,10 +2664,15 @@ function r68Wire(){
   const rs=$$('reset'),origR=rs.onclick;rs.onclick=e=>{if(R68busy)return;if(R68&&R68.runner)r68Replay(R68.selIdx);else if(origR)origR(e);};}
 function r68Stem(){return (R68&&R68.runName?R68.runName.replace(/\.[^.]*$/,''):'run');}
 // ---- choosing the run file among the selected files; the others are matched to its names ----
+let R68pool={};
 function r68Select(list){const $$=id=>document.getElementById(id);
   let best=null;for(const f of list){const p=parseRunFile(f.text);const known=f.text.split(/\r?\n/).filter(l=>l.trim()&&!l.trim().startsWith('#')&&r68Key(l.split(/[,;\t]/)[0])).length;
     if(known&&(!best||known>best.known))best={f,p,known};}
   const status=$$('r68status');$$('r68none').style.display='none';
+  /* the files can be chosen in several steps: every file chosen is kept, and a choice without a run file completes the run file chosen before */
+  const base0=s=>String(s).replace(/^.*[\/\\]/,'').toLowerCase();
+  for(const f of list)if(!best||f!==best.f)R68pool[base0(f.name)]=f.text;
+  if(!best&&R68&&R68.runText){const f={name:R68.runName,text:R68.runText};best={f,p:parseRunFile(f.text),known:1};}
   if(!best){status.innerHTML='<span style="color:var(--warn)">'+r68Esc(t('r68ui_norun'))+'</span>';return;}
   const prevFiles=(R68&&R68.files)||{};
   if(R68&&R68.runner){R68.runner=null;r68ClearData();r68Theory(null,false);tl.start=1900;tl.end=2000;tl.year=1900;seed=1;reset();renderChains();updatePlayhead();
@@ -2676,7 +2681,7 @@ function r68Select(list){const $$=id=>document.getElementById(id);
   const needs=runFileNames(best.p.spec),dup=[...new Set(needs.filter(n=>needs.some(m=>m!==n&&base(m)===base(n))).map(base))];
   if(dup.length)best.p.errors.push('two files with the same name: '+dup.join(', '));
   for(const need of needs){const hit=list.find(f=>base(f.name)===base(need));
-    if(hit)files[need]=hit.text;else if(prevFiles[need])files[need]=prevFiles[need];else missing.push(need);}
+    if(hit)files[need]=hit.text;else if(R68pool[base(need)]!=null)files[need]=R68pool[base(need)];else if(prevFiles[need])files[need]=prevFiles[need];else missing.push(need);}
   R68={runName:best.f.name,runText:best.f.text,spec:best.p.spec,files,errors:best.p.errors,warnings:best.p.warnings,missing,res:null,sm:null,figs:null,runner:null};
   r68ShowSpec();
   $$('r68cmd').textContent='node run.js '+(/\s/.test(best.f.name)?'"'+best.f.name+'"':best.f.name);

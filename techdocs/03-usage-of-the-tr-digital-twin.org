@@ -57,7 +57,7 @@ The Theory of the Relation is always computed as the reference: in simulation mo
 
 * In the interface
 
-- *Run file*: /Choose run file and data…/ — select the run file together with the files it names (multiple selection; they are matched by name). The section shows what the run file asks for, and which files are missing. /▶ Compute/ computes all theories × seeds; /Σ Results/ opens the results.
+- *Run file*: /Choose run file and data…/ — select the run file and the files it names, at once (multiple selection) or one after the other, in any order: the files chosen are kept and matched to the run file by name. The section shows what the run file asks for, and which files are missing. /▶ Compute/ computes all theories × seeds; /Σ Results/ opens the results.
 - *Replay*: after the computation the animation replays one run (selector: theory and seed) with exactly the steps that were computed. /▶ Start/ at the bottom and /Reset/ restart it, /Pause/ holds it, the speed sets the tempo only. Pressing a circle has no effect during a replay, since it would change the run.
 - *As a script*: the command for the terminal, the run file to download, and how to install Node.js and jsdom.
 - *Downloads*: a report (one HTML file with the run file, all tables and figures), all tables (CSV), and the series (CSV) of every run, to compute one's own trends.
