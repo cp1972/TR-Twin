@@ -2829,7 +2829,7 @@ function r68XSummary(res,sm){const spec=res.spec,out={tables:[]};if(spec.mode!==
   const range=id=>{const el=r68SliderEl(id);return (+el.max)-(+el.min);},fv=(id,v)=>r68f(v,r68Dec(id));
   if(res.sweeps&&res.sweeps.length){const T=r68SweepTable(res.sweeps);out.T=T;
     const stOf=n=>{const x=T[n]&&T[n].alpha;return x&&x.state;};
-    const A={id:'thresholds',title:t('r68_t_thr'),head:[t('r68_c_measure')].concat(names.map(n=>lab(n)+' — '+t(stOf(n)?'r68_near_dominated':'r68_near_none'))),rows:[],note:t('r68_n_thr').replace('{n}',Math.min(R68_XSEEDS,spec.seeds.length))};
+    const A={id:'thresholds',title:t('r68_t_thr'),head:[t('r68_c_measure')].concat(names.map(n=>lab(n)+' — '+t(stOf(n)?'r68_near_dominated':'r68_near_none'))),rows:[],note:t('r68_n_thr').replace('{n}',Math.min(R68_XSEEDS,spec.seeds.length)).replace('1819',String(spec.steps||(spec.stimulus?spec.stimulus.beginn:1819)))};
     for(const id of R68_SLIDERS){const row=[t(R68_SLIDER_LABEL[id])];
       for(const n of names){const x=T[n]&&T[n][id];if(!x){row.push('–');continue;}
         let c=fv(id,x.own);const parts=[];
@@ -2849,7 +2849,7 @@ function r68XSummary(res,sm){const spec=res.spec,out={tables:[]};if(spec.mode!==
     if(As){R68_SLIDERS.forEach((id,ri)=>{const row=As.rows[ri];if(!row)return;names.forEach((n,ci)=>{const x=T[n]&&T[n][id];if(!x)return;const el=r68SliderEl(id);
         const lo=x.down?x.down.last:+el.min,hi=x.up?x.up.last:+el.max;row[ci+1]+=' ['+fv(id,lo)+'–'+fv(id,hi)+']';});});
       As.note+=' '+t('r68_n_leeway');}}
-  if(res.probes&&res.probes.length){const P={id:'probe',title:t('r68_t_probe'),head:[t('r68_c_theory')].concat([0,1,2,3].map(x=>LAB[x]+'− · '+SN(x))),rows:[],note:t('r68_n_probe').replace('{n}',Math.min(R68_XSEEDS,spec.seeds.length))};
+  if(res.probes&&res.probes.length){const P={id:'probe',title:t('r68_t_probe'),head:[t('r68_c_theory')].concat([0,1,2,3].map(x=>LAB[x]+'− · '+SN(x))),rows:[],note:t('r68_n_probe').replace('{n}',Math.min(R68_XSEEDS,spec.seeds.length)).replace('1819',String(spec.steps||(spec.stimulus?spec.stimulus.beginn:1819)))};
     out.probe={};
     for(const n of names){const row=[lab(n)];out.probe[n]=[];
       for(let x=0;x<4;x++){const rs=res.probes.filter(r=>r.theory===n&&r.probeX===x).sort((a,b)=>a.seed-b.seed),c={},dom={},bySeed=[];
@@ -3226,7 +3226,7 @@ function r68Report(res,sm,figs,runName,runText){const css='body{font:13px/1.45 s
   'h1{font-size:20px}h2{font-size:15px;margin-top:28px}table{border-collapse:collapse;font-size:11.5px;margin:6px 0}td,th{border-bottom:1px solid #e3e5ea;padding:3px 7px;text-align:right}'+
   'td:first-child,th:first-child{text-align:left}th{color:#5b6472;font-weight:500}table.wrap td{text-align:left;vertical-align:top;max-width:820px}.interp{max-width:900px}.src{color:#5b6472;font-size:11px;max-width:900px}pre{background:#f4f5f7;padding:8px;font-size:11.5px}svg{max-width:100%;height:auto;margin:10px 0}';
   let h='<!doctype html><html lang="'+LANG+'"><head><meta charset="utf-8"><title>'+r68Esc(t('r68ui_report_title'))+'</title><style>'+css+'</style></head><body>';
-  h+='<h1>'+r68Esc(t('r68ui_report_title'))+'</h1><p class="src">'+r68Esc(t('doc_title'))+' · v68 · '+new Date().toISOString().slice(0,10)+'</p>';
+  h+='<h1>'+r68Esc(t('r68ui_report_title'))+'</h1><p class="src">'+r68Esc(t('doc_title').replace(/ · v\d+$/,''))+' · v68 · '+new Date().toISOString().slice(0,10)+'</p>';
   h+='<h2>'+r68Esc(t('r68ui_report_runfile'))+': '+r68Esc(runName||'')+'</h2><pre>'+r68Esc(runText||'')+'</pre>';
   for(const tb of sm.tables){const body=r68HTML(tb).replace(' class="pst r68"','');
     h+=tb.id==='assumptions'?'<details><summary><h2 style="display:inline">'+r68Esc(tb.title)+'</h2> <span class="src">('+r68Esc(t('r68ui_unfold'))+')</span></summary>'+body+'</details>':'<h2>'+r68Esc(tb.title)+'</h2>'+body;}
