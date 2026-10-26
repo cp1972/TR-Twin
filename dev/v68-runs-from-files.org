@@ -133,6 +133,26 @@ Mockups (right column only; values illustrative): [[file:v68-mockup-simulation.p
 - Document 3 (Usage) rewritten around run files; document 4 (Headless runs) gains =run.js run.csv= and the installation; document 6 records v68.
 - The book (chapters 1 and 3 mention the interface) is checked when the branch is merged after publication.
 
+* Coding a value: direction, stage, threshold
+
+A text gives the direction of a slider, rarely its amount. So that the amount is not a matter of feeling, it follows a fixed scale, and the thresholds of domination show whether the choice of stage matters.
+
+1. *Direction.* From the text: above the TR default (↑), below it (↓), or the default (=). Silence is a finding: the default stays.
+2. *Stage.* From the strength of the statement in the text, not from the strength of the evidence (the evidence, strong / medium / weak / none, is recorded separately and says how well the stage is supported):
+
+| Stage    | The text …                                                     | Distance from the TR default (share of the slider's range) | Concentration (range 0–4, default 1.4) | Migration (range 0–2, default 0.7) |
+|----------+----------------------------------------------------------------+------------------------------------------------------------+----------------------------------------+------------------------------------|
+| same     | says nothing, or gives no ground for a departure               | 0                                                          | 1.40                                   | 0.70                               |
+| slight   | points in a direction, or qualifies it at once                 | 5 %                                                        | 1.60 / 1.20                            | 0.80 / 0.60                        |
+| moderate | asserts it, with a restriction                                 | 10 %                                                       | 1.80 / 1.00                            | 0.90 / 0.50                        |
+| clear    | makes it a thesis of the text                                  | 20 %                                                       | 2.20 / 0.60                            | 1.10 / 0.30                        |
+| strong   | makes it a core thesis, in its extreme form                    | 40 %                                                       | 3.00 / 0.00                            | 1.50 / 0.00                        |
+
+3. *Value.* TR default ± stage × range, rounded to the slider's step and kept within its range.
+4. *Threshold.* The run file computes the thresholds of domination; the table of assumptions gives, in square brackets, the leeway of each value (from which to which value the result stays the same). If the value of the next stage up or down lies beyond a threshold, the stage decides the result: it has to be argued from the text, and the coding names it as a checkpoint. If both neighbouring stages lie within the leeway, the choice between them changes nothing.
+
+Example (Ametowobla, concentration): the text supports a concentration above the default and qualifies it at once (pp. 11, 17, 21). /Slight/ gives 1.60, /moderate/ 1.80. The threshold lies at 1.75: with /slight/ no structure rules, with /moderate/ one does. The question for the text is therefore not 1.5 or 1.6, but whether its statement on concentration is a qualified indication or an assertion.
+
 * Decisions taken
 
 1. Mobility moves category by category (see above).
@@ -142,5 +162,6 @@ Mockups (right column only; values illustrative): [[file:v68-mockup-simulation.p
 5. A jump of several categories between coded stages counts as that many steps in the same direction; the steps beyond the first are marked as inferred.
 6. Stability over the seeds: a table per seed (outcome as the sequence of dominant structures), the satellisation force per seed, a stability table and figures.
 7. Thresholds of domination for all twelve sliders and a stimulus probe with each structure weakened are part of every simulation run (four seeds), unless switched off in the run file.
-8. The report gives findings under three questions (compatibility of the approaches, possible research questions, empirical inquiry); the interpretation itself is a text file named by the run file.
+8. The report gives findings under four questions (compatibility of the approaches, possible research questions, empirical inquiry, theoretical deepening); the interpretation itself is a text file named by the run file.
+9. A coded value follows a fixed scale of stages (direction, stage as a share of the slider's range); the thresholds show whether the stage decides the result, and the report gives the leeway of each value.
 

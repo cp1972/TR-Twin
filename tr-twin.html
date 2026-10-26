@@ -2512,6 +2512,7 @@ Object.assign(I18N,{
   r68_thr_norange:{fr:'aucun seuil dans l’étendue',de:'keine Schwelle im Bereich',en:'no threshold in the range'},
   r68ui_unfold:{fr:'cliquer pour déplier : comment les théories ont été codées',de:'zum Aufklappen klicken: wie die Theorien kodiert sind',en:'click to unfold: how the theories are coded'},
   r68_f_seq_x:{fr:'part de la population',de:'Anteil an der Population',en:'share of the population'},
+  r68_n_leeway:{fr:'Entre crochets : la marge de la valeur codée, de quelle à quelle valeur du curseur le résultat reste le même (domination ou non ; voir Seuils de la domination). Tant qu’une autre valeur reste dans cette marge, le choix entre elles ne change rien ; il ne compte qu’au-delà.',de:'In eckigen Klammern: der Spielraum des kodierten Werts, von welchem bis zu welchem Reglerwert das Ergebnis gleich bleibt (Domination oder nicht; siehe Schwellen der Domination). Solange ein anderer Wert in diesem Spielraum liegt, ändert die Wahl zwischen ihnen nichts; sie zählt erst darüber hinaus.',en:'In square brackets: the leeway of the coded value, from which to which slider value the result stays the same (domination or not; see Thresholds of domination). As long as another value lies within this leeway, choosing between them changes nothing; it only counts beyond it.'},
   r68_f_sub_line:{fr:'médiane sur {n} graines · bande = étendue',de:'Median über {n} Startwerte · Band = Spannweite',en:'median over {n} seeds · band = range'},
   r68_f_traj_h:{fr:'Trajectoire de l’inégalité horizontale',de:'Verlauf der horizontalen Ungleichheit',en:'Trajectory of horizontal inequality'},
   r68_f_traj_v:{fr:'Trajectoire de l’inégalité verticale',de:'Verlauf der vertikalen Ungleichheit',en:'Trajectory of vertical inequality'},
@@ -2819,7 +2820,12 @@ function r68XSummary(res,sm){const spec=res.spec,out={tables:[]};if(spec.mode!==
       c.sort((a,b)=>a.d-b.d);const b=c[0];const any=[...new Set(c.map(q=>q.id))];out.near[n]={best:b,all:c,count:any.length};
       const st0=T[n]&&T[n].alpha;const state=st0&&st0.state;
       N.rows.push([lab(n),t(state?'r68_near_dominated':'r68_near_none'),b?t(R68_SLIDER_LABEL[b.id]):'–',b?fv(b.id,b.own):'–',b?(b.dir>0?'↑ ':'↓ ')+fv(b.id,b.v):'–',b?Math.round(100*b.d)+' %':'–',any.length+'/12']);}
-    out.tables.push(A,N);}
+    out.tables.push(A,N);
+    // the leeway of each coded value: from which to which value of the slider the result stays the same (in the table of assumptions)
+    const As=sm.tables.find(tb=>tb.id==='assumptions');
+    if(As){R68_SLIDERS.forEach((id,ri)=>{const row=As.rows[ri];if(!row)return;names.forEach((n,ci)=>{const x=T[n]&&T[n][id];if(!x)return;const el=r68SliderEl(id);
+        const lo=x.down?x.down.last:+el.min,hi=x.up?x.up.last:+el.max;row[ci+1]+=' ['+fv(id,lo)+'–'+fv(id,hi)+']';});});
+      As.note+=' '+t('r68_n_leeway');}}
   if(res.probes&&res.probes.length){const P={id:'probe',title:t('r68_t_probe'),head:[t('r68_c_theory')].concat([0,1,2,3].map(x=>LAB[x]+'− · '+SN(x))),rows:[],note:t('r68_n_probe').replace('{n}',Math.min(R68_XSEEDS,spec.seeds.length))};
     out.probe={};
     for(const n of names){const row=[lab(n)];out.probe[n]=[];
