@@ -2459,8 +2459,16 @@ Object.assign(I18N,{
   r68_f_clevel:{fr:'Niveau : le jumeau dit quelque chose de l’ordre des structures relationnelles, non d’organisations ou de plateformes singulières ; toute mesure doit transposer le codage à ce niveau.',de:'Ebene: Der Zwilling sagt etwas über die Ordnung der Relationsstrukturen, nicht über einzelne Organisationen oder Plattformen; jede Messung muss die Kodierung auf diese Ebene übertragen.',en:'Level: the twin says something about the order of the relational structures, not about single organisations or platforms; any measurement has to carry the coding over to this level.'},
   r68_f_thr:{fr:'Seuils de la domination',de:'Schwellen der Domination',en:'Thresholds of domination'},
   r68_f_thr_sub:{fr:'chaque curseur sur toute son étendue, les autres valeurs comme dans le profil ; {n} graines',de:'jeder Regler über seinen ganzen Bereich, die übrigen Werte wie im Profil; {n} Startwerte',en:'each slider over its whole range, the other values as in the profile; {n} seeds'},
+  r68_t_probe_eff:{fr:'Effet du stimulus',de:'Wirkung des Reizes',en:'Effect of the stimulus'},
+  r68_n_probe_eff:{fr:'À la fin du déroulement libre, différence entre le déroulement avec stimulus et le même sans stimulus (médiane sur {n} graines) : + = plus élevé après le stimulus. Volume de la circulation : part de la population déplacée, cumulée sur tout le déroulement.',de:'Am Ende des freien Laufs: Differenz zwischen dem Lauf mit Reiz und demselben Lauf ohne Reiz (Median über {n} Startwerte); + = nach dem Reiz höher. Volumen der Zirkulation: bewegter Anteil der Population, über den ganzen Lauf aufsummiert.',en:'At the end of the free run: difference between the run with the stimulus and the same run without it (median over {n} seeds); + = higher after the stimulus. Volume of circulation: share of the population moved, summed over the whole run.'},
+  r68_eff_gini:{fr:'Inégalité transversale',de:'Transversale Ungleichheit',en:'Transversal inequality'},
+  r68_eff_horiz:{fr:'Inégalité horizontale',de:'Horizontale Ungleichheit',en:'Horizontal inequality'},
+  r68_eff_vert:{fr:'Inégalité verticale',de:'Vertikale Ungleichheit',en:'Vertical inequality'},
+  r68_eff_recip:{fr:'Réciprocité',de:'Reziprozität',en:'Reciprocity'},
+  r68_eff_vol:{fr:'Volume de la circulation',de:'Volumen der Zirkulation',en:'Volume of circulation'},
+  r68_f_probe_eff:{fr:'Effet du stimulus sur les inégalités, la réciprocité et la circulation',de:'Wirkung des Reizes auf Ungleichheit, Reziprozität und Zirkulation',en:'Effect of the stimulus on inequality, reciprocity and circulation'},
+  r68_f_probe_eff_sub:{fr:'avec stimulus moins sans stimulus, à la fin · rouge = plus élevé, bleu = plus bas · une colonne par structure affaiblie',de:'mit Reiz minus ohne Reiz, am Ende · rot = höher, blau = niedriger · eine Spalte je geschwächte Struktur',en:'with stimulus minus without, at the end · red = higher, blue = lower · one column per weakened structure'},
   r68_f_probe:{fr:'Sonde : chaque structure affaiblie',de:'Reizprobe: jede Struktur geschwächt',en:'Stimulus probe: each structure weakened'},
-  r68_f_probe_sub:{fr:'une case par graine : verdict après le stimulus',de:'ein Feld je Startwert: Urteil nach dem Reiz',en:'one square per seed: verdict after the stimulus'},
   r68ui_tab_interp:{fr:'Interprétation',de:'Deutung',en:'Interpretation'},
   r68_f_thr_none:{fr:'aucune domination',de:'keine Domination',en:'no domination'},
   r68_f_thr_dom:{fr:'une structure domine (au moins la moitié des graines)',de:'eine Struktur dominiert (mindestens die Hälfte der Startwerte)',en:'a structure dominates (at least half of the seeds)'},
@@ -2532,7 +2540,10 @@ Object.assign(I18N,{
   r68_d_mech:{fr:'{a} et {b} tranchent différemment la question de savoir si {l}. Qui veut relier les deux approches doit trancher cette question théoriquement.',de:'{a} und {b} entscheiden sich verschieden in der Frage, ob {l}. Wer beide Ansätze verbinden will, muss diese Frage theoretisch entscheiden.',en:'{a} and {b} decide differently whether {l}. Whoever wants to combine both approaches has to decide this question theoretically.'},
   r68_d_seeds:{fr:'{a} ne détermine pas clairement si une structure domine : le résultat dépend du départ. Quelle hypothèse supplémentaire le déterminerait ?',de:'{a} legt nicht eindeutig fest, ob eine Struktur herrscht: Das Ergebnis hängt vom Anfang ab. Welche zusätzliche Annahme würde es bestimmen?',en:'{a} does not settle whether a structure rules: the result depends on the start. Which further assumption would settle it?'},
   r68_thr_norange:{fr:'aucun seuil dans l’étendue',de:'keine Schwelle im Bereich',en:'no threshold in the range'},
-  r68ui_unfold:{fr:'cliquer pour déplier : comment les théories ont été codées',de:'zum Aufklappen klicken: wie die Theorien kodiert sind',en:'click to unfold: how the theories are coded'},
+  r68ui_fold_note:{fr:'Chaque rubrique s’ouvre et se ferme d’un clic sur son titre.',de:'Jede Rubrik öffnet und schließt sich mit einem Klick auf ihren Titel.',en:'Each section opens and closes with a click on its title.'},
+  r68ui_fold_all_open:{fr:'tout ouvrir',de:'alle öffnen',en:'open all'},
+  r68ui_fold_all_close:{fr:'tout fermer',de:'alle schließen',en:'close all'},
+  r68ui_unfold:{fr:'comment les théories ont été codées',de:'wie die Theorien kodiert sind',en:'how the theories are coded'},
   r68_f_seq_x:{fr:'part de la population',de:'Anteil an der Population',en:'share of the population'},
   r68_n_leeway:{fr:'Entre crochets : la marge de la valeur codée, de quelle à quelle valeur du curseur le résultat reste le même (domination ou non ; voir Seuils de la domination). Tant qu’une autre valeur reste dans cette marge, le choix entre elles ne change rien ; il ne compte qu’au-delà.',de:'In eckigen Klammern: der Spielraum des kodierten Werts, von welchem bis zu welchem Reglerwert das Ergebnis gleich bleibt (Domination oder nicht; siehe Schwellen der Domination). Solange ein anderer Wert in diesem Spielraum liegt, ändert die Wahl zwischen ihnen nichts; sie zählt erst darüber hinaus.',en:'In square brackets: the leeway of the coded value, from which to which slider value the result stays the same (domination or not; see Thresholds of domination). As long as another value lies within this leeway, choosing between them changes nothing; it only counts beyond it.'},
   r68ui_unread:{fr:'ignoré (curseur inconnu, ou degré sans direction : écrire +léger, −modéré …)',de:'nicht gelesen (unbekannter Regler, oder Stufe ohne Richtung: +leicht, −mäßig … schreiben)',en:'not read (unknown slider, or a stage without a direction: write +slight, −moderate …)'},
@@ -2546,7 +2557,8 @@ Object.assign(I18N,{
   r68_f_sat_sub:{fr:'force moyenne sur tout le déroulement, médiane sur {n} graines',de:'mittlere Stärke über den ganzen Lauf, Median über {n} Startwerte',en:'mean strength over the whole run, median over {n} seeds'},
   r68_f_sat_axes:{fr:'ligne = structure satellisée · colonne = structure qui satellise (la plus grande à chaque pas)',de:'Zeile = satellisierte Struktur · Spalte = satellisierende Struktur (die jeweils größte)',en:'row = satellised structure · column = satellising structure (the largest at each step)'},
   r68_f_circ_sim_sub:{fr:'part de la circulation sur tout le déroulement (%), médiane sur {n} graines',de:'Anteil an der Zirkulation über den ganzen Lauf (%), Median über {n} Startwerte',en:'share of the circulation over the whole run (%), median over {n} seeds'},
-  r68_f_blk_short:{fr:'bloquée',de:'blockiert',en:'blocked'},
+  r68_f_blk_note:{fr:'« migration bloquée » : part de la migration tentée qui n’a pas lieu, parce que la structure visée est sclérosée',de:'„Migration blockiert“: Anteil der versuchten Migration, der nicht stattfindet, weil die Zielstruktur verkalkt ist',en:'“migration blocked”: share of attempted migration that does not take place because the target structure is sclerotic'},
+  r68_f_blk_short:{fr:'migration bloquée',de:'Migration blockiert',en:'migration blocked'},
   r68_n_circ_sim:{fr:'Sur tout le déroulement, médiane sur {n} graines (étendue), écart à la TR. Dans le jumeau, un changement de séquence (le long du parcours interne) garde la catégorie ; un changement de structure est une migration (les migrants sont déclassés d’une catégorie, selon le réglage « déclassement des nouveaux arrivants ») ou la fuite des déçus (35 % arrivent comme conservateurs). « Bloquée » : part de la migration tentée qui n’a pas lieu (structure de destination sclérosée). Volume : part de la population déplacée, cumulée.',
     de:'Über den ganzen Lauf, Median über {n} Startwerte (Spannweite), Abstand zur TR. Im Zwilling behält ein Sequenzwechsel (entlang des internen Verlaufs) die Kategorie; ein Strukturwechsel ist eine Migration (die Migranten steigen um eine Kategorie ab, nach dem Regler „Deklassierung der Neuankömmlinge“) oder die Flucht der Enttäuschten (35 % kommen als Konservative an). „Blockiert“: Anteil der versuchten Migration, der nicht stattfindet (Zielstruktur sklerotisiert). Volumen: bewegter Anteil der Population, aufsummiert.',
     en:'Over the whole run, median over {n} seeds (range), difference to the TR. In the twin a change of sequence (along the internal path) keeps the category; a change of structure is a migration (migrants are downgraded by one category, by the setting “downgrading of newcomers”) or the flight of the disappointed (35 % arrive as conservatives). “Blocked”: share of the attempted migration that does not take place (target structure sclerosed). Volume: share of the population moved, summed up.'},
@@ -2583,7 +2595,7 @@ Object.assign(I18N,{
   r68ui_done:{fr:'calculé',de:'berechnet',en:'computed'},
   r68ui_playing:{fr:'l’animation rejoue le déroulement choisi ci-dessous ; Σ Résultats ouvre les tableaux et figures',de:'die Animation spielt den unten gewählten Lauf ab; Σ Ergebnisse öffnet Tabellen und Grafiken',en:'the animation replays the run chosen below; Σ Results opens the tables and figures'},
   r68ui_script:{fr:'En script',de:'Als Skript',en:'As a script'},
-  r68ui_script_desc:{fr:'mêmes fichiers, mêmes résultats — dans un terminal, dans le dossier du jumeau :',de:'dieselben Dateien, dieselben Ergebnisse — im Terminal, im Ordner des Zwillings:',en:'same files, same results — in a terminal, in the twin folder:'},
+  r68ui_script_desc:{fr:'mêmes fichiers, mêmes résultats — dans un terminal, dans le dossier du jumeau. Le fichier de déroulement nomme lui-même les profils et le fichier d’interprétation (chemins relatifs à ce fichier) ; seul lui figure dans la commande, avec son chemin (par exemple runs/… s’il est dans le dossier runs) :',de:'dieselben Dateien, dieselben Ergebnisse — im Terminal, im Ordner des Zwillings. Die Profile und die Deutungsdatei nennt die Laufdatei selbst (Pfade relativ zur Laufdatei); in der Befehlszeile steht nur sie, mit ihrem Pfad (etwa runs/…, wenn sie im Ordner runs liegt):',en:'same files, same results — in a terminal, in the twin folder. The run file itself names the profiles and the interpretation file (paths relative to the run file); only it goes on the command line, with its path (e.g. runs/… when it is in the runs folder):'},
   r68ui_install:{fr:'Installer Node.js et jsdom (une fois)',de:'Node.js und jsdom installieren (einmal)',en:'Install Node.js and jsdom (once)'},
   r68ui_install_html:{fr:'<b>Windows</b> : programme d’installation (LTS) de nodejs.org, ou <code>winget install OpenJS.NodeJS.LTS</code><br><b>macOS</b> : programme d’installation (LTS) de nodejs.org, ou <code>brew install node</code><br><b>Linux</b> : gestionnaire de paquets (nodejs, npm)<br>puis, dans le dossier du jumeau : <code>npm install</code><br>Sur les ordinateurs des salles, l’installation peut demander des droits d’administrateur.',
     de:'<b>Windows</b>: Installer (LTS) von nodejs.org, oder <code>winget install OpenJS.NodeJS.LTS</code><br><b>macOS</b>: Installer (LTS) von nodejs.org, oder <code>brew install node</code><br><b>Linux</b>: Paketverwaltung (nodejs, npm)<br>dann im Ordner des Zwillings: <code>npm install</code><br>An Rechnern im PC-Pool kann die Installation Administratorrechte brauchen.',
@@ -2855,15 +2867,25 @@ function r68XSummary(res,sm){const spec=res.spec,out={tables:[]};if(spec.mode!==
       for(let x=0;x<4;x++){const rs=res.probes.filter(r=>r.theory===n&&r.probeX===x).sort((a,b)=>a.seed-b.seed),c={},dom={},bySeed=[];
         for(const r of rs){const k=res.probes.find(q=>q.theory===n&&q.control&&q.seed===r.seed);const abw=Math.max(...r.stimulus.end.map((v,i)=>Math.abs(v-k.stimulus.end[i])));
           const v=Math.max(r.stimulus.drift,k.stimulus.drift)>=0.005?'bewegung':(abw>=0.03?'fest':'zurueck');c[v]=(c[v]||0)+1;
-          const e=r.rows[r.rows.length-1];bySeed.push({seed:r.seed,v,dom:e.dom});
+          const e=r.rows[r.rows.length-1],ek=k.rows[k.rows.length-1];bySeed.push({seed:r.seed,v,dom:e.dom,eff:r68ProbeDiff(e,ek)});
           if(v!=='zurueck'){const d=e.dom<0?t('r68_balanced'):LAB[e.dom];dom[d]=(dom[d]||0)+1;}}
-        out.probe[n][x]={c,n:rs.length,dom,bySeed};
+        const eff={};for(const m of R68_EFF)eff[m]=r68med(bySeed.map(q=>q.eff[m]).filter(z=>z!=null));
+        out.probe[n][x]={c,n:rs.length,dom,bySeed,eff};
         const dk=Object.keys(dom).sort((a,b)=>dom[b]-dom[a]);
         row.push(['zurueck','fest','bewegung'].filter(k=>c[k]).map(k=>t('r68_v_'+k)+' '+c[k]).join(' · ')+(dk.length?' ('+t('r68_probe_dom')+' '+dk[0]+')':''));}
       P.rows.push(row);}
-    out.tables.push(P);}
+    out.tables.push(P);
+    const E={id:'probe_effect',title:t('r68_t_probe_eff'),head:[t('r68_c_theory'),t('r68_c_measure')].concat([0,1,2,3].map(x=>LAB[x]+'− · '+SN(x))),rows:[],note:t('r68_n_probe_eff').replace('{n}',Math.min(R68_XSEEDS,spec.seeds.length))};
+    for(const n of names)R68_EFF.forEach((m,i)=>E.rows.push([i?'':lab(n),t('r68_eff_'+m)].concat([0,1,2,3].map(x=>{const v=out.probe[n][x].eff[m];return v==null?'–':r68Signed(v,m==='vol'?2:3);}))));
+    out.tables.push(E);}
   out.tables.push(r68Findings(res,sm,out));
   return out;}
+// the measures compared after the stimulus: inequalities, reciprocity and the volume of circulation, at the end of the free run
+const R68_EFF=['gini','horiz','vert','recip','vol'];
+function r68Signed(v,dec){const r=r68f(v,dec);return /[1-9]/.test(r)?(v>0?'+':'')+r:r.replace('-','');}
+function r68ProbeDiff(e,k){const vol=c=>c?c.q+c.xn+c.xu+c.xd:null,o={};
+  for(const m of ['gini','horiz','vert','recip'])o[m]=(e[m]!=null&&k[m]!=null)?e[m]-k[m]:null;
+  o.vol=(e.cm&&k.cm)?vol(e.cm)-vol(k.cm):null;return o;}
 function r68Findings(res,sm,X){const names=sm.names,others=names.filter(n=>n!=='TR'),lab=n=>n==='TR'?'TR':n,hasInterp=!!(res.spec.interpretation&&res.files&&res.files[res.spec.interpretation]);
   const F={id:'findings',title:t('r68_t_find'),head:[t('r68_c_q'),t('r68_c_find')],rows:[],note:t('r68_n_find')+(hasInterp?' '+t('r68_n_find_interp'):'')};
   // with one theory the comparison with the TR is the point; with several, the TR (the default) and profiles that only
@@ -3101,8 +3123,8 @@ function r68ThrBars(title,panels,o){o=o||{};const L=58,LW=150,BW=440,R=24,rh=20,
       s+='<line x1="'+xx.toFixed(1)+'" y1="'+ya+'" x2="'+xx.toFixed(1)+'" y2="'+(ya+4)+'" stroke="'+SOL.tick+'"/><text x="'+xx.toFixed(1)+'" y="'+(ya+15)+'" fill="'+SOL.tick+'" font-size="9" text-anchor="middle" font-family="ui-monospace,monospace">'+fd(v)+'</text>';}}
   if(o.foot)s+='<text x="'+L+'" y="'+(H-6)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
 // horizontal stacked bars, in groups (one group per structure, or a single group): the names stay readable
-function r68HBars(title,groups,parts,o){o=o||{};const L=58,LW=150,BW=420,R=70,bh=15,gap=5,W=L+LW+BW+R,leg=svgLegend(parts,L,o.sub?72:58,W-R);
-  let y=leg.bottomY+24;const pos=groups.map(g=>{const p={g,y};y+=(g.label?20:0)+g.bars.length*(bh+gap)+10;return p;});const T0=leg.bottomY+24,H=y+40;
+function r68HBars(title,groups,parts,o){o=o||{};let nl=0;for(const g of groups)for(const b of g.bars)if(b.note)nl=Math.max(nl,String(b.note).length);const L=58,LW=150,BW=420,R=Math.max(70,Math.ceil(16+nl*5.6)),bh=15,gap=5,W=L+LW+BW+R,leg=svgLegend(parts,L,o.sub?72:58,W-R);
+  let y=leg.bottomY+24;const pos=groups.map(g=>{const p={g,y};y+=(g.label?20:0)+g.bars.length*(bh+gap)+10;return p;});const T0=leg.bottomY+24,H=y+40+(o.note?16:0);
   let xmax=o.xmax||0;if(!xmax){for(const g of groups)for(const b of g.bars)xmax=Math.max(xmax,b.vals.reduce((a,v)=>a+(v||0),0));if(!(xmax>0))xmax=1;}
   const xS=v=>L+LW+v/xmax*BW;let s=r68Head(W,H,title,o)+leg.svg;
   for(const v of r68Ticks(0,xmax,5)){const xx=xS(v);s+='<line x1="'+xx.toFixed(1)+'" y1="'+T0+'" x2="'+xx.toFixed(1)+'" y2="'+(y-6)+'" stroke="'+SOL.grid+'"/><text x="'+xx.toFixed(1)+'" y="'+(y+8)+'" fill="'+SOL.tick+'" font-size="9" text-anchor="middle" font-family="ui-monospace,monospace">'+(+v.toFixed(2))+'</text>';}
@@ -3111,6 +3133,7 @@ function r68HBars(title,groups,parts,o){o=o||{};const L=58,LW=150,BW=420,R=70,bh
     for(const b of g.bars){s+='<text x="'+(L+LW-8)+'" y="'+(yy+bh-3)+'" fill="'+SOL.txt2+'" font-size="10" text-anchor="end">'+svgEsc(String(b.label).slice(0,24))+'</text>';let acc=0;
       b.vals.forEach((v,pi)=>{if(!(v>0))return;s+='<rect x="'+xS(acc).toFixed(1)+'" y="'+yy+'" width="'+(xS(acc+v)-xS(acc)).toFixed(1)+'" height="'+bh+'" fill="'+parts[pi].color+'" opacity="0.88" stroke="#fff" stroke-width="0.6"/>';acc+=v;});
       if(b.note)s+='<text x="'+(xS(acc)+6).toFixed(1)+'" y="'+(yy+bh-3)+'" fill="'+SOL.txt2+'" font-size="9.5">'+svgEsc(b.note)+'</text>';yy+=bh+gap;}}
+  if(o.note)s+='<text x="'+L+'" y="'+(H-22)+'" fill="'+SOL.txt2+'" font-size="10">'+svgEsc(o.note)+'</text>';
   if(o.foot)s+='<text x="'+L+'" y="'+(H-6)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
 // stimulus probe as a grid: one row per theory, one column per weakened structure, one square per seed
 function r68ProbeGrid(title,names,labels,probe,o){o=o||{};const L=58,LW=150,cs=22,gap=4,n=Math.max(...names.map(m=>Math.max(...probe[m].map(q=>q.bySeed.length)))),cw=n*(cs+gap)+30;
@@ -3125,6 +3148,19 @@ function r68ProbeGrid(title,names,labels,probe,o){o=o||{};const L=58,LW=150,cs=2
       if(q.v!=='zurueck'&&q.dom>=0)s+='<text x="'+(xx+cs/2)+'" y="'+(yy+cs/2+4)+'" fill="#fff" font-size="11" font-weight="600" text-anchor="middle">'+LAB[q.dom]+'</text>';
       s+='<text x="'+(xx+cs/2)+'" y="'+(yy+cs+10)+'" fill="'+SOL.tick+'" font-size="8" text-anchor="middle">'+q.seed+'</text>';});});
   if(o.foot)s+='<text x="'+L+'" y="'+(H-8)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
+function r68ProbeEff(title,names,labels,probe,o){o=o||{};const L=58,LW=140,cw=60,chh=20,pw=LW+4*cw+30,per=2,np=R68_EFF.length;
+  const ph=24+18+names.length*(chh+3)+14,T=o.sub?80:66,rowsP=Math.ceil(np/per),W=L+per*pw+10,H=T+rowsP*ph+30;let s=r68Head(W,H,title,o);
+  R68_EFF.forEach((m,pi)=>{const x0=L+(pi%per)*pw,y0=T+Math.floor(pi/per)*ph;let vmax=0;
+    for(const n of names)for(let x=0;x<4;x++){const v=probe[n][x].eff[m];if(v!=null)vmax=Math.max(vmax,Math.abs(v));}if(!(vmax>0))vmax=1;
+    s+='<text x="'+x0+'" y="'+(y0+12)+'" fill="'+SOL.txt+'" font-size="12" font-weight="600">'+svgEsc(t('r68_eff_'+m))+'</text>';
+    for(let x=0;x<4;x++)s+='<text x="'+(x0+LW+x*cw+cw/2)+'" y="'+(y0+32)+'" fill="'+SOL.txt2+'" font-size="10" text-anchor="middle">'+svgEsc(LAB[x]+'−')+'</text>';
+    names.forEach((n,i)=>{const yy=y0+40+i*(chh+3);s+='<text x="'+(x0+LW-8)+'" y="'+(yy+chh/2+4)+'" fill="'+SOL.txt+'" font-size="10" text-anchor="end">'+svgEsc(String(labels[i]).slice(0,22))+'</text>';
+      for(let x=0;x<4;x++){const v=probe[n][x].eff[m],xx=x0+LW+x*cw;
+        if(v==null){s+='<rect x="'+xx+'" y="'+yy+'" width="'+(cw-4)+'" height="'+chh+'" fill="#f1f2f4"/>';continue;}
+        const a=/[1-9]/.test(r68f(v,m==='vol'?1:3))?Math.min(1,Math.abs(v)/vmax):0,col=v>=0?'192,57,43':'46,109,164';
+        s+='<rect x="'+xx+'" y="'+yy+'" width="'+(cw-4)+'" height="'+chh+'" rx="2" fill="'+(a?'rgba('+col+','+(0.08+0.82*a).toFixed(2)+')':'#f1f2f4')+'"/>';
+        s+='<text x="'+(xx+(cw-4)/2)+'" y="'+(yy+chh/2+4)+'" fill="'+(a>0.55?'#fff':SOL.txt)+'" font-size="9.5" text-anchor="middle">'+r68Signed(v,m==='vol'?1:3)+'</text>';}});});
+  if(o.foot)s+='<text x="'+L+'" y="'+(H-8)+'" fill="'+SOL.foot+'" font-size="9.5">'+svgEsc(o.foot)+'</text>';return s+'</svg>';}
 function r68XFigs(res,sm){const X=sm.x,figs=[];if(!X)return figs;const foot=t('svg_foot'),names=sm.names;
   const lab=names.map(n=>n==='TR'?'TR ('+t('r68_ref')+')':n),col=names.map((n,i)=>R68_THEORY_COL[i%R68_THEORY_COL.length]);
   if(X.T){const panels=[];for(const id of R68_SLIDERS){if(!names.some(n=>X.T[n]&&X.T[n][id]&&(X.T[n][id].up||X.T[n][id].down)))continue;const el=r68SliderEl(id),mn=+el.min,mx=+el.max;
@@ -3136,7 +3172,9 @@ function r68XFigs(res,sm){const X=sm.x,figs=[];if(!X)return figs;const foot=t('s
         rows.push({name:lab[i],color:col[i],segs,own:x.own,thr:[x.up?{v:x.up.v,dir:1}:null,x.down?{v:x.down.v,dir:-1}:null].filter(Boolean)});});
       panels.push({label:t(R68_SLIDER_LABEL[id]),min:mn,max:mx,rows});}
     if(panels.length)figs.push({name:'thresholds',svg:r68ThrBars(t('r68_f_thr'),panels,{sub:t('r68_f_thr_sub').replace('{n}',Math.min(R68_XSEEDS,res.spec.seeds.length)),foot})});}
-  if(X.probe)figs.push({name:'probe',svg:r68ProbeGrid(t('r68_f_probe'),names,lab,X.probe,{sub:t('r68_f_probe_sub'),foot})});
+  if(X.probe)figs.push({name:'probe',svg:r68ProbeGrid(t('r68_f_probe'),names,lab,X.probe,{foot})});
+  if(X.probe&&names.some(n=>X.probe[n].some(q=>q.eff&&R68_EFF.some(m=>q.eff[m]!=null))))
+    figs.push({name:'probe_effect',svg:r68ProbeEff(t('r68_f_probe_eff'),names,lab,X.probe,{sub:t('r68_f_probe_eff_sub'),foot})});
   return figs;}
 function r68SeedFigs(res,sm){const sd=sm.seeds;if(!sd||!sd.rows.length)return [];const foot=t('svg_foot'),names=sd.names;
   const groups=names.map((n,i)=>({name:sd.thName(n),short:n==='data'?t('r68ui_mode_data'):n,color:R68_THEORY_COL[i%R68_THEORY_COL.length]}));
@@ -3180,7 +3218,7 @@ function r68Figures(res,sm){const figs=[];const foot=t('svg_foot');
     // circulation and mobility over the run
     const cm=sm.cmed,cparts=[{name:t('r68_k_seq'),color:'#9aa1ad'},{name:t('r68_k_struct')+' · '+t('r68_c_up'),color:SOL.up},{name:t('r68_k_struct')+' · '+t('r68_c_down'),color:SOL.down},{name:t('r68_k_struct')+' · '+t('r68_c_none'),color:'#C9A227'}];
     figs.push({name:'circulation_mobility',svg:r68HBars(t('r68_t_circ'),[{label:null,bars:names.map((n,i)=>({label:series[i].name,vals:['seq','xu','xd','xn'].map(k=>cm[k][n]||0),
-        note:cm.blk[n]!=null?t('r68_f_blk_short')+' '+Math.round(cm.blk[n])+'%':''}))}],cparts,{sub:t('r68_f_circ_sim_sub').replace('{n}',res.spec.seeds.length),foot,xmax:100,xlab:'%'})});}
+        note:cm.blk[n]!=null?t('r68_f_blk_short')+' '+Math.round(cm.blk[n])+' %':''}))}],cparts,{sub:t('r68_f_circ_sim_sub').replace('{n}',res.spec.seeds.length),note:t('r68_f_blk_note'),foot,xmax:100,xlab:'%'})});}
   else{const runs=res.runs,xs=runs[0].rows.map(q=>q.year),at=(fn,i)=>runs.map(r=>fn(r.rows[i]));
     const ser=(name,color,fn)=>({name,color,data:xs.map((_,i)=>r68med(at(fn,i))),lo:xs.map((_,i)=>r68min(at(fn,i))),hi:xs.map((_,i)=>r68max(at(fn,i)))});
     const xlab=t('r68_years');
@@ -3224,14 +3262,20 @@ function r68RunAsync(spec,files,onProgress){return new Promise((resolve,reject)=
 // ---- report: one HTML file with the run file, all tables and all figures ----
 function r68Report(res,sm,figs,runName,runText){const css='body{font:13px/1.45 system-ui,sans-serif;color:#1b1f2a;max-width:1100px;margin:24px auto;padding:0 16px}'+
   'h1{font-size:20px}h2{font-size:15px;margin-top:28px}table{border-collapse:collapse;font-size:11.5px;margin:6px 0}td,th{border-bottom:1px solid #e3e5ea;padding:3px 7px;text-align:right}'+
-  'td:first-child,th:first-child{text-align:left}th{color:#5b6472;font-weight:500}table.wrap td{text-align:left;vertical-align:top;max-width:820px}.interp{max-width:900px}.src{color:#5b6472;font-size:11px;max-width:900px}pre{background:#f4f5f7;padding:8px;font-size:11.5px}svg{max-width:100%;height:auto;margin:10px 0}';
+  'td:first-child,th:first-child{text-align:left}th{color:#5b6472;font-weight:500}table.wrap td{text-align:left;vertical-align:top;max-width:820px}.interp{max-width:900px}.src{color:#5b6472;font-size:11px;max-width:900px}pre{background:#f4f5f7;padding:8px;font-size:11.5px}svg{max-width:100%;height:auto;margin:10px 0}'+
+  'details{margin-top:14px}summary{cursor:pointer}summary h2{display:inline;margin:0}h2.figs{margin-top:34px}details details{margin-left:0}';
   let h='<!doctype html><html lang="'+LANG+'"><head><meta charset="utf-8"><title>'+r68Esc(t('r68ui_report_title'))+'</title><style>'+css+'</style></head><body>';
   h+='<h1>'+r68Esc(t('r68ui_report_title'))+'</h1><p class="src">'+r68Esc(t('doc_title').replace(/ · v\d+$/,''))+' · v68 · '+new Date().toISOString().slice(0,10)+'</p>';
-  h+='<h2>'+r68Esc(t('r68ui_report_runfile'))+': '+r68Esc(runName||'')+'</h2><pre>'+r68Esc(runText||'')+'</pre>';
+  // every section folds; the results, the findings and the interpretation are open at first
+  const sec=(title,body,open,hint)=>'<details'+(open?' open':'')+'><summary><h2>'+r68Esc(title)+'</h2>'+(hint?' <span class="src">('+r68Esc(hint)+')</span>':'')+'</summary>'+body+'</details>';
+  h+='<p class="src">'+r68Esc(t('r68ui_fold_note'))+' <a href="#" onclick="document.querySelectorAll(\'details\').forEach(d=>d.open=true);return false">'+r68Esc(t('r68ui_fold_all_open'))+'</a> · <a href="#" onclick="document.querySelectorAll(\'details\').forEach(d=>d.open=false);return false">'+r68Esc(t('r68ui_fold_all_close'))+'</a></p>';
+  h+=sec(t('r68ui_report_runfile')+': '+(runName||''),'<pre>'+r68Esc(runText||'')+'</pre>',false);
   for(const tb of sm.tables){const body=r68HTML(tb).replace(' class="pst r68"','');
-    h+=tb.id==='assumptions'?'<details><summary><h2 style="display:inline">'+r68Esc(tb.title)+'</h2> <span class="src">('+r68Esc(t('r68ui_unfold'))+')</span></summary>'+body+'</details>':'<h2>'+r68Esc(tb.title)+'</h2>'+body;}
-  if(sm.interpretation)h+='<h2>'+r68Esc(t('r68ui_tab_interp'))+'</h2><div class="interp">'+r68RenderText(sm.interpretation)+'</div>';
-  h+='<h2>'+r68Esc(t('r68ui_tab_figs'))+'</h2>'+figs.map(f=>f.svg).join('\n');
+    h+=sec(tb.title,body,tb.id==='results'||tb.id==='findings',tb.id==='assumptions'?t('r68ui_unfold'):'');}
+  if(sm.interpretation)h+=sec(t('r68ui_tab_interp'),'<div class="interp">'+r68RenderText(sm.interpretation)+'</div>',true);
+  // one section per figure, named by the figure's title
+  const ftitle=f=>{const m=/font-size="18" font-weight="600">([^<]*)</.exec(f.svg);return m?m[1].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'"):f.name;};
+  if(figs.length)h+='<h2 class="figs">'+r68Esc(t('r68ui_tab_figs'))+'</h2>'+figs.map(f=>sec(ftitle(f),f.svg,false)).join('\n');
   return h+'</body></html>';}
 // the interpretation file (org, markdown or plain text) as simple HTML: headings, lists, paragraphs
 function r68RenderText(txt){const e=r68Esc;let h='',list=false,para=[];const flush=()=>{if(para.length){h+='<p>'+para.join(' ')+'</p>';para=[];}if(list){h+='</ul>';list=false;}};
@@ -3299,10 +3343,6 @@ function r68UiBuild(){
   const after=comp.nextSibling;
   for(const el of [hr(),run,speedCtl,btns,prism,hr(),scr,hr(),dls,hr()])if(el)panel.insertBefore(el,after);
   // the structure legend, the social composition and the sequence detail give way to the results (code kept, hidden);
-  // the legend of the categories and of the golden dots stays, under the replay, since it explains the animation
-  const anim=document.createElement('div');anim.id='r68animleg';anim.style.marginTop='6px';
-  for(const k of ['legend_categories','note_golden']){const e=panel.querySelector('[data-i18n="'+k+'"]');if(e)anim.appendChild(e);}
-  run.appendChild(anim);
   for(const e of [panel.querySelector(':scope > [data-i18n="struct_head"]'),document.getElementById('legend'),comp,blockOf('inspgrid')])if(e&&e.parentElement===panel)hid.appendChild(e);
   panel.appendChild(adv);panel.appendChild(hid);
   // tidy separators: no two in a row, none at the end
