@@ -153,6 +153,19 @@ A text gives the direction of a slider, rarely its amount. So that the amount is
 
 Example (Ametowobla, concentration): the text supports a concentration above the default and qualifies it at once (pp. 11, 17, 21). /Slight/ gives 1.60, /moderate/ 1.80. The threshold lies at 1.75: with /slight/ no structure rules, with /moderate/ one does. The question for the text is therefore not 1.5 or 1.6, but whether its statement on concentration is a qualified indication or an assertion.
 
+In a profile, a stage can be written instead of a number, for students who prefer words to numbers: =gleich= / =same= / =égal=, and =leicht=, =mäßig=, =deutlich=, =stark= (=slight=, =moderate=, =clear=, =strong=; =léger=, =modéré=, =net=, =fort=) with a direction, =+leicht= or =-mäßig= (also =mäßig höher=, =leicht niedriger=, =légèrement plus= …). The twin turns the word into the value of the scale above; the table of assumptions shows the value and the word. A stage without a direction is not read, and the run names it.
+
+* Results for a student: the summary document
+
+When profiles have been coded and computed for a student, the run comes with a summary document (not part of the repository; its form, probably a Word file, is decided case by case). Its structure:
+
+1. What was computed: the run file, the theories, seeds, thresholds and stimulus probe.
+2. The coding rule: direction, stage, threshold (the scale above).
+3. The coding of each text: per slider the direction, stage and value, the passage and page, the evidence, and the leeway from the report.
+4. Checkpoints: the codings that decide the result (a neighbouring stage lies beyond a threshold), for the student to decide from the text.
+5. The interpretation under the four questions: a) compatibility of the approaches and link to the subject, b) research questions, c) empirical inquiry, d) theoretical deepening.
+6. How to read the report: which tables and figures answer which question.
+
 * Decisions taken
 
 1. Mobility moves category by category (see above).

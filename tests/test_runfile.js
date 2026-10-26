@@ -35,6 +35,11 @@ check(parse('modus,Simulation\nschwellen,nein\nreizprobe,nein').spec.thresholds=
 check(parse('mode,data\ncontracts,c.csv').spec.thresholds===false&&parse('mode,data\ncontracts,c.csv').spec.probe===false,'no thresholds or probe in data mode');
 {w.__s=parse('modus,Simulation\nprofil,p.csv\ndeutung,d.org').spec;const s=w.document.createElement('script');s.textContent='window.__n=runFileNames(window.__s);';w.document.body.appendChild(s);s.remove();
  check(JSON.stringify(w.__n)==='["p.csv","d.org"]','the interpretation file is one of the files a run file names');}
+// stage words instead of numbers in a profile
+{w.__pt='Regler,1900,2000\nKonzentration zum Pol,+leicht,+leicht\nMigration der Akteure,mäßig höher,mäßig höher\ninterne Umverteilung,-deutlich,-deutlich\nSpiegeleffekt,gleich,gleich\nDurchlässigkeit,+strong,+strong\nGewicht der Zahl,leicht,leicht';
+ const s=w.document.createElement('script');s.textContent='window.__pr=parseCursorCSV(window.__pt);';w.document.body.appendChild(s);s.remove();const r=w.__pr,v=k=>r.keys[k]&&r.keys[k][0].val;
+ check(v('alpha')===1.6&&v('mig')===0.9&&v('back')===0.5&&v('rho')===1&&v('over')===2,'stage words: +leicht, mäßig höher, -deutlich, gleich, +strong');
+ check(!r.keys.anchor&&r.unknown.length===2,'a stage without a direction is not read');}
 // every example in runs/ parses without errors
 for(const f of fs.readdirSync(path.join(REPO,'runs')).filter(f=>f.endsWith('.csv'))){const p=parse(fs.readFileSync(path.join(REPO,'runs',f),'utf8'));check(!p.errors.length&&!p.warnings.length,'runs/'+f+' parses');}
 console.log(bad?`${bad} failed`:'all passed');process.exit(bad?1:0);

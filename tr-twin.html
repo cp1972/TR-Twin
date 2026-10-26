@@ -1673,7 +1673,7 @@ const cnorm=s=>(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g
 const L2I={a:0,b:1,c:2,d:3};
 function resolveCursor(key){const k=cnorm(key);for(const c of CURSOR_REG){if(k===c.id)return c.id;const nl=cnorm(c.label);if(k===nl||nl.startsWith(k)||k.startsWith(nl))return c.id;if(c.alt){for(const a of c.alt){if(k===cnorm(a))return c.id;}}}return null;}
 function parseCursorCSV(text){const rows=text.trim().split(/\r?\n/).map(r=>r.split(',').map(s=>s.trim()));if(rows.length<2)return null;const years=rows[0].slice(1).map(Number);const keys={},chains={},unknown=[];
-  let mech=null,satDauer=null;
+  let mech=null,satDauer=null;const terms={};
   for(const r of rows.slice(1)){if(!r[0])continue;const nk=cnorm(r[0]);
     // v67: theory mechanisms like the chains — row "mechanismen,M1,M2,…" (also mechanisms/mecanismes); row "saettigungsdauer,40"
     {const lk=String(r[0]).toLowerCase();
@@ -1682,8 +1682,25 @@ function parseCursorCSV(text){const rows=text.trim().split(/\r?\n/).map(r=>r.spl
      if(/^(saettigungsdauer|sättigungsdauer|saturation)/.test(lk)){const v=parseFloat(r[1]);if(isFinite(v)&&v>0)satDauer=v;continue;}}
     if(nk.startsWith('chaine')||nk.startsWith('chain')){const tail=nk.replace(/^(chaine|chain)/,'').replace(/[^abcd]/g,'');const sx=L2I[tail[0]];if(sx==null){unknown.push(r[0]);continue;}
       let ord=r.slice(1).map(c=>L2I[(cnorm(c).replace(/[^abcd]/g,'')||' ')[0]]).filter(v=>v!=null&&v!==sx);ord=[...new Set(ord)];for(const o of[0,1,2,3])if(o!==sx&&!ord.includes(o))ord.push(o);chains[sx]=ord.slice(0,3);continue;}
-    const cid=resolveCursor(r[0]);if(!cid){unknown.push(r[0]);continue;}const pts=[];for(let i=0;i<years.length;i++){const v=r[i+1];if(v!==''&&v!=null&&!isNaN(+v))pts.push({year:years[i],val:+v});}if(pts.length)keys[cid]=pts.sort((a,b)=>a.year-b.year);}
-  if(!Object.keys(keys).length&&!Object.keys(chains).length&&!mech)return null;return {keys,chains,unknown,years,mech,satDauer};}
+    const cid=resolveCursor(r[0]);if(!cid){unknown.push(r[0]);continue;}const pts=[];
+    for(let i=0;i<years.length;i++){const v=r[i+1];if(v===''||v==null)continue;
+      if(!isNaN(+v)){pts.push({year:years[i],val:+v});continue;}
+      const st=r68StageVal(cid,v);if(st!=null){pts.push({year:years[i],val:st});terms[cid]=String(v).trim();}else unknown.push(r[0]+': '+v);}   // v68: a stage word instead of a number
+    if(pts.length)keys[cid]=pts.sort((a,b)=>a.year-b.year);}
+  if(!Object.keys(keys).length&&!Object.keys(chains).length&&!mech)return null;return {keys,chains,unknown,years,mech,satDauer,terms};}
+// v68: stages instead of numbers in a profile — same, slight, moderate, clear, strong, with + (above the TR default) or − (below):
+// the TR default ± 0 / 5 / 10 / 20 / 40 % of the slider's range, rounded to the slider's step (scale in dev/v68-runs-from-files.org)
+const R68_STAGES=[[['gleich','same','egal','standard','default','defaut'],0],[['leicht','slight','slightly','leger','legere','legerement'],0.05],
+  [['massig','maessig','massiger','moderate','moderately','modere','moderee','moderement'],0.10],[['deutlich','clear','clearly','net','nette','nettement'],0.20],
+  [['stark','strong','strongly','fort','forte','fortement'],0.40]];
+function r68StageVal(cid,raw){const el=document.getElementById(cid);if(!el)return null;
+  let w=String(raw).toLowerCase().replace(/ä/g,'a').replace(/ö/g,'o').replace(/ü/g,'u').replace(/ß/g,'ss').replace(/[éèê]/g,'e').replace(/−/g,'-').trim();
+  let sign=0;if(/^\+/.test(w)||/\+$/.test(w))sign=1;if(/^-/.test(w)||/-$/.test(w))sign=-1;
+  if(/\b(hoher|hoeher|higher|above|plus|haut|plus haut|au-dessus|mehr|more)\b/.test(w))sign=1;
+  if(/\b(niedriger|lower|below|moins|bas|en dessous|weniger|less)\b/.test(w))sign=-1;
+  const word=w.replace(/[+\-]/g,' ').split(/\s+/).filter(Boolean)[0]||'';const st=R68_STAGES.find(e=>e[0].includes(word));if(!st)return null;
+  const def=R68_TR_DEFAULT[cid];if(def==null)return null;if(st[1]===0)return def;if(!sign)return null;   // a stage other than 'same' needs a direction
+  const lo=+el.min,hi=+el.max;return r68Snap(cid,def+sign*st[1]*(hi-lo));}
 function cursorAt(cid,yr){const p=tl.cursorKeys&&tl.cursorKeys[cid];if(!p)return null;if(yr<=p[0].year)return p[0].val;if(yr>=p[p.length-1].year)return p[p.length-1].val;for(let i=0;i<p.length-1;i++)if(yr>=p[i].year&&yr<=p[i+1].year){const t=(yr-p[i].year)/((p[i+1].year-p[i].year)||1);return p[i].val+t*(p[i+1].val-p[i].val);}return p[p.length-1].val;}
 function applyCursorProfile(yr){if(!tl.cursorKeys)return;if(yr===lastCursorYear)return;lastCursorYear=yr;for(const cid in tl.cursorKeys){const el=document.getElementById(cid);if(!el)continue;const v=cursorAt(cid,yr);if(v==null)continue;el.value=v;el.dispatchEvent(new Event('input'));}}
 function markPiloted(){document.querySelectorAll('.ctl.piloted').forEach(e=>e.classList.remove('piloted'));if(!tl.cursorKeys)return;for(const cid in tl.cursorKeys){const el=document.getElementById(cid);const c=el&&el.closest('.ctl');if(c)c.classList.add('piloted');}}
@@ -2077,6 +2094,11 @@ function parseRunFile(text){
   if(spec.mode==='sim'&&!spec.steps&&spec.start==null&&!spec.stimulus)spec.steps=1819;
   if(spec.stimulus&&spec.mode==='sim'&&!spec.freeSteps)spec.freeSteps=null;   // default chosen per theory (6000; 30000 with M5)
   return {spec,errors,warnings};}
+// rows of a profile the twin cannot read (an unknown slider, or a stage word without a direction): named, not silently dropped
+function r68ProfileWarnings(spec,files){const out=[];if(spec.mode!=='sim')return out;
+  for(const p of spec.profiles){const tx=files[p];if(!tx)continue;const r=parseCursorCSV(tx);if(!r){out.push(p+': not readable');continue;}
+    for(const u of [...new Set(r.unknown)])out.push(String(p).replace(/^.*[\/\\]/,'')+': '+u+' — '+t('r68ui_unread'));}
+  return out;}
 function runFileNames(spec){const n=[];if(spec.mode==='sim')n.push(...spec.profiles);else{if(spec.contracts)n.push(spec.contracts);if(spec.instances)n.push(spec.instances);if(spec.probes)n.push(spec.probes);}if(spec.interpretation)n.push(spec.interpretation);return n;}
 
 // ---- setting the twin to a theory / to a cohort (same operations as the import fields and the headless scripts) ----
@@ -2513,6 +2535,7 @@ Object.assign(I18N,{
   r68ui_unfold:{fr:'cliquer pour déplier : comment les théories ont été codées',de:'zum Aufklappen klicken: wie die Theorien kodiert sind',en:'click to unfold: how the theories are coded'},
   r68_f_seq_x:{fr:'part de la population',de:'Anteil an der Population',en:'share of the population'},
   r68_n_leeway:{fr:'Entre crochets : la marge de la valeur codée, de quelle à quelle valeur du curseur le résultat reste le même (domination ou non ; voir Seuils de la domination). Tant qu’une autre valeur reste dans cette marge, le choix entre elles ne change rien ; il ne compte qu’au-delà.',de:'In eckigen Klammern: der Spielraum des kodierten Werts, von welchem bis zu welchem Reglerwert das Ergebnis gleich bleibt (Domination oder nicht; siehe Schwellen der Domination). Solange ein anderer Wert in diesem Spielraum liegt, ändert die Wahl zwischen ihnen nichts; sie zählt erst darüber hinaus.',en:'In square brackets: the leeway of the coded value, from which to which slider value the result stays the same (domination or not; see Thresholds of domination). As long as another value lies within this leeway, choosing between them changes nothing; it only counts beyond it.'},
+  r68ui_unread:{fr:'ignoré (curseur inconnu, ou degré sans direction : écrire +léger, −modéré …)',de:'nicht gelesen (unbekannter Regler, oder Stufe ohne Richtung: +leicht, −mäßig … schreiben)',en:'not read (unknown slider, or a stage without a direction: write +slight, −moderate …)'},
   r68_f_sub_line:{fr:'médiane sur {n} graines · bande = étendue',de:'Median über {n} Startwerte · Band = Spannweite',en:'median over {n} seeds · band = range'},
   r68_f_traj_h:{fr:'Trajectoire de l’inégalité horizontale',de:'Verlauf der horizontalen Ungleichheit',en:'Trajectory of horizontal inequality'},
   r68_f_traj_v:{fr:'Trajectoire de l’inégalité verticale',de:'Verlauf der vertikalen Ungleichheit',en:'Trajectory of vertical inequality'},
@@ -2608,7 +2631,7 @@ function r68SimSummary(res){
     for(const n of names){if(n==='TR'){row.push(r68f(R68_TR_DEFAULT[id],2));continue;}
       const d=decl[n],p=d&&d.keys[id];
       if(!p)row.push(NA_TR+' '+r68f(R68_TR_DEFAULT[id],2));
-      else{const a=p[0].val,b=p[p.length-1].val;row.push(a===b||res.runs[0].kind==='steps'?r68f(b,2):r68f(a,2)+'→'+r68f(b,2));}}
+      else{const a=p[0].val,b=p[p.length-1].val;row.push((a===b||res.runs[0].kind==='steps'?r68f(b,2):r68f(a,2)+'→'+r68f(b,2))+(d.terms&&d.terms[id]?' ('+d.terms[id]+')':''));}}
     A.rows.push(row);}
   for(let x=0;x<4;x++){const row=[t('r68_chain')+' '+LAB[x]];
     for(const n of names){const r0=runsOf(n)[0];const ch=r0?r0.chains[x].map(v=>LAB[v]).join('–'):'';
@@ -3187,14 +3210,17 @@ function r68Esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</
 function r68RunAsync(spec,files,onProgress){return new Promise((resolve,reject)=>{
   const jobs=r68Plan(spec,files),runs=[],keep=r68Keep();let j=0,R=null,done=0,round=0,total=jobs.reduce((a,x)=>a+r68Weight(x),0);
   R68busy=true;
-  const tick=()=>{try{const t0=performance.now();
-      while(performance.now()-t0<40){
+  // the next portion is scheduled by a message, not a timer: browsers slow timers down in a tab in the background (Firefox to one per
+  // second), messages they do not; in the background the portions are also longer, since nothing has to be drawn
+  let next=()=>setTimeout(tick,0);try{const mc=new MessageChannel();mc.port1.onmessage=()=>tick();next=()=>mc.port2.postMessage(0);}catch(_){}
+  const tick=()=>{try{const t0=performance.now(),slice=document.hidden?900:40;
+      while(performance.now()-t0<slice){
         if(!R){if(j>=jobs.length&&round<5){const more=r68Refine(spec,files,runs.filter(r=>r.extra==='sweep'));round++;for(const x of more){jobs.push(x);total+=r68Weight(x);}}
           if(j>=jobs.length){r68Restore(keep);R68busy=false;resolve(r68Split(spec,files,runs));return;}R=r68Runner(jobs[j]);R.prepare();}
         if(R.advance(500)){runs.push(r68Finish(R));done+=r68Weight(jobs[j]);R=null;j++;}}
-      if(onProgress)onProgress(Math.min(total,done+(R?r68Weight(jobs[j])*R.i/Math.max(1,R.total):0)),total);setTimeout(tick,0);}
+      if(onProgress)onProgress(Math.min(total,done+(R?r68Weight(jobs[j])*R.i/Math.max(1,R.total):0)),total);next();}
     catch(e){try{r68Restore(keep);}catch(_){}R68busy=false;reject(e);}};
-  setTimeout(tick,0);});}
+  next();});}
 // ---- report: one HTML file with the run file, all tables and all figures ----
 function r68Report(res,sm,figs,runName,runText){const css='body{font:13px/1.45 system-ui,sans-serif;color:#1b1f2a;max-width:1100px;margin:24px auto;padding:0 16px}'+
   'h1{font-size:20px}h2{font-size:15px;margin-top:28px}table{border-collapse:collapse;font-size:11.5px;margin:6px 0}td,th{border-bottom:1px solid #e3e5ea;padding:3px 7px;text-align:right}'+
@@ -3324,7 +3350,7 @@ function r68Select(list){const $$=id=>document.getElementById(id);
   if(dup.length)best.p.errors.push('two files with the same name: '+dup.join(', '));
   for(const need of needs){const hit=list.find(f=>base(f.name)===base(need));
     if(hit)files[need]=hit.text;else if(R68pool[base(need)]!=null)files[need]=R68pool[base(need)];else if(prevFiles[need])files[need]=prevFiles[need];else missing.push(need);}
-  R68={runName:best.f.name,runText:best.f.text,spec:best.p.spec,files,errors:best.p.errors,warnings:best.p.warnings,missing,res:null,sm:null,figs:null,runner:null};
+  R68={runName:best.f.name,runText:best.f.text,spec:best.p.spec,files,errors:best.p.errors,warnings:best.p.warnings.concat(r68ProfileWarnings(best.p.spec,files)),missing,res:null,sm:null,figs:null,runner:null};
   r68ShowSpec();
   $$('r68cmd').textContent='node run.js '+(/\s/.test(best.f.name)?'"'+best.f.name+'"':best.f.name);
   $$('r68dlrun').disabled=false;$$('r68go').disabled=!!(best.p.errors.length||missing.length);

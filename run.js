@@ -51,6 +51,7 @@ for (const n of names) { const p = path.resolve(runDir, n);
   if (!fs.existsSync(p)) { console.error('file not found: ' + n + '  (looked for ' + p + ')'); process.exit(1); }
   files[n] = fs.readFileSync(p, 'utf8'); }
 const spec = parsed.spec;
+for (const m of inPage('return r68ProfileWarnings(D.spec,D.files);', { spec: parsed.spec, files })) console.log('note:', m);
 console.log(`run file: ${path.basename(runPath)} · ${spec.mode === 'data' ? 'data · ' + spec.contracts : 'simulation · TR + ' + spec.profiles.length + ' theor' + (spec.profiles.length === 1 ? 'y' : 'ies')} · seeds ${spec.seeds.join(',')}`);
 const t0 = Date.now();
 const out = inPage(`const res=r68Run(D.spec,D.files,(i,n)=>{window.__prog&&window.__prog(i,n);});const sm=r68Summary(res);const figs=r68Figures(res,sm);
